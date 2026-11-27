@@ -2,7 +2,7 @@
 
 Format: facts only. Direct quotes from Derek where applicable. Settings observed in committed `.3mf` snapshots. No interpretation, no hypothesis — analysis lives in the conversation, decisions land in the geometry.
 
-Geometry: the full cold-core foam shell, from [`foam_shell.py`](https://github.com/derekbreden/homesodamachine/blob/57e117d69059b0b9591a6ad1ee65ddcb390a0760/hardware/printed-parts/cold-core/foam-shell/foam_shell.py). The smooth casing is 282.4 × 180.4 mm, 213.4 mm tall, with ordinary 2.38 mm standing walls and a 2 mm floor. README is the geometry source-of-truth.
+Geometry: the full cold-core foam shell, from [`foam_shell.py`](https://github.com/derekbreden/homesodamachine/blob/a1d6e1d76562494f82e3293dd84b9aed5a5594fe/hardware/printed-parts/cold-core/foam-shell/foam_shell.py). The smooth casing is 282.4 × 180.4 mm, 213.4 mm tall, with ordinary 2.38 mm standing walls and a 2 mm floor. README is the geometry source-of-truth.
 
 The launch record binds the exact `foam-shell.stl` embedded in the sliced project. The current shell, caps and lid edges have smooth surfaces. Historical fluted projects remain identified with their own attempts below.
 
@@ -16,7 +16,7 @@ profile's 2 mm wipe, painted into the channel's +X inside corner. 888 of 889 lay
 their exterior wall at that corner; layer 1 starts 0.2 mm up the channel's side wall.
 Mark2's +0.04 mm trim emits G29.1 Z0.02. Native estimate **31 h 17 min**, **1,452.4 g**,
 889 layers. Accepted as task **1386110458** at **02:57:02 CDT**; RUNNING at layer 0/889
-with print error 0 and HMS empty. The [print record](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/foam-shell/prints/2026-10-29-mark2-seam-channel/README.md)
+with print error 0 and HMS empty. The [print record](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/foam-shell/prints/2026-10-29-mark2-seam-channel/README.md)
 binds the project, archive, seam reading and launch.
 
 ### Result — accepted for shipping (2026-11-01)
@@ -26,9 +26,9 @@ lining up with a hole. It is invisible in some lighting and quite visible in
 others. He accepts the photographed defect for shipping: "But this is a defect
 that we are okay shipping with."
 
-The [print result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/foam-shell/prints/2026-10-29-mark2-seam-channel/README.md#physical-result--accepted-for-shipping-2026-11-01)
+The [print result](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/foam-shell/prints/2026-10-29-mark2-seam-channel/README.md#physical-result--accepted-for-shipping-2026-11-01)
 shows the finish. The
-[physical-result record](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/foam-shell/prints/2026-10-29-mark2-seam-channel/physical-result/physical-result.json)
+[physical-result record](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/foam-shell/prints/2026-10-29-mark2-seam-channel/physical-result/physical-result.json)
 preserves his full report and all six original photographs with SHA256 hashes,
 bound to task **1386110458**. The accepted condition is listed in
 [Accepted defects and tolerances](../../../defects-and-tolerances.md#cold-core-shell--small-upper-wall-ripples).
@@ -122,7 +122,7 @@ Otherwise "nearly everything was perfect."
 
 ## Print attempt 2 (sliced, settings per [`foam-shell-8mm-high-flow.3mf`](https://homesodamachine.com/print-archive/30fb45aee3c2b5b36ad57b0e99765f4809638484/foam-shell-8mm-high-flow.3mf))
 
-`foam-shell.step` at geometry commit `d894d993`: rounded outer corners (12 mm), cylindrical bosses tangent to the exterior wall with teardrop corner-fill webs, four corner gussets (z 2–42). Cap + gasket pads share the boss shape. Geometry in [`README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md); construction in [`../_outer_shell.py`](https://github.com/derekbreden/homesodamachine/blob/96f6f7184e4652c559773e0a4a59ba599a78e5d5/hardware/printed-parts/cold-core/_outer_shell.py); the four corner gussets were defined in [`_corner_gussets.py`](https://github.com/derekbreden/homesodamachine/blob/800b9bde6fb7dad7a5c2c111c9d44bc0a6141976/hardware/printed-parts/cold-core/_corner_gussets.py) at that commit.
+`foam-shell.step` at geometry commit `df73fee5`: rounded outer corners (12 mm), cylindrical bosses tangent to the exterior wall with teardrop corner-fill webs, four corner gussets (z 2–42). Cap + gasket pads share the boss shape. Geometry in [`README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md); construction in [`../_outer_shell.py`](https://github.com/derekbreden/homesodamachine/blob/3401099419584e7979ecc98dbe3e7ab7f559a88d/hardware/printed-parts/cold-core/_outer_shell.py); the four corner gussets were defined in [`_corner_gussets.py`](https://github.com/derekbreden/homesodamachine/blob/9e1964d1475bd9b5e613c810ea0de6d3116c118f/hardware/printed-parts/cold-core/_corner_gussets.py) at that commit.
 
 Settings observed (same stock profile as attempt 1):
 - Profile `0.40mm Standard @BBL H2C 0.8 nozzle`, dual 0.8 mm nozzle; `Bambu PETG Basic`, black
@@ -161,7 +161,7 @@ Derek supplied seven photographs and reported: "Well, this turned out pretty
 awful here, at least in these parts that I've photographed for you here."
 The photographs show a rippled, locally porous patch at an upper long-wall
 corner and rough, porous vertical slot edges. The
-[sent-file audit](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/foam-shell/prints/2026-10-25-mark2-left04-smooth238-z004/post-print-audit/README.md)
+[sent-file audit](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/foam-shell/prints/2026-10-25-mark2-left04-smooth238-z004/post-print-audit/README.md)
 binds the supplied photographs by hash and checks the launch archive,
 embedded model and emitted paths. The exterior finish is a failed result.
 Fit, leak and load results were not supplied for this shell.

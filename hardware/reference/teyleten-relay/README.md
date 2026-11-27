@@ -49,4 +49,4 @@ review](../../printed-parts/enclosure/enclosure/relay-mount-fit.json) defines
 the screw stack and measured geometry scope; physical load retention remains
 unqualified.
 
-The source derivations are preserved at their recorded revision: [teyleten_relay.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/teyleten-relay/teyleten_relay.py).
+The source derivations are preserved at their recorded revision: [teyleten_relay.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/teyleten-relay/teyleten_relay.py).

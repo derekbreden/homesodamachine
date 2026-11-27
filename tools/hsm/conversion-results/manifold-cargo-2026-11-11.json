@@ -1,6 +1,6 @@
 {
   "purpose": "This record compares the published Cargo dependency with the local boolean engine on the same production inputs.",
-  "baseline_commit": "0ed50b2262df0c3fc26762f7c6b3aee39f6ad333",
+  "baseline_commit": "22f1f3aaf9c7c6e6e7321b0fedea567a66094495",
   "at": "2026-11-11T02:46:37.614Z",
   "crate": {
     "name": "manifold-rust",

@@ -2,7 +2,7 @@
 title: V-B returns on a filled lid pedestal
 lede: V-B sits 5.3 mm south, with its return elbow 30 mm east and level fittings. A broad pedestal carries the elbow while the pump, PCB and WAGOs retain their datums.
 date: 2026-10-27T22:30:19-05:00
-commit: 36a922649 4bbb57b2e
+commit: 37038769d 77ea63428
 model: manifold-layout/enclosure-assembly.step
 ---
 The return elbow sits on an 11.24 × 11.5 mm pedestal beneath its forward
@@ -16,7 +16,7 @@ the full 3 mm snap roots. The connected tubes and affected local wires use
 the selected fitting datums.
 
 Both revised parts have reviewed Mark1 slices. The
-[review record](https://github.com/derekbreden/homesodamachine/blob/78c7aa7b01f90052b7ae4ae4bd7d0c9da992c17f/hardware/printed-parts/cold-core/foam-cap/south-return-review/README.md)
+[review record](https://github.com/derekbreden/homesodamachine/blob/5e8655e7253565c11707c9d78883e6e17e2a39f5/hardware/printed-parts/cold-core/foam-cap/south-return-review/README.md)
 binds the current artifacts, clearances and slices, and records the
 full-lid lint's memory limit.
 

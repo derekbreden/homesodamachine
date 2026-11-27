@@ -119,7 +119,7 @@
     }
   },
   "snap_and_access": {
-    "source_path": "https://github.com/derekbreden/homesodamachine/blob/f1e8c6ba98e640ec28c19d8b89ce5f78908c782e/hardware/print-tests/pisco-raised-tip-cover/parts/fit-check-040.json",
+    "source_path": "https://github.com/derekbreden/homesodamachine/blob/4929e824821496fe644b6ee802f87744c5384279/hardware/print-tests/pisco-raised-tip-cover/parts/fit-check-040.json",
     "assembly": "Full cover held 0.085 mm forward of its rear end plane. Shift west and tilt about the regulator axis. Square up 1.8 mm short of nominal; finish along +Z. Reversing the same path with the exposed wings spread releases the cover.",
     "full_cover_waypoints_tilt_deg_world_x_world_z_mm": [
       [
@@ -200,7 +200,7 @@
       "co2-inlet": 17.41034
     },
     "regulator_loading": {
-      "source": "https://github.com/derekbreden/homesodamachine/blob/4fc4e86e02bc6b6a7aff3063de65197ecba55d2b/hardware/print-tests/pisco-cover-rocking/parts/fit-check.json",
+      "source": "https://github.com/derekbreden/homesodamachine/blob/2b10a8810e1355f9d8acc950de4ed16aa599f7d5/hardware/print-tests/pisco-cover-rocking/parts/fit-check.json",
       "description": "Load from the open side with the meter and ASSE removed; start 16 mm fore and slide the regulator aft. All four purchased solids travel together. Each of six straight segments uses 256 intervals with its own half-step displacement bound.",
       "clearance_lower_bounds_mm": {
         "receiver": 0.05585,

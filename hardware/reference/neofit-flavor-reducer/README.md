@@ -19,4 +19,4 @@ The valve reference retains an occupied socket envelope. The inserted stems ther
 
 The complete path and qualification scope are in [flavor dispense lines](../../printed-parts/faucet/flavor-lines/README.md).
 
-The source derivations are preserved at their recorded revision: [neofit_flavor_reducer.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py).
+The source derivations are preserved at their recorded revision: [neofit_flavor_reducer.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py).

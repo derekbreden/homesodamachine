@@ -5,7 +5,7 @@ plate's deposition. The native donor and full rotated template supply the tip
 roads and archive metadata.
 
 The `sculpted-trial` stage `merge` and `sculpted-faucet-print-project`, which the commands
-below run, are in Git at [`4beaa725a8`](https://github.com/derekbreden/homesodamachine/tree/4beaa725a8).
+below run, are in Git at [`3c6910e86e`](https://github.com/derekbreden/homesodamachine/tree/3c6910e86e).
 
 ```sh
 sculpted="$PWD/hardware/printed-parts/faucet/sculpted"

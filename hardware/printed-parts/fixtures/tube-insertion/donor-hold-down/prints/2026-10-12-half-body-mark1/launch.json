@@ -26,7 +26,7 @@
   "display_printer": "Mark1",
   "source_archive": "donor-hold-down-half-body-tpu85a-right06-z018-mark1.gcode.3mf",
   "project": "donor-hold-down-half-body-tpu85a-right06-z018-mark1.3mf",
-  "design_commit": "89d159e37",
+  "design_commit": "9877dfeea",
   "requested_user_z_trim_mm": 0.18,
   "emitted_textured_pei_trim_mm": 0.16,
   "bed_clear_authorization": "Please print it. Mark1 is ready.",

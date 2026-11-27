@@ -22,7 +22,7 @@
     0.02
   ],
   "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
-  "recipe_revision": "111baed47490511b2c3edc753cfa14120ac0d79d",
+  "recipe_revision": "a3b1f6eeb26a4313745cb83aa7a33428c2b494bd",
   "recipe_sha256": "246b57538390354832ecfaef8f7338bcf88311a83c2aeb7b91104604273be6e1",
   "profile": "hardware/printed-parts/petgf.3mf",
   "profile_sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",

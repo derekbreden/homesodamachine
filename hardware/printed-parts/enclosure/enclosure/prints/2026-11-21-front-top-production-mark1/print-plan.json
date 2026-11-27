@@ -6,7 +6,7 @@
   "connection_key": "H2C",
   "status": "prepared",
   "prepared_utc": "2026-11-21T20:13:59+00:00",
-  "source_revision": "917f89949270cd55b1082f4e2fed0cb7d7a7cc22",
+  "source_revision": "bf282bd8ca129e93f17a1ed276256bfcb14f5c2f",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {
     "diameter_mm": 0.4,

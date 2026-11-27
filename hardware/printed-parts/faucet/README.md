@@ -17,7 +17,7 @@ three Ø4.40 mm flavor/drain bores. The Ø4.40 mm fit is accepted on the white
 drain stock; black 4 mm flavor-stock fit is unmeasured. The measured ribbon uses a 5.4 × 1.8 mm
 flat signal slot in the organizer.
 
-The [Sculpted texture timing study](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/texture-comparison/2026-09-24/README.md)
+The [Sculpted texture timing study](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/faucet/texture-comparison/2026-09-24/README.md)
 compares selected 0.08 mm regions with the saved 0.24 mm finish and an all-0.08 mm
 plate. It also times the accepted printed lever separately.
 
@@ -80,7 +80,7 @@ the mesh of the approved print it is read against. The [October 25 approval](fau
 accepts the remaining visible corner gap as good enough, with no further
 iteration requested. The cover in its current shape, with reach on its sides
 and pockets at its crown, is approved on the shared tip by the
-[complete Sculpted faucet's result](https://github.com/derekbreden/homesodamachine/blob/dcbaf13d4d9c3d449373a059742f91478bb67e82/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json),
+[complete Sculpted faucet's result](https://github.com/derekbreden/homesodamachine/blob/b818b34788d36448453f6ec134f152037335905d/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json),
 which Derek calls the best fit so far. The one flaw he names is a hole in the tip
 that the cover does not quite cover. Historical physical and sealed-cavity records retain
 their identified geometry and material scope.

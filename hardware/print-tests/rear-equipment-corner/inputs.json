@@ -7,5 +7,5 @@
   "crop_max_mm": [112.0, 475.0, 355.0],
   "print_up_source": [0, 0, -1],
   "caps": ["asse-snap-cap", "pisco-snap-cap", "meter-snap-cap"],
-  "physical_evidence": "https://github.com/derekbreden/homesodamachine/blob/d8d3ba9a32b0349a571d50729eaedf48af030e73/hardware/print-tests/rear-equipment-corner/prints/2026-11-20-mark2/physical-result/physical-result.json"
+  "physical_evidence": "https://github.com/derekbreden/homesodamachine/blob/4868810416257601dd2a82782c85945eaa940442/hardware/print-tests/rear-equipment-corner/prints/2026-11-20-mark2/physical-result/physical-result.json"
 }

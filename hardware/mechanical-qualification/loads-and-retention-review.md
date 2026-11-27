@@ -3,7 +3,7 @@
 Each case: the load, its path, the feature that governs it, a hand-calculation margin and a
 verdict. The Y-seam cases use the current four M5×100 pin stacks and their
 [native review](../printed-parts/enclosure/enclosure/y-seam-100-review.json).
-The other enclosure calculations bind `a7a5de5cb` and its regenerated quadrants;
+The other enclosure calculations bind `df6353930` and its regenerated quadrants;
 the pump-mount and tube-joint cases describe the current integral mount and dock below. Physical evidence is in the
 [register](README.md). The tee wall that holds the pump tees is outside this review.
 
@@ -33,7 +33,7 @@ the pump-mount and tube-joint cases describe the current integral mount and dock
 | M3 wall-mount inserts (supply, relay, C14, boards) | C14 cord insertion, about 50 N; the 0.33 kg supply at 50 g, 162 N over its screws | Screw → ruthex M3 → boss; C14 insertion loads its two inserts in pull-out because the flange lands from inside | Under 100 N per insert against an assumed 300 N | Adequate |
 | Pump tubes under blocked-fill pressure | Blocked-fill pressure over each pump tube's sealed section | Tube → its tee's gripping branch collet; the tube's far end is held by the pump head's housing clamp. The fixed upper pockets and lower retainer carry the pump body | Not calculated: the collet's grip is the fitting's own and the housing clamp's hold is unmeasured | Open; see [pump mount and tube joints](#pump-mount-and-tube-joints) |
 | Pump skirt capture | Pump weight, motor reaction and installation/handling loads; magnitudes not assessed here | Molded skirt → lower retainer → full-depth snap-wing roots and lower hooks → receiver floors → front-top; fitted upper lands capture the skirt above | The snap geometry is recorded; fit, holding capacity, insertion/release forces and lifetime are unqualified | See [pump mount and tube joints](#pump-mount-and-tube-joints) |
-| Individual tee installation | One prepared tee/upper-tube/fore-valve group approaches a secured pump tube from aft | Tee branch → tube and pump-head clamp → the secured pump mount; the fore valve seats on its tray posts | Complete 11.65 mm native approaches are clear; actual insertion force and fluid-joint retention are unmeasured | See [pump-mount reading](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/pump-mount-review/README.md) |
+| Individual tee installation | One prepared tee/upper-tube/fore-valve group approaches a secured pump tube from aft | Tee branch → tube and pump-head clamp → the secured pump mount; the fore valve seats on its tray posts | Complete 11.65 mm native approaches are clear; actual insertion force and fluid-joint retention are unmeasured | See [pump-mount reading](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/enclosure/enclosure/pump-mount-review/README.md) |
 
 ## Y-seam head recesses
 
@@ -58,7 +58,7 @@ quadrant: back-bottom at the lower stations and front-top at the upper stations.
 The screw retains the opposite quadrant's middle block as a pin through a clearance
 passage. Tightening seats the head; it does not directly squeeze that middle block
 between the end blocks. The Ø5.2 passages use the
-[selected physical M5 fit](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/print-tests/m5-seam-bearing/physical-result.json);
+[selected physical M5 fit](https://github.com/derekbreden/homesodamachine/blob/6e2695bee227cf6ad5ea6089fb934eba0f8d47ec/hardware/print-tests/m5-seam-bearing/physical-result.json);
 the nominal diametral air around an M5 thread envelope is 0.2 mm. The 0.25 mm
 running fits remain between the printed blocks. Printed variation, contact, wear and deflection
 set assembled movement. No installation torque or retained preload is qualified;
@@ -88,10 +88,10 @@ shipment.
 Front-top contains the fitted upper pump pockets. The broad lower retainer carries
 the lower skirt lands. Its two full-depth integral snap wings transfer the retainer’s load
 through their upper roots and lower hooks to front-top’s receiver floors. The two fitted
-halves capture the molded pump skirts. The [pump-snap review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/pump-snap-review/README.md)
+halves capture the molded pump skirts. The [pump-snap review](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/enclosure/enclosure/pump-snap-review/README.md)
 records nominal geometry and spring displacement; it does not establish printed fit,
 operating retention, load capacity, insertion/release forces or lifetime. The
-[three-screw mount receipts](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/pump-mount-review/README.md)
+[three-screw mount receipts](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/enclosure/enclosure/pump-mount-review/README.md)
 retain their own identified input and motion scope.
 
 With both pumps secured in loose front-top, each prepared tee, upper tube and fore valve

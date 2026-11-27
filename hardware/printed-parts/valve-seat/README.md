@@ -11,7 +11,7 @@ The sockets set the valve's position and hand fit.
 production pieces. Each seat retains its bearing face, blind floors, post
 sockets and open channel along the valve's port axis.
 
-The [printed fit selection](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json)
+The [printed fit selection](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json)
 sets **V69 / 6.90 mm** as the default socket. **V70 / 7.00 mm** is an explicitly
 selected alternate to try when a valve or print orientation does not fit V69
 well; the builder never switches sizes automatically. The valve's catalog post
@@ -19,7 +19,7 @@ diameter and pitch remain the reference hardware dimensions. Holder outlines,
 body bearing faces, port clearance, socket depth and blind floors stay on their
 own dimensions when the bore changes.
 
-The [selected geometry check](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/selected-geometry-check.json)
+The [selected geometry check](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/selected-geometry-check.json)
 verifies the native socket cuts, exterior envelope, bearing and blind-floor
 datums, port clearance and shared cold-core stock datum.
 

@@ -3,7 +3,7 @@
   "sources": [
     {
       "kind": "existing caliper model",
-      "revision": "e1ae1f74b3ec4e00e7f7e1831856c4b747a4ef6e",
+      "revision": "2d2a4dead0b297d9199e0d597a36ede95e58f1c4",
       "path": "hardware/reference/waveshare-43b-display/waveshare_43b_display.py"
     },
     {

@@ -2,7 +2,7 @@
 title: Rear snap pockets run flush to the walls
 lede: A common ceiling recess reaches the walls around the ASSE and Pisco. The meter's hook and wire pockets run flush to the flank.
 date: 2026-11-18T16:49:42-06:00
-commit: e7ff7ff39db5d6a549539af6cee98774375d39c0
+commit: 6a238d1bfcc8cf13426690dd79ef8be7ee606db7
 model: printed-parts/enclosure/enclosure/enclosure-back-top.step
 ---
 The ASSE and Pisco share a continuous ceiling recess between the flanks and clear to the rear wall. Their receiver ends are plain stock around the fitted passages and wing catches. The Pisco wing-entry edge Derek identified lies inside that open recess.

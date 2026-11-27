@@ -59,7 +59,7 @@
       ]
     ],
     "cause": "The rail cap recipe used literal endpoints that left an oversized break beside the vent mouth. The mismatch is present in the commit that introduced those caps.",
-    "introduced_by_commit": "e77588ee16b5a6e88f554c674052ddbd93dd5598",
+    "introduced_by_commit": "0aa84926262a0d21abc3396c4ec04c3633acfa3a",
     "review_omission": "The native support audit tracks slicer support paths. Authored rail caps are ordinary model parts. The reviewed checks did not measure backing beneath the complete rail bearing.",
     "related_omissions": "The west rear end, both fore starts and the east rear end use the same literal endpoint recipe. Other enclosure quadrants use different rail support constructions.",
     "related_width_omission": {

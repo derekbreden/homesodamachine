@@ -46,10 +46,10 @@ internal mechanisms are omitted. The
 motion. These models use their own acetal-part dimensions.
 
 `dimensions.json` records source URLs, retained PDF paths and SHA-256 hashes,
-evidence status, ports and the host insertion formula. [branch_stem_tees.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/branch-stem-tees/branch_stem_tees.py) exposes `build(variant)`,
+evidence status, ports and the host insertion formula. [branch_stem_tees.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/branch-stem-tees/branch_stem_tees.py) exposes `build(variant)`,
 `specification(variant)` and `stations(variant)`, where the variant is `neofit`
 or `john-guest`. Each `.npz` contains `v` vertices and `f` triangle indices in
 the native frame. STEP files carry material colors. `model-check.json` records
 the generated solids' bounds and validity.
 
-The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/branch-stem-tees/branch_stem_tees.py).
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/branch-stem-tees/branch_stem_tees.py).

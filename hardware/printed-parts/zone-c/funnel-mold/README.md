@@ -96,7 +96,7 @@ The acquired [5-gallon chamber](../../../ledger/tools.md) is recorded with a
 **297.64 mm circle**, leaving **1.04 mm radial clearance**. With the specified
 M4 × 20 closure hardware it is about **73.35 mm high**. Use a catch tray no
 larger than 260 mm across and keep it clear of the breathers. The
-[chamber check](https://github.com/derekbreden/homesodamachine/blob/045602339b618a84e4a08935ec77335ef975f4c5/hardware/printed-parts/zone-c/funnel-mold/chamber-check.json) binds these dimensions to the native parts
+[chamber check](https://github.com/derekbreden/homesodamachine/blob/4a946b5244ef0c8415e1b16741c4e932af14863e/hardware/printed-parts/zone-c/funnel-mold/chamber-check.json) binds these dimensions to the native parts
 and the acquired chamber record; physical insertion is not recorded.
 
 ## Print files and checks
@@ -129,12 +129,12 @@ The generator reuses the finished funnel model and writes the mold's
 [design record](design.json). Add `--review` when asking about backing or liquid
 containment; the record then includes those measurements, with the intended
 fill, vent and rod-guide mouths capped for analysis. The guide remains open in
-the native parts. The [overflow review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/zone-c/funnel/overflow-review/README.md)
+the native parts. The [overflow review](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/zone-c/funnel/overflow-review/README.md)
 binds the apron to its current source and assembly exports.
 
-The [physical print log](print-log.md), [October 6 slice and cavity retry](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/README.md),
-[matching core launch](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/README.md),
-[rod check](https://github.com/derekbreden/homesodamachine/blob/045602339b618a84e4a08935ec77335ef975f4c5/hardware/printed-parts/zone-c/funnel-mold/rod-check.json) and [closure check](https://github.com/derekbreden/homesodamachine/blob/045602339b618a84e4a08935ec77335ef975f4c5/hardware/printed-parts/zone-c/funnel-mold/containment-review.json) retain
+The [physical print log](print-log.md), [October 6 slice and cavity retry](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/README.md),
+[matching core launch](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/README.md),
+[rod check](https://github.com/derekbreden/homesodamachine/blob/4a946b5244ef0c8415e1b16741c4e932af14863e/hardware/printed-parts/zone-c/funnel-mold/rod-check.json) and [closure check](https://github.com/derekbreden/homesodamachine/blob/4a946b5244ef0c8415e1b16741c4e932af14863e/hardware/printed-parts/zone-c/funnel-mold/containment-review.json) retain
 their identified artifact scope.
 
 ```sh

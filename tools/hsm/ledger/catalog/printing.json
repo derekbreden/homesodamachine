@@ -367,7 +367,7 @@
     "Siraya TPU 85A": {
       "purchase_order": "114-4402537-9406656",
       "delivered_usd_kg_expression": "33.88 / 1",
-      "density_source": "https://github.com/derekbreden/homesodamachine/blob/e59c4f46ec277160e3eba3883aac7b79aba253e3/future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/material-profile.json",
+      "density_source": "https://github.com/derekbreden/homesodamachine/blob/8112a4e02c43f6f9d145bab5348a53ffa6eae24d/future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/material-profile.json",
       "material_basis": "Current solid-model volume; feed waste, physical yield and print duration are unmeasured."
     }
   }

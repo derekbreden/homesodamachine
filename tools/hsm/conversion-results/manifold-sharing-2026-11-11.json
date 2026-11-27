@@ -1,7 +1,7 @@
 {
   "purpose": "This record measures shared mesh storage and one-pass intersection searches in the pinned Rust boolean engine.",
   "recorded_at": "2026-11-11T01:51:15.876Z",
-  "baseline_source_commit": "7d45ad6a94244668784730170f6237e0b3399ee0",
+  "baseline_source_commit": "c6ad29ae81a4be82404189695c895b244d594749",
   "method": {
     "variants": {
       "base": "Pinned Rust engine with the existing inlining patch.",

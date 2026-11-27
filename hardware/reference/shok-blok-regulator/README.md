@@ -19,4 +19,4 @@ estimates. Internal working parts are omitted.
 The [frozen reference](frozen-asset.json) places flow along +X with the inlet
 face at the origin.
 
-The source derivations are preserved at their recorded revision: [shok_blok_regulator.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/shok-blok-regulator/shok_blok_regulator.py).
+The source derivations are preserved at their recorded revision: [shok_blok_regulator.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/shok-blok-regulator/shok_blok_regulator.py).

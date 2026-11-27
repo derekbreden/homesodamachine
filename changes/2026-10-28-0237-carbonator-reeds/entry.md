@@ -2,7 +2,7 @@
 title: Carbonator sensing moves opposite the reservoirs
 lede: The carbonator float, magnet and reeds move a quarter turn, with a straight cable exit through the upper cup and top lid.
 date: 2026-10-28T02:37:31-05:00
-commit: 9affd6eec4784fbc60db485f60406200a971651d ae383fb9a
+commit: eb1c1815a8f0f2579d5b730d86811d5929150fce 485a5c018
 model: manifold-layout/enclosure-assembly.step
 ---
 The carbonator rod, float magnet and external reed bridge sit on the cold core’s −Y side, opposite both reservoirs’ +Y sensing stations. Both end-cap rod registers and the evaporator’s bridge relief follow that location. Reservoir magnet axes are 144.0 mm from the carbonator reeds.

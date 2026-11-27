@@ -96,7 +96,7 @@ with `git fetch origin refs/notes/agent-trace:refs/notes/agent-trace`.
 
 The Rust ports' records point to the earlier hand-written lines that set or computed
 their values. When an earlier rewrite also has a record for the line, `git why` follows
-both. The instruction guides' records tie each line that `6a685efd1a` and `9685395782`
+both. The instruction guides' records tie each line that `d89ca30aa5` and `51a4a110e6`
 reworded or put back to the root instruction it came from.
 
 Build and install it like the other tools:

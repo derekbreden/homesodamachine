@@ -15,10 +15,10 @@ gasket + bulkhead seals were in the 2026-05-30 watertight test — see
 
 | Part (STEP) | Source | × | Footprint | CAD material |
 | --- | --- | --- | --- | --- |
-| `reservoir-gasket` | [`cold-core/reservoir/reservoir.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 2323 mm² | TPU 85A |
+| `reservoir-gasket` | [`cold-core/reservoir/reservoir.py`](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 2323 mm² | TPU 85A |
 | `above-counter-gasket` | [`faucet/above-counter-gasket/above_counter_gasket.rs`](/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.rs) | 2 | 2065 mm² | TPU 90A |
-| `reservoir-bulkhead-seal-dry` | [`cold-core/reservoir/reservoir.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 67.7 mm² | TPU washer |
-| `reservoir-retaining-ring` | [`cold-core/reservoir/reservoir.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 77.4 mm² | TPU 90A |
+| `reservoir-bulkhead-seal-dry` | [`cold-core/reservoir/reservoir.py`](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 67.7 mm² | TPU washer |
+| `reservoir-retaining-ring` | [`cold-core/reservoir/reservoir.py`](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 77.4 mm² | TPU 90A |
 
 Part roles (geometry authoritative in the sources above):
 - **reservoir-gasket** — 2.0 mm flat gasket, 5 mm-wide perimeter ring,
@@ -105,7 +105,7 @@ the two `reservoir-bulkhead-seal-wet` instances are off the plate (the wet-side
 bulkhead seal is a purchased silicone flat washer, not printed — see bom.md),
 and `reservoir-gasket` and `reservoir-retaining-ring` each drop from 3 to 2.
 `above-counter-gasket` re-sliced from the 2026-06-09 "match the
-plate/shell-foot footprint" revision (c285e18f): footprint 2064.9 mm² (was
+plate/shell-foot footprint" revision (1a5ec20e): footprint 2064.9 mm² (was
 2111). `first_layer_time` ≈ 1841 s (was 2215); plate bbox ≈ 283 × 270 mm.
 Still sliced in Bambu Studio 02.07.01.57.
 

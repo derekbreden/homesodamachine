@@ -2,7 +2,7 @@
 title: Back-top prints its meter lane, jack boss and wells without flat overhangs
 lede: The fore meter's lane rises off the east wall on a 45° corbel, the jack's boss stands a full wall proud, and the rear lever-nut wells stand as one tower.
 date: 2026-10-25T13:00:42-05:00
-commit: efdd359ccd1c9032b6d86cf54bc7fab169ecdab9
+commit: 7be5b8e444aefab841f84072cdcc389eaf0ee286
 model: manifold-layout/enclosure-assembly.step
 ---
 Back-top prints ceiling-down, and these changes take out faces that would print badly that way. The fore meter's lane to the east wall was a flat beam over open air. It now rises off the wall on a 45° corbel, and each meter seat's beam starts on the seat's own west plane.

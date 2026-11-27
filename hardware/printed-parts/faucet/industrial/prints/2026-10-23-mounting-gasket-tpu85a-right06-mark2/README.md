@@ -33,13 +33,13 @@ bind the source mesh, settings, footprint, trim and warning-free native slice.
 
 ## Deposited turns and open passages
 
-The [accepted elbow trial](https://github.com/derekbreden/homesodamachine/blob/e59c4f46ec277160e3eba3883aac7b79aba253e3/future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/README.md)
+The [accepted elbow trial](https://github.com/derekbreden/homesodamachine/blob/8112a4e02c43f6f9d145bab5348a53ffa6eae24d/future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/README.md)
 prints through turns so a loose strand cannot straighten across an opening.
 The [Touch-Flo sleeve](../../../tpu-o-ring/prints/2026-10-23-black-tpu85a-right06-mark2/README.md)
 applies the same approach to its cap and has a qualitative general print-quality
 report. This gasket applies deposited tours to every layer.
 
-[`continuous_layers.py`](https://github.com/derekbreden/homesodamachine/blob/15bf03ec45/hardware/printed-parts/faucet/industrial/prints/2026-10-23-mounting-gasket-tpu85a-right06-mark2/continuous_layers.py) (in Git at `15bf03ec45`) reorders or reverses the native
+[`continuous_layers.py`](https://github.com/derekbreden/homesodamachine/blob/5776755257/hardware/printed-parts/faucet/industrial/prints/2026-10-23-mounting-gasket-tpu85a-right06-mark2/continuous_layers.py) (in Git at `5776755257`) reorders or reverses the native
 beads. Visible straight links connect deposited paths; a minimum-distance
 perfect pairing joins their odd endpoints without duplicating deposition.
 The nozzle follows existing deposition through turns, and free transfers are
@@ -80,7 +80,7 @@ remain unreported.
 
 These manual commands do not send a print or run on commits/builds:
 
-The scripts these commands run are in Git at [`15bf03ec45`](https://github.com/derekbreden/homesodamachine/tree/15bf03ec45).
+The scripts these commands run are in Git at [`5776755257`](https://github.com/derekbreden/homesodamachine/tree/5776755257).
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/faucet/industrial/prints/2026-10-23-mounting-gasket-tpu85a-right06-mark2/prepare_mark2.py

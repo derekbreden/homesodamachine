@@ -28,7 +28,7 @@ bridge does not request cooling on preceding ordinary paths. The native G-code
 still needs a reading for a particular plate: the physical fan takes time to
 change speed, and a setting does not establish mechanical strength.
 
-The [successful fan-off display cover](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/physical-result.json)
+The [successful fan-off display cover](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/physical-result.json)
 passed normal display loading and cover installation. Derek also reports other
 faucet parts breaking during that installation. These observations support
 removing general cooling. They do not establish strength, endurance or a
@@ -51,7 +51,7 @@ filament changes. A floating-shell label alone does not request cooling.
 Travel speeds, extrusion amounts, supports and other device commands retain
 their native settings.
 
-The [rail command reading](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/rail-cooling.json)
+The [rail command reading](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/rail-cooling.json)
 records the photographed print's native cooling and the foundation correction.
 The [prepared-output reading](recovery-preparation.json) records the current
 enclosure and pump outputs, command preservation and scope exercises. Finish
@@ -77,7 +77,7 @@ A batch uses the time spent on its other articles. Measure each small part's
 actual return intervals before adding a tower or an away-from-part wait.
 Preserve each article's production layer schedule; a receiver's fine layers
 do not require fine layers on the covers. The
-[regulator comparison](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-07-taller-tips-mark2/job.json)
+[regulator comparison](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-07-taller-tips-mark2/job.json)
 records the separate article schedules and return times on its tower-free plate.
 
 The `single-regulator-cap` recipe in
@@ -90,7 +90,7 @@ The declared tower width is retained with rib-wall mode disabled: the
 otherwise resizes a single-colour smooth-timelapse tower. Enabling a tower
 alone does not establish a useful interval.
 
-The [individual-regulator print record](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-07-single-regulator-mark2/job.json)
+The [individual-regulator print record](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-07-single-regulator-mark2/job.json)
 holds the selected settings, emitted timing, archive identity and launch.
 Derek reports that the print turned out fine. Its timing is commanded motion
 time, and no separate strength result is reported. That successful finish

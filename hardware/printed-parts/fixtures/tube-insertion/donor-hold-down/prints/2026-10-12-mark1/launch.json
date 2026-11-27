@@ -44,7 +44,7 @@
   },
   "printed_stl": "cylindrical-body-pad-print.stl",
   "printed_stl_sha256": "068172e31934ae209e1cf03f32005023d9b10a1a9c908e88a13afd8301c66b53",
-  "design_commit": "c85fe0b50",
+  "design_commit": "3eb1a5c5d",
   "contact_region": "Cylindrical metal base, donor axial coordinates 0\u201312 mm",
   "continuation_authorization": {
     "authority": "Derek\u2019s direct instruction in this chat",

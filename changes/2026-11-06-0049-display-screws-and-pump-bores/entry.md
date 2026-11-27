@@ -2,7 +2,7 @@
 title: Side screws retain the display; pump tubes load through closed bores
 lede: A flat display bezel uses shallow visible-head seats beside the glass. The tee wall accepts flexible pump stubs through closed bores.
 date: 2026-11-06T00:49:17-06:00
-commit: 6ba790b1c387dd9b75caf03c1774774421213d70
+commit: 9ab5dbf60ee18f018119c6495adb1dca4bc121c0
 model: manifold-layout/enclosure-assembly.step
 ---
 The display bezel and enclosure receiver share their mounting dimensions. The

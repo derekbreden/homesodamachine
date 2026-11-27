@@ -5,8 +5,8 @@ the receptacle the customer's C13 cord plugs into on the +Y wall of back-top.
 The model supplies the flange the wall pockets, the screw stations, the rim
 the wall bores for, and the housing the electronics bay leaves room for.
 
-[Open the STEP](iec-c14-inlet.step) · [Source derivation](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/iec-c14-inlet/iec_c14_inlet.py) ·
-[Scan reproduction](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/iec-c14-inlet/analyze_scan.py) · [Capture evidence](scan-evidence.json) ·
+[Open the STEP](iec-c14-inlet.step) · [Source derivation](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/iec-c14-inlet/iec_c14_inlet.py) ·
+[Scan reproduction](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/iec-c14-inlet/analyze_scan.py) · [Capture evidence](scan-evidence.json) ·
 [Scan-to-model check](scan-model-check.json)
 
 The MINI 2 capture is three turntable passes: the part standing on one flange
@@ -70,9 +70,9 @@ the residuals on the cloud.
 
 ## Model inputs
 
-The source derivations are preserved at their recorded revision: [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/iec-c14-inlet/analyze_scan.py), [validate_scan.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/iec-c14-inlet/validate_scan.py).
+The source derivations are preserved at their recorded revision: [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/iec-c14-inlet/analyze_scan.py), [validate_scan.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/iec-c14-inlet/validate_scan.py).
 
-The frozen manifest declares the STEP, fine model and viewer payload. [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/iec-c14-inlet/analyze_scan.py) rebuilds the
+The frozen manifest declares the STEP, fine model and viewer payload. [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/iec-c14-inlet/analyze_scan.py) rebuilds the
 part frames, registers the three archived clouds and writes
-`scan-measurements.json`; [validate_scan.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/iec-c14-inlet/validate_scan.py) compares the registered cloud with
+`scan-measurements.json`; [validate_scan.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/iec-c14-inlet/validate_scan.py) compares the registered cloud with
 the model.

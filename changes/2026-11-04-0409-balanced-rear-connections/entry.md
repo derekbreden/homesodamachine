@@ -2,7 +2,7 @@
 title: Wider, balanced rear connection cards
 lede: All six cards expose a square color face. OVER sits beneath SODA, both FLAVOR ports share the right column, and the nameplate is centered below.
 date: 2026-11-04T04:09:43-06:00
-commit: 9184351c25f233d6c973f620937c142e8a735e66 9bcb1f4c7110a1a4c4d08e57acb61a1f7e968deb e3d35da0b0cc7db922b7adb43d5f385220257cbe
+commit: a84b0ce484f1b4f7336c541ccae449fa4e5fd20e da61cdc2ce944636fec7cf5a4a113c5805fc1541 6b1a5ecd3367cb3e35c2e2a9fd964c6bdbb44bf1
 model: manifold-layout/enclosure-assembly.step
 ---
 The cards measure 42 × 38 × 1.8 mm. Each side rail overlaps 2 mm, leaving a

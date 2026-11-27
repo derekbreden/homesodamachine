@@ -56,7 +56,7 @@
           "payload": "manifold-layout/enclosure-assembly.step.mesh",
           "from": "snapshot",
           "sha256": "89e8970b9d1562ca233ef5bf9c4fe4eaca043627dd2b5dddf08193a0ac262c49",
-          "commit": "01dc36d72113e81ef9e8e4309eeaa83ca7ef34b8",
+          "commit": "97e3bc6dbc9615299cfbd5fc99d0ecc03a09f764",
           "taken": "2026-11-04T04:45:43.076Z",
           "published": true
         },
@@ -64,7 +64,7 @@
           "payload": "manifold-layout/enclosure-assembly.step.mesh",
           "from": "tree",
           "sha256": "00bbf767bfd8f0c95c862ff2316a796b67be191dd25ec35c0f2ba8d9092fe291",
-          "commit": "aaf495523e44902a6261eaa30a269d16aa092350",
+          "commit": "34257edf238c06084324abdcdf39a61f25fa68db",
           "published": true
         }
       },

@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "scope": "Installed wiring numeric providers, readers, export orchestration, manifests and assembly scene composition",
-  "provider_baseline_revision": "582ca5d13",
+  "provider_baseline_revision": "36a0ed8f5",
   "physical_model_sha256": "fed882de520ebd4c88eeac450f86589804dfaf849e329aa620f5312f5dfc4187",
   "fixed_input_sha256": "27bdcee9d892ce9a05bd2ce7eb4b83c23777141e035d0e5adf0ad25eedf58fe8",
   "counts": {

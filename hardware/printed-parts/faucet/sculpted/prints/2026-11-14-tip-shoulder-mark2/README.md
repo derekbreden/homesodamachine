@@ -18,7 +18,7 @@ in the yellow screenshot. Its support interface and first model roads follow tha
 plane. The inclined courses advance uphill in narrow height bands to clear the
 cooling duct. Layer angle eases back to level below the dispense nose. The base
 deposition comes from the
-[shaft trial](https://github.com/derekbreden/homesodamachine/blob/fb168201798cac4f7692a9a1e603261232df0449/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-shaft-tilted-mark2/README.md).
+[shaft trial](https://github.com/derekbreden/homesodamachine/blob/0722ea80be3a760982b727f2f6000829690190dc/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-shaft-tilted-mark2/README.md).
 
 The [shoulder support reading](tip-shoulder-support.json) checks the first model
 roads and the interface's clearance from the plug and bore. The native interface

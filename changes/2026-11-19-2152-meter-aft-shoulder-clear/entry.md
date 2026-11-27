@@ -2,7 +2,7 @@
 title: Room between the meter and Pisco receivers is clear
 lede: Nothing is built onto the meter receiver's aft shoulder, and the Pisco cover keeps its whole east corner and two equal leaves.
 date: 2026-11-19T21:52:59-06:00
-commit: ef51e59066a32f66fc28d995eb8e9245b981a5d4
+commit: 4c94a5d9009ca94f5914fd12a7357cda671f2af2
 model: printed-parts/enclosure/enclosure/enclosure-back-top.step
 ---
 The meter receiver's aft shoulder is a plain block, like its fore shoulder, and the room between the meter and Pisco receivers is open. The Pisco cover has its whole east lower corner and two leaves of one length.

@@ -5,6 +5,13 @@ package rewrite. [The print archive](../../hardware/print-archive.json) indexes 
 packages in the [print projects release](https://github.com/derekbreden/homesodamachine/releases/tag/print-projects).
 Original signed commit objects are in the [signed commit records](https://github.com/derekbreden/homesodamachine/releases/download/print-projects/signed-commit-records.zip).
 
+It also includes the 2026-11-27 purge, which kept every commit and removed four kinds of file
+from their trees: the pump-flow camera frames, profiles and videos, held in the
+[pump-flow evidence archive](https://github.com/derekbreden/homesodamachine/releases/download/print-projects/pump-flow-camera-evidence-2026-11-22.zip);
+the print files committed from 2026-11-17 to 2026-11-20, held in the print archive; every
+version but the last of each generated guide PDF and of the Lulu order ZIP; and the soda
+studies' print kit, whose projects the print archive holds.
+
 The generated solids entries come from two `git filter-repo` runs: the first expunged
 98 generated solids on 2026-08-17, the second the rest of the
 generated tree — every `.step`, `.stl`, `.glb` and `.step.mesh` but the three harvested

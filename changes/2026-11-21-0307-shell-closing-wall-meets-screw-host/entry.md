@@ -2,7 +2,7 @@
 title: The shell's nameplate closing wall runs into the screw host beside it
 lede: The wall that closes the nameplate's west insert recess off from the foam ended beside a screw host with a step and a hairline groove. It runs on into the host.
 date: 2026-11-21T03:07:20-06:00
-commit: 8c45080c5df9276b05d1eac208c8eedcc407702e
+commit: d84efb5249f1952e9aed877efffaffbcdfd12bf2
 model: manifold-layout/enclosure-assembly.step
 ---
 The rear nameplate's two lower insert hosts dip into the shell's rear wall. Each takes a recess from outside, and a wall inside the shell closes the recess off from the foam. The west recess's closing wall ended almost flush with the side of the rear west screw host. A narrow strip of the wall's end stayed showing beside the host's round, the height of the wall, with a hairline groove between the two.

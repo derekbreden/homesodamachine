@@ -1,7 +1,7 @@
 {
  "schema_version": 1,
  "reading_date": "2026-09-13",
- "geometry_head": "a9ddf3ad0aaba4afd4bd14a7f3f76f6656cd16bd",
+ "geometry_head": "a1a35a6081ac858d3fe2c70021b338a08aa40248",
  "target_normal_clearance_mm": 0.15,
  "numeric_tolerance_mm": 1e-06,
  "nominal_cad_only": true,
@@ -116,7 +116,7 @@
   "y_closure_stations": 10
  },
  "provenance": {
-  "head": "a9ddf3ad0aaba4afd4bd14a7f3f76f6656cd16bd",
+  "head": "a1a35a6081ac858d3fe2c70021b338a08aa40248",
   "box_equal": false,
   "changed_during_build": [],
   "source_sha256": {
@@ -3910,7 +3910,7 @@
  },
  "evidence": {
   "sweep": {
-   "head": "a9ddf3ad0aaba4afd4bd14a7f3f76f6656cd16bd",
+   "head": "a1a35a6081ac858d3fe2c70021b338a08aa40248",
    "parts": 146,
    "all_pairs": 10585,
    "mesh_candidates": 493,
@@ -16416,7 +16416,7 @@
    "elapsed_seconds": 2.6193800419569016
   },
   "core-sweep": {
-   "head": "a9ddf3ad0aaba4afd4bd14a7f3f76f6656cd16bd",
+   "head": "a1a35a6081ac858d3fe2c70021b338a08aa40248",
    "parts": 62,
    "all_pairs": 1891,
    "mesh_candidates": 234,
@@ -21049,7 +21049,7 @@
    "elapsed_seconds": 31.286773583153263
   },
   "cross-sweep": {
-   "head": "a9ddf3ad0aaba4afd4bd14a7f3f76f6656cd16bd",
+   "head": "a1a35a6081ac858d3fe2c70021b338a08aa40248",
    "parts": 207,
    "all_pairs": 8990,
    "mesh_candidates": 201,
@@ -23727,7 +23727,7 @@
     }
    ],
    "fresh_evidence": {
-    "head": "a9ddf3ad0aaba4afd4bd14a7f3f76f6656cd16bd",
+    "head": "a1a35a6081ac858d3fe2c70021b338a08aa40248",
     "parts": {
      "enclosure-front-top": {
       "file": "enclosure-front-top.brep",
@@ -25101,7 +25101,7 @@
    "report_path": "audit-workspace/seams.md"
   },
   "seams-extra": {
-   "head": "a9ddf3ad0aaba4afd4bd14a7f3f76f6656cd16bd",
+   "head": "a1a35a6081ac858d3fe2c70021b338a08aa40248",
    "parts": {
     "enclosure-front-top": {
      "file": "enclosure-front-top.brep",
@@ -26430,7 +26430,7 @@
    }
   ],
   "motion": {
-   "head": "213344db8e5e1f763759737b7b0e86fdb6e336e1",
+   "head": "8bfb65c1a2a518299249dc7b50c560719bdff17c",
    "files": {
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "c456658d0cf56cdb7a96350fcef4aef2a07330fee12a78721cb1e557e0c7f382",
     "hardware/manifold-layout/enclosure_assembly.py": "7ba486a8fbb738598b84773af71cf14eae73806e0c97802deb2cd8b67841ff13",
@@ -28209,7 +28209,7 @@
    "elapsed_s": 11.700343457981944
   },
   "motion-extra": {
-   "head": "213344db8e5e1f763759737b7b0e86fdb6e336e1",
+   "head": "8bfb65c1a2a518299249dc7b50c560719bdff17c",
    "files": {
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "c456658d0cf56cdb7a96350fcef4aef2a07330fee12a78721cb1e557e0c7f382",
     "hardware/manifold-layout/enclosure_assembly.py": "7ba486a8fbb738598b84773af71cf14eae73806e0c97802deb2cd8b67841ff13",
@@ -30164,7 +30164,7 @@
    }
   },
   "motion-pump-jack": {
-   "head": "213344db8e5e1f763759737b7b0e86fdb6e336e1",
+   "head": "8bfb65c1a2a518299249dc7b50c560719bdff17c",
    "files": {
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "c456658d0cf56cdb7a96350fcef4aef2a07330fee12a78721cb1e557e0c7f382",
     "hardware/manifold-layout/enclosure_assembly.py": "7ba486a8fbb738598b84773af71cf14eae73806e0c97802deb2cd8b67841ff13",
@@ -31129,7 +31129,7 @@
   "mounts": {
    "scope": "Enclosure fixed mounts and ancillary fits; additional copper-plug interference from root cross-population sweep",
    "target_clearance_per_face_mm": 0.15,
-   "head": "a9ddf3ad0aaba4afd4bd14a7f3f76f6656cd16bd",
+   "head": "a1a35a6081ac858d3fe2c70021b338a08aa40248",
    "method": "CadQuery/OCP exact BRep distances, face-pair distances and exact common volumes. Root fresh source pack and standalone enclosure STEP; native ring STEP/facts placements are equal to fresh stations within numeric tolerance. No product edits or exports.",
    "findings": [
     {
@@ -32439,7 +32439,7 @@
   },
   "mounts-measure": {
    "basis": "Fresh placed source pack + current standalone enclosure STEP; root manifest",
-   "head": "a9ddf3ad0aaba4afd4bd14a7f3f76f6656cd16bd",
+   "head": "a1a35a6081ac858d3fe2c70021b338a08aa40248",
    "pairs": [
     {
      "part": "psu",
@@ -36740,7 +36740,7 @@
    }
   ],
   "mount-nameplate-current": {
-   "head": "a9ddf3ad0aaba4afd4bd14a7f3f76f6656cd16bd",
+   "head": "a1a35a6081ac858d3fe2c70021b338a08aa40248",
    "fits": [
     {
      "part_face": 2,
@@ -37840,7 +37840,7 @@
    }
   ],
   "core-contact": {
-   "head": "a9ddf3ad0aaba4afd4bd14a7f3f76f6656cd16bd",
+   "head": "a1a35a6081ac858d3fe2c70021b338a08aa40248",
    "source_parts": {
     "line-carb-water-out": {
      "file": "core__cold-core__line-carb-water-out.brep",

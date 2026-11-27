@@ -2,7 +2,7 @@
 title: Common screws and regular heat-set inserts across the machine
 lede: Closed deeper hosts, relay end clamps and printed spacers reduce the fastener selection.
 date: 2026-11-18T10:50:21-06:00
-commit: 464641905d8035ddef85c95e8180613b5f54b1da
+commit: 50ef4464c3062ffb12550f5ef8584e16d2436a69
 model: manifold-layout/enclosure-assembly.step
 ---
 The rear nameplate has closed insert lands that enter matching sealed recesses in

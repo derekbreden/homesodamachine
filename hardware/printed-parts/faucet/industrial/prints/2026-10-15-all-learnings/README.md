@@ -47,7 +47,7 @@ extrusion or fan edits. TPU gasket and lever sleeve remain separate parts.
 ## Local supports and anchorage
 
 The base carries the exact seven arc walls and narrow contact-strip blockers
-from the [accepted Mark2 section](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json).
+from the [accepted Mark2 section](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json).
 The 0.90 mm walls follow the visible outer edge in 41° arcs with 4° release
 gaps and a requested 0.24 mm vertical gap. The front arc is uninterrupted under
 the lever. Tree(auto)/Default serves the remaining annulus and gaps. The
@@ -84,5 +84,5 @@ physical acceptance records retain their identified scope. The
 [complete black result](physical-result.json) records direct user appearance
 acceptance and the requested process transfer to the white Sculpted faucet.
 
-[`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/15bf03ec45/hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/prepare.py) and [`review.py`](https://github.com/derekbreden/homesodamachine/blob/15bf03ec45/hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/review.py) (in Git at `15bf03ec45`) are manual preparation/review tools and do not send
+[`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/5776755257/hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/prepare.py) and [`review.py`](https://github.com/derekbreden/homesodamachine/blob/5776755257/hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/review.py) (in Git at `5776755257`) are manual preparation/review tools and do not send
 prints. Submitted projects and archives are preserved.

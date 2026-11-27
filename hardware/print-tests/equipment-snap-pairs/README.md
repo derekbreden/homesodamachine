@@ -59,7 +59,7 @@ The ASSE, meter and regulator covers stand on their production axial ends.
 Their separate receivers retain the enclosure’s ceiling-down print orientation.
 
 To reproduce these historical specimens, build the back-top and installed covers at the
-[trial source revision](https://github.com/derekbreden/homesodamachine/tree/244e007084db110e1637030c3bfadb8474e4de12)
+[trial source revision](https://github.com/derekbreden/homesodamachine/tree/433399855ceba5a9f1b72912d428f7da3a383a65)
 before running the command below. The trial measures the preceding straight wings and
 transfers the selected section onto them. Current production draws that section directly.
 
@@ -70,7 +70,7 @@ tools/run -- cargo run --release --locked -j2 --manifest-path tools/hsm/Cargo.to
 
 ## Raised-crest pairs
 
-Each full-length production cover prints beside a separate receiver that accepts the actual component. The test transfers the raised, flat wing crests that held the Pisco cover steady in Derek’s [filmed comparison](https://github.com/derekbreden/homesodamachine/blob/2d7f9faac54a802877a41971e513dc0211d3475c/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark2/physical-result/physical-result.json).
+Each full-length production cover prints beside a separate receiver that accepts the actual component. The test transfers the raised, flat wing crests that held the Pisco cover steady in Derek’s [filmed comparison](https://github.com/derekbreden/homesodamachine/blob/0dac4ec61fa39ec24accd0f72a4aa0f14b7d813c/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark2/physical-result/physical-result.json).
 
 | Plate | Matched parts | What the fixture retains |
 | --- | --- | --- |

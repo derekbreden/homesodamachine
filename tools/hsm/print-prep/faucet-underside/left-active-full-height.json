@@ -1,7 +1,7 @@
 {
   "purpose": "Supplies the whole modeled toolhead's clearance envelope to the Sculpted plate's head replay.",
   "reference_source": "hardware/reference/h2c-toolhead/h2c_toolhead.rs",
-  "reference_source_commit": "35ef59ce3944489eabf9a9bf0c43b9ba811e71ae",
+  "reference_source_commit": "5837599383b5a050d824a72c6dcd1dfea0d1705c",
   "reference_body_model": "cargo run -p hsm-sandbox --example h2c-toolhead -- DIR, DIR/h2c-left-active.step.npz",
   "reference_body_model_sha256": "30016aede5227d71b2d2d0b83b53064cbe49affa8460ca9cec6874e50ae21e87",
   "lower_height_map": "tools/hsm/print-prep/faucet-underside/left-active-height.npz",

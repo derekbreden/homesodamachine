@@ -514,7 +514,7 @@
         "channel_width_mm": 9.0,
         "side_wall_mm": 1.7,
         "parallel_channel_end_y_mm": 44.3,
-        "source_commit": "0e79268ce",
+        "source_commit": "b0c040516",
         "source_project_sha256": "2e5a995cc04489999de875f5d58e21b4704789142341d9c666b796d7cb69800e",
         "embedded_mesh_sha256": "7e273968a7998c45c19ea8d80b728ba378ddba52fce10535b28283ba9f738a84",
         "geometry_and_placement_byte_identical": true,

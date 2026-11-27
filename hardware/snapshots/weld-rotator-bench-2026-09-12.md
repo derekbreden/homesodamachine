@@ -27,7 +27,7 @@ motor revolution. The speed and degrees arithmetic assume that last figure.
 
 ## Firmware and stored settings
 
-Commit `ae1e539ec` is flashed. `status` reports the reset reason, uptime, how long the pedal has
+Commit `2df10f55f` is flashed. `status` reports the reset reason, uptime, how long the pedal has
 been in its state, and whether the driver is holding. Stored in flash:
 
 | Setting | Value |

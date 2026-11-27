@@ -1,6 +1,6 @@
 {
   "source": {
-    "commit": "de2c703111ef5916b91e7c86b843435d7bba7fc7",
+    "commit": "bc5d55c006e006fdc6cf2ccb569d08a448703df3",
     "path": "hardware/reference/neofit-flow-control/neofit_flow_control.py",
     "sha256": "3b4d571d757042b8bafc7834246b52746acc0283533357d493a6c8c94c8e4fa9"
   },

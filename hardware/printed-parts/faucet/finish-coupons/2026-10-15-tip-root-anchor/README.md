@@ -23,7 +23,7 @@ with the existing mating profile retained after print-aid removal.
 
 ## Starting-course evidence
 
-The [failed Mark1 article](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/physical-result/physical-result.json)
+The [failed Mark1 article](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/physical-result/physical-result.json)
 is task `1341173963`. Derek reports that the male insertion section fell over
 and points to the detached C-shaped section. The photographs show that curved
 piece beside the body and loose strands within the intended plug region.
@@ -72,7 +72,7 @@ The completed article and disc removal have physical acceptance at the hidden
 insertion end. This does not establish removal without a scuff, dimensional
 mating fit, strength or lifetime.
 
-[`prepare.py --slice`](https://github.com/derekbreden/homesodamachine/blob/15bf03ec45f7b0c2c3632c7a9152b81e75e8ac90/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/prepare.py), [`review.py`](https://github.com/derekbreden/homesodamachine/blob/e023e795b7/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/review.py) (in Git at `e023e795b7`), and
-[`../2026-10-15-edge-supports/review.py tip --folder <this-directory>/mark1`](https://github.com/derekbreden/homesodamachine/blob/e023e795b7fd8b3a395be374641d30984229e53b/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/review.py)
+[`prepare.py --slice`](https://github.com/derekbreden/homesodamachine/blob/5776755257d6e08cb6e2dcd0f4ed562a270dc68c/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/prepare.py), [`review.py`](https://github.com/derekbreden/homesodamachine/blob/a78e794ac4/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/review.py) (in Git at `a78e794ac4`), and
+[`../2026-10-15-edge-supports/review.py tip --folder <this-directory>/mark1`](https://github.com/derekbreden/homesodamachine/blob/a78e794ac4eef5230e13fcbc9567baa46e1c38f4/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/review.py)
 are manual experiment tools, outside build and commit paths. Accepted launches
 are preserved rather than overwritten.

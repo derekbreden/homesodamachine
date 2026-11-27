@@ -2,7 +2,7 @@
 title: Aligned ASSE adapter and continuous rear receiver bases
 lede: The adapter and its conforming hex cavity share the ASSE axis. Rear receiver bases retain continuous stock without enclosed release tunnels.
 date: 2026-11-03T23:08:29-06:00
-commit: 049718fd9559fd40a1cbe4790739de55569639c8
+commit: af94c9031ecb17f20d32f6ee0e8dba9a9156382f
 model: manifold-layout/enclosure-assembly.step
 ---
 The installed adapter and its matching hex cavity sit 0.18 mm higher. The measured adapter wrench midpoint is within 0.003 mm of the ASSE axis. The six hex directions, axial shoulders, ASSE body pocket and snap wings retain their fitted profiles.

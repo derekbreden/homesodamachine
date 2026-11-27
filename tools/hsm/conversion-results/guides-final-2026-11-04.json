@@ -1,6 +1,6 @@
 {
   "date": "2026-11-04",
-  "baseline_source_revision": "582ca5d1376afb5620fe02f750280ae9b113cd28",
+  "baseline_source_revision": "36a0ed8f5e17f6f63ecbdc054baafc402f379288",
   "baseline_source_sha256": {
     "hardware/install-guide/_cad_art.py": "a3b0b1615d2ac30f06f12ecc9d0076534a23e1e54dc962fa2c589b7f9539a0d3",
     "hardware/install-guide/_cad_art_mesh.py": "ce193aba5566fbec93010f61fcf349cbf7c602c6d15161a62dc2d787bebe5daf",

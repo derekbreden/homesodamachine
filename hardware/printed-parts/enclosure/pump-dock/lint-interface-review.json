@@ -1,8 +1,8 @@
 {
   "scope": "Current post-publication manual mesh-interface review for the unchanged front-bottom, back-top, back-bottom and revised cold-core lid. All six classes and every emitted row are accounted for. Exact classifier diagnoses, specified cosmetic contours, fitted interfaces and true unresolved inherited geometry retain distinct dispositions. No recurring checker, CAD export or graph mutation is added.",
   "current_publication": {
-    "artifact_source_commit": "5237089e590eeab7dddbda144bc6170134f6aede",
-    "artifact_pointer_commit": "dcd9a23a10ace4b99c7779c3259e1a79951e928a",
+    "artifact_source_commit": "05c5c67b189ffeb8cdf4b4032448bf83597c4f72",
+    "artifact_pointer_commit": "f3f6d48f86b29a00588c20c8583bfa42c5d09855",
     "live_object_hashes_verified": 42,
     "appliance_payload_bytes": 33199588,
     "appliance_payload_sha256": "3a1cc0938f845c8122f83a1d7f34341ee36299be141bbdc7e17e46604c2af2e2",
@@ -35,7 +35,7 @@
   },
   "retained_source_scope": {
     "scope": "Only these unchanged retained producer declarations are compared; display-cavity, contact-pad and dock constructors are not included. Source identity and local native windows establish scope, not geometry acceptance.",
-    "baseline_source_commit": "61c0b3499",
+    "baseline_source_commit": "29e158c49",
     "source_path": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
     "declarations_compared": 44,
     "declaration_AST_sha256": {
@@ -391,7 +391,7 @@
         "current_local_volume_mm3": 0.3339308261745126,
         "reference_constructed_local_volume_mm3": 0.33393082617584036,
         "volume_difference_mm3": -1.327771226300456e-12,
-        "reference_scope": "The immediate pre-dock 61c0b3499 source helpers with their authored Box inputs construct this exact finite window, as recorded in the saved source-construction comparison. Unchanged helper ASTs are checked separately. This is a local inherited-interface scope proof, not a thickness acceptance."
+        "reference_scope": "The immediate pre-dock 29e158c49 source helpers with their authored Box inputs construct this exact finite window, as recorded in the saved source-construction comparison. Unchanged helper ASTs are checked separately. This is a local inherited-interface scope proof, not a thickness acceptance."
       },
       "insert_host_dimension_basis": {
         "table": "https://www.igo3d.com/mediafiles/Sonstiges/Ruthex/ruthex_Datenblatt_RX-Serie.pdf",
@@ -786,7 +786,7 @@
         }
       },
       "pre_dock_scope_basis": {
-        "source_commit": "61c0b3499",
+        "source_commit": "29e158c49",
         "identified_reference_native_sha256": "63ec80861a5abf44802da9bdb39ed0695613dde9567036d7b35ad166c76fc6c4",
         "reference_record": "../enclosure/assembly-fit-review/cord-access-measurements.json",
         "scope": "Retained producer AST and explicit station transforms establish pre-dock scope. The identified old record bounds its exact C14/rear-interface article and local comparisons; it supplies no current thickness or physical acceptance."
@@ -1149,7 +1149,7 @@
         "limits": "Native correspondence preserves all glyph outlines within this complete field. It does not qualify glyph deposition or legibility, or the current flute field outside this quiet marking region."
       },
       "pre_dock_scope_basis": {
-        "source_commit": "61c0b3499",
+        "source_commit": "29e158c49",
         "baseline_native_sha256": "79c19ce4deaef85a059c2a9f1469af89832569887cab8b0b631d6f1c600ffdc2",
         "scope": "The disposal text/font/relief and handhold/floor construction are unchanged. Rear-positioned markings follow the total +10 mm rear-plane transform from that reference; seam/handhold coordinates remain fixed. No stroke, legibility or lifting acceptance is inferred."
       },

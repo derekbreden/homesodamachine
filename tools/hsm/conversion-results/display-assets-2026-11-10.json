@@ -2,7 +2,7 @@
   "schema": 1,
   "purpose": "Record lossless display artwork conversion and binary bundle equivalence.",
   "recorded_at": "2026-11-10T17:28:39.762Z",
-  "archived_source_revision": "9e9829153a337dc53dc603311f689157f0795058",
+  "archived_source_revision": "a9ac4996fab11b2fbff8f77033e80cf62ccec9ea",
   "source_png_sha256": {
     "brand/display-animation.png": "6854f6db5a087c3f6ae45552fd39dab49da826f443cf0ab0915913a06e360fbe",
     "images/flavor_1.png": "64ad9b87b0d73bd566154da3c7aa8b2f288fa9f9db2220df84a299e77484aabf",

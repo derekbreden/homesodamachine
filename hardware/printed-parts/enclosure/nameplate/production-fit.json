@@ -98,7 +98,7 @@
     "hardware/printed-parts/cold-core/interface/lib.rs": "b0f635b40df386d4f02b2d18489c68bd1b74a17657d7ce7e57c0618a0689480e",
     "hardware/manifold-layout/above-core.json": "6e7bada8f766220403487409a73fb72212543b141ebb1ef6e28accfccdb6f866"
   },
-  "archived_appearance_approval": "https://github.com/derekbreden/homesodamachine/blob/7f726658e69d94842f0a13126b3addc4b90a253b/hardware/printed-parts/enclosure/nameplate/production-fit.json",
+  "archived_appearance_approval": "https://github.com/derekbreden/homesodamachine/blob/55cea99064bf3928d534a17b22463f3794675f49/hardware/printed-parts/enclosure/nameplate/production-fit.json",
   "physical_status": "The revised blind hosts and casing recesses require physical assembly and support-cleanup confirmation.",
   "mesh_review": {
     "scope": "Post-publication STL reading of the receiver and matching shell recesses.",

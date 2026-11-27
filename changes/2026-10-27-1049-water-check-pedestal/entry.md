@@ -2,7 +2,7 @@
 title: Water-check bearing stands on a filled pedestal
 lede: The bearing reaches the lid directly ahead of the pump foot. Its peaked tie passage prints open, with the valve and tubing at their selected positions.
 date: 2026-10-27T10:49:18-05:00
-commit: 9d612ce452d7 2ae479688603
+commit: 67db281af701 ce62bc63062a
 model: printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 ---
 The water check rests on one 11.58 × 8.8 mm pedestal, with its bearing 0.5 mm inside the fixed barrel band. The ordinary stock below the bearing and at both axial ends is 3 mm. A straight tie passage has a 45° roof; the reviewed native Mark1 slice leaves its nominal 2.5 × 0.8 mm threading lane free of model and support beads.

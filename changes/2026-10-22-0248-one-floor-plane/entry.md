@@ -2,7 +2,7 @@
 title: The enclosure floor is one plane
 lede: The cold core's 0.35 mm floor allowance is now the whole floor's level, not a pocket in the core's outline, so no step runs round the core on front-bottom or back-bottom.
 date: 2026-10-22T02:48:44-05:00
-commit: 736b4d4295677d38eb04648abadfddfcded2feeb
+commit: 17388f03f65a7c0956a0964e3c062ffa6a6d3aa9
 model: printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 ---
 The core rests on the floor and slides over it to its seat, so the face it bears on carries the running allowance and the cavity-floor transition, 0.25 mm plus 0.10 mm. That allowance was cut as a pocket in the core's rounded outline, which left the rest of the floor 0.35 mm higher: a step across front-bottom's floor ahead of the core, and a strip standing proud along both walls of back-bottom.

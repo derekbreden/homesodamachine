@@ -8,7 +8,7 @@
   "first_layer_verified_at": "2026-11-26T03:56:02+00:00",
   "firmware_layer_at_verification": 1,
   "firmware_total_layers": 145,
-  "source_and_recipe_commit": "4ded2971ee7443637e9145fcefca16cc653a8483",
+  "source_and_recipe_commit": "0e6350512d6d336c4db9723e047b8735f95a7fd4",
   "printer_recipe": "snap-guide-contact",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {

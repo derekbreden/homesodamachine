@@ -69,7 +69,7 @@
           "payload": "printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
           "from": "snapshot",
           "sha256": "714d5ad2f737e74280597c3f46df4e89ba8986e96b5f0e383853f2657afba278",
-          "commit": "da9b7040748220877c98998e7aad699e02dff96a",
+          "commit": "0f713947d07f552dfc762fada3577f22b83bff98",
           "taken": "2026-11-03T20:36:13.711Z",
           "published": true
         },
@@ -77,7 +77,7 @@
           "payload": "printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
           "from": "tree",
           "sha256": "ecdb99416648fd2d365d8a5f43b87284c55c16340a76710d231d7c2af2b52a04",
-          "commit": "838b9c68f7b6565820307202867467bd16b09cc9",
+          "commit": "55484ee45088054cfc79398ee5c83ff53a8f36e7",
           "published": true
         }
       },
@@ -153,7 +153,7 @@
           "payload": "printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh",
           "from": "snapshot",
           "sha256": "1ac33efd6c964f05056257d5841c3b7aaa70b6af362ff027a6f15a7a8cf208ef",
-          "commit": "da9b7040748220877c98998e7aad699e02dff96a",
+          "commit": "0f713947d07f552dfc762fada3577f22b83bff98",
           "taken": "2026-11-03T20:36:13.711Z",
           "published": true
         },
@@ -161,7 +161,7 @@
           "payload": "printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh",
           "from": "tree",
           "sha256": "4ed0c60b6e009181e1e07e2670130361862a00575eaf651d692590bd29378d31",
-          "commit": "b875508f3b2bc685649a40461b2568cd23f8ea6a",
+          "commit": "9e279a3049450adb46362e91f09e6ebff38f7c0f",
           "published": true
         }
       },

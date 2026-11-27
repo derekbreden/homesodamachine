@@ -2,7 +2,7 @@
 title: Equipment snaps use intermediate spring walls and centered tool release
 lede: Rounded roots and 2.0 mm wings give the springs room to bend. Shaped cap stock captures the PISCO neck and the measured water-regulator shoulder.
 date: 2026-11-02T02:37:48-06:00
-commit: 90e2dab4912e95bf5884f25922d70c5660353897 e91fc5070 e1ae1f74b 0cdb001df cc6006320
+commit: a8af0480f7a32823b608772876ecd848e4007350 9ad0b9269 2d2a4dead 990aad008 eaae15e10
 model: manifold-layout/enclosure-assembly.step
 ---
 The five caps have 2.0 mm spring walls and R1.5 inside root transitions.

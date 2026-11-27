@@ -21,7 +21,7 @@
       "15"
     ]
   },
-  "physical_evidence": "https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-dense-roofs/rail-fit-30/physical-result.json",
+  "physical_evidence": "https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/petgf-dense-roofs/rail-fit-30/physical-result.json",
   "inheritance": "The native profile loader takes contact and bridge defaults from the shared PET-GF project after selecting the filament. Accepted historical profiles supply the other process settings. Explicit later experimental overrides remain possible.",
   "part_specific_scope": [
     "support enablement and style",
@@ -785,19 +785,19 @@
   "scope": "D supplies the shared contact and bridge settings. Each full product selects its support roots, clearance, interface treatment and bridges from its actual contact surfaces and removal access.",
   "inclined_contact_qualification": {
     "status": "The complete faucet plates no longer carry their bases' inclined mounting faces on tree interfaces: faucet-plate lays a removable scaffold, a roof and the foot's courses, with a plug rising in each insert socket, under each base ahead of the slicer's layers. The trials below record the inclined tree contacts that came before.",
-    "default_result": "https://github.com/derekbreden/homesodamachine/blob/7b4d4c7d87dda9db021665b2e7c7e255d996a39d/hardware/print-tests/petgf-dense-roofs/D-representative-mark2/physical-result.json",
-    "slim_result": "https://github.com/derekbreden/homesodamachine/blob/be19fb8a4693edecead5753aa2bcb42c54dcdbf0/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-mark1/physical-result/physical-result.json",
-    "prepared_comparisons": "https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-dense-roofs/inclines/matrix.json",
-    "larger_gap_result": "https://github.com/derekbreden/homesodamachine/blob/a261387d7021b9f74675793f5b1a3fd188cfccec/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/physical-result/physical-result.json",
-    "active_nonplanar_trial": "https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-11-faucet-trees-only-mark1/print-job.json",
-    "fin_tree_release": "https://github.com/derekbreden/homesodamachine/blob/534b87cc5f8d6911f8bcfa38378116d8dcdcb6bd/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/physical-result/physical-result.json",
-    "industrial_plate_review": "https://github.com/derekbreden/homesodamachine/blob/340c2b7200e09288c7d7ff802cbb278548646ba6/hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.support-audit.json",
+    "default_result": "https://github.com/derekbreden/homesodamachine/blob/94f7a44970408dd8fe81d9cb90f4d68b908ce31d/hardware/print-tests/petgf-dense-roofs/D-representative-mark2/physical-result.json",
+    "slim_result": "https://github.com/derekbreden/homesodamachine/blob/84f0e2d2dd7b0ed9269d94046b3d1431fc4d7dab/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-mark1/physical-result/physical-result.json",
+    "prepared_comparisons": "https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/petgf-dense-roofs/inclines/matrix.json",
+    "larger_gap_result": "https://github.com/derekbreden/homesodamachine/blob/49e214484782b7df83377dbadf14c84467be8c61/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/physical-result/physical-result.json",
+    "active_nonplanar_trial": "https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-11-faucet-trees-only-mark1/print-job.json",
+    "fin_tree_release": "https://github.com/derekbreden/homesodamachine/blob/f70240ebd0a95b9180abebfb2d880580f59cc0a5/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/physical-result/physical-result.json",
+    "industrial_plate_review": "https://github.com/derekbreden/homesodamachine/blob/8b934fcd74803a8f33fa3d772588f12894a6b134/hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.support-audit.json",
     "sculpted_plate_review": "hardware/printed-parts/faucet/sculpted/production/contact-review.json",
     "rear_cap_plate_review": "hardware/printed-parts/enclosure/rear-equipment-caps/print-plan-review.json",
-    "nonplanar_smaller_gap_result": "https://github.com/derekbreden/homesodamachine/blob/542ced3900b6b513c521c525582c22f167c9584d/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/physical-result/physical-result.json"
+    "nonplanar_smaller_gap_result": "https://github.com/derekbreden/homesodamachine/blob/32dc3da95439f7d4851745f9cd94192f41326e29/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/physical-result/physical-result.json"
   },
   "current_full_parts": {
     "Mark1": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-15-back-top-nameplate-corbels-mark1/print-job.json",
-    "Mark2": "https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-bottom-D-mark2/print-job.json"
+    "Mark2": "https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-bottom-D-mark2/print-job.json"
   }
 }

@@ -2,7 +2,7 @@
 
 The dispense-side prototype uses an external Lillium carbonator. Its reported
 assembly and cutover procedure are kept in the
-[prototype record](https://github.com/derekbreden/homesodamachine/blob/78c7aa7b01f90052b7ae4ae4bd7d0c9da992c17f/hardware/assembly/lillium-cutover.md).
+[prototype record](https://github.com/derekbreden/homesodamachine/blob/5e8655e7253565c11707c9d78883e6e17e2a39f5/hardware/assembly/lillium-cutover.md).
 The linked procedure belongs to that recorded article.
 
 On November 25 Derek filmed three water pours from the white countertop faucet,

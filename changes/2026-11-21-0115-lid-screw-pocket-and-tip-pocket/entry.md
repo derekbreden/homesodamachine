@@ -2,7 +2,7 @@
 title: The cold-core lid loses a sliver at a screw pocket and a thin web at the pump cap
 lede: The rear middle screw's head pocket and the nameplate recess beside it are one pocket. The pocket for the pump cap's east tip opens square into the air passage next to it.
 date: 2026-11-21T01:15:10-06:00
-commit: a16cf0ab5dfb96a12055a2a1ac0997ab6f34ec36
+commit: 08726358bf137d7575e57b2ef4ef535372e01a76
 model: manifold-layout/enclosure-assembly.step
 ---
 The rear nameplate's two upper insert hosts dip into the lid's rear edge, and the casing clears each with a recess. In the hollow shell a wall closes that recess off from the foam. The same wall was added to the solid lid, where all it did was refill a strip of the rear middle screw's head pocket. The strip left a narrow sliver face on the pocket's round, and it stood where that screw's head seats.

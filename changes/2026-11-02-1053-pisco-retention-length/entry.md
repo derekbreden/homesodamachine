@@ -2,7 +2,7 @@
 title: PISCO retention covers 41.7 mm of the body
 lede: The longer cap reaches toward the rear CO2 wall. Printed samples include the full retaining walls and end stops in all three axes.
 date: 2026-11-02T10:53:33-06:00
-commit: 5a1620a5101044a4b6e313b9ed1e88985cc58d22
+commit: e5503cc4aa8a41514d9e7774490d0a094170802c
 model: manifold-layout/enclosure-assembly.step
 ---
 
@@ -11,7 +11,7 @@ before the rear port land. Its lip captures the outlet neck and its body
 bearing extends toward the rear bore. The modeled clearances to the ASSE and
 meter caps are 8.146 mm and 4.523 mm.
 
-The five [retention sample pairs](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/rear-snap-retention/v4/README.md)
+The five [retention sample pairs](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/rear-snap-retention/v4/README.md)
 include the production parent stock, complete spring pockets and axial stops.
 The PISCO and ASSE samples include their rear bulkhead holes; the meter sample
 includes its wire exit and rear soda bore. Mark1 is printing the pump receiver,

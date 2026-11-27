@@ -2,7 +2,7 @@
 title: Compact plumbing and wall electronics leave the funnel open
 lede: The deeper funnel frame drops in after the final connections. Back-top carries the sidewall electronics, meter and plumbing beneath a continuous ceiling.
 date: 2026-10-24T23:19:02-05:00
-commit: 101845b501fd9db78ffe51a5a302d34574860993
+commit: 88ec1dd24298d7f1c7a725f3260d06e7ab4c565c
 model: manifold-layout/enclosure-assembly.step
 ---
 V-A, V-K and the complete water inlet header travel with back-top. The PSU and raised relays mount to back-top’s dry west wall, and the meter sits on its east-wall carriers. The pump, V-B and PCB stand on the cold-core lid. Their native ports set the compact water and gas paths within the selected arrangement.

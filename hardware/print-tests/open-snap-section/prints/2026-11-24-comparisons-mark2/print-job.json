@@ -12,8 +12,8 @@
   "firmware_layer_at_verification": 1,
   "firmware_total_layers": 145,
   "firmware_remaining_minutes_at_verification": 75,
-  "source_commit": "3f6de1a20eccd0739c333399c55383d6b184849b",
-  "recipe_commit": "19576789acc8358f71c9c9547a6e368758b80426",
+  "source_commit": "3149fbcb5a71bdff25b9eb4ed3c2b272a2ed79ef",
+  "recipe_commit": "0527363cde40058fd5586d81983b82ae52794f7d",
   "printer_recipe": "open-snap-comparisons",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {

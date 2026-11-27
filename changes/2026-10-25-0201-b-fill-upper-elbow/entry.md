@@ -2,7 +2,7 @@
 title: Reservoir B's upper fill elbow sits 15 mm east under a broad cover
 lede: The upper elbow clears V-A's low tube by 1.48 mm, and one flat corridor joins the two fitting pockets in the cup.
 date: 2026-10-25T02:01:22-05:00
-commit: f30101bf727bd2a26078ddf4dd48359fcac194cc 9d3dc4e97a10474af02cb4157b65ff29c33eeb6b
+commit: 1b2f4a0742dbed93b3f1cc90e3b668a917b7d9d0 bc86a5c971f77a75e7f739d2874ef65941550483
 model: manifold-layout/enclosure-assembly.step
 ---
 The upper JG PP0308E elbow and its upward socket move from X−48 to X−33 at Y287.5. The trimmed NeoFit stem elbow stays in its reservoir cap bore at X−43.5/Y233.3, and a direct link of about 15.6 mm of exposed tube joins the two. At X−48 the elbow ran into V-A's low under-head tube; at X−33 it clears that tube by 1.48 mm. The fill tube's tail follows the socket.

@@ -65,7 +65,7 @@
           "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
           "from": "snapshot",
           "sha256": "a51f0b9fc50610aec871afaaf49919d7fb8195dae44352de4d4a15514bcd649f",
-          "commit": "9fee81a48d37f07148df574661038ed16068772f",
+          "commit": "6e88216e7fda732c5119b57bce6e734e8fb60df0",
           "taken": "2026-10-29T05:54:23.551Z",
           "published": true
         },
@@ -73,7 +73,7 @@
           "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
           "from": "tree",
           "sha256": "ee2209f51c51509aa0d76b648263b74faabd4663b17c54febc99ca1541db9532",
-          "commit": "a7bc69a610fb7fd27a1f137c352af63ed17d72a1",
+          "commit": "60bd53be801a0004b26cccd037e29bf403f5f5bc",
           "published": true
         }
       },
@@ -147,7 +147,7 @@
           "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
           "from": "snapshot",
           "sha256": "a51f0b9fc50610aec871afaaf49919d7fb8195dae44352de4d4a15514bcd649f",
-          "commit": "9fee81a48d37f07148df574661038ed16068772f",
+          "commit": "6e88216e7fda732c5119b57bce6e734e8fb60df0",
           "taken": "2026-10-29T05:54:23.551Z",
           "published": true
         },
@@ -155,7 +155,7 @@
           "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
           "from": "tree",
           "sha256": "ee2209f51c51509aa0d76b648263b74faabd4663b17c54febc99ca1541db9532",
-          "commit": "a7bc69a610fb7fd27a1f137c352af63ed17d72a1",
+          "commit": "60bd53be801a0004b26cccd037e29bf403f5f5bc",
           "published": true
         }
       },

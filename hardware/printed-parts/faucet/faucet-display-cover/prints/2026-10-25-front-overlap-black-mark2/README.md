@@ -10,10 +10,10 @@ Mark1's task 1374272357 was accepted at 11:39:30 CDT, satisfying the shared
 circuit's three-minute start spacing. The existing preflight camera notification
 has the same HMS code in the acceptance reading; the startup reading has no HMS.
 
-The [front-corner study](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/README.md)
+The [front-corner study](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/README.md)
 extends the two front skirt edges to overlap the tip ledge by 1.2 mm in side
 projection. It addresses the visible opening in the
-[accepted head's photographs](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json).
+[accepted head's photographs](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json).
 The print retains that cover's glass gap, neck clearance, bezel and snap datums.
 The tip and display have no changes. The
 [physical result and five photographs](physical-result/physical-result.json)
@@ -64,9 +64,9 @@ clearance to the usable bed boundary is **131.0164 mm**. The support reading
 contains one bed-rooted automatic support body and one interface island.
 The native trim commands are `G29.1 Z0` and `G29.1 Z0.02`.
 
-[`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/15bf03ec45/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/prepare.py) (in Git at `15bf03ec45`) writes the centered one-cover project. Slice with Bambu Studio
+[`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/5776755257/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/prepare.py) (in Git at `5776755257`) writes the centered one-cover project. Slice with Bambu Studio
 `--slice 0 --arrange 0 --orient 0 --outputdir <directory> --export-3mf <basename.gcode.3mf>`;
-the export argument is a basename inside the output directory. [`review.py`](https://github.com/derekbreden/homesodamachine/blob/15bf03ec45/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/review.py) (in Git at `15bf03ec45`)
-reads the native archive. [recorded acceptance observer](https://github.com/derekbreden/homesodamachine/blob/e956573aab2a9329aadda1efed9a8f45e875fc8a/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/observe_launch.py) only watches acceptance and does
+the export argument is a basename inside the output directory. [`review.py`](https://github.com/derekbreden/homesodamachine/blob/5776755257/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/review.py) (in Git at `5776755257`)
+reads the native archive. [recorded acceptance observer](https://github.com/derekbreden/homesodamachine/blob/8f6f22f148f4b36eecb010332831b068a5b4aec6/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/observe_launch.py) only watches acceptance and does
 not issue a print command. The imported Connect copy is separate from the
 preserved native archive, with matching bytes at submission.

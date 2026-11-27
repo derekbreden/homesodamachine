@@ -69,7 +69,7 @@ uses the captured choice's position and verifies the resulting external-spool
 tile in the same nozzle column. Missing or ambiguous choices stop the operation.
 Window resizing and fullscreen are not part of filament selection.
 Mark1's dialog opened with the left tile unresolved both times it was opened for the
-[2026-11-20 aft-snap coupon](https://github.com/derekbreden/homesodamachine/blob/5a5c589208a470c654f443981a4b9bc1802563cb/hardware/print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/launch.json),
+[2026-11-20 aft-snap coupon](https://github.com/derekbreden/homesodamachine/blob/62ee60e57a37209f04aed1586ca333b5fc9a9c97/hardware/print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/launch.json),
 whose sliced type and colour matched the spool; Mark2's send the same day mapped by itself.
 
 ## Placement on unseasoned plates
@@ -85,26 +85,26 @@ For TPU and ASA Aero, keep multiple objects close together to shorten travel
 between extrusion stops and starts, while retaining clearance between their
 native model/support/brim beads. Derek reports increasing problems with greater
 object separation on these filaments. The
-[TPU liner observation](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-mark1/failure.json)
+[TPU liner observation](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-mark1/failure.json)
 records a fallen liner; the
 [compact retry](../hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-close-z000-mark1/README.md)
 uses a 2 mm model gap. The effect of spacing on failure risk is unmeasured.
 
-The [liner wall-start observation](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/wall-start-observation.json)
+The [liner wall-start observation](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/wall-start-observation.json)
 records intermittent projecting strands appearing on arrival from the other
 object as a wall starts. Derek identifies the second object's end on layer N
 to the first object's start on layer N+1 as the transition of concern.
 The record does not establish an outward departure pulling the reported strand.
-The [two-elbow travel review](https://github.com/derekbreden/homesodamachine/blob/e59c4f46ec277160e3eba3883aac7b79aba253e3/future/pump-elbow-exploration/prints/2026-10-14-compact-two-siraya85a-overhang10-engineering-z000-mark1/travel-review.json)
+The [two-elbow travel review](https://github.com/derekbreden/homesodamachine/blob/8112a4e02c43f6f9d145bab5348a53ffa6eae24d/future/pump-elbow-exploration/prints/2026-10-14-compact-two-siraya85a-overhang10-engineering-z000-mark1/travel-review.json)
 distinguishes that return from transfers within a layer, including the
 firmware timelapse detour. A path above wall material alone does not establish
 that ooze contacts it or becomes buried.
 
-Mark2's [edge-adhesion report](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/enclosure/enclosure/support-bottom-gap/mark2-v2/physical-result.json)
+Mark2's [edge-adhesion report](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/enclosure/enclosure/support-bottom-gap/mark2-v2/physical-result.json)
 records poor first layers near unseasoned edges. The
-[centered fit trial](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/README.md)
+[centered fit trial](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/README.md)
 uses at least 86.7 mm of full-bead edge clearance. The
-[reservoir comparison placement record](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/ironing-study/prints/2026-10-06-mark2/physical-result.json)
+[reservoir comparison placement record](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/ironing-study/prints/2026-10-06-mark2/physical-result.json)
 records Derek's requirement to move that complete test plate toward the center.
 
 ## Mark1 clear PETG spool order
@@ -141,7 +141,7 @@ the starting slot but does not display a backup sequence or priority editor.
 Automatic **A4 → A3 → A1** priority is unverified; apply the preferred order when
 selecting a replacement or a later job's starting slot.
 The current left hotend is **0.8 mm Standard-flow**, confirmed
-by Derek for the [reservoir ironing comparison](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/cold-core/reservoir/ironing-study/README.md).
+by Derek for the [reservoir ironing comparison](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/cold-core/reservoir/ironing-study/README.md).
 
 That comparison expects Mark2's **+0.04 mm user Z trim** over stock plate
 compensation. Its verified native G-code clears the trim with `G29.1 Z0` and
@@ -168,7 +168,7 @@ The other textured-plate nozzle setups have their own recipes.
 PET-GF on the glued Engineering Plate takes the printer's `engineering_plate_z_trim_mm`,
 added over Bambu's other-plate compensation.
 
-The [Engineering Plate clear-PETG reservoir retry](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md)
+The [Engineering Plate clear-PETG reservoir retry](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md)
 retains zero added user trim and emits **`G29.1 Z0`** for its plate compensation.
 The preceding Textured PEI print emitted **−0.02 mm**, the stock compensation.
 
@@ -202,7 +202,7 @@ the coupon source: the right nozzle's paths move X −0.50 mm and Y +0.70 mm (na
 right `extruder_offset` `0.5x-0.7`), with the raised-artwork nameplate appearance
 accepted by the user. The record's `white_correction_mm` names the spool the right
 nozzle carried at measurement. The correction follows the nozzle: the
-[SODA ring](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-soda-raised-mark2-v1/README.md)
+[SODA ring](https://github.com/derekbreden/homesodamachine/blob/c4c14e076dc4b541a01bf724889156f60828bf2b/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-soda-raised-mark2-v1/README.md)
 applies it to blue. Residual XY error is unmeasured; the original
 Y choice was tentative. Use the native
 slice's verified tool-coordinate correction; keep the part geometry nominal.
@@ -217,7 +217,7 @@ calibration condition requires a new alignment check.
 On 2026-09-25 Derek reported accidentally unplugging both printers by tripping on
 their power cord. H2C lost power mid-print, mid-extrusion, and recovered with no
 visible defect at the interruption point. The active job was
-[front-bottom, task 1279923918](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-enclosure-front-bottom-h2c-v7/README.md).
+[front-bottom, task 1279923918](https://github.com/derekbreden/homesodamachine/blob/c4c14e076dc4b541a01bf724889156f60828bf2b/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-enclosure-front-bottom-h2c-v7/README.md).
 This is Derek's visual observation of that recovery.
 
 ## Extrusion overload after sitting loaded
@@ -230,7 +230,7 @@ His working recovery sequence for this condition is:
 3. Pull out the entire cut segment.
 4. Reload from the freshly cut spool end, then resume.
 
-The [H2C receiver trial](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-receiver-retention-h2c-v2/startup-recovery.json)
+The [H2C receiver trial](https://github.com/derekbreden/homesodamachine/blob/c4c14e076dc4b541a01bf724889156f60828bf2b/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-receiver-retention-h2c-v2/startup-recovery.json)
 records this recovery from extrusion-motor overload 0300-801E. Moisture is Derek's
 suspected cause of the recurring idle-time pattern; no moisture measurement or
 controlled comparison establishes the cause. A resume is a printer start for the
@@ -275,7 +275,7 @@ The interval is Derek's proposed trial based on his previous experience. The sen
 foreground lock serializes app access but does not enforce this interval; keep it by
 hand and record both launch times.
 
-The [2026-09-28 startup trial](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-shared-circuit-stagger/README.md)
+The [2026-09-28 startup trial](https://github.com/derekbreden/homesodamachine/blob/c4c14e076dc4b541a01bf724889156f60828bf2b/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-shared-circuit-stagger/README.md)
 records Derek's report of repeated breaker trips when both machines start close together,
 including during his own manual starts. The two cover-job launch receipts are
 54.421746 seconds apart; both machines subsequently report FAILED at layer 0 after
@@ -357,7 +357,7 @@ Timelapse On, Bed Leveling On, Flow Calibration Auto and Nozzle Offset Calibrati
 Auto in Studio's own send dialog. The accepted printer name can come from the
 plate name rather than the archive filename. Record that reported name, the new
 task ID, the submitted archive hash and the unchanged G-code hash. The
-[Mark2 back-bottom launch](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/enclosure/bottom-grip-print/mark2/launch.json)
+[Mark2 back-bottom launch](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/enclosure/bottom-grip-print/mark2/launch.json)
 records an accepted Studio send with LAN acceleration using this packaging.
 
 ### Background accessibility sender
@@ -483,7 +483,7 @@ tools/run -- hsm-printer picker-check
 
 The tests use generated popover images in different positions and scales,
 including wrong-type and duplicate choices, plus two-nozzle accessibility
-fixtures. [Archived validation scope](https://github.com/derekbreden/homesodamachine/blob/a23c9f72ae1f3d4ffcb788b23590e166fd1ccd66/tools/bambu-ui/filament-picker-review.json) distinguishes
+fixtures. [Archived validation scope](https://github.com/derekbreden/homesodamachine/blob/7d8de0840a172b0d6a0896033d029f3d8a1b0bd2/tools/bambu-ui/filament-picker-review.json) distinguishes
 those results from the live dry run on a busy printer.
 
 Changing the printer in the selector clears the filament mapping.
@@ -541,7 +541,7 @@ The printer answers `project_file` with `ERROR STATE`, err_code 84033549 (050240
 "Failed to start a new task: filament loading/unloading not completed"). Its nozzle and
 bed targets already read zero while the loaded nozzle is still hot. The same archive is
 accepted once that nozzle has cooled
-([CO2 ring](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/rejected-send.json)).
+([CO2 ring](https://github.com/derekbreden/homesodamachine/blob/c4c14e076dc4b541a01bf724889156f60828bf2b/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/rejected-send.json)).
 `ams_status` 0x300 and an extruder `stat` with 0x0300 set also appear while a printer
 prints normally, so neither marks an open load.
 

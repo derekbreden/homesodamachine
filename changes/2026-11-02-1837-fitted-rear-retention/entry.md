@@ -2,7 +2,7 @@
 title: Rear caps locate the adapter hex, PISCO neck and meter housing
 lede: The ASSE cap captures both sides of its inlet adapter hex. Fitted PISCO and meter bearings follow the measured hardware surfaces.
 date: 2026-11-02T18:37:33-06:00
-commit: 393470bc706b2344b3331ac02f0a131feac23a6f 92fc634cfa2627d972118fdf7af6b805822fe4df b78657f0b474bd5540d2c003bdb810b879228595
+commit: 59c0655ac491d9cfedc4b535636c42a591f4fc5b e6b67ac7ffa6a3eb8c86d6ce23588d1ea8b9dbc5 4cb3bb12014898e8529dbc18d723e729bbff066a
 model: manifold-layout/enclosure-assembly.step
 ---
 The ASSE cap encloses both axial shoulders of the 1/4 NPT–3/8 NPT adapter's
@@ -21,7 +21,7 @@ The meter's cap and receiver follow the housing taper and label-side bevel.
 Bosses and screw heads have separate fitted passages. The wire exit and
 sixteen-millimetre hardware loading corridor remain open.
 
-[Three complete retention pairs](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/rear-snap-retention/v5/README.md)
+[Three complete retention pairs](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/rear-snap-retention/v5/README.md)
 exercise these fits in black PET-GF, with production print orientations,
 2 mm leaves and centered flathead release entries. The active Mark1 and
 Mark2 trial continues; the backed ASSE revision is separately prepared for

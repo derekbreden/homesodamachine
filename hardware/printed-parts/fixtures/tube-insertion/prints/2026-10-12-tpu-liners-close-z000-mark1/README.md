@@ -26,7 +26,7 @@ bind the mesh, recipe, placement and archive hashes. The
 object envelopes. Normalized extrusion amounts, widths, feature order and
 arc offsets match the source slice; one translated arc endpoint has a
 0.001 mm rounding difference. These readings do not establish physical
-bed adhesion. [prepare_mark1.py](https://github.com/derekbreden/homesodamachine/blob/15bf03ec45/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-close-z000-mark1/prepare_mark1.py) (in Git at `15bf03ec45`) reproduces the native
+bed adhesion. [prepare_mark1.py](https://github.com/derekbreden/homesodamachine/blob/5776755257/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-close-z000-mark1/prepare_mark1.py) (in Git at `5776755257`) reproduces the native
 project and slice using an empty named scratch directory; it submits no print.
 
 Mark1 accepted task/job **1333964128**, first observed RUNNING at
@@ -43,6 +43,6 @@ G-code hashes and circuit spacing. Printer 2 has the accepted job and time.
 Mark2's last accepted start remains 19:42:29 UTC; the earliest other-printer
 start or resume after this retry is **22:31:44 UTC / 5:31:44 pm CDT**.
 
-This is a retry of the [fallen-liner job](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-mark1/failure.json).
+This is a retry of the [fallen-liner job](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-mark1/failure.json).
 The physical result of this retry is pending. Cleanup, fit, grip performance
 and printed strength remain unassessed.

@@ -35,9 +35,9 @@ tools/run -- cargo run --release --locked -j2 \
     --example meanwell-irm90-replica -- hardware/reference/meanwell-irm90
 ```
 
-The [assembly-fit review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/assembly-fit-review/README.md)
+The [assembly-fit review](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/enclosure/enclosure/assembly-fit-review/README.md)
 records the module placement and installed-wire fit scope. The
 [conditional electrical Plan B](/future/carbonation-plan-b.md) depends on
 measured current and voltage under the intended load schedule.
 
-The source derivations are preserved at their recorded revision: [meanwell_irm90.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/meanwell-irm90/meanwell_irm90.py).
+The source derivations are preserved at their recorded revision: [meanwell_irm90.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/meanwell-irm90/meanwell_irm90.py).

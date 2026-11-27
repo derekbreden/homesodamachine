@@ -26,7 +26,7 @@ shape farther inside the tube. The production tube outside diameters remain the 
 
 From the repository root, with the capture archive present:
 
-The source derivations are preserved at their recorded revision: [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/lldpe-tubes/analyze_scan.py).
+The source derivations are preserved at their recorded revision: [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/lldpe-tubes/analyze_scan.py).
 
 The script verifies the raw cloud hash and point count, records its selection regions,
 checks outer-diameter sensitivity across three axial bands, and writes the measurement

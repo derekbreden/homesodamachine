@@ -2,7 +2,7 @@
 title: The reservoir vent passes the V-B wall and lower junction
 lede: A straight vent passage and a 2.5 mm westward WAGO offset keep the tube clear, with a broad wall root.
 date: 2026-10-28T00:46:06-05:00
-commit: 6db68a968 32aba2e2b
+commit: a8ab010ab b7de56b78
 model: manifold-layout/enclosure-assembly.step
 ---
 Reservoir B's 4 mm vent stands in a straight Ø5.2 mm passage through
@@ -12,7 +12,7 @@ X32.0 backing plane joins their wells to the valve wall.
 
 The valve, PCB, pump, reservoir bore and tube positions retain their
 datums. The twelve junction leads terminate at the selected ports.
-The [review record](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/cold-core/foam-cap/vent-review/README.md)
+The [review record](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/cold-core/foam-cap/vent-review/README.md)
 binds the native geometry, printed surface and reviewed Mark1 archive.
 
 Derek: “Good find, but please only raise to me the ones that you can fix entirely on your own, or that you and I can fix together right now quickly.”

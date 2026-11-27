@@ -27,7 +27,7 @@
     "gcode_sha256": "c3d90e75faec352850ed0cdd010f872c6465d5f5c2ccf7354a9c725e60a00118",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
     "model_sha256": "84a422f53577e960f830e932ea26481cb3d68729655c985d2e84ef571196f2a3",
-    "profile": "git:41b9062ec23befab0f355ed18676dd2b1b29c09f:hardware/printed-parts/enclosure/enclosure/enclosure-front-top-petgf.3mf",
+    "profile": "git:37c256e01e908581c8a9ea24a6a7a6d31ec4f8a0:hardware/printed-parts/enclosure/enclosure/enclosure-front-top-petgf.3mf",
     "profile_sha256": "99abeeb25ce51dfa0b2a40dec920d4cc14b5c8501eb02096cd531394b479a41e"
   },
   "interfaces": [

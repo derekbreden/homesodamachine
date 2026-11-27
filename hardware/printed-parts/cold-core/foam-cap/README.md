@@ -76,7 +76,7 @@ The V-B return presses into a curved C2 seat that follows the tube from its
 valve-side tangent to its fore-going tangent. A round-bottomed radial slot
 splits both lips into independently opening wings. The floor under the tube is
 continuous. Derek seated the black return tube in the crop of the complete
-bend and its lid footing. “Fit is good.” [Mark 1 fit record and photos](https://github.com/derekbreden/homesodamachine/blob/6f1ace30ded2ef1eec928d2c04f39be1b1b485dd/hardware/print-tests/vb-return-clip/prints/2026-11-21-mark1/physical-result/physical-result.json).
+bend and its lid footing. “Fit is good.” [Mark 1 fit record and photos](https://github.com/derekbreden/homesodamachine/blob/436ebff8a1b814e7b35ca8ff5585fb9bdd505d8c/hardware/print-tests/vb-return-clip/prints/2026-11-21-mark1/physical-result/physical-result.json).
 
 The V-A feed presses into an upward-opening C2 seat beside the PCB. The seat
 follows the end of the feed's bend and continues along the straight tube toward
@@ -95,7 +95,7 @@ up to its jaw's top, so the pair is one body. That jaw of the fill clip is squar
 whole length and joined to the root over the aft part of it, so it bends little. The clip's
 free jaw takes the fit of back-top's east-wall fill seat, which has one fixed jaw: a thinner
 jaw, standing further out from the stiff one
-([`reservoir_a::aft`](numbers/reservoir_a.rs)). The pair's [hand fit](https://github.com/derekbreden/homesodamachine/blob/5a5c589208a470c654f443981a4b9bc1802563cb/hardware/print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/physical-result/physical-result.json)
+([`reservoir_a::aft`](numbers/reservoir_a.rs)). The pair's [hand fit](https://github.com/derekbreden/homesodamachine/blob/62ee60e57a37209f04aed1586ca333b5fc9a9c97/hardware/print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/physical-result/physical-result.json)
 is accepted on a printed crop of the lid. The front-going J1/J2 cable bank has ordinary 3 mm
 outer/shared walls and 16 mm span. These features print above the lid's flat bed face.
 The tube clips' jaws stand side by side at the same print height, with both roots
@@ -172,6 +172,6 @@ With the lid on the bench, dress the pump plumbing and leads aside, spread the
 exposed leaves until both hooks clear their ledges and lift the cap straight up.
 The open side pockets give both feet room to swing out with the leaves.
 
-The [complete snap set](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/receiver-tool-access/README.md)
+The [complete snap set](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/receiver-tool-access/README.md)
 records the earlier receiver trials. The [pump fixture](../../../print-tests/pump-seated-snaps/README.md)
 preserves the production lid orientation, rail floors and end stops for bench checks.

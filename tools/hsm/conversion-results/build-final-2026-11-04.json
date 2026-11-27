@@ -2,11 +2,11 @@
   "date": "2026-11-04",
   "status": "complete",
   "scope": "Normal-build mesh/source readers, fine-asset adoption, projection, print/graft planning, source stripping, inventory, artifact identity/caches, dependency/action planning and BUILD rendering; shared resident transport.",
-  "source_revision_at_baseline": "582ca5d1376afb5620fe02f750280ae9b113cd28",
-  "head_at_record": "a6437a518fc6dfe2720dcc6f8adcaecb0bb79111",
+  "source_revision_at_baseline": "36a0ed8f5e17f6f63ecbdc054baafc402f379288",
+  "head_at_record": "4324bf3c7f30666acb12cf41f7f349ff2cb2ec78",
   "fixed_input_comparisons": {
     "verification": {
-      "source_revision": "582ca5d1376afb5620fe02f750280ae9b113cd28",
+      "source_revision": "36a0ed8f5e17f6f63ecbdc054baafc402f379288",
       "checks": 133,
       "max_numeric_error": 1.2470025012589758e-12,
       "all_passed": true,
@@ -2664,10 +2664,10 @@
     }
   ],
   "concurrent_mechanical_revisions": [
-    "d3025bc04",
-    "b5073ec7f",
-    "25a4b1197",
-    "a6437a518"
+    "f46a4fdc1",
+    "9e9f2c7e9",
+    "92938f203",
+    "4324bf3c7"
   ],
   "concurrent_mechanical_audit": "tools/hsm/conversion-results/enclosure-fit-carry-2026-11-04.json",
   "coverage": {
@@ -2678,7 +2678,7 @@
   },
   "report_reading": {
     "hardware/manifold-layout/drain-clearance-check.json": {
-      "recorded_source_revision": "a6437a518fc6dfe2720dcc6f8adcaecb0bb79111",
+      "recorded_source_revision": "4324bf3c7f30666acb12cf41f7f349ff2cb2ec78",
       "recorded_sha256": "16f33edf0c6f8c8904470f4bfda31304467807c300da34daf88e43f9b3419dc8",
       "built_sha256": "2a7e46dd7988f7082738f149b9f1e110588893d021ac02bf2c355309c55cadc6",
       "recorded_summary": {
@@ -2690,7 +2690,7 @@
       "changed_check_summaries": {}
     },
     "hardware/manifold-layout/enclosure-assembly.scorecard.json": {
-      "recorded_source_revision": "a6437a518fc6dfe2720dcc6f8adcaecb0bb79111",
+      "recorded_source_revision": "4324bf3c7f30666acb12cf41f7f349ff2cb2ec78",
       "recorded_sha256": "e23215319bd788bd9caffcbc625123f9513fefe4b351cc246144dbb32cba66e1",
       "built_sha256": "79df6a0c954a245509d1334b13236dd3e74b9221161cdd1917883b4a51816a30",
       "recorded_summary": {

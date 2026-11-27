@@ -120,7 +120,7 @@
       ]
     }
   },
-  "baseline_revision": "1c6498164a4fa879bebf758e06cce6ca25b93cff",
+  "baseline_revision": "6e6be6fe1021ebe96bbbcd404a7f3e94f3fb0b84",
   "integrated_source_sha256": {
     "BUILD.bazel": "5d60ed3ca43cebf4ab443cffc1a33bfa0ec056ac32addb1e1ed264cbf0588c50",
     "hardware/assembly/_acceptance_and_burn_in_sync.py": "433ccf0f7840f3eadd350a923d670a5c1bd909298e83e3c1bedfcaf5e4d943a8",
@@ -315,12 +315,12 @@
     "failure": "a rear plain land reaches the back-bottom print boundary",
     "failure_source": "hardware/printed-parts/enclosure/enclosure/_enclosure_panel.py",
     "result": "blocked by concurrent rear-panel geometry edits",
-    "source_commit": "831abd291",
+    "source_commit": "ad1460d42",
     "successful_piece_release_build": "all nine Rust data/document packages, --release --locked --offline"
   },
   "pieces": {
     "assembly-documents": {
-      "baseline_revision": "1c6498164",
+      "baseline_revision": "6e6be6fe1",
       "binary_sha256": "2378e864c7dd6571ab9edc4d8edc3f99ac86081b5aa87671ec4cbcb38f48834c",
       "build": "release build completed without warnings; Cargo via tools/run.py, two jobs",
       "document_count": 21,
@@ -499,7 +499,7 @@
       "stated_bound_rows_exact": 3
     },
     "documents": {
-      "baseline_revision": "1c6498164",
+      "baseline_revision": "6e6be6fe1",
       "document_cases": 150,
       "export_cases": 14,
       "input_set_sha256": "638e352aa8528798a74fa207e8db122082ea212a731ff143a6262288e2835e3d",
@@ -649,7 +649,7 @@
           "new_schema_output_groups_exact": 8,
           "new_schema_python_adapter": "pass",
           "normal_build": "Not run; targeted scalar/recipe compatibility only.",
-          "original_layout_revision": "1c6498164",
+          "original_layout_revision": "6e6be6fe1",
           "original_layout_sha256": "c3ce79ed97206b1012531fa6fab1bcda858da2251dbe360b3eb3e1138412726f",
           "release_build": "cargo build --release --locked --offline -p hsm-enclosure-data -j 2: pass",
           "result": "pass"
@@ -694,7 +694,7 @@
         "Python geometry builder and manual native review interfaces in these modules"
       ],
       "scope": "Enclosure leaf scalar interfaces, construction recipes, numerical readers and document reports. Existing Rust geometry programs consume these recipes.",
-      "source_revision": "1c6498164",
+      "source_revision": "6e6be6fe1",
       "source_sha256": {
         "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": "23211d119a86655e3dd6a43def64c39b69c97203965ad367b8859e2a3156edb0",
         "hardware/printed-parts/enclosure/data-ring/data_ring.py": "08c94e801c970397f424d1caf3c96ee30489b4dda6718ec3d483165eb6af69a6",
@@ -713,7 +713,7 @@
       }
     },
     "faucet": {
-      "baseline_revision": "1c6498164a4fa879bebf758e06cce6ca25b93cff",
+      "baseline_revision": "6e6be6fe1021ebe96bbbcd404a7f3e94f3fb0b84",
       "build": "tools/run.py -- cargo build --release --locked -j 2 --bin faucet-data",
       "domain_errors_preserved": true,
       "fixed_fixture_sha256": {
@@ -796,7 +796,7 @@
       "cases": 110,
       "maximum_absolute_difference_mm": 5.684341886080802e-14,
       "numeric_values": 10467,
-      "source_revision": "1c6498164a4fa879bebf758e06cce6ca25b93cff"
+      "source_revision": "6e6be6fe1021ebe96bbbcd404a7f3e94f3fb0b84"
     },
     "layout-routes": {
       "maximum_absolute_difference_mm": 5.684341886080802e-14,
@@ -809,7 +809,7 @@
         "rear-route-specs": 5,
         "route-specifications": 12
       },
-      "source_revision": "1c6498164a4fa879bebf758e06cce6ca25b93cff",
+      "source_revision": "6e6be6fe1021ebe96bbbcd404a7f3e94f3fb0b84",
       "specification_sha256": "c3ce79ed97206b1012531fa6fab1bcda858da2251dbe360b3eb3e1138412726f",
       "station_table_sha256": "78f56243501318e9bed2f95924625475b098bfe0bce477d43018dff0938301d1",
       "unresolved_corridor_answer": true,
@@ -826,7 +826,7 @@
         "hardware/scripts/_machine_time.py": "6b3bde2ded3d65d7f8fd41e7181b653db480dfc2c1bea3b5e2de160c380777fb",
         "hardware/scripts/_tools_totals.py": "f9a04eb20bc941cef76580a44c73aa1132f99543012af606b028d583e1b69d73"
       },
-      "baseline_source_revision": "1c6498164a4fa879bebf758e06cce6ca25b93cff",
+      "baseline_source_revision": "6e6be6fe1021ebe96bbbcd404a7f3e94f3fb0b84",
       "comparisons": {
         "bom_hardware_counts_and_documents": {
           "checks": 286,
@@ -1034,7 +1034,7 @@
         "box-common-plan"
       ],
       "numeric_absolute_tolerance_mm": 1e-08,
-      "source_revision": "1c6498164a4fa879bebf758e06cce6ca25b93cff",
+      "source_revision": "6e6be6fe1021ebe96bbbcd404a7f3e94f3fb0b84",
       "status": "passed"
     },
     "part-recipes": {
@@ -1105,7 +1105,7 @@
         "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py"
       ],
       "scope": "Scalar construction recipes, readers, independent analytical measurements and document-variable outputs; the existing geometry programs consume identical recipes.",
-      "source_revision": "1c6498164",
+      "source_revision": "6e6be6fe1",
       "source_sha256": {
         "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "de7980e0f8bbe230efd6c3762af197e4ec645077ac151f72abcb6490bf9aa896",
         "hardware/printed-parts/asse-straight-cuffs/asse_straight_cuffs.py": "88d2596bb66dd60ac8cfc2051f7b7cab3847741337e73f736931c9fcafe315b4",

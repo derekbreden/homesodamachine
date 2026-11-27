@@ -4,10 +4,10 @@
   "purpose": "This record preserves Rust Manifold cutover measurements, print surfaces, construction identities and published-view evidence.",
   "status": "complete",
   "source_commits": {
-    "cpp_baseline": "be19fb8a4693edecead5753aa2bcb42c54dcdbf0",
-    "rust_engine": "604bada87c639f782025870fbb2a9e4074097ee9",
-    "cpp_bridge_retirement": "2a5bb1e12423c866cefeb18d92c118b2e34da589",
-    "print_bindings": "4a8277b8aac6f9eb71a065429b3b765007e69980"
+    "cpp_baseline": "84f0e2d2dd7b0ed9269d94046b3d1431fc4d7dab",
+    "rust_engine": "fbf7e32983d17f8201ee8ba13a7a0e55c95c79ff",
+    "cpp_bridge_retirement": "d5438bb42737232c39658fd70081be53cad470e3",
+    "print_bindings": "eabdc063a6e93a2c8e3f159dfda856954d82c802"
   },
   "engine": {
     "crate": "manifold-rust",
@@ -1405,7 +1405,7 @@
     "installed_engine": true,
     "installed_existing_tools": 33,
     "full_build": {
-      "source_commit": "2a5bb1e12423c866cefeb18d92c118b2e34da589",
+      "source_commit": "d5438bb42737232c39658fd70081be53cad470e3",
       "wall_seconds": 467.406303291,
       "completed": true,
       "success": false,
@@ -1433,7 +1433,7 @@
       }
     },
     "confirmation": {
-      "source_commit": "c6b73e56c3a8e2db84715accd7e4182ec7b2afea",
+      "source_commit": "59266033674477ea0c8672f437328c7f7fb8450f",
       "wall_seconds": 4.184707375,
       "completed": true,
       "success": true,
@@ -1496,7 +1496,7 @@
     "derive": {
       "id": 42909491974,
       "url": "https://github.com/derekbreden/homesodamachine/actions/runs/42909491974",
-      "source_commit": "2a5bb1e12423c866cefeb18d92c118b2e34da589",
+      "source_commit": "d5438bb42737232c39658fd70081be53cad470e3",
       "status": "completed",
       "conclusion": "success",
       "started_at": "2026-11-10T21:54:12Z",

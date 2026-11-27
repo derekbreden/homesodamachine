@@ -66,11 +66,11 @@ it at the time:
 | file | trim | printer preset |
 | --- | --- | --- |
 | [`petgf.profile.json`](petgf.profile.json) | +0.04 | `Bambu Lab H2C 0.4 nozzle 04 first layer by agent`, first layer 265 °C |
-| history-only `git:a2cf12f3b:hardware/printed-parts/petgf.3mf` | +0.17 | `Bambu Lab H2C 0.4 nozzle 17 first layer by agent`, first layer 280 °C |
-| history-only `git:41b9062ec23befab0f355ed18676dd2b1b29c09f:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf` | +0.02 | `Bambu Lab H2C 0.4 nozzle`, the start G-code its one project override |
-| history-only `git:0a171e777348bf368f97559c722d11fe5fef9ffb:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf` | +0.02 | the same snapshot turned onto its ceiling, unprinted |
+| history-only `git:a94538172:hardware/printed-parts/petgf.3mf` | +0.17 | `Bambu Lab H2C 0.4 nozzle 17 first layer by agent`, first layer 280 °C |
+| history-only `git:37c256e01e908581c8a9ea24a6a7a6d31ec4f8a0:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf` | +0.02 | `Bambu Lab H2C 0.4 nozzle`, the start G-code its one project override |
+| history-only `git:c8e1a41e96f422781847c5e175d9bbb6cd203b1f:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf` | +0.02 | the same snapshot turned onto its ceiling, unprinted |
 
-The `a2cf12f3b` profile runs its **first layer at 280 °C**, the same nozzle temperature as the
+The `a94538172` profile runs its **first layer at 280 °C**, the same nozzle temperature as the
 rest of the print rather than a cooler one; the retained `petgf.3mf` carries a 265 °C first layer
 on the `04` preset, and which of the two a long first-layer loop is sliced with is decided at the
 printer. What asked for 280 °C and +0.17 is the welding rotary table: two plates of it failed in the first layer or two off a 265 °C first

@@ -2,7 +2,7 @@
 title: The mains inlet mounts inside the rear wall
 lede: The relocated inlet keeps its flange and screws inside. A recessed cord passage clears the plug's retention ribs, with the ceiling intact above it.
 date: 2026-11-07T00:36:14-06:00
-commit: 34dce5867 c6f1d84de
+commit: 732d4bd1e 98ee46521
 model: manifold-layout/enclosure-assembly.step
 ---
 

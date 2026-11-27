@@ -5,7 +5,7 @@ together — printed once in PETG and once in PET-GF and set side by side. They 
 appearance claims in the enclosure's [reeded skin](/hardware/printed-parts/enclosure/enclosure/README.md#the-reeded-skin) and the cold core's own prose are read off.
 
 This is not the corner coupon and does not stand in for it. That coupon — two 50 mm standing
-walls meeting at the box's rounded corner, at `1aa6b47c8` under
+walls meeting at the box's rounded corner, at `c65c1a51e` under
 `hardware/printed-parts/enclosure/texture-corner/` — settled the **figures**: the profile, the
 depth, the sampling step, the ramp distance, and that a groove crosses the corner's quarter turn
 by arc length without a seam. A sample that size can prove a groove cuts and prints clean. It

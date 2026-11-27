@@ -2,7 +2,7 @@
 title: Reservoir A's lines snap into the lid at the aft station
 lede: The tied saddle on the cold core's lid is replaced by two snap clips that follow the lines' turns. The tie and its slot are gone.
 date: 2026-11-20T17:45:07-06:00
-commit: f250589af1cb456cf44db319f71cb025b7677224 57e94bcf0af418a0f10cc7d5d9f356322292af7b
+commit: cb813d840bc63d506a96ad767a30761e95d9e048 b78482c0fb5fa68fc2449b2403277ce5055e7685
 model: manifold-layout/enclosure-assembly.step
 ---
 Reservoir A's fill and draw lines cross the lid on their way to the reservoir. At the fore station they press down into a pair of integral clips. At the aft station they lay in an open stepped saddle and one tie held them both, threaded through a slot under the saddle.
@@ -11,7 +11,7 @@ The aft station now has the same clips as the fore pair. Each is turned along it
 
 The filled side squares one jaw of the fill line's clip along its whole length and joins it to the root over the aft part of it, so that jaw bends little. The clip's free jaw has the fit of back-top's east-wall fill seat, which also has one fixed jaw: a thinner jaw, standing further out from the fixed one, as Derek set it there and fitted it in hand.
 
-The tie leaves the parts list and the assembly steps, and the lid's print needs no blocker for a tie passage. Derek seated both tubes in the [crop printed on Mark1](https://github.com/derekbreden/homesodamachine/blob/5a5c589208a470c654f443981a4b9bc1802563cb/hardware/print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/physical-result/physical-result.json): "Fit is good."
+The tie leaves the parts list and the assembly steps, and the lid's print needs no blocker for a tie passage. Derek seated both tubes in the [crop printed on Mark1](https://github.com/derekbreden/homesodamachine/blob/62ee60e57a37209f04aed1586ca333b5fc9a9c97/hardware/print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/physical-result/physical-result.json): "Fit is good."
 
 Derek: "I would like snap tube holders here please."
 

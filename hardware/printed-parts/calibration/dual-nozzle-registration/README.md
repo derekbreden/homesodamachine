@@ -18,8 +18,8 @@ The selected displacement is the correction to apply to white;
 the measured relative error has the opposite sign. Do not extrapolate beyond
 the coupon. A photograph perpendicular to the surface can document the reading.
 
-The [geometry source](https://github.com/derekbreden/homesodamachine/blob/22a3f0d2e5ab3d0f06018a8fb12baea51ba14578/hardware/printed-parts/calibration/dual-nozzle-registration/registration.py) is archived in Git. [`prepare_print.py`](https://github.com/derekbreden/homesodamachine/blob/15bf03ec45/hardware/printed-parts/calibration/dual-nozzle-registration/prepare_print.py) (in Git at `15bf03ec45`) packages
-it with the saved PET-GF profiles. [`verify_print.py`](https://github.com/derekbreden/homesodamachine/blob/44191ff08b/hardware/printed-parts/calibration/dual-nozzle-registration/verify_print.py) (in Git at `44191ff08b`) checks all 60 emitted
+The [geometry source](https://github.com/derekbreden/homesodamachine/blob/60c5b099e1f6c7b3f75442a3b092bcc17e4fc4e8/hardware/printed-parts/calibration/dual-nozzle-registration/registration.py) is archived in Git. [`prepare_print.py`](https://github.com/derekbreden/homesodamachine/blob/5776755257/hardware/printed-parts/calibration/dual-nozzle-registration/prepare_print.py) (in Git at `5776755257`) packages
+it with the saved PET-GF profiles. [`verify_print.py`](https://github.com/derekbreden/homesodamachine/blob/8e5371c0d5/hardware/printed-parts/calibration/dual-nozzle-registration/verify_print.py) (in Git at `8e5371c0d5`) checks all 60 emitted
 candidate displacements across both rows and both raised layers. It also checks
 the native checksum, source hashes, filament mapping, layer planes and no support.
 The plate uses 0.20 mm first, 0.28 mm second, then 0.24 mm layers, with the normal
@@ -40,19 +40,19 @@ The correction belongs to Mark2's current nozzle pair. The nominal CAD artwork
 and black cavity meshes remain aligned. Bambu Studio's native `extruder_offset`
 is `0x0` for left/black and `0.5x-0.7` for right/white. Its
 [`point_to_gcode` implementation](https://github.com/bambulab/BambuStudio/blob/master/src/libslic3r/GCode.cpp)
-subtracts that configured offset from model coordinates. [`verify_correction.py`](https://github.com/derekbreden/homesodamachine/blob/15bf03ec45/hardware/printed-parts/calibration/dual-nozzle-registration/verify_correction.py) (in Git at `15bf03ec45`)
+subtracts that configured offset from model coordinates. [`verify_correction.py`](https://github.com/derekbreden/homesodamachine/blob/5776755257/hardware/printed-parts/calibration/dual-nozzle-registration/verify_correction.py) (in Git at `5776755257`)
 checks the actual emitted model paths against the uncorrected native slice;
 the maximum normalized path difference is 0.000691 mm, within export rounding.
 The native purge-tower entry movements are checked separately.
 
-The [raised-artwork nameplate](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wings-mark2-v3/README.md)
+The [raised-artwork nameplate](https://github.com/derekbreden/homesodamachine/blob/c4c14e076dc4b541a01bf724889156f60828bf2b/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wings-mark2-v3/README.md)
 has user-accepted artwork appearance, recorded in its
-[physical result](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wings-mark2-v3/physical-result.json).
+[physical result](https://github.com/derekbreden/homesodamachine/blob/c4c14e076dc4b541a01bf724889156f60828bf2b/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wings-mark2-v3/physical-result.json).
 Residual XY error and QR scanning remain unmeasured. The
-[TAP and FLAVOR collar print](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2/README.md)
+[TAP and FLAVOR collar print](https://github.com/derekbreden/homesodamachine/blob/c4c14e076dc4b541a01bf724889156f60828bf2b/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2/README.md)
 uses the same correction and has
-[user-accepted finish and clear lettering](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2/physical-result.json).
+[user-accepted finish and clear lettering](https://github.com/derekbreden/homesodamachine/blob/c4c14e076dc4b541a01bf724889156f60828bf2b/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2/physical-result.json).
 Recheck after changing a hotend or calibration condition.
 
 The current native review and launch receipt are retained in
-[`2026-09-29-registration-mark2-v3`](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v3/README.md).
+[`2026-09-29-registration-mark2-v3`](https://github.com/derekbreden/homesodamachine/blob/c4c14e076dc4b541a01bf724889156f60828bf2b/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v3/README.md).

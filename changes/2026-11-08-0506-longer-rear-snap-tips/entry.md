@@ -2,7 +2,7 @@
 title: Longer pointed tips across the rear snaps
 lede: Every rear cap shares the accepted longer lead-in, with matching space in its complete receiver.
 date: 2026-11-08T05:06:45-06:00
-commit: 599cbb933
+commit: cc7f1f505
 model: manifold-layout/enclosure-assembly.step
 ---
 The ASSE, Pisco, flow-meter, water-regulator and rear pump caps use the same longer planar lead-in. Their spring walls, root blends, catches, lateral reach and hardware seats retain their approved geometry.

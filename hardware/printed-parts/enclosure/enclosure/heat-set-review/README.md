@@ -96,7 +96,7 @@ fine show-layer bands, production orientations and support policy remain part
 of each native review. A CAD solid or a few perimeter loops do not make the
 interior solid. Each production job requires these regions bound to its current
 mesh and a fresh emitted-path and support-removal review. The
-[RC62 archives](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/enclosure/enclosure/magnet-retention/queue.json) retain their identified article
+[RC62 archives](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/enclosure/enclosure/magnet-retention/queue.json) retain their identified article
 scope.
 
 The corner stacks follow manufacturer insert geometry and carry the seam's load
@@ -105,7 +105,7 @@ Polymaker's printed-specimen tensile data cannot supply a measured interlayer
 shear allowable for these joints. A filled assembled enclosure, its landing
 orientation and actual stopping distance determine the relevant drop result.
 
-The bound [insert audit source](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/enclosure/enclosure/heat-set-review/audit.py) is archived in Git.
+The bound [insert audit source](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/printed-parts/enclosure/enclosure/heat-set-review/audit.py) is archived in Git.
 Current reinforcement regions come from the native print-preparation command:
 
 ```sh

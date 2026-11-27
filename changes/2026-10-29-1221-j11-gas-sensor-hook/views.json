@@ -67,7 +67,7 @@
           "payload": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
           "from": "snapshot",
           "sha256": "5760a79bc2a499ce99f49e15a5b24dadefb7bcb12f31c17756467364286a1e92",
-          "commit": "98b3f48eec52207e09778c04862ee7c91bab8bba",
+          "commit": "b8b77df1e04fa0175e315f308ce67e47627f0501",
           "taken": "2026-10-29T16:39:24.618Z",
           "published": true
         },
@@ -75,7 +75,7 @@
           "payload": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
           "from": "file",
           "sha256": "1ec2696fc7ade1471cd95e8c54dd1b9a3949ebdd48e673d6fca7487583a0aee0",
-          "commit": "ab001c79978366c0e5466cbda089c5fb5247b1cc"
+          "commit": "16b6e0dd9a208b2bef1080898c9b0831eb3341eb"
         }
       },
       "changed": [

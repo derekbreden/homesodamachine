@@ -16,7 +16,7 @@ is free to flex and has the source-selected spring section and jaw opening. The
 separate removable support strips under that wing. Their breakaway feet start
 on the lower wing, and a screwdriver can reach them through the open mouth.
 
-The [hand-fit record](https://github.com/derekbreden/homesodamachine/blob/9f92649048b4168ef0ad479a5773a7d12fb22977/hardware/print-tests/tube-snap-corbel/prints/2026-11-20-mark1-upper-wing-support/physical-result/physical-result.json)
+The [hand-fit record](https://github.com/derekbreden/homesodamachine/blob/f15bb9b4dbab8cd2046ea8e1e8e08d13539381d2/hardware/print-tests/tube-snap-corbel/prints/2026-11-20-mark1-upper-wing-support/physical-result/physical-result.json)
 accepts the fill tube in a printed crop of the production seat. It does not
 establish the complete back-top's cleanup or the support strips' release.
 
@@ -36,7 +36,7 @@ stacked across the seat height. Finish braid and heat shrink outside the
 retained straight span. The connector order through the web is GND, V5, IO2,
 IO19 from installed positive Z to negative Z. The V-K hook holds
 `J2-positive-K`. The [cable preparation instructions](../../../../assembly/cable-assemblies.md#back-top-clip-preparation-and-service)
-cover dressing and release. The [combined coupon result](https://github.com/derekbreden/homesodamachine/blob/1f49ea24e261b5b74e8b82d8c3e9ac5690736952/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
+cover dressing and release. The [combined coupon result](https://github.com/derekbreden/homesodamachine/blob/3ab1ec6115ec6c853b0ac3bf33d2a4caf3e08c4e/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
 accepts the relay ribbon's fit and qualitative retention; the other cable
 hooks remain provisional.
 

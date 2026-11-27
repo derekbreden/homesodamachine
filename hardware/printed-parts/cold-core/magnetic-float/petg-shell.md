@@ -19,7 +19,7 @@ the successful May 30 clear reservoir recipe's sealing controls with Translucent
 
 The [reservoir print log, attempt 3](../reservoir/print-log.md)
 records hours of water retention with the gaskets installed. The exact printed
-project is retained in Git at [fbde08ba9f2eac1f620ce9d9fb9ac016e95e9be9](https://homesodamachine.com/print-archive/7d7e3fabf16884e161e524e9820dbc69758c953a/reservoir.3mf).
+project is retained in Git at [ff387cf78a78eed3129ef247baba7f9d33b1a903](https://homesodamachine.com/print-archive/7d7e3fabf16884e161e524e9820dbc69758c953a/reservoir.3mf).
 Its saved preset is `Bambu PETG Water`, using **GFG00, PETG Basic** settings.
 The actual filament was **Bambu PETG clear**, confirmed by Derek on 2026-10-05.
 [petg-water-recipe.json](petg-water-recipe.json) extracts the active left-nozzle
@@ -131,7 +131,7 @@ replaces Aero within the fixed exterior volume. The specified 3 mm wall
 preserves useful lift while providing material depth and ovalization resistance.
 The [research calculation](pressure-printing-sources.json) records this tradeoff.
 
-[pressure_analysis.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/cold-core/magnetic-float/pressure_analysis.py) produces the independent annulus
+[pressure_analysis.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/printed-parts/cold-core/magnetic-float/pressure_analysis.py) produces the independent annulus
 calculation and the pressure/stiffness sensitivity in
 [pressure-analysis.json](pressure-analysis.json). With full pressure differential
 and no structural credit for the foam, Lamé thick-cylinder equations give:

@@ -53,7 +53,7 @@ sides of the holder's square footprint.
 | 2 mm | square | |
 | 3 mm | square | |
 
-The [archived geometry source](https://github.com/derekbreden/homesodamachine/blob/22a3f0d2e5ab3d0f06018a8fb12baea51ba14578/future/tube-bend-holder-exploration/tube_bend_holder.py) defines `holder-w2`, `holder-w3` and `holder-w4`,
+The [archived geometry source](https://github.com/derekbreden/homesodamachine/blob/60c5b099e1f6c7b3f75442a3b092bcc17e4fc4e8/future/tube-bend-holder-exploration/tube_bend_holder.py) defines `holder-w2`, `holder-w3` and `holder-w4`,
 and `holder-w2-leg1`, `-leg2` and `-leg3`, each as a STEP and the STL the slicer reads.
 
 ## Prints

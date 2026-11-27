@@ -2,7 +2,7 @@
 title: The water-pressure regulator fits inside beside the pump
 lede: One tied post on the cold-core lid carries the regulator. Its two tube routes leave the funnel free to grow toward −Y.
 date: 2026-10-22T00:34:21-05:00
-commit: 202743328caf02145ffdcf0f4785e3368bfa646e
+commit: 573fb645ee93fef4cb4f91d30770959768c92765
 model: manifold-layout/enclosure-assembly.step
 ---
 [Locate the regulator and both tubes in 3D](https://homesodamachine.com/3d#step:manifold-layout%2Fenclosure-assembly.step?find=view%3A%20az%3D126%20el%3D40%0Asolid%3A%20flow-regulator%0Asolid%3A%20tube-fluid-1%0Asolid%3A%20tube-fluid-2).

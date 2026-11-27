@@ -1,8 +1,8 @@
 {
   "purpose": "Measured source edits through native producers and publication to painted changes on the live website.",
   "date": "2026-11-07",
-  "source_commit": "f6a30bb50253690fc50eee6cf4775aface09922f",
-  "reader_commit": "18cc0037b60b286d5d64dffd732e47111f7b4261",
+  "source_commit": "195168dd46b5bd8be117cb6486a28a56470f6e77",
+  "reader_commit": "b22558098700f92618fdc71665331bbb18550571",
   "source_sha256": {
     "hardware/printed-parts/enclosure/enclosure/enclosure_pump_retainer.rs": "b2933567122dc18dddc2067d546afc10c62b576af017d2d8bc655e89d434a64f",
     "hardware/printed-parts/enclosure/enclosure/enclosure_pump_tube_setting_jig.rs": "9bb5f8dfc7a5b0a59cfdd8147a5ab9dab46b03d196beabd567c674d1cd89ed32",
@@ -58,7 +58,7 @@
       "first_visible_seconds": 11.512762069702148,
       "all_current_seconds": 18.53046202659607,
       "camera_preserved": true,
-      "reader_commit": "18cc0037b60b286d5d64dffd732e47111f7b4261",
+      "reader_commit": "b22558098700f92618fdc71665331bbb18550571",
       "phase": "final reader; warmed executables and geometry",
       "parts": [
         {
@@ -93,7 +93,7 @@
       "first_visible_seconds": 10.526604175567627,
       "all_current_seconds": 16.57530403137207,
       "camera_preserved": true,
-      "reader_commit": "18cc0037b60b286d5d64dffd732e47111f7b4261",
+      "reader_commit": "b22558098700f92618fdc71665331bbb18550571",
       "phase": "final reader; restored production dimensions",
       "parts": [
         {
@@ -128,7 +128,7 @@
       "first_visible_seconds": 15.37909197807312,
       "all_current_seconds": 21.48289203643799,
       "camera_preserved": true,
-      "reader_commit": "1c25febe7c09219d549917df313fbd9d5ded58e2",
+      "reader_commit": "7a3e63472f5f70ad3a6b9efe369cb5fa7b7728e0",
       "phase": "viewer-first publication before the browser instance cache",
       "parts": [
         {
@@ -163,7 +163,7 @@
       "first_visible_seconds": 34.13974189758301,
       "all_current_seconds": 34.13974189758301,
       "camera_preserved": true,
-      "reader_commit": "1c25febe7c09219d549917df313fbd9d5ded58e2",
+      "reader_commit": "7a3e63472f5f70ad3a6b9efe369cb5fa7b7728e0",
       "phase": "native source placement and dependent wiring; retained geometry references",
       "parts": [
         {
@@ -181,7 +181,7 @@
       "first_visible_seconds": 33.845396995544434,
       "all_current_seconds": 33.845396995544434,
       "camera_preserved": true,
-      "reader_commit": "1c25febe7c09219d549917df313fbd9d5ded58e2",
+      "reader_commit": "7a3e63472f5f70ad3a6b9efe369cb5fa7b7728e0",
       "phase": "restored production placement",
       "parts": [
         {
@@ -199,7 +199,7 @@
     "first_visible_seconds": 121.83165001869202,
     "all_current_seconds": 122.97965002059937,
     "camera_preserved": true,
-    "reader_commit": "18cc0037b60b286d5d64dffd732e47111f7b4261",
+    "reader_commit": "b22558098700f92618fdc71665331bbb18550571",
     "phase": "cold metadata executable receipt during website deployment",
     "parts": [
       {

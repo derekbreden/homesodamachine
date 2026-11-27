@@ -2,7 +2,7 @@
 title: The purchased pump follows its scans
 lede: The pump reference shows its molded head, mounting flange, adapter, motor and visible hardware from the registered captures.
 date: 2026-11-08T09:33:58-06:00
-commit: 8ba5cc44f
+commit: 88c9acc58
 model: reference/kamoer-kphm400/kamoer-kphm400.step
 ---
 The production assembly places the scanned exterior in its existing reference frame. The

@@ -1,7 +1,7 @@
 {
   "purpose": "Bind the isolated Pisco snap cover and native cooling tower to the job accepted by Mark2.",
   "status": "started",
-  "source_commit": "99a5d58980036f087f4a2f9baf7c6ffd4b1e324e",
+  "source_commit": "949e16b0557f034c04c33a1fcf53685aa6919c77",
   "printer": "Mark2",
   "printer_task_id": "1456920845",
   "accepted_at": "2026-11-18T04:36:52+00:00",

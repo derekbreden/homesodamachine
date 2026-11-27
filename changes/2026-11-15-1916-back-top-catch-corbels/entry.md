@@ -2,7 +2,7 @@
 title: The back-top catches no screwdriver reaches stand on corbels
 lede: The ASSE's east catch, both Pisco catches and the meter's aft shoulder now climb a wall at a printable slope, and the caps fit them.
 date: 2026-11-15T19:16:01-06:00
-commit: b39487f89822c58110facb43f391860294c167cf
+commit: e907b50c5d85f7feb0f40e1854b96ddce05a1497
 model: manifold-layout/enclosure-assembly.step
 ---
 The stopped Mark 1 back-top printed its snap catches as long flat bridges, and they sagged. A catch whose pocket a screwdriver can reach now prints on removable support: both of the water regulator's catches and the ASSE's west one, along with the C14 inlet's pocket and passage roofs.

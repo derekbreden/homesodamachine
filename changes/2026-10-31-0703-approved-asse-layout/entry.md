@@ -2,7 +2,7 @@
 title: The approved ASSE assembly becomes the machine's production layout
 lede: The threaded rear header, snap-mounted equipment and continuous core connections share one fitted assembly. The harness follows the finished mechanical layout.
 date: 2026-10-31T07:03:42-05:00
-commit: 1b493813f1caf1c5df06e1814fb1daa86572f9ca 05d3feac4 6e236900a f75f7971c e3ab904aa
+commit: 062f4aaf9c00f4e5bc6df43f2e8c82bc3bc57d4c 95a759677 c804411e7 15e44f30a 453ea3ae3
 model: manifold-layout/enclosure-assembly.step
 ---
 The rear inlet follows the approved order: TAP adapter, GAGIRA coupling, downward-venting ASSE body and threaded outlet reducer. The raised tee feeds the pump inlet, water regulator and V-A. Pisco and its stem check occupy the upper gas lane; the meter connects directly to SODA.

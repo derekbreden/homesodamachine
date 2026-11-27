@@ -60,7 +60,7 @@ For an individual water-regulator cover, use the `single-regulator-cap`
 [preparation recipe](../trial-preparation/pieces.json). Its native smooth-timelapse
 tower provides time away from the cap between layers while retaining the
 current cap geometry and production deposition recipe. The
-[print record](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-07-single-regulator-mark2/README.md) identifies the
+[print record](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-07-single-regulator-mark2/README.md) identifies the
 emitted timing and physical-review state. The
 [cooling policy](../../cooling/README.md#small-individual-parts) describes the
 batch-time requirement.
@@ -68,12 +68,12 @@ batch-time requirement.
 For an individual Pisco cover, use `single-pisco-cap` on textured PEI. The
 cover stands on its axial end, prints without support and uses the native
 smooth-timelapse tower for cooling between layers. Select Timelapse On.
-[Earlier raised-tip print job](https://github.com/derekbreden/homesodamachine/blob/28db775ffbc3650516a81910b1d5a603cd326bb7/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark1/print-job.json)
+[Earlier raised-tip print job](https://github.com/derekbreden/homesodamachine/blob/5df6e488185fc5e829f27fd76440866037d9a331/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark1/print-job.json)
 
 Remove the small cavity supports with a tiny flathead screwdriver that fits
 inside the opening. Derek reports that the original trial's small automatic
 cavity supports removed easily with that tool. Preserve the flat catch
-undersides while clearing them. The [physical record](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/rear-snap-retention/physical-result/physical-result.json)
+undersides while clearing them. The [physical record](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/rear-snap-retention/physical-result/physical-result.json)
 records this removal result and the hardware fit observations.
 
 For release, put a small flat blade into the receiver channel beside the

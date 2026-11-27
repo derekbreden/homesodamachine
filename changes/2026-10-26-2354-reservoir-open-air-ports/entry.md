@@ -2,7 +2,7 @@
 title: The reservoir air tube opens directly through its TPU grommet
 lede: Each lid has a plain countersunk air port. The 4 mm tube slides through its flush TPU grommet and opens into the headspace.
 date: 2026-10-26T23:54:55-05:00
-commit: ea33127158f488ad486f9ec19ea3237e23661354
+commit: 3c178196d86f1f4811891a062bfccf0cbc5b81d7
 model: manifold-layout/enclosure-assembly.step
 ---
 Each lid has two larger liquid-tube grommet seats and one smaller air-tube grommet seat. The 4 mm air tube opens 1 mm below the lid plate, directly into the reservoir headspace. Both TPU end faces sit flush with the plate.

@@ -5,8 +5,8 @@
   "connection_key": "H2C",
   "status": "started",
   "printer_task_id": "1438216432",
-  "source_commit": "edbc97a345ccbcbef7f744a779f249cc92909d3c",
-  "build_base_commit": "2c3aa15f287f4901d0ef675e9e623b02791bd8b1",
+  "source_commit": "e9da74690ecbe7fa73ca73692ef4f498bbbe71fd",
+  "build_base_commit": "1b3552e4b275063f959ebd26425b48f561824551",
   "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
   "source_stl_sha256": "0fe1c4f6cad10a003be82101065b73eaea3d4a4f0824795a60ed37083355e3fc",
   "source_model_payload": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
@@ -106,7 +106,7 @@
       "support_roads_in_pocket": 0
     }
   ],
-  "accepted_fit_evidence": "https://github.com/derekbreden/homesodamachine/blob/d7924ed62aa3d398b92454ce9c695e220c5b946b/hardware/print-tests/front-top-wago-fit/2026-11-13-mark1-six-dot-rail-trees/physical-result/physical-result.json",
+  "accepted_fit_evidence": "https://github.com/derekbreden/homesodamachine/blob/737ed68c8b96243e5a96b0d4d5c41dc7c7e1012b/hardware/print-tests/front-top-wago-fit/2026-11-13-mark1-six-dot-rail-trees/physical-result/physical-result.json",
   "launch": "launch.json",
   "startup": "startup-status.json"
 }

@@ -76,7 +76,7 @@
           "payload": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
           "from": "snapshot",
           "sha256": "554e00a36daaeae0693a962322ee2d638aef2c07ebda6899fd343e9531c37de2",
-          "commit": "a92eb4267afe178a074fac44229c315bfeffa123",
+          "commit": "33b9b8929545bf48104525c498aed6b692543972",
           "taken": "2026-10-25T09:36:27.966Z",
           "published": true
         },
@@ -84,7 +84,7 @@
           "payload": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
           "from": "tree",
           "sha256": "096b5895d95404ff87db32d98b3fb9e7b52f592a699babf10c4c2c414b1687c8",
-          "commit": "4ac2f8d407afa176aa54d72ee043b1523f6505c2",
+          "commit": "93967bbbf0389348ee833916b0c55e796c92f422",
           "published": true
         }
       },

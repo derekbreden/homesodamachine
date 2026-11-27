@@ -2,7 +2,7 @@
 title: Flow-meter cover gains 0.40 mm of depth behind its snaps
 lede: The saddle and its 9 mm spine move outward together. Both wing tips return to the +0.40 mm crest that fit best in the bench comparison.
 date: 2026-11-24T16:53:49-06:00
-commit: 69873dc2ed26f56f74d4842401f8eeff7eab7e24
+commit: 8e3688f24aabd3ef67cf2127c883822f1efdffda
 model: manifold-layout/enclosure-assembly.step
 ---
 

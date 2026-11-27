@@ -39,7 +39,7 @@
     "git_blob": "4893168d4ffb8ce4806d50ddbfa98040694e6e05",
     "release_archive": "2026-11-26-mark2-supported-meter-60bf08b87788a494.zip"
   },
-  "source_and_recipe_commit": "244e007084db110e1637030c3bfadb8474e4de12",
+  "source_and_recipe_commit": "433399855ceba5a9f1b72912d428f7da3a383a65",
   "printer_recipe": "supported-meter-receiver",
   "mating_part": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/meter-snap-cap.stl",
   "mating_part_sha256": "54a328976ed885be0553dceb0637470516f9019fa083c05e254ab76f9b34e8f3",

@@ -54,7 +54,7 @@
           "payload": "reference/g-ganen-pump/g-ganen-pump.step.mesh",
           "from": "snapshot",
           "sha256": "c832c78d13bf47ba0ffdffe66e2025edd77245b1921d970843ad1c49cc6b25b7",
-          "commit": "1e81be7873a922435742d3c11281cdc5a8be7cbe",
+          "commit": "4e39655a0b56b3be203e32f4cbaffd270f1cc5d3",
           "taken": "2026-11-01T08:53:41.192Z",
           "published": false
         },
@@ -62,7 +62,7 @@
           "payload": "reference/g-ganen-pump/g-ganen-pump.step.mesh",
           "from": "tree",
           "sha256": "6c7e82cec104661f3eec463f5351bf620caf9b88fe6ec0f409bf96fcdcf4c05e",
-          "commit": "bdf6626e456c7c94f86bca4d63131b7d90ecc080",
+          "commit": "7b8c4857e608897789a993fcad8d15528afb6431",
           "published": false
         }
       },

@@ -26,7 +26,7 @@
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s"
     },
-    "recipe_commit": "378c0fedcec1859b18ba529cbb7e999b6d8e393a"
+    "recipe_commit": "8098ab9426abc0b918f641c6939b7f35075a480e"
   },
   "HSM-0020": {
     "title": "Cold-core top cap lid · Mark1 print plan",
@@ -41,7 +41,7 @@
     "gcode_sha256": "d44aaf3458acbaa3ceb0987e3e92af5ed580f144eda11ee9ccf8a7d2654fe744",
     "kind": "plan",
     "layers": 224,
-    "recipe_commit": "334e7177bde8a33bf3788f0bee57236e55a39c8c",
+    "recipe_commit": "8e25a2bff795af3b3deb01cf3a1395c24602cc66",
     "model_sha256": "2a74672a1c10c6393afd85701725f7c8701ddb14c408804879863f768b808859",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
@@ -126,7 +126,7 @@
     "title": "Flavor reservoir · channel B · Mark1 print plan",
     "recipe": "hardware/printed-parts/cold-core/reservoir/prepare_print.rs",
     "recipe_target": "reservoir-print-project",
-    "recipe_commit": "b3577898bb10ec23d4348f0cbf94258056f53fc0",
+    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
     "recipe_sha256": "1bf429ba96f7b110c599fc9670e4a2db7a7d8fe71a13839fcb3fb92a74a8254b",
     "project_sha256": "4b80befa4c42da5e45e3c244b866cd8385d115561169f98ea529df279738001e",
     "archive_sha256": "e013f06702f08932735000cbe5674f7653220fce49563f92bdd405b23cfdc654",
@@ -158,7 +158,7 @@
     "title": "Flavor reservoir · channel A · Mark1 print plan",
     "recipe": "hardware/printed-parts/cold-core/reservoir/prepare_print.rs",
     "recipe_target": "reservoir-print-project",
-    "recipe_commit": "b3577898bb10ec23d4348f0cbf94258056f53fc0",
+    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
     "recipe_sha256": "1bf429ba96f7b110c599fc9670e4a2db7a7d8fe71a13839fcb3fb92a74a8254b",
     "project_sha256": "4b80befa4c42da5e45e3c244b866cd8385d115561169f98ea529df279738001e",
     "archive_sha256": "e013f06702f08932735000cbe5674f7653220fce49563f92bdd405b23cfdc654",
@@ -190,7 +190,7 @@
     "title": "Flavor reservoir caps · Mark1 print plan",
     "recipe": "hardware/printed-parts/cold-core/reservoir/prepare_print.rs",
     "recipe_target": "reservoir-print-project",
-    "recipe_commit": "b3577898bb10ec23d4348f0cbf94258056f53fc0",
+    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
     "recipe_sha256": "1bf429ba96f7b110c599fc9670e4a2db7a7d8fe71a13839fcb3fb92a74a8254b",
     "project_sha256": "4b80befa4c42da5e45e3c244b866cd8385d115561169f98ea529df279738001e",
     "archive_sha256": "e013f06702f08932735000cbe5674f7653220fce49563f92bdd405b23cfdc654",
@@ -223,7 +223,7 @@
     "title": "Flavor reservoir caps · Mark1 print plan",
     "recipe": "hardware/printed-parts/cold-core/reservoir/prepare_print.rs",
     "recipe_target": "reservoir-print-project",
-    "recipe_commit": "b3577898bb10ec23d4348f0cbf94258056f53fc0",
+    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
     "recipe_sha256": "1bf429ba96f7b110c599fc9670e4a2db7a7d8fe71a13839fcb3fb92a74a8254b",
     "project_sha256": "4b80befa4c42da5e45e3c244b866cd8385d115561169f98ea529df279738001e",
     "archive_sha256": "e013f06702f08932735000cbe5674f7653220fce49563f92bdd405b23cfdc654",
@@ -284,7 +284,7 @@
   "HSM-0033": {
     "title": "Magnetic level float · Mark2 print plan",
     "recipe": "hardware/printed-parts/cold-core/magnetic-float/all-aero/prepare_print.rs",
-    "recipe_commit": "d52c60fcf71799f8829d2fbce8c8e1bad250d813",
+    "recipe_commit": "7d1e6ab8613b55ac855344050dd2f5d86225b7e1",
     "project_sha256": "2016ffeafcbb08626703f0e1fac71f1673f925c89e8fbd7d332b99a27b4e2cb6",
     "archive_sha256": "831633aed61216a9913c199f903514d835b6d28d4682e1efe9a637c0f0a1b482",
     "gcode_sha256": "a9af3bd7699dc6d3a081302ac6811a475edf49b32c59add029218a3ef95fd4e9",
@@ -367,7 +367,7 @@
       "Filament bridge speed": "25 mm/s"
     },
     "model_sha256": "a338d0e6bc7d10e8cee610190c02c5109ae4b7e2856c24d5e1cfc88986ae48fe",
-    "recipe_commit": "b3577898bb10ec23d4348f0cbf94258056f53fc0",
+    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
     "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
   },
   "HSM-0063": {
@@ -398,7 +398,7 @@
       "Filament bridge speed": "25 mm/s"
     },
     "model_sha256": "166fa15754ce0679587b0c3198c57fe4dc6ab65215c8d1d2cac3e94be887b2b8",
-    "recipe_commit": "b3577898bb10ec23d4348f0cbf94258056f53fc0",
+    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
     "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
   },
   "HSM-0064": {
@@ -429,7 +429,7 @@
       "Filament bridge speed": "25 mm/s"
     },
     "model_sha256": "5b243d44c1bb9e8e53b279334fc9f350a07c51e1048ac6ebfabaae48466e8906",
-    "recipe_commit": "b3577898bb10ec23d4348f0cbf94258056f53fc0",
+    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
     "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
   },
   "HSM-0065": {
@@ -460,7 +460,7 @@
       "Filament bridge speed": "25 mm/s"
     },
     "model_sha256": "d5564907639a1cbad1a127e7a104e4edf5cfe47fe78261f218349ce2ebab2f32",
-    "recipe_commit": "b3577898bb10ec23d4348f0cbf94258056f53fc0",
+    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
     "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
   },
   "HSM-0066": {
@@ -491,7 +491,7 @@
       "Filament bridge speed": "25 mm/s"
     },
     "model_sha256": "3ccc0c7408063c72043f48a53ccfa5832251936740f565779de886dca7b81817",
-    "recipe_commit": "b3577898bb10ec23d4348f0cbf94258056f53fc0",
+    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
     "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
   },
   "HSM-0067": {
@@ -522,7 +522,7 @@
       "Filament bridge speed": "25 mm/s"
     },
     "model_sha256": "2cbb2fa07300e794cae0ffb6cf471609b8b8171c09c948d3d5808dc856a82bf2",
-    "recipe_commit": "b3577898bb10ec23d4348f0cbf94258056f53fc0",
+    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
     "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
   },
   "HSM-0069": {
@@ -553,7 +553,7 @@
       "Filament bridge speed": "25 mm/s"
     },
     "model_sha256": "9f0a195c4561fe3945ce3e3647060c636de0176e3ead081aa4a15adf46b8e26c",
-    "recipe_commit": "b3577898bb10ec23d4348f0cbf94258056f53fc0",
+    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
     "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
   },
   "HSM-0071": {
@@ -615,7 +615,7 @@
     },
     "model_sha256": "426b058deb2d06b9a0df5b35d5ee2a2b7ae7ca291014c8841a2dfaf6220e3c1e",
     "recipe_sha256": "d9f7ffcb6052238c48cf4728efdee807319be76af577d3aef6bf1fb475434e4e",
-    "recipe_commit": "92f6387ceabf42b01da34afcfea2f4bf78d8961e"
+    "recipe_commit": "df6a39a529357846d47d38a7eacd82154236ef25"
   },
   "HSM-0073": {
     "title": "PET-GF accessory plate · Mark2 print plan",
@@ -646,7 +646,7 @@
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s"
     },
-    "recipe_commit": "334e7177bde8a33bf3788f0bee57236e55a39c8c"
+    "recipe_commit": "8e25a2bff795af3b3deb01cf3a1395c24602cc66"
   },
   "HSM-0076": {
     "title": "PET-GF accessory plate · Mark2 print plan",
@@ -675,7 +675,7 @@
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s"
     },
-    "recipe_commit": "334e7177bde8a33bf3788f0bee57236e55a39c8c"
+    "recipe_commit": "8e25a2bff795af3b3deb01cf3a1395c24602cc66"
   },
   "HSM-0077": {
     "title": "Display gasket · Mark2 print plan",
@@ -704,7 +704,7 @@
       "Filament bridge speed": "25 mm/s"
     },
     "model_sha256": "5bfe020725eb9f1cb4bb741c207454b1e64550e63fa443aadbc61398c7ea4c2a",
-    "recipe_commit": "e77588ee16b5a6e88f554c674052ddbd93dd5598"
+    "recipe_commit": "0aa84926262a0d21abc3396c4ec04c3633acfa3a"
   },
   "HSM-0078": {
     "title": "Enclosure front bottom · Mark1 print plan",
@@ -719,7 +719,7 @@
     "gcode_sha256": "78284aabdbddd2d124f5cdebafa3a1bf0f9c2607c64f61d5b9d59765bbfaf2fa",
     "kind": "plan",
     "layers": 754,
-    "recipe_commit": "309e44ea117bc50915cfbc5061a9f32b8ed9e135",
+    "recipe_commit": "471cb827a3b83309d3095d5c15799435a0466b69",
     "model_sha256": "43fe5b773b9ee73c2846dc43c98b51d8f020ece1de33e20b30b9def4e49d05c3",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
@@ -773,7 +773,7 @@
       "Funnel-frame insert pilots": "Clear of support, with solid infill through the ledges.",
       "V-H entry clip": "The shelf grows from the bulkhead under the level bend. The split wings print upright, with solid infill through their roots and no removable support."
     },
-    "recipe_commit": "917f89949270cd55b1082f4e2fed0cb7d7a7cc22"
+    "recipe_commit": "bf282bd8ca129e93f17a1ed276256bfcb14f5c2f"
   },
   "HSM-0080": {
     "title": "Enclosure back bottom · Mark2 print plan",
@@ -806,7 +806,7 @@
       "Filament bridge speed": "15 mm/s",
       "First-layer Z": "0.04 mm requested, 0.02 mm emitted on Textured PEI"
     },
-    "recipe_commit": "6c099311fcfd2781c4c898652c067c4178acfbc6"
+    "recipe_commit": "45a6c58594588b160206917462a9a919b4bb4b10"
   },
   "HSM-0081": {
     "title": "Enclosure back top · Mark1 print plan",
@@ -847,7 +847,7 @@
       "Flow-meter receiver": "Removable supports under both end shoulders, the whole lip and the slide and wire floors. The supports under the lip's aft end and the aft shoulder stand on the Pisco receiver.",
       "Fill tube snap": "A corbel carries its print-down jaw from the east wall. Contoured breakaway strips rooted on that jaw carry the free jaw above it."
     },
-    "recipe_commit": "7ed31c14c7fabfdea611eb32d06194fec366070b"
+    "recipe_commit": "e0f9c0b8d0b4c54d460e75eef96057816e722d07"
   },
   "HSM-0082": {
     "title": "PET-GF accessory plate · Mark2 print plan",
@@ -876,13 +876,13 @@
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s"
     },
-    "recipe_commit": "334e7177bde8a33bf3788f0bee57236e55a39c8c"
+    "recipe_commit": "8e25a2bff795af3b3deb01cf3a1395c24602cc66"
   },
   "HSM-0088": {
     "title": "ASSE vent elbow · Mark1 print plan",
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "asse-vent-sleeve",
-    "recipe_commit": "d3ca777deeee80369268f8f9934e1478607b7c79",
+    "recipe_commit": "efac422862dec271a1f36acf79415b6b450cd5a4",
     "project_sha256": "d70071614ec68c397e33455e736c80f004fe3b9678ca220e524ee4984fb4c47c",
     "archive_sha256": "32e8be13a8b9fe44d579a79b829938611c858ef3d77695f80a81c24197d1ea7e",
     "gcode_sha256": "1a1fe1059511730f1d0ad7fe8da71eb6ab1d6b3917064d8d89875a7ad1806388",
@@ -910,7 +910,7 @@
     "title": "Faucet tube sealing thimble · Mark2 production print",
     "archive_sha256": "0d26f90af214159359d9bd5cdf33f88f4c88b28519f11ab4bf27439b1578d5b4",
     "gcode_sha256": "0af11e2f5c00a43d30436ef02fbc0c4a2e591eec48a0ae3662d8610e9500a218",
-    "source_commit": "634effe8ff92290057bbf20a41babea837cc91e1",
+    "source_commit": "2c88a6e96f8fc47aba9a5b06c49f851b76a30ad5",
     "kind": "print",
     "sha256": "12c184cc7b62da8118d308e0ef3adf04e0bbf5235a179a5c8e5688503bff307d",
     "slice": "hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-23-black-tpu85a-right06-mark2/2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2-continuous-cap.gcode.3mf",
@@ -1129,7 +1129,7 @@
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s"
     },
-    "recipe_commit": "334e7177bde8a33bf3788f0bee57236e55a39c8c"
+    "recipe_commit": "8e25a2bff795af3b3deb01cf3a1395c24602cc66"
   },
   "HSM-0099": {
     "title": "Blue tube collars · Mark2 print plan",
@@ -1160,7 +1160,7 @@
       "Filament bridge speed": "15 mm/s"
     },
     "model_sha256": "32a208b9bfbc017e8e6eb3528426ca51e0a6158c062173286fb48cda5121dd74",
-    "recipe_commit": "b3577898bb10ec23d4348f0cbf94258056f53fc0",
+    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
     "recipe_sha256": "df8f28460bf0412e3653ce49d8e03e4d241f9a3723cc97e2d10f4277ee3f4fe9"
   },
   "HSM-0100": {
@@ -1192,7 +1192,7 @@
       "Filament bridge speed": "15 mm/s"
     },
     "model_sha256": "30f7f0559729fca6471522ae7bfbefae0d2d1663c64ecbd6f8be58fc342779bd",
-    "recipe_commit": "b3577898bb10ec23d4348f0cbf94258056f53fc0",
+    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
     "recipe_sha256": "df8f28460bf0412e3653ce49d8e03e4d241f9a3723cc97e2d10f4277ee3f4fe9"
   },
   "HSM-0101": {
@@ -1224,7 +1224,7 @@
       "Filament bridge speed": "15 mm/s"
     },
     "model_sha256": "f3f2470db047c00eda098c1418d7322b8e4210546d6f3c01dc76af41179287c1",
-    "recipe_commit": "b3577898bb10ec23d4348f0cbf94258056f53fc0",
+    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
     "recipe_sha256": "df8f28460bf0412e3653ce49d8e03e4d241f9a3723cc97e2d10f4277ee3f4fe9"
   },
   "HSM-0102": {
@@ -1256,7 +1256,7 @@
       "Filament bridge speed": "15 mm/s"
     },
     "model_sha256": "e6951ba3a688501a2ce262e6af5caaac6595179001e52e4a1f5c28017eab82ad",
-    "recipe_commit": "b3577898bb10ec23d4348f0cbf94258056f53fc0",
+    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
     "recipe_sha256": "df8f28460bf0412e3653ce49d8e03e4d241f9a3723cc97e2d10f4277ee3f4fe9"
   },
   "HSM-0111": {
@@ -1291,7 +1291,7 @@
       "Seam": "Back, scarfed, 150% gap"
     },
     "model_sha256": "09106291fc6feec82e351353239b9e9f3e27e7ebdc36364ef69950b4f07519d2",
-    "recipe_commit": "e74e3ef48200a8e9830be8cb1a73435705c628dc"
+    "recipe_commit": "57d2590b1912a15a5fd615f3038cd763a46f11f6"
   },
   "HSM-0112": {
     "title": "Industrial faucet mounting gasket · Mark2",
@@ -1301,7 +1301,7 @@
     "archive_sha256": "da062870e394d3f18708d37d26eb1a53fbf2cbc12ab5cff5aa7ae8e0c07b905b",
     "gcode_sha256": "c7731c4ed42a04ec61860841973548255e25d97f4767e1f4378953ffb875bbfe",
     "launch": "hardware/printed-parts/faucet/industrial/prints/2026-10-23-mounting-gasket-tpu85a-right06-mark2/launch.json",
-    "source_commit": "634effe8ff92290057bbf20a41babea837cc91e1",
+    "source_commit": "2c88a6e96f8fc47aba9a5b06c49f851b76a30ad5",
     "sha256": "41217dce3e801c9ef7b1c92f100e91bf6564df47ea81ad14da2094d7f14841a8",
     "slice": "hardware/printed-parts/faucet/industrial/prints/2026-10-23-mounting-gasket-tpu85a-right06-mark2/2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
     "plate": 1,
@@ -1357,35 +1357,35 @@
       "Brim": "Off"
     },
     "model_sha256": "26460411ba94a5180da901ba334f5d59b17662a5d419ff0c35cc6d592c3187d4",
-    "recipe_commit": "e74e3ef48200a8e9830be8cb1a73435705c628dc"
+    "recipe_commit": "57d2590b1912a15a5fd615f3038cd763a46f11f6"
   },
   "HSM-0151": {
     "title": "Tube insertion base · Mark1",
     "sha256": "f86a1b2c91d1f4bed7dc266ba9129ddcfb0384636c0723cb02c209be87ffcd7e",
     "slice": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-rigid-base-h2c.gcode.3mf",
     "plate": 1,
-    "source_commit": "beeb6a9239c15678c77fe913854c7699527716e3"
+    "source_commit": "5b3a82448cc738fdd8205e9f5be8bdcf8bdcf652"
   },
   "HSM-0152": {
     "title": "Tube insertion carrier and puck · Mark1",
     "sha256": "91684a6b03448620ad1b9f9e217c8317fddbc87128af39154b4dc0db9d4f6b1e",
     "slice": "hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-rigid-parts-mark1/tube-insertion-rigid-parts-h2c.gcode.3mf",
     "plate": 1,
-    "source_commit": "634effe8ff92290057bbf20a41babea837cc91e1"
+    "source_commit": "2c88a6e96f8fc47aba9a5b06c49f851b76a30ad5"
   },
   "HSM-0153": {
     "title": "Tube insertion jaws · Mark1",
     "sha256": "7f626dd6af6247aa5908d41fcaa7240b2ec4c8fc03bd1aa68b11a9c16545cbcc",
     "slice": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-centered-grip-petgf-left04-z018-mark1.gcode.3mf",
     "plate": 1,
-    "source_commit": "beeb6a9239c15678c77fe913854c7699527716e3"
+    "source_commit": "5b3a82448cc738fdd8205e9f5be8bdcf8bdcf652"
   },
   "HSM-0154": {
     "title": "Tube insertion jaws · Mark1",
     "sha256": "7f626dd6af6247aa5908d41fcaa7240b2ec4c8fc03bd1aa68b11a9c16545cbcc",
     "slice": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-centered-grip-petgf-left04-z018-mark1.gcode.3mf",
     "plate": 1,
-    "source_commit": "beeb6a9239c15678c77fe913854c7699527716e3"
+    "source_commit": "5b3a82448cc738fdd8205e9f5be8bdcf8bdcf652"
   },
   "HSM-0155": {
     "title": "Tube insertion liners · H2C",
@@ -1398,7 +1398,7 @@
     "sha256": "91684a6b03448620ad1b9f9e217c8317fddbc87128af39154b4dc0db9d4f6b1e",
     "slice": "hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-rigid-parts-mark1/tube-insertion-rigid-parts-h2c.gcode.3mf",
     "plate": 1,
-    "source_commit": "634effe8ff92290057bbf20a41babea837cc91e1"
+    "source_commit": "2c88a6e96f8fc47aba9a5b06c49f851b76a30ad5"
   },
   "HSM-0268": {
     "title": "Industrial faucet · Mark2 print plan",
@@ -1433,7 +1433,7 @@
       "Top interface": "3 layers, 0 mm spacing"
     },
     "model_sha256": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
-    "recipe_commit": "e74e3ef48200a8e9830be8cb1a73435705c628dc"
+    "recipe_commit": "57d2590b1912a15a5fd615f3038cd763a46f11f6"
   },
   "HSM-0272": {
     "title": "White tube collars · Mark2 print plan",
@@ -1464,7 +1464,7 @@
       "Filament bridge speed": "15 mm/s"
     },
     "model_sha256": "35fb6e564a8e1dfb01ea2ec60951373477ba51ae9039828b14a2e8f1e832c21e",
-    "recipe_commit": "b3577898bb10ec23d4348f0cbf94258056f53fc0",
+    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
     "recipe_sha256": "df8f28460bf0412e3653ce49d8e03e4d241f9a3723cc97e2d10f4277ee3f4fe9"
   },
   "HSM-0273": {
@@ -1496,7 +1496,7 @@
       "Filament bridge speed": "15 mm/s"
     },
     "model_sha256": "4a7579f6a1e19e9095923b05f1ba76d2b431553f3b9ff11d31b943a4319e31dd",
-    "recipe_commit": "b3577898bb10ec23d4348f0cbf94258056f53fc0",
+    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
     "recipe_sha256": "df8f28460bf0412e3653ce49d8e03e4d241f9a3723cc97e2d10f4277ee3f4fe9"
   },
   "HSM-0358": {
@@ -1526,7 +1526,7 @@
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s"
     },
-    "recipe_commit": "334e7177bde8a33bf3788f0bee57236e55a39c8c"
+    "recipe_commit": "8e25a2bff795af3b3deb01cf3a1395c24602cc66"
   },
   "HSM-0372": {
     "title": "PET-GF accessory plate · Mark2 print plan",
@@ -1556,7 +1556,7 @@
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s"
     },
-    "recipe_commit": "334e7177bde8a33bf3788f0bee57236e55a39c8c"
+    "recipe_commit": "8e25a2bff795af3b3deb01cf3a1395c24602cc66"
   },
   "HSM-0390": {
     "title": "Funnel mold cavity · Mark1 print plan",
@@ -1675,7 +1675,7 @@
     "sha256": "cb75d5d97f2a1cda324597584f8f6e024c7f25fde68d4502e3a03f97f30c7a79",
     "slice": "hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/prints/2026-10-12-half-body-mark1/donor-hold-down-half-body-tpu85a-right06-z018-mark1.gcode.3mf",
     "plate": 1,
-    "source_commit": "634effe8ff92290057bbf20a41babea837cc91e1"
+    "source_commit": "2c88a6e96f8fc47aba9a5b06c49f851b76a30ad5"
   },
   "HSM-0447": {
     "title": "Pump tube setting jig · Mark2 print plan",
@@ -1734,7 +1734,7 @@
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s"
     },
-    "recipe_commit": "334e7177bde8a33bf3788f0bee57236e55a39c8c"
+    "recipe_commit": "8e25a2bff795af3b3deb01cf3a1395c24602cc66"
   },
   "HSM-0449": {
     "title": "PET-GF accessory plate · Mark2 print plan",
@@ -1763,7 +1763,7 @@
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s"
     },
-    "recipe_commit": "334e7177bde8a33bf3788f0bee57236e55a39c8c"
+    "recipe_commit": "8e25a2bff795af3b3deb01cf3a1395c24602cc66"
   },
   "HSM-0450": {
     "title": "PET-GF accessory plate · Mark2 print plan",
@@ -1792,7 +1792,7 @@
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s"
     },
-    "recipe_commit": "334e7177bde8a33bf3788f0bee57236e55a39c8c"
+    "recipe_commit": "8e25a2bff795af3b3deb01cf3a1395c24602cc66"
   },
   "HSM-0451": {
     "title": "PET-GF accessory plate · Mark2 print plan",
@@ -1824,7 +1824,7 @@
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s"
     },
-    "recipe_commit": "334e7177bde8a33bf3788f0bee57236e55a39c8c"
+    "recipe_commit": "8e25a2bff795af3b3deb01cf3a1395c24602cc66"
   },
   "HSM-0454": {
     "title": "PET-GF accessory plate · Mark2 print plan",
@@ -1853,7 +1853,7 @@
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s"
     },
-    "recipe_commit": "334e7177bde8a33bf3788f0bee57236e55a39c8c"
+    "recipe_commit": "8e25a2bff795af3b3deb01cf3a1395c24602cc66"
   },
   "HSM-0455": {
     "title": "PET-GF accessory plate · Mark2 print plan",
@@ -1882,7 +1882,7 @@
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s"
     },
-    "recipe_commit": "334e7177bde8a33bf3788f0bee57236e55a39c8c"
+    "recipe_commit": "8e25a2bff795af3b3deb01cf3a1395c24602cc66"
   },
   "HSM-0456": {
     "title": "Flavor reservoir gaskets · Mark2 print plan",
@@ -1996,7 +1996,7 @@
       "Filament bridge speed": "25 mm/s"
     },
     "model_sha256": "25a3d016205296d4384aee21d2ca13e3f7123a10227772b3587905def9f9ac16",
-    "recipe_commit": "b3577898bb10ec23d4348f0cbf94258056f53fc0",
+    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
     "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
   }
 }

@@ -2324,11 +2324,11 @@
     "scope": "Ten 2.4 mm radius, 80 mm driver envelopes are empty against the identified native lid and physical STL. Exact final native STEP DATA and print/model identities retain that reading."
   },
   "preparation_context": {
-    "physical_source": "ab6e82d6dd6d47d33f46a46fcbcc793fabf8b34a",
-    "integration_source": "ffe67f4850ab8b4601a712125e5236fea9d67ba8",
-    "region_source_metadata": "Current committed 3d30f434b source_sha256 and all boxes preserved; only lid and bottom STEP/STL bindings identify accepted Rust candidates.",
+    "physical_source": "7c9de9c6339dfe2b30d5129ec42cfd508ff2cd24",
+    "integration_source": "6e824d41db9fcd5c66b1a57b011f197d53e5494a",
+    "region_source_metadata": "Current committed 7453908ed source_sha256 and all boxes preserved; only lid and bottom STEP/STL bindings identify accepted Rust candidates.",
     "current_geometry_identity": "All 16 final producer files and native lid STEP DATA equal the qualified broad-backing capture. WAGO_N is mounted on back-top and is excluded from cold-core cap features.",
-    "actual_lid_slice_source": "3e504250c54d8179c40c5de5fefc40bbbc01b3ec",
+    "actual_lid_slice_source": "3015ba0bf5c0eec29ac6fb15837db749bdb3234f",
     "retained_other_parts": "The three qualified project/archive records are unchanged and verified by exact current STL identity."
   },
   "all_four_slices_pass": true,

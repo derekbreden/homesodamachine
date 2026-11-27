@@ -1,6 +1,6 @@
 {
   "source": {
-    "commit": "c33722222d15c7259d35d22e5a302578f13902d3",
+    "commit": "80bf1667e81a95b69b56de975a208d515eabd22a",
     "path": "hardware/reference/wr1110-regulator/wr1110_regulator.py",
     "sha256": "c03d2848209d140d64c25ed42785c145b3a6a9f3e9e2474358b7662e1fd31e87"
   },

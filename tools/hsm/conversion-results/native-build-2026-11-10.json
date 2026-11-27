@@ -4,19 +4,19 @@
   "purpose": "This record preserves native build cutover measurements, artifact identity and live-view evidence.",
   "status": "complete",
   "source_commits": {
-    "display_artwork": "887bc47b6ae071bc22c805847f3dbc6657409a63",
-    "display_bitmap_retirement": "dd42dc03c3e85048fe78a67cff336eb0d27567fc",
-    "native_orchestration": "64084113b3ede1c29aac0214e113e08ddd0b84e4",
-    "assembly_result_cache": "0baa7fe77c12e36e1f0f8d0a8e5b24514064ff29",
-    "cold_reference_resolution": "2f92129802424e2c6572872c3d131ebb58f66721",
-    "reference_publication": "e00644bbaf31052151f1b8a9c159600ca6887193"
+    "display_artwork": "c125421fef827a70973e2beb547f4ef56f0435b7",
+    "display_bitmap_retirement": "58009cc0c1b33def4c92ca67e8e72fe1a510ba22",
+    "native_orchestration": "4c637c5aad614ea99c0270558c6264ae07709ebe",
+    "assembly_result_cache": "121ee7b389e7142f5a7c7179473cba29564cfe0b",
+    "cold_reference_resolution": "4d9f94c19e708b9a3260207b159b1ca6f73db954",
+    "reference_publication": "1eb5691e2424fdd4f89f16e9a507419bd30de65f"
   },
   "controlled_timings": {
     "unit": "seconds",
     "old_backend": "Bazel-backed progressive driver",
     "native_backend": "native planner and engine program/result cache",
-    "baseline_revision": "9e9829153a337dc53dc603311f689157f0795058",
-    "native_revision": "64084113b3ede1c29aac0214e113e08ddd0b84e4",
+    "baseline_revision": "a9ac4996fab11b2fbff8f77033e80cf62ccec9ea",
+    "native_revision": "4c637c5aad614ea99c0270558c6264ae07709ebe",
     "scope": [
       "Warm shared geometry/import caches; native trials follow the old trials and may reuse retained variants produced earlier.",
       "Old controlled trials use a no-op publisher (/usr/bin/true); native controlled trials use --no-publish. These exclude actual website publication.",
@@ -160,7 +160,7 @@
     "native_cached_targets": 61,
     "native_built_targets": 0,
     "native_cargo_invocations": 0,
-    "native_source_commit": "6dae645091771ecad3530a980ac185607f01cf36",
+    "native_source_commit": "d2af32e1865f202833af6df1770909512c7f93e1",
     "publication_processes_started": 0,
     "scope": "All selected native targets reused engine results with retained shared caches; this is not a cold build or a live-publication latency.",
     "evidence": {
@@ -258,7 +258,7 @@
     "final_current_view": {
       "status": "passed",
       "observed_at": "2026-11-10T18:45:05.989Z",
-      "source_commit": "11aa820ec9e1e45b2f5d65e2a287ceb1bc997dda",
+      "source_commit": "a1b7bc735b8800f0177d8a33e645c7c07a4250bf",
       "evidence": {
         "kind": "reference-browser-draw-eligibility",
         "names": [
@@ -409,7 +409,7 @@
   },
   "final_native_build_and_artifact_comparison": {
     "status": "passed",
-    "source_commit": "2f92129802424e2c6572872c3d131ebb58f66721",
+    "source_commit": "4d9f94c19e708b9a3260207b159b1ca6f73db954",
     "driver_seconds": 272.623061333,
     "counts": {
       "built": 59,
@@ -534,7 +534,7 @@
   },
   "final_warm_build": {
     "status": "passed",
-    "source_commit": "d3ae20fecba69dec033e2e0502a2eea623053138",
+    "source_commit": "221c68ca8394e1a470e413308ee34fc2a0a58300",
     "driver_seconds": 4.201925958,
     "counts": {
       "cached": 61
@@ -553,7 +553,7 @@
     "status": "passed",
     "run_url": "https://github.com/derekbreden/homesodamachine/actions/runs/42877372514",
     "run_id": 42877372514,
-    "source_commit": "2f92129802424e2c6572872c3d131ebb58f66721",
+    "source_commit": "4d9f94c19e708b9a3260207b159b1ca6f73db954",
     "created_at": "2026-11-10T18:39:15Z",
     "completed_at": "2026-11-10T18:55:57Z",
     "job_id": 130045603329,

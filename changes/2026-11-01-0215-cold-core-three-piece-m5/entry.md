@@ -2,7 +2,7 @@
 title: Three cold-core casing pieces with M5 closures
 lede: The taller shell takes one uniform top lid and one open-topped bottom cap. Four underside pour ports distribute foam across the bottom.
 date: 2026-11-01T02:15:30-06:00
-commit: 5720eb4c3 6a2acba4f 7773426d6 67b2bb2fc
+commit: 9d8bc743b 735afd429 3633a9828 7e8f5e5c5
 model: manifold-layout/enclosure-assembly.step
 ---
 The shell reaches the uniform 7.4 mm equipment lid directly. Its open mouth leaves the upper foam space accessible for the body pour. The vessel and coil stations stay at their fixed datums, within the 253.4 mm installed casing height.

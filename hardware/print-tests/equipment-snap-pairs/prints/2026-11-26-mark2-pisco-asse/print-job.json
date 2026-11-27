@@ -8,7 +8,7 @@
   "first_layer_verified_at": "2026-11-26T19:16:12+00:00",
   "firmware_layer_at_verification": 1,
   "firmware_total_layers": 269,
-  "source_and_recipe_commit": "3b95f4c5b196a2cdc5ddba6a97718e4b5c227a28",
+  "source_and_recipe_commit": "813fa92df8b5e8a62dca3aeaa7c72a33132e27b0",
   "printer_recipe": "three-dot-pisco-asse",
   "material": "Polymaker Fiberon PET-GF15, black",
   "external_filament": "Black PET-GF15 on the left external feed (254), mapped to PET-CF in firmware.",

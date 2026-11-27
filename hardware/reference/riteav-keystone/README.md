@@ -19,4 +19,4 @@ The enclosure receptacle uses the interface dimensions retained in
 The reference's origin is the wall's outer plane, with the customer plug along
 positive Y and the jack inboard along negative Y. Positive Z is up.
 
-The source derivations are preserved at their recorded revision: [riteav_keystone.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/riteav-keystone/riteav_keystone.py).
+The source derivations are preserved at their recorded revision: [riteav_keystone.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/riteav-keystone/riteav_keystone.py).

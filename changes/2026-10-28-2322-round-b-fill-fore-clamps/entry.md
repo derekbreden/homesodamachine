@@ -2,7 +2,7 @@
 title: A round B-fill passage with fore clamps at Y205.60
 lede: The cap passage uses a circular tube envelope with its upward print allowance. The two fore screws sit farther along the straight inlet, with the Reed-B cable corridor clear of their inserts.
 date: 2026-10-28T23:22:11-05:00
-commit: 6245242a8d1b653b93fe49832985d7a8c967ade8
+commit: 117bfa691800b8fb76408afbde7faf9ffc0e6f95
 model: printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 ---
 The B-fill tube passage is circular Ø6.8 mm at R14, with 0.5 mm insertion lead-ins and 0.25 mm of clearance toward print-up for the supported underside. Its straight roof retains 2.20 mm of material below the cap's flat upper face. The sideways teardrop relief is removed.

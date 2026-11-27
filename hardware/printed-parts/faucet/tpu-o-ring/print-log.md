@@ -94,7 +94,7 @@ Derek said:
 
 First successful dual-interface seat (LLDPE tube through the thimble **and** the thimble in the Westbrass's port, together) — the lockup diagnosed on the 95A v2 print. Confirms queued fix #1 (drop to 85A). The 85A spool was dried before this run (v2 notes had both 90A/85A undried).
 
-Geometry as printed (per the current [`tpu_o_ring.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py) / `README.md`): inner Ø 9.2 mm, outer Ø 10.44 mm, wall 0.62 mm, cap hole Ø 6.5 mm, cap 2.1 mm, cylinder 13.5 mm, total 15.6 mm. (Wall is up from the v2-logged 0.375 mm; the part is now a 0.62 mm single Arachne wall.)
+Geometry as printed (per the current [`tpu_o_ring.py`](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py) / `README.md`): inner Ø 9.2 mm, outer Ø 10.44 mm, wall 0.62 mm, cap hole Ø 6.5 mm, cap 2.1 mm, cylinder 13.5 mm, total 15.6 mm. (Wall is up from the v2-logged 0.375 mm; the part is now a 0.62 mm single Arachne wall.)
 
 Settings observed in the 3mf:
 - Printer: Bambu Lab H2C, `nozzle_diameter` `[0.6, 0.6]`; `print_settings_id` `0.18mm Balanced Quality @BBL H2C 0.6 nozzle`. Textured plate.
@@ -116,7 +116,7 @@ L-side part. **The nozzle these runs used is not established.**
 ## 2026-10-13 — saved 85A thimble on Mark1
 
 Derek requested: “Give me a print of TPU o ring on mark 1”.
-Mark1 accepted [one saved thimble](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-13-tpu85a-right06-mark1/README.md)
+Mark1 accepted [one saved thimble](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-13-tpu85a-right06-mark1/README.md)
 as task 1336815709 at 3:49 pm CDT. The mesh and saved 0.30/0.18 mm,
 Classic single-wall TPU process are retained. This job maps black TPU 85A
 to the right fixed 0.6 mm nozzle, uses Mark1's standard +0.18 mm trim,

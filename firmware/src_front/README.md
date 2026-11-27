@@ -362,8 +362,8 @@ cannot undo the wake.
 
 ## The interface
 
-The design exploration Big Blue grew from is in Git at [`10a22374d0`](https://github.com/derekbreden/homesodamachine/blob/10a22374d0/future/enclosure-display-studies/README.md).
-The sixteen-direction colour and type study is in Git at [`49738f2694`](https://github.com/derekbreden/homesodamachine/blob/49738f2694/firmware/src_front/studies/interface-variations/README.md).
+The design exploration Big Blue grew from is in Git at [`cf0a482b56`](https://github.com/derekbreden/homesodamachine/blob/cf0a482b56/future/enclosure-display-studies/README.md).
+The sixteen-direction colour and type study is in Git at [`1f82ea00a5`](https://github.com/derekbreden/homesodamachine/blob/1f82ea00a5/firmware/src_front/studies/interface-variations/README.md).
 The palette is cobalt `#1749D1`, navy `#10319C`, ice `#DCE6FF`, and orange `#FF9152`.
 One **Settings** button fills the rail from the bottom of flavor 2 to the edge of the
 glass. The gear sits above the tank temperature. Cooling activity appears underneath.

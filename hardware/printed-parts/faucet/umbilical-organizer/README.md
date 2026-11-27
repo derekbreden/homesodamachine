@@ -6,12 +6,12 @@ be deliberately adjusted while holding the puck in the other hand. The signal
 ribbon passes flat through a separate loose slot. The puck threads over free
 tube and cable ends during factory assembly and sits inside the upper braid.
 
-The [three-increment Mark2 fit comparison](https://github.com/derekbreden/homesodamachine/blob/1f49ea24e261b5b74e8b82d8c3e9ac5690736952/future/umbilical-organizer-exploration/diameter-increments-mark2/physical-result.json)
+The [three-increment Mark2 fit comparison](https://github.com/derekbreden/homesodamachine/blob/3ab1ec6115ec6c853b0ac3bf33d2a4caf3e08c4e/future/umbilical-organizer-exploration/diameter-increments-mark2/physical-result.json)
 selects A's Ø6.65 mm bore for quarter-inch stock and B's Ø4.40 mm
 bore for the received white 4 mm drain tube. The two flavor bores use 4.40 mm
 on the specified black 4 mm stock; that stock's physical sliding fit is unmeasured. The [physical acceptance record](physical-acceptance.json) binds
 these feature-level selections to the exact printed samples, job and settings.
-The combined production puck has [completed Mark1 print telemetry](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/umbilical-organizer/prints/2026-10-11-current-mark1/README.md);
+The combined production puck has [completed Mark1 print telemetry](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/faucet/umbilical-organizer/prints/2026-10-11-current-mark1/README.md);
 its complete fit and flat ribbon slot remain physically unassessed. The selected
 round-bore fits have physical evidence. Quantified sliding force, endurance and complete installed mounting
 access are unmeasured.
@@ -73,10 +73,10 @@ is the first one sent with it. The flat print keeps the passages vertical and em
 without support inside the bores.
 
 PET-GF, flat bottom face on the textured plate with all passages vertical.
-The [white Mark2 right-hotend print](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/umbilical-organizer/prints/2026-10-16-white-right-mark2/README.md)
+The [white Mark2 right-hotend print](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/faucet/umbilical-organizer/prints/2026-10-16-white-right-mark2/README.md)
 records the three-quarter-inch-bore article and its organizer process, with Mark2’s normal +0.04 mm
 requested/+0.02 mm emitted trim and right-nozzle XY registration.
-The [complete black organizer reference](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/umbilical-organizer/prints/2026-10-11-current-mark1/README.md)
+The [complete black organizer reference](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/faucet/umbilical-organizer/prints/2026-10-11-current-mark1/README.md)
 uses Mark1’s normal +0.18 mm requested/+0.16 mm emitted trim. Its complete
 production layout and ribbon-slot fit remain pending physical assessment.
 The accepted Mark2 article used its fixed left hardened 0.4 mm nozzle,
@@ -88,7 +88,7 @@ is included in its native textured-plate `G29.1 Z0.02` after `G29.1 Z0`.
 That trim is specific to Mark2. The physical material is PET-GF; its saved
 printer metadata reports PET-CF/GFT01.
 
-The [A/B/C native job and bead review](https://github.com/derekbreden/homesodamachine/blob/1f49ea24e261b5b74e8b82d8c3e9ac5690736952/future/umbilical-organizer-exploration/diameter-increments-mark2/README.md)
+The [A/B/C native job and bead review](https://github.com/derekbreden/homesodamachine/blob/3ab1ec6115ec6c853b0ac3bf33d2a4caf3e08c4e/future/umbilical-organizer-exploration/diameter-increments-mark2/README.md)
 retain the three printed samples: A has Ø6.65/4.30/5.00 mm quarter-inch/drain/signal
 bores, B Ø6.75/4.40/5.10 mm and C Ø6.85/4.50/5.20 mm. Production combines
 A's beverage bore dimensions with B's drain bore dimensions. Its stock diameter,
@@ -96,7 +96,7 @@ tube contact length, tube chamfers and upright orientation match the trials.
 The production axes follow the mounting row and its ribbon passage is a flat
 slot. The fit evidence applies to the selected round-bore profiles; complete
 organizer layout and signal-slot fit remain unassessed.
-The separate frozen [Ø4.30 mm drain-fit archive](https://github.com/derekbreden/homesodamachine/blob/1f49ea24e261b5b74e8b82d8c3e9ac5690736952/future/umbilical-organizer-exploration/drain-fit-mark2/README.md)
+The separate frozen [Ø4.30 mm drain-fit archive](https://github.com/derekbreden/homesodamachine/blob/3ab1ec6115ec6c853b0ac3bf33d2a4caf3e08c4e/future/umbilical-organizer-exploration/drain-fit-mark2/README.md)
 is an unsubmitted trial, outside the current production selection.
 Regenerate the production geometry with
 `tools/run -- cargo run --release -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-umbilical-organizer`,

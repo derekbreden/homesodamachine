@@ -1,7 +1,7 @@
 # Rear-port identification figures
 
 [`numbers.rs`](numbers.rs) holds the figures the rear-port identification reads, and
-[`bulkhead_ring.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py) serves them with the label envelope. Neither builds a part. [`../rear-identification/`](../rear-identification/README.md) cuts the six
+[`bulkhead_ring.py`](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py) serves them with the label envelope. Neither builds a part. [`../rear-identification/`](../rear-identification/README.md) cuts the six
 installed tiles and [`../../faucet/tube-collar/`](../../faucet/tube-collar/README.md) the matching
 tube collars, and both take each station's word, its filament key and the lettering from here.
 

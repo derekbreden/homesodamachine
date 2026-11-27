@@ -8,7 +8,7 @@
   "first_layer_verified_at": "2026-11-26T07:34:11+00:00",
   "firmware_layer_at_verification": 1,
   "firmware_total_layers": 184,
-  "source_and_recipe_commit": "892ea186bc8e13fce65cd371ed10dfd7d9fb9da8",
+  "source_and_recipe_commit": "a8581dd46c88a51298ebdefe28287238c7bedbaf",
   "printer_recipe": "pisco-easy-entry-set",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {

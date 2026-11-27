@@ -26,7 +26,7 @@ generates no supports and no brim, and its beads stand at least 123 mm inside th
 plate. The first layer's beads span 1 mm more each way from one holder to the next, the legs on
 both ends.
 
-[Preparation source](https://github.com/derekbreden/homesodamachine/blob/22a3f0d2e5ab3d0f06018a8fb12baea51ba14578/future/tube-bend-holder-exploration/prints/2026-10-23-legs-123-w2-petgf-left04-z018-mark1/prepare.py) runs the wall comparison's preparer with these three STLs. The
+[Preparation source](https://github.com/derekbreden/homesodamachine/blob/60c5b099e1f6c7b3f75442a3b092bcc17e4fc4e8/future/tube-bend-holder-exploration/prints/2026-10-23-legs-123-w2-petgf-left04-z018-mark1/prepare.py) runs the wall comparison's preparer with these three STLs. The
 [readiness record](2026-10-23-tube-bend-holders-w2-legs123-petgf-left04-z018-mark1.readiness.json)
 binds the STLs, the project, the archive and its G-code by hash.
 

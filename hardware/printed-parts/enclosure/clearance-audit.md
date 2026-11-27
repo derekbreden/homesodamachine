@@ -50,8 +50,8 @@ The [machine display cover](display-cover/README.md) uses screws and a flat glas
 gasket. Its [mount record](display-cover/mount-dimensions.json) and
 [native geometry](display-cover/display_cover.rs) define the screw stations,
 bearing floors and glass space. The
-[archived flat-wing receiver](https://github.com/derekbreden/homesodamachine/blob/27c433f164134e1de2bab17fc0ab6501c2fbd401/hardware/printed-parts/enclosure/display-cover/face-up-trial/README.md)
-and its [physical acceptance](https://github.com/derekbreden/homesodamachine/blob/27c433f164134e1de2bab17fc0ab6501c2fbd401/hardware/printed-parts/enclosure/display-cover/face-up-trial/physical-acceptance.json)
+[archived flat-wing receiver](https://github.com/derekbreden/homesodamachine/blob/e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930/hardware/printed-parts/enclosure/display-cover/face-up-trial/README.md)
+and its [physical acceptance](https://github.com/derekbreden/homesodamachine/blob/e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930/hardware/printed-parts/enclosure/display-cover/face-up-trial/physical-acceptance.json)
 retain their article-specific fit scope.
 
 **Low-force clearance for rough overhang surfaces involved** uses a working addition

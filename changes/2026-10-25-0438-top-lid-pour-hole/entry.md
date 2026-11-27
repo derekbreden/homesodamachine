@@ -2,7 +2,7 @@
 title: The top lid's pour hole moves off the reed cable column
 lede: The pour hole now stands in the lid's fore-west quarter over open cavity, and both vents step 2.5 mm toward −X, clear of the A-fill countersink.
 date: 2026-10-25T04:38:36-05:00
-commit: 68c1e4e57185fda4d572da7dff14e84764bbb866
+commit: f3e65ddc97b9dfb634095b9926fb65e62ee5cd05
 model: printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 ---
 At the centreline the pour hole landed about 40% on the top of reed B's cable column and under the v12 WAGO well. It now stands at cap (111.5, −64), west of that column and the B-fill carrier and clear of the PCB's fore-west post. The vents' 2.5 mm step removes a 0.7–1.1 mm web beside the A-fill guide's countersink. The bottom lid keeps its own stations.

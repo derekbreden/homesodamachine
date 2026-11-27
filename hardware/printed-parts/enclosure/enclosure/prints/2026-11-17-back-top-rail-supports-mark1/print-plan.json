@@ -5,7 +5,7 @@
   "connection_key": "H2C",
   "status": "prepared",
   "prepared_utc": "2026-11-18T02:43:44+00:00",
-  "source_revision": "fc87ce45aeba1b580b7a7fa6cb6119935fa358bb",
+  "source_revision": "3f66d5185d505722cd774c65d2f73c3a3b30ce44",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {
     "diameter_mm": 0.4,
@@ -45,6 +45,6 @@
   "support_coverage": "support-coverage.json",
   "previous_print": {
     "printer_task_id": "1449338494",
-    "physical_result": "https://github.com/derekbreden/homesodamachine/blob/fc87ce45aeba1b580b7a7fa6cb6119935fa358bb/hardware/printed-parts/enclosure/enclosure/prints/2026-11-15-back-top-nameplate-corbels-mark1/physical-result/physical-result.json"
+    "physical_result": "https://github.com/derekbreden/homesodamachine/blob/3f66d5185d505722cd774c65d2f73c3a3b30ce44/hardware/printed-parts/enclosure/enclosure/prints/2026-11-15-back-top-nameplate-corbels-mark1/physical-result/physical-result.json"
   }
 }

@@ -78,7 +78,7 @@ Y −14 to +14 mm. Place it at `(0, level − 8.766, −41.849)` mm using the
 provisional dry-foam immersion model. The ring belongs inside the opaque body.
 
 The saved bundles retain the source hashes in `cad-manifest.json`. Their archived
-[asset extraction](https://github.com/derekbreden/homesodamachine/blob/a9a566d2190f24a8b9da51c3630327857ec12beb/marketing/video/how-carbonation-works/prepare-assets.py)
-and [carbonator extraction](https://github.com/derekbreden/homesodamachine/blob/a9a566d2190f24a8b9da51c3630327857ec12beb/marketing/video/how-carbonation-works/prepare-carbonator-assets.py)
+[asset extraction](https://github.com/derekbreden/homesodamachine/blob/f5ba489dba442822b49c2a147b90eed8b8d9868e/marketing/video/how-carbonation-works/prepare-assets.py)
+and [carbonator extraction](https://github.com/derekbreden/homesodamachine/blob/f5ba489dba442822b49c2a147b90eed8b8d9868e/marketing/video/how-carbonation-works/prepare-carbonator-assets.py)
 recipes remain available at the recorded revision. Current exports use the
 [native asset producer](../../../../tools/hsm/marketing/src/film/assets.rs).

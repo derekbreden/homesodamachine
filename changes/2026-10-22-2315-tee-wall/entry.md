@@ -2,7 +2,7 @@
 title: The pump tees stand in a thick flat tee wall
 lede: Front-top's bay bulkhead is one flat slab 14.3 mm deep. Each tee's branch slides in a Ø17 mm bore through it, behind a Ø8.5 mm hole in the collet plate.
 date: 2026-10-22T23:15:49-05:00
-commit: e5432a5258a2fa84fdedd1d14b8df6923b7a42ea
+commit: 01bcec2a48db92245a063af591b9f6988629b1ad
 model: manifold-layout/enclosure-assembly.step
 ---
 [Locate the tees in 3D](https://homesodamachine.com/3d#step:manifold-layout%2Fenclosure-assembly.step?find=solid%3A%20tee-y-c%0Asolid%3A%20tee-y-d%0Asolid%3A%20tee-y-f%0Asolid%3A%20tee-y-g).

@@ -6,7 +6,7 @@
   "connection_key": "Mark2",
   "status": "prepared",
   "prepared_utc": "2026-11-25T01:26:45+00:00",
-  "source_revision": "92f6387ceabf42b01da34afcfea2f4bf78d8961e",
+  "source_revision": "df6a39a529357846d47d38a7eacd82154236ef25",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {
     "diameter_mm": 0.4,

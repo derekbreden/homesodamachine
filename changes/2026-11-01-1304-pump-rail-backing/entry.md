@@ -2,7 +2,7 @@
 title: Pump rail stops share broad continuous saddle stock
 lede: Both fixed-rail stops join the motor saddle through broad outside backing. The straight rail corridor stays open, and the lower fore stock clears the head lug.
 date: 2026-11-01T13:04:15-06:00
-commit: 319f8596ffb64719fad85e18ccd529bf7227c386 3e504250c54d8179c40c5de5fefc40bbbc01b3ec
+commit: 67b820d5539bc91b6319dbbbc09a32edab8cc251 3015ba0bf5c0eec29ac6fb15837db749bdb3234f
 model: printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 ---
 The 9.329 mm outside stock contains 7.1 mm of continuous backing beyond the straight fixed-rail corridor. The fore end stands 15.798 mm above the lid and the rear end reaches the saddle top. The continuous upper-clip pockets open through this stock.

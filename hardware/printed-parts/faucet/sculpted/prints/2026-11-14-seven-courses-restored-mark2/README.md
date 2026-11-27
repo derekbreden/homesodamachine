@@ -19,16 +19,16 @@ their most rise.
 On the tip, the anchor, plug and support roots start level; the interface and the visible
 shoulder follow the bearing plane, and the shoulder's tilted courses lay the mating face. Above
 each foundation the level courses keep the
-[sloped-underside print's](https://github.com/derekbreden/homesodamachine/tree/cff7e283594be4f0d37e20b0b0863f11efc4823f/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2)
+[sloped-underside print's](https://github.com/derekbreden/homesodamachine/tree/ee0db891d9ab50c3882ebdec693090e0b6d53845/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2)
 wall and rear scarf settings. On the base, and on the tip below its end, the slicer lays walls
 at their own speed through its shallow overhang points and slows them from there toward its
 steeper points, where the fan comes on; steeper overhangs, bridges and their fan, and the
-cover, mounting plate and lever keep the slicer's recipe. [`stage/overhang-scope.py`](https://github.com/derekbreden/homesodamachine/blob/4beaa725a8/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-seven-courses-restored-mark2/stage/overhang-scope.py)
+cover, mounting plate and lever keep the slicer's recipe. [`stage/overhang-scope.py`](https://github.com/derekbreden/homesodamachine/blob/3c6910e86e/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-seven-courses-restored-mark2/stage/overhang-scope.py)
 sets that in the slicer's own settings, and the [course record](course-scope.json) reads it
 back from the slice.
 
 The tip's end, from the lowest layer the tip-end cooling stage cools to its top, comes from a
-slice of the [stopped plate's](https://github.com/derekbreden/homesodamachine/tree/93eee62ef1197db2fe70e3fbec278826502d2794/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-seven-courses-mark2)
+slice of the [stopped plate's](https://github.com/derekbreden/homesodamachine/tree/abc3464502b638badd429af79b431c09f367c838/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-seven-courses-mark2)
 project, so its walls keep the slicer's recipe through the shallow overhang points too. It lays the same beads there, supports included, as this plate's own
 slice. The [splice record](tip-end-splice.json) names both slices and the layers taken.
 
@@ -37,7 +37,7 @@ bridge-foundation stage lays fresh courses over bridges slower with the part fan
 sloped-underside print; the [cooling record](cooling.json) gives its recovery moves. The
 tip-end stage turns the part fan on over the tip's paths from its dispense face back to just
 short of the lip grooves, on both sides, the
-[surfaces Derek found rough](https://github.com/derekbreden/homesodamachine/blob/98184ec4e05240c534ecaf5bf042fb3a7aecda95/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-wing-end-relief-mark1/physical-result/tip-end-surface.json);
+[surfaces Derek found rough](https://github.com/derekbreden/homesodamachine/blob/514df2770c105ca33d7643f4755931dfc3c50c6a/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-wing-end-relief-mark1/physical-result/tip-end-surface.json);
 the [tip-end record](tip-end-cooling.json) gives the cooled stretch.
 
 Between level course groups the head moves as the slicer's own layer changes do: a spiral up

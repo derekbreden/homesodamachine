@@ -2,7 +2,7 @@
 title: Installed wires follow the available passages and grooves
 lede: All 103 conductors have proposed routes. The internal sensor leads share one passage into the foam cavity, and cartridge wires follow the existing paired grooves.
 date: 2026-10-21T04:44:27-05:00
-commit: 3c96a43c52e6df1e55b7e4d5700c2d9716ec8f73
+commit: 48b400576a1b96d9524ed09f6a6aa271bf43871b
 model: manifold-layout/enclosure-assembly.step
 ---
 The main foam cavity has a shared Ø7.5 mm cable passage through the cap cup

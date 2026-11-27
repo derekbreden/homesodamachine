@@ -2,7 +2,7 @@
 title: Reed cables leave through the rim and a straight cap passage
 lede: B's five wires use a 10 × 6 mm shell-rim notch, retaining their common WAGO. A rises straight through the cap and turns above the lid.
 date: 2026-10-29T00:19:08-05:00
-commit: 25009effab60f35f412d8fade4352fec2d8e1481 6e96b4b41 07506cd00
+commit: e36d5945f1a60400cc6c4a25d1ee0750227689d7 8342a26a3 9c06df3a4
 model: manifold-layout/enclosure-assembly.step
 ---
 Reservoir B's ribbon leaves its dry reed channel through a top-open notch, 10 mm wide and 6 mm below the shell rim. The wall remains below world Z227.4. The mouth blends into the existing 8 mm dry channel, with shallow ramps supporting the flank extensions. The cap floor closes the outlet's roof. Lay the ribbon into the notch after the foam has cured, seat the cap, and seal the cable into the exterior foil band.

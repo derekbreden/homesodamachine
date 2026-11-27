@@ -2,7 +2,7 @@
 title: A seam channel runs down the cold core's +Y flank
 lede: A 9.5 × 1 mm channel on the PRV vent's column gives the outer wall's plain seam an inside corner. The wall folds in behind it and keeps its 2.38 mm section.
 date: 2026-10-28T22:56:10-05:00
-commit: 0bae220334cd6090f6dd9921d16a091be276efb9
+commit: 4373ab5aa89f2fcd9d3e13e108bb7d7469793584
 model: printed-parts/cold-core/foam-shell/foam-shell.step
 ---
 The channel is the PRV vent's 7.5 mm bore with a 1 mm land either side, so the vent opens in its floor. It runs the flank's height between the two foil lands, 13 mm short of each end, and its floor runs out to the face at 45° at both ends. Behind it the wall's inner face comes in by the same 1 mm over the channel plus one wall section either side, so every horizontal section through the fold is 2.38 mm.

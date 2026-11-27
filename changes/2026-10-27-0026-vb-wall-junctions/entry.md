@@ -2,7 +2,7 @@
 title: Four core junctions stand behind V-B’s wall
 lede: The WAGO wells share a flat wall top 1.25 mm below the funnel frame. V-B and the two reservoir-A under-valve runs sit 1 mm lower, using the fore snap and aft tied seat.
 date: 2026-10-27T00:26:10-05:00
-commit: cd4ca66edef65eec9ab001342832c4f7bf2883a5 c5ca3ec76
+commit: aa776dbec521f0f40f0e21c4cda115c05c176c0e 59cee1814
 model: manifold-layout/enclosure-assembly.step
 ---
 The four WAGO junctions occupy two rows on the PCB-facing back of V-B’s
@@ -26,6 +26,6 @@ selected datums.
 
 The native assembly has no volume clashes. The scoped tube clearances,
 snap insertion reading and matching lid slice are recorded in the
-[wall-routing review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/cold-core/foam-cap/wago-wall-review/README.md).
+[wall-routing review](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/cold-core/foam-cap/wago-wall-review/README.md).
 The slice is prepared for Mark2’s left 0.4 mm Standard nozzle in PET-GF15;
 the preparation launches no print.

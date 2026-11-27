@@ -2,7 +2,7 @@
 title: The fitted equipment snap goes into the back top and carbonator lid
 lede: All five covers have a guided entry, 2 mm spring wings and a solid catch. Each saddle follows the piece of hardware it holds.
 date: 2026-11-26T23:30:09-06:00
-commit: f4c4dfd84089a42ac388388a683ae343f8472754
+commit: ebb39c3771eba6e01389e90afaeddeef047525c2
 model: manifold-layout/enclosure-assembly.step
 ---
 

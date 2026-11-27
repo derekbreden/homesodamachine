@@ -2,7 +2,7 @@
 title: Rear panel relief runs out through the rim
 lede: The relief behind the rear fittings no longer ends on a level face that printed as a bridge. It runs out through the rim, on one plane with the cold core's pocket.
 date: 2026-11-20T01:07:10-06:00
-commit: 72516ea7c5330b0fe98fc41c1012d50544d828b4
+commit: 98efa51bb6a91f94c92cfd6e0713e995fde79718
 model: printed-parts/enclosure/enclosure/enclosure-back-top.step
 ---
 Back-top's rear wall is relieved behind the six fittings, so their nuts clamp a thinner panel. The relief ended on a level face above the rim, beside the rounded corner of the cold core's pocket. Back-top prints ceiling-down, so that face printed as a bridge in the east corner.

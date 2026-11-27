@@ -1,6 +1,6 @@
 {
   "source": {
-    "commit": "e1ae1f74b3ec4e00e7f7e1831856c4b747a4ef6e",
+    "commit": "2d2a4dead0b297d9199e0d597a36ede95e58f1c4",
     "path": "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
     "sha256": "42bd798213a8b0be16b80d52a67e1bf77909f50084ba47d4611d43354c9a009c"
   },

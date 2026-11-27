@@ -83,4 +83,4 @@ Amazon's "Product Dimensions 7.35 × 4.31 × 2.83 in" quotes the width of the
 
 ## Model inputs
 
-The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/seaflo-22-pump/seaflo_22_pump.py).
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/seaflo-22-pump/seaflo_22_pump.py).

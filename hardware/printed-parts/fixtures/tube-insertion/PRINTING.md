@@ -23,9 +23,9 @@ TPU backing is 5.125 mm.
 The jaw plate contains only the two replacement halves. The TPU pieces
 have a 2 mm model gap. The corresponding `.print.json` and `.readiness.json`
 files bind the meshes, settings, native material process and emitted trim.
-The [Mark1 jaw launch](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-13-centered-grip-mark1/README.md)
+The [Mark1 jaw launch](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-13-centered-grip-mark1/README.md)
 records task 1335878319 with software completion at 63/63 layers. The
-[Mark1 insert launch](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-13-centered-liners-mark1/README.md)
+[Mark1 insert launch](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-13-centered-liners-mark1/README.md)
 records accepted task 1336534713 and preserves its exact slice. The Mark2
 jaw plate has no printer submission. The
 [physical acceptance record](physical-acceptance.json) identifies successful
@@ -65,7 +65,7 @@ Automatic brim is retained. Standard Mark1 +0.18 mm user trim emits
 `G29.1 Z0.16` after the reset. The liner restart amount uses the saved
 recipe; the separately prepared restart experiment has no grip qualification.
 
-The [physical failure record](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/grip-failure.json)
+The [physical failure record](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/grip-failure.json)
 identifies grip failure at rigid closure and the 8.5 mm CAD screw offset
 for that trial. The [centred grip review](centered-grip-review.json)
 establishes alignment and the added 2 mm total closure reserve. The

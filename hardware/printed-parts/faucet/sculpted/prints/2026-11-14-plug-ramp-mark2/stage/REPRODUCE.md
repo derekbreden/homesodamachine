@@ -4,15 +4,15 @@ Run from the checkout root. The saved native slices reproduce the exact commands
 accepted by the printer.
 
 This folder's scripts and `sculpted-faucet-print-project`, which the commands below run, are
-in Git at [`4beaa725a8`](https://github.com/derekbreden/homesodamachine/tree/4beaa725a8).
+in Git at [`3c6910e86e`](https://github.com/derekbreden/homesodamachine/tree/3c6910e86e).
 
 ```sh
 sculpted='hardware/printed-parts/faucet/sculpted'
 trial="$PWD/$sculpted/prints/2026-11-14-plug-ramp-mark2"
 stage="$trial/stage"
-flat='46b73353f6a2d910bdd5c82f3b3946adc4a84415'
+flat='2c42d5699407a33af9395fe903425a635d9874bf'
 previous="$sculpted/prints/2026-11-14-tip-shoulder-mark2"
-shaft_store='fb168201798cac4f7692a9a1e603261232df0449:hardware/printed-parts/faucet/sculpted/prints/2026-11-13-shaft-tilted-mark2/stage'
+shaft_store='0722ea80be3a760982b727f2f6000829690190dc:hardware/printed-parts/faucet/sculpted/prints/2026-11-13-shaft-tilted-mark2/stage'
 cad_py="$PWD/tools/cad-venv/bin/python"
 mkdir -p "$PWD/.cache/runs"
 run="$(mktemp -d "$PWD/.cache/runs/faucet-plug-ramp-repro.XXXXXX")"

@@ -11,7 +11,7 @@ separately assessed. [Physical result](physical-result/physical-result.json) ·
 The [nozzle-identification record](nozzle-read.json) preserves the earlier
 rejected remote read separately from the subsequent verified identification.
 
-The preceding right-hotend **task 1374272357** has [reported polymer buildup and a motion-step-loss warning](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json).
+The preceding right-hotend **task 1374272357** has [reported polymer buildup and a motion-step-loss warning](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json).
 Four photographs show the warning **0300-800c 015526**, partial body/cap
 footprints, loose strands and buildup around the right nozzle/hotend region.
 Fresh retained status is **FAILED**, print error 0 and no HMS. The layer

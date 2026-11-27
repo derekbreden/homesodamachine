@@ -26,9 +26,9 @@
     }
   ],
   "firmware": {
-    "installed_build": "2026.10.18 d6fe28468+, read back on the main board's console after it was flashed.",
+    "installed_build": "2026.10.18 cc5530555+, read back on the main board's console after it was flashed.",
     "valve_plan": "Prime and the pour on flavor A open V-E and V-G (MANIFOLD A OUT5 and OUT7); on flavor B, V-H and V-J (MANIFOLD A OUT8 and MANIFOLD B OUT2).",
-    "investigation_build": "e921c7e8a drove every J1 and J2 output on any Prime or pour while the wiring was in question; d6fe28468 reverted it."
+    "investigation_build": "7e8993f29 drove every J1 and J2 output on any Prime or pour while the wiring was in question; cc5530555 reverted it."
   },
   "article_identity": {
     "valves": "Beduan 12 V 1/4 in normally closed solenoid valve, B07NWCQJK9; coil label DC12V, 4.8 W.",

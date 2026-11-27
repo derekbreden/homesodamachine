@@ -67,7 +67,7 @@
     }
   },
   "native_reference": {
-    "publication_source": "add51f823ab19fa81c38a9afd96e313e80c38cf8",
+    "publication_source": "1dc44ae8145540e1c6a3cc89e5e09aa24f15139e",
     "lid_step_sha256": "5890626547d923cebf0303120d87a80c4b3535293926711a7b470d6805f009f0",
     "scope": "Reference used only for the finite -0.5 mm local-X station and unchanged surrounding-lid comparisons. The B plinth is re-cut against its fixed conduit passage; rigid translation and invariant lid volume are not assumed."
   },

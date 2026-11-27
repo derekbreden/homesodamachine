@@ -664,7 +664,7 @@
   },
   "approved_cap_profiles_reference": {
     "native_archive_sha256": "86fc20a5595170f863c23bf1a894b9c51d91ab0d76d8a7e35cdec8b8bd5b2bb3",
-    "snapshot_commit": "1c6498164a4fa879bebf758e06cce6ca25b93cff",
+    "snapshot_commit": "6e6be6fe1021ebe96bbbcd404a7f3e94f3fb0b84",
     "method": "Bidirectional solid differences after applying the stated translation."
   },
   "roof": {

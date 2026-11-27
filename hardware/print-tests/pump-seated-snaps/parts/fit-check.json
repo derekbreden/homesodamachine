@@ -2,7 +2,7 @@
   "purpose": "Check the two continuous +0.40 mm pump crests, catch draw, actual motor and rail contact, and independent coupon against the production lid.",
   "units": "mm unless an area, volume or angle is named.",
   "sources": {
-    "previous_source_commit": "81af69339f",
+    "previous_source_commit": "2dd1e901a1",
     "previous_lid_native_sha256": "6c1fce9a990ecf4454e6bceb77a21bc04147caeb1b5884b72d3fd4869cddca37",
     "previous_cap_native_sha256": "4c5203b0a000f5c2cd8cdde59582c03ab366d9feb427c8d1b8c14789337f17ae",
     "lid_native_sha256": "0276e21fb94a84c7a592048f6321a3b81434b7aeee162e31bcdbb79fb1372807",

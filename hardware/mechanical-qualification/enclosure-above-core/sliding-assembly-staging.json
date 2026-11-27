@@ -26,7 +26,7 @@
   },
   "reservoir_a": {
     "status": "selected_free_span_handling",
-    "approval": "https://github.com/derekbreden/homesodamachine/blob/1f49ea24e261b5b74e8b82d8c3e9ac5690736952/hardware/manifold-layout/studies/funnel-gate/reservoir-a-anchors.json#approval_scope",
+    "approval": "https://github.com/derekbreden/homesodamachine/blob/3ab1ec6115ec6c853b0ac3bf33d2a4caf3e08c4e/hardware/manifold-layout/studies/funnel-gate/reservoir-a-anchors.json#approval_scope",
     "sequence": [
       "Prethread and finish the two paired-seat ties on the open core, retaining the selected anchor locations.",
       "Leave the front valve ends free during the column slide and dress the flexible spans between the fixed seats and core entries clear of passing fittings. Use the loose elbow joints' rotation while their fittings pass the tubes.",

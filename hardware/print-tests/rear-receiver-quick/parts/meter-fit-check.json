@@ -3,11 +3,11 @@
   "sha256": "6402c48bce65ebe96b9e1d75d56883c764bf1c82e5be4e59c0046897a16b2a9f",
   "enclosure_mesh_sha256": "678b67af924d68c73f4669ccbc0ed3f39b23049850b7d176fb73906b6bc71797",
   "pisco_reference": {
-    "archive": "6343b3ef52a582988ff37589afacd196ac068471",
+    "archive": "657ba23a10c03591e44c86789a171baceae23622",
     "file": "hardware/print-tests/pisco-cover-retention/parts/pisco-three-marks.stl",
     "sha256": "ba67dfe4a039f2278dfc31fa8f56668c28ae2e08db15ce8600db08601e0dd190"
   },
-  "waypoints_source": "https://github.com/derekbreden/homesodamachine/blob/4fc4e86e02bc6b6a7aff3063de65197ecba55d2b/hardware/print-tests/pisco-cover-rocking/parts/fit-check.json",
+  "waypoints_source": "https://github.com/derekbreden/homesodamachine/blob/2b10a8810e1355f9d8acc950de4ed16aa599f7d5/hardware/print-tests/pisco-cover-rocking/parts/fit-check.json",
   "gas_regulator_installed_asset_sha256": "c66fbc2b8f12019ee2085445889e91f329c9e352e3b089e12f7e8024bc6e7939",
   "meter_installed_asset_sha256": "3f74b690e93ce9884c86e2cb1d550532e6b8b05b1ab202bece36c9d385e2ffe7",
   "installed_caps_sha256": "045d17cdf13460c20308924547d75eae85ddb25d6dae3ef77754d72ff24ac51b",

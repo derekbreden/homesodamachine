@@ -67,7 +67,7 @@
       "branch_diameter_mm": 1.4,
       "branch_growth_angle_deg": 0,
       "branch_wall_count": 1,
-      "recipe_change": "e77588ee16b5a6e88f554c674052ddbd93dd5598",
+      "recipe_change": "0aa84926262a0d21abc3396c4ec04c3633acfa3a",
       "reason": "The recipe uses compact vertical columns to preserve clearance and open removal lanes.",
       "support_setting_changes_from_prior_plate": {},
       "valve_seat": {

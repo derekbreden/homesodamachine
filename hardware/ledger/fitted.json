@@ -50,21 +50,21 @@
       "date": "2026-09-30",
       "said": "Alright, nameplate is good. Mark2 is free - what shall we print next?",
       "tried": "the flat-wing nameplate in its printed receiver",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/36833968c72d9aad04dc0d83759081bdee1aa69c/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/physical-acceptance.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/82ad786fd6220936e420f3b16089e7673e644617/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/physical-acceptance.json"
     },
     {
       "material": "HSM-0076",
       "date": "2026-09-30",
       "said": "Tee carrier and display cover are good. ... Display cover still has a bow, but I think it is mostly from the bend action leaving a bit of bend behind, so not sure there is much we can do there, or much I'm willing to iterate on right now at least. I think it is good enough. It survives the shake test and it looks good",
       "tried": "the cover snapped into its printed receiver and shaken",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/27c433f164134e1de2bab17fc0ab6501c2fbd401/hardware/printed-parts/enclosure/display-cover/face-up-trial/physical-acceptance.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930/hardware/printed-parts/enclosure/display-cover/face-up-trial/physical-acceptance.json"
     },
     {
       "material": "HSM-0073",
       "date": "2026-10-02",
       "said": "Very good.",
       "tried": "the third printed drain cradle snapped into its receiver",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/6e2695bee227cf6ad5ea6089fb934eba0f8d47ec/hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json"
     },
     {
       "material": "HSM-0033",
@@ -89,28 +89,28 @@
       "date": "2026-11-12",
       "said": "They work right now. In Z they are pretty close to snug, but in Y they are a bit loose. ... (currently they cannot be, and in fact forcing it into the pocket fully will force the snaps shut on the wago).",
       "tried": "both Wago connectors pressed into the printed front-top tower",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/46e517081c7bc1b4e29b5e7df45d1909b13af147/hardware/print-tests/front-top-wago-fit/2026-11-12-mark2/physical-observation.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/f34bc2ba39a08b7d904c1058e9695b99eddb79eb/hardware/print-tests/front-top-wago-fit/2026-11-12-mark2/physical-observation.json"
     },
     {
       "material": "HSM-0079",
       "date": "2026-11-12",
       "said": "the WAGO fits in very easily, but is still held pretty well. It's awesome. The 3.1 is definitely good enough.",
       "tried": "Wago insertion and retention in the three-dot front-top receiver coupon",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/e7bbe828fe21328b174546dab8968187cb4c671a/hardware/print-tests/front-top-wago-fit/2026-11-12-mark1-dots-3-4-standard-layers/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/965ed093bb61391ab3c72096214ce16e638a5b55/hardware/print-tests/front-top-wago-fit/2026-11-12-mark1-dots-3-4-standard-layers/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0079",
       "date": "2026-11-13",
       "said": "Size wise I think we're getting very good, I'd just like to go tighter again on the slimmer 5 conductor wago only",
       "tried": "Wago fit in the five-dot front-top receiver coupons",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/7544b2d847a4105b46f73d5fae2adc05fe300f97/hardware/print-tests/front-top-wago-fit/2026-11-12-mark1-five-dot/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/dd1ea60c98ed77b4215ac0412f11c59614a1e169/hardware/print-tests/front-top-wago-fit/2026-11-12-mark1-five-dot/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0079",
       "date": "2026-11-13",
       "said": "please implement that, and call it fitted close enough and good enough.",
       "tried": "Front-top Wago receiver fit series, with the production dimensions accepted by Derek",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/d7924ed62aa3d398b92454ce9c695e220c5b946b/hardware/print-tests/front-top-wago-fit/2026-11-13-mark1-six-dot-rail-trees/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/737ed68c8b96243e5a96b0d4d5c41dc7c7e1012b/hardware/print-tests/front-top-wago-fit/2026-11-13-mark1-six-dot-rail-trees/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0080",
@@ -165,7 +165,7 @@
       "date": "2026-11-02",
       "said": "On the most recent round of finished prints there for the snap prints, the water regulator and the pisco and the flow meter are all perfect, or close enough to perfect, that we definitely want to call these approved and good for all aspects of fit other than the wing tips",
       "tried": "the water regulator snapped into its printed cap and receiver",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/pointed-snaps/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/pointed-snaps/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0448",
@@ -190,42 +190,42 @@
       "date": "2026-11-09",
       "said": "Like honestly either would be fine. If I'm being really nitpicky though, (A) is closer but a bit tight and (B) is further and a bit loose so let's go with somewhere in between, 0.20 mm per side, as our approved variant implemented on all 6 color chips.",
       "tried": "printed plates of two widths pressed into the enclosure's port recess; he chose a width between them for all six",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/physical-result.json"
     },
     {
       "material": "HSM-0063",
       "date": "2026-11-09",
       "said": "Like honestly either would be fine. If I'm being really nitpicky though, (A) is closer but a bit tight and (B) is further and a bit loose so let's go with somewhere in between, 0.20 mm per side, as our approved variant implemented on all 6 color chips.",
       "tried": "printed plates of two widths pressed into the enclosure's port recess; he chose a width between them for all six",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/physical-result.json"
     },
     {
       "material": "HSM-0064",
       "date": "2026-11-09",
       "said": "Like honestly either would be fine. If I'm being really nitpicky though, (A) is closer but a bit tight and (B) is further and a bit loose so let's go with somewhere in between, 0.20 mm per side, as our approved variant implemented on all 6 color chips.",
       "tried": "printed plates of two widths pressed into the enclosure's port recess; he chose a width between them for all six",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/physical-result.json"
     },
     {
       "material": "HSM-0065",
       "date": "2026-11-09",
       "said": "Like honestly either would be fine. If I'm being really nitpicky though, (A) is closer but a bit tight and (B) is further and a bit loose so let's go with somewhere in between, 0.20 mm per side, as our approved variant implemented on all 6 color chips.",
       "tried": "printed plates of two widths pressed into the enclosure's port recess; he chose a width between them for all six",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/physical-result.json"
     },
     {
       "material": "HSM-0066",
       "date": "2026-11-09",
       "said": "Like honestly either would be fine. If I'm being really nitpicky though, (A) is closer but a bit tight and (B) is further and a bit loose so let's go with somewhere in between, 0.20 mm per side, as our approved variant implemented on all 6 color chips.",
       "tried": "printed plates of two widths pressed into the enclosure's port recess; he chose a width between them for all six",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/physical-result.json"
     },
     {
       "material": "HSM-0067",
       "date": "2026-11-09",
       "said": "Like honestly either would be fine. If I'm being really nitpicky though, (A) is closer but a bit tight and (B) is further and a bit loose so let's go with somewhere in between, 0.20 mm per side, as our approved variant implemented on all 6 color chips.",
       "tried": "printed plates of two widths pressed into the enclosure's port recess; he chose a width between them for all six",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/physical-result.json"
     },
     {
       "material": "HSM-0025",
@@ -288,28 +288,28 @@
       "date": "2026-11-12",
       "said": "On the prints that just finished, the fit turned out wonderful. Best faucet display cover fit so far, and very tight/firm. It is good enough. You can see in the photos it is not perfect though. ... on the aft side it is almost like that, but still a bit of a ramp where you can see the tip kissing the surface. But on the fore side, as we bring the camera around the side you see we do make quite a lot of contact with the surface there for a bit, and then we get gaps again.",
       "tried": "the printed cover snapped onto the printed Sculpted tip",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/cd63966c8a342d38363dfdb81509aa5a521585da/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-bowed-cover-tip-end-cooling-mark2/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/0c352e650fa6cae1fba09735c66c414fbbb6a267/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-bowed-cover-tip-end-cooling-mark2/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0096",
       "date": "2026-11-13",
       "said": "Regarding the faucet tip and faucet display cover, that is the best fit that we've had of anything ever. It's amazing. I love it. I think the only tiny imperfection is a hole you can see, which isn't even a gap between the display cover and the faucet tip, even though it might look like a gap between them. It's not. It's actually like a hole in the faucet tip that just didn't get quite covered by the display cover. And other than that, I mean, I think it looks pretty damn good.",
       "tried": "the printed cover snapped onto the printed tip from the same plate",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/dcbaf13d4d9c3d449373a059742f91478bb67e82/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/b818b34788d36448453f6ec134f152037335905d/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0095",
       "date": "2026-11-13",
       "said": "Regarding the faucet tip and faucet display cover, that is the best fit that we've had of anything ever. It's amazing. I love it. I think the only tiny imperfection is a hole you can see, which isn't even a gap between the display cover and the faucet tip, even though it might look like a gap between them. It's not. It's actually like a hole in the faucet tip that just didn't get quite covered by the display cover. And other than that, I mean, I think it looks pretty damn good.",
       "tried": "the printed tip with the printed cover snapped onto it, from the same plate",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/dcbaf13d4d9c3d449373a059742f91478bb67e82/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/b818b34788d36448453f6ec134f152037335905d/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0094",
       "date": "2026-11-13",
       "said": "So this is the best looking faucet base bottom that we've had ever, at least at this angle. ... And it's still looking better than we've ever had before towards the fore side, towards the front side. But it is definitely looser there. ... And the same for the faucet base. What we just had there needs to be implemented as well, because it's better than anything we've had before, regardless of what we try next.",
       "tried": "the printed Sculpted base in hand, its underside after the support came off",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/dcbaf13d4d9c3d449373a059742f91478bb67e82/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/b818b34788d36448453f6ec134f152037335905d/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0079",
@@ -323,7 +323,7 @@
       "date": "2026-11-14",
       "said": "So on the faucet, the base support broke off beautifully. ... it just all broke off as, like, one clean piece, and it took a little bit of force, but that was great. ... And the back of the faucet base, the seam that's back there where it normally is, that looks normal. It's fine. But then we've got this second seam in front that I don't understand how we ended up with that. ... And it's also all fuzzy and ugly. ... And I see some fuzziness other places too",
       "tried": "the Sculpted base in hand after removing the underside support, inspecting the mounting face and both sides of the shell",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/f835475169b9bd355745a40451b682da94f32c62/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-plug-ramp-mark2/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/6922ccb6c46ec6abc1c8fff68ff764219ca3a361/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-plug-ramp-mark2/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0094",
@@ -372,119 +372,119 @@
       "date": "2026-11-17",
       "said": "So that actually turned out pretty well. I think it's actually just about perfect.",
       "tried": "the relieved funnel-frame corner coupon in the printed front-top, seating under light hand pressure",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/635052504/hardware/print-tests/funnel-frame-seating/prints/2026-11-17-funnel-frame-seating-coupon-mark2-600b84b5-textured-pei/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/0e302285b/hardware/print-tests/funnel-frame-seating/prints/2026-11-17-funnel-frame-seating-coupon-mark2-600b84b5-textured-pei/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0080",
       "date": "2026-11-17",
       "said": "The fit seems pretty good on those test parts that you had sent just now. So I guess whatever you changed probably fixed it.",
       "tried": "the paired back-top and back-bottom coupons slid together at the west pressure-relief vent chase",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/e99cfbfc5652fc1c9a6d1914f061d2876f63efc4/hardware/print-tests/prv-rail-fit/prints/2026-11-17-mark1/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/35767f107248ad84c13d526307d7efbaad327b09/hardware/print-tests/prv-rail-fit/prints/2026-11-17-mark1/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0080",
       "date": "2026-11-18",
       "said": "It does work.",
       "tried": "the paired east-side coupons with the rounded rear alignment joint, slid together by hand",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/56f6ca939d519c4271fe137e4eca6c2be5f245d1/hardware/print-tests/rear-alignment-fit/prints/2026-11-17-mark1/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/57e1ce535010b9b8dfc2f16647fa1b152d5a9259/hardware/print-tests/rear-alignment-fit/prints/2026-11-17-mark1/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0080",
       "date": "2026-11-18",
       "said": "The fit is pretty good, or at least good enough.",
       "tried": "the full-length east rear rail coupon pair slid together by hand, with some upper-half flex at the forward end under hand pressure",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/3bc217046ae3af30b3ed58c36dacfc389998e7b1/hardware/print-tests/east-rear-rail-fit/prints/2026-11-18-mark1/physical-result/observations.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/f8f646e2fe5bf2ff4457d266c2a827a822ebec88/hardware/print-tests/east-rear-rail-fit/prints/2026-11-18-mark1/physical-result/observations.json"
     },
     {
       "material": "HSM-0081",
       "date": "2026-11-20",
       "said": "Fit is good.",
       "tried": "the reservoir fill tube seated in the printed crop of the back-top east-wall snap",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/9f92649048b4168ef0ad479a5773a7d12fb22977/hardware/print-tests/tube-snap-corbel/prints/2026-11-20-mark1-upper-wing-support/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/f15bb9b4dbab8cd2046ea8e1e8e08d13539381d2/hardware/print-tests/tube-snap-corbel/prints/2026-11-20-mark1-upper-wing-support/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0020",
       "date": "2026-11-20",
       "said": "Fit is good.",
       "tried": "both quarter-inch tubes seated in the printed crop of the cold-core lid's two aft clips",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/5a5c589208a470c654f443981a4b9bc1802563cb/hardware/print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/62ee60e57a37209f04aed1586ca333b5fc9a9c97/hardware/print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0020",
       "date": "2026-11-21",
       "said": "Fit is good.",
       "tried": "black quarter-inch LLDPE tubing seated through the split quarter-turn clip on a printed crop of the cold-core lid",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/6f1ace30ded2ef1eec928d2c04f39be1b1b485dd/hardware/print-tests/vb-return-clip/prints/2026-11-21-mark1/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/436ebff8a1b814e7b35ca8ff5585fb9bdd505d8c/hardware/print-tests/vb-return-clip/prints/2026-11-21-mark1/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0079",
       "date": "2026-11-21",
       "said": "Okay. It is good enough.",
       "tried": "the upright V-H draw-tube entry clip on the printed crop of the front-top pump bulkhead",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/feb1783dff3c65d92c01a6c2881fbec7e88d60d9/hardware/print-tests/vh-entry-clip/prints/2026-11-21-mark1/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/401ad700c560df60f449ee3c1901a6970b1076c4/hardware/print-tests/vh-entry-clip/prints/2026-11-21-mark1/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0081",
       "date": "2026-11-21",
       "said": "It worked.",
       "tried": "the production rear-corner crop with the meter, ASSE and Pisco installed together. The Pisco cover tilted past the shortened meter shoulder and clicked in.",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/5e6d64bf900d873c59c141b13b64fa9c34e123b3/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/5f1c802a52643bbe10a7872b726b89a36937b676/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0448",
       "date": "2026-11-21",
       "said": "It worked.",
       "tried": "the ASSE cover installed on the fitting in the assembled rear corner. Derek judged it the tightest of the three and good enough.",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/5e6d64bf900d873c59c141b13b64fa9c34e123b3/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/5f1c802a52643bbe10a7872b726b89a36937b676/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0449",
       "date": "2026-11-21",
       "said": "It worked.",
       "tried": "the Pisco cover installed over the seated regulator through the revised side entry. It clicked into both catches and had the most rocking play of the three.",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/5e6d64bf900d873c59c141b13b64fa9c34e123b3/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/5f1c802a52643bbe10a7872b726b89a36937b676/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0449",
       "date": "2026-11-22",
       "said": "two-diamond is better than what we had - still basically the same behavior of rocking, but slightly less so.",
       "tried": "the two-diamond Pisco test cover over the regulator in the printed rear corner. Derek preferred this sample and could still rock it gradually.",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/6343b3ef52a582988ff37589afacd196ac068471/hardware/print-tests/pisco-cover-retention/prints/2026-11-21-mark2/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/657ba23a10c03591e44c86789a171baceae23622/hardware/print-tests/pisco-cover-retention/prints/2026-11-21-mark2/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0449",
       "date": "2026-11-23",
       "said": "The +0.20 mm cover is great. Works very well, more than just good enough.",
       "tried": "the full-length, two-bar Pisco regulator cover printed on Mark1 with both wing tips raised 0.20 mm",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/f1e8c6ba98e640ec28c19d8b89ce5f78908c782e/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark1/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/4929e824821496fe644b6ee802f87744c5384279/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark1/physical-result.json"
     },
     {
       "material": "HSM-0449",
       "date": "2026-11-23",
       "said": "It's really the one that feels firmest so far, especially in terms of what it does here.",
       "tried": "the three-diamond Pisco cover in the original rear enclosure quadrant, pressing the exposed outlet and rocking the fitted cover between its two resting positions.",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/9c2c91090983a69177978413374640db8b046729/hardware/print-tests/pisco-cover-rocking/prints/2026-11-22-stops-mark1/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/317ed6f7c3259669e6579bb4e6a618636601256f/hardware/print-tests/pisco-cover-rocking/prints/2026-11-22-stops-mark1/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0449",
       "date": "2026-11-23",
       "said": "That is what happened.",
       "tried": "the raised two-bar front and one-bar control with the common rear Pisco collar and real regulator in the original quadrant. The raised front stayed put during the hand-rocking test.",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/e62039246607676c41560a80c5378a1b932ebf89/hardware/print-tests/rear-receiver-quick/prints/2026-11-23-roof-mark1/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/22b5747fed5cedb3b99a7cfe90f60b848a11836a/hardware/print-tests/rear-receiver-quick/prints/2026-11-23-roof-mark1/physical-result.json"
     },
     {
       "material": "HSM-0449",
       "date": "2026-11-23",
       "said": "I think it's actually the best we've had so far.",
       "tried": "the full-length four-bar Pisco cover from Mark2, with both wing tips raised 0.40 mm. It stayed engaged under hand pressure in the original quadrant. Derek attributed the remaining movement to the wing bending.",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/2d7f9faac54a802877a41971e513dc0211d3475c/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark2/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/0dac4ec61fa39ec24accd0f72a4aa0f14b7d813c/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark2/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0449",
       "date": "2026-11-23",
       "said": "it's also, you can see, pretty good",
       "tried": "the full-length two-bar Pisco cover from Mark1, with both wing tips raised 0.20 mm. Derek put it back over the same regulator and felt a tiny amount more play than with the four-bar cover.",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/2d7f9faac54a802877a41971e513dc0211d3475c/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark1/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/0dac4ec61fa39ec24accd0f72a4aa0f14b7d813c/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark1/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0450",

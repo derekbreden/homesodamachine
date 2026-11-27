@@ -163,7 +163,7 @@ removable XH housing envelopes and the fuse-splice insulation.
 
 The installed manifest gives each conductor's selected
 centreline, mounting parents, endpoint status and length. The
-[manual review](https://github.com/derekbreden/homesodamachine/blob/045602339b618a84e4a08935ec77335ef975f4c5/hardware/wiring/installed/routing-review.json) binds the larger-body clearance
+[manual review](https://github.com/derekbreden/homesodamachine/blob/4a946b5244ef0c8415e1b16741c4e932af14863e/hardware/wiring/installed/routing-review.json) binds the larger-body clearance
 readings and preparation budget to those exported artifacts. Wires and tubes
 are excluded from wire obstacles. Donor interfaces and the carbonator metal
 bond retain their stated nominal or unlocated terminal status.

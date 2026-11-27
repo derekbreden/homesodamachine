@@ -2,7 +2,7 @@
 title: Accessible junctions and finished wiring around the pump
 lede: The neutral WAGO clears the pump saddle, both front junctions have open lever mouths, and the wire routes clear the larger equipment.
 date: 2026-11-02T07:42:31-06:00
-commit: 7709ae0a0 7f0d26b06 6d05a9d40 84d333920 9976588c6f9385c5d1a11ef83b6a839492fec624
+commit: 58f759541 a23354b57 3800c850b 4180ec3ad 372608c129f191ac93c2831fd78d32b7dfb49c94
 model: manifold-layout/enclosure-assembly.step
 ---
 The neutral WAGO stands upright west of the continuous pump saddle, with its wire mouths facing fore and its levers east. Its integral well retains the rear mounting stock, clears the keystone jack and travels over the complete cold core during closure. One solid level roof beneath the data-jack seat keeps at least 3 mm above the neutral pocket, with the live side filled to remove its narrow support pocket.

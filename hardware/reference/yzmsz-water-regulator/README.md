@@ -38,7 +38,7 @@ preview, fused cloud and SHA-256 manifest are in
 `~/Documents/3D Scans/2026-10-29-yzmsz-water-regulator/`. That directory also
 holds registered observations and portable STEP/STL files.
 
-[analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/yzmsz-water-regulator/analyze_scan.py) fits the broad marker-table plane and
+[analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/yzmsz-water-regulator/analyze_scan.py) fits the broad marker-table plane and
 long housing axis, including its small molding draft, at unit scale. It fits
 the exposed release-face patches independently. A fixed table-height selection
 above 15 mm removes the support and markers; **466,634 observations** remain.
@@ -68,6 +68,6 @@ scale are not independently calibrated.
 
 `dimensions.json` separates published product facts from the fitted envelope.
 
-The source derivations are preserved at their recorded revision: [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/yzmsz-water-regulator/analyze_scan.py), [validate_scan.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/yzmsz-water-regulator/validate_scan.py).
+The source derivations are preserved at their recorded revision: [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/yzmsz-water-regulator/analyze_scan.py), [validate_scan.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/yzmsz-water-regulator/validate_scan.py).
 
-The source derivations are preserved at their recorded revision: [model.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/yzmsz-water-regulator/model.py).
+The source derivations are preserved at their recorded revision: [model.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/yzmsz-water-regulator/model.py).

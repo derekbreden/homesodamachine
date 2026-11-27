@@ -19,7 +19,7 @@
     },
     "meter_shoulder": "../rear-receiver-quick/parts/meter-shoulder-backed.stl",
     "meter_shoulder_sha256": "6402c48bce65ebe96b9e1d75d56883c764bf1c82e5be4e59c0046897a16b2a9f",
-    "tilt_waypoints": "https://github.com/derekbreden/homesodamachine/blob/f1e8c6ba98e640ec28c19d8b89ce5f78908c782e/hardware/print-tests/pisco-raised-tip-cover/parts/fit-check-040.json",
+    "tilt_waypoints": "https://github.com/derekbreden/homesodamachine/blob/4929e824821496fe644b6ee802f87744c5384279/hardware/print-tests/pisco-raised-tip-cover/parts/fit-check-040.json",
     "submitted_toolpath_checks": [
       "prints/2026-11-25-mark1-flush/section-check.json",
       "prints/2026-11-25-mark2-flush/section-check.json"

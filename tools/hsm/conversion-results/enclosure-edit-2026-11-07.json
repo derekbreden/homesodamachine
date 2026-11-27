@@ -261,7 +261,7 @@
     "action_cache_hits": 107,
     "scope": "committed build definitions with current shared source and restored reference import cache"
   },
-  "measured_revision": "b3a046d8e5bc6192ba89fc797968864d2bbdeccd",
+  "measured_revision": "72fc5924aeb492ef2856bd320024433bd1dd1007",
   "generated_inputs_not_retained": [
     "tools/hsm/cargo-config.json"
   ],

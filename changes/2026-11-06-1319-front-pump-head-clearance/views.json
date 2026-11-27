@@ -78,7 +78,7 @@
           "payload": "printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh",
           "from": "snapshot",
           "sha256": "1d83411b259f4a71dd097c88ea1431998e1f6c1f118d9e4fa3fcd5635a011251",
-          "commit": "88e798e300fd1ce3d7f7cf72910ae48c0cc8b833",
+          "commit": "f1430700d9fca281edb141996470c577e0f4107f",
           "taken": "2026-11-06T18:50:55.170Z",
           "published": true
         },
@@ -86,7 +86,7 @@
           "payload": "printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh",
           "from": "tree",
           "sha256": "c121f5f7bdc688670f0f9b8fd62c146c94c5eb124d292e633d31752fc083031f",
-          "commit": "a304b7a8d469e1725ba422231c459b1d877c65fa",
+          "commit": "c0b50f3ad62a1377b0dea0b86973c73366363538",
           "published": true
         }
       },

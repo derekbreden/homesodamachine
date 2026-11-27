@@ -1,7 +1,7 @@
 {
   "purpose": "Manual measurements of construction identity stability, printed shape equivalence and generator cost; no automatic check runs from this record.",
   "date": "2026-11-08",
-  "feature_core_commit": "94de899c5f0f8dc846bb35f39612becfce919d86",
+  "feature_core_commit": "bd305cef28475cdce3804372383cdf032a3469f6",
   "benchmark_program_sha256": "9001073d4515acd05feff0492cfbeddd30bdfacef4922f3cde2e48980606b311",
   "setup": {
     "machine": "shared Mac M3",
@@ -1814,7 +1814,7 @@
   },
   "live_validation": {
     "success": true,
-    "viewer_commit": "61034e12c3ba1e2de36f62800538e1f0291d25a7",
+    "viewer_commit": "5e6eaf2fdccefef503bc21ea8d145a577cc46141",
     "tests": [
       "feature link draws selected exported triangles",
       "whole component picking remains the default",

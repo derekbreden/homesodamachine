@@ -2,11 +2,11 @@
 title: Rear passages print with pointed roofs and a rooted vent cap
 lede: Covered bulkhead bores and horizontal valve sockets have printable roofs. The vent cap grows from the wall on a chamfer, with its short mouth lip bridging between the sides.
 date: 2026-11-06T12:59:37-06:00
-commit: 4d591b53d 2299dad45 4f2b60c69
+commit: bc54ca525 4b6776bba 89c8fbfd4
 model: printed-parts/enclosure/enclosure/enclosure-back-top.step
 ---
 The rear bulkhead passages retain their circular hardware clearance inside teardrop openings. Their pointed ends sit behind the identification plates. Horizontal valve post sockets use the same roof; the build-axis sockets stay circular.
 
 The vent cap joins its full wall root through a chamfer. Its end wall has a broad backing chamfer outside the passage, and its short mouth lip bridges between the side walls. The plumbing receiver catches retain their fitted faces and bridge between their complete end shoulders.
 
-The native preparation places the rear face toward the bed with a gentle tilt and fine layers over the shallow end faces and rear show surface. The sliding grooves and receiver catches grow through successive layers; their fitted bearings remain flat. Branching supports serve accessible features, with supports excluded from the inaccessible receiver interiors. The [physical print feedback](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/physical-result.json) supplies the access requirements.
+The native preparation places the rear face toward the bed with a gentle tilt and fine layers over the shallow end faces and rear show surface. The sliding grooves and receiver catches grow through successive layers; their fitted bearings remain flat. Branching supports serve accessible features, with supports excluded from the inaccessible receiver interiors. The [physical print feedback](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/physical-result.json) supplies the access requirements.

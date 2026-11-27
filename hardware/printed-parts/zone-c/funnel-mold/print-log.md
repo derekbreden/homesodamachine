@@ -16,11 +16,11 @@ Timelapse and all three startup calibration options are On; probing clump
 checks remain Off. The core has no supports and its full deposited
 footprint clears the usable bed by at least 39.565 mm.
 
-[Bound project, native toolpaths and launch](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/README.md).
+[Bound project, native toolpaths and launch](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/README.md).
 Finished-core quality, assembled fit and casting results are unassessed.
 At 09:50:36 CDT, the core is RUNNING at layer 1/176 without faults.
 Runtime timelapse is enabled; the read-only card inventory contains 97 clips.
-[timelapse-review.json](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/timelapse-review.json) records the observation.
+[timelapse-review.json](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/timelapse-review.json) records the observation.
 
 ## Mark1 cavity retry at +0.04 trim — 2026-10-06
 
@@ -46,7 +46,7 @@ the final Send dialog. Probing clump checks remain **Off**; camera AI
 preferences are untouched. Physical adhesion and finished-part results are
 not established by startup telemetry.
 
-The [timelapse/storage inspection](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/timelapse-storage-review.json)
+The [timelapse/storage inspection](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/timelapse-storage-review.json)
 records runtime timelapse disabled despite the Send option On. Remote enable
 is rejected, and the UI tool cannot operate Studio's custom Device toolbar.
 Recording is unconfirmed. The drive reports normal state; read-only FTPS
@@ -56,7 +56,7 @@ existing six-hour, 180 GB rotation deletes no clips in its matching latest
 run and has no local archive option configured. This inspection moves or
 deletes no files.
 
-The [native review and launch](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/README.md)
+The [native review and launch](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/README.md)
 bind the project, single-plate archive and G-code hashes to the preflight and
 acceptance. The core was not submitted. Scheduled monitors remain paused.
 
@@ -71,7 +71,7 @@ Derek reports that the complete print was swept onto the extruder and
 continued accumulating filament around it, with loss of the induction heating
 assembly. He reports the spare assembly and a new 0.4 mm nozzle are installed,
 and the filament is drying. The printer's current name is **Mark1**. The
-[physical result](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/physical-result.json)
+[physical result](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/physical-result.json)
 records this failure and the replacement order confirmation. The exact
 failure layer/time and initiating cause are not established.
 
@@ -85,16 +85,16 @@ Bed leveling is on, timelapse is off, and flow dynamic/nozzle offset
 calibration use Auto. Mark2 accepted its running reservoir study at
 01:51:41 CDT; the two launches are over 35 minutes apart.
 
-The [right-nozzle native review](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/README.md)
+The [right-nozzle native review](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/README.md)
 checks the current meshes, deposited-path bed limits, supports, nozzle and
 trim. The cavity estimate is **355.61 g / 17 h 03 min**. The
-[launch receipt](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/launch.json)
+[launch receipt](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/launch.json)
 records the exact archive/G-code hashes and startup observations. The
-settings audit (`hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-v1/failed-job-audit.json`, in git at c693edfdd0)
+settings audit (`hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-v1/failed-job-audit.json`, in git at 953648a0be)
 confirms Timelapse Off, chamber auto-record disabled in the preflight, and no
 failed-job video found in a read-only directory inspection.
 
-The prepared retry (`hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-v1/README.md`, in git at c693edfdd0)
+The prepared retry (`hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-v1/README.md`, in git at 953648a0be)
 contains the same geometry and right-nozzle recipe, 20/30 mm/s first-layer
 walls/infill, an 8 mm outer brim and 45 mm minimum deposited-footprint bed
 clearance. Its native cavity estimate is **356.56 g / 17 h 24 min**. Probing
@@ -113,7 +113,7 @@ surface lines. No surface-height, density or strength measurements accompany
 this report.
 
 This result belongs to the square-mouth cavity submitted on September 18 as
-`funnel-mold-04-standard-flow088-z018.gcode.3mf`, source commit `a78f28d28`.
+`funnel-mold-04-standard-flow088-z018.gcode.3mf`, source commit `abf1ba862`.
 The print used 0.88 flow and a 5.61702 mm³/s volumetric limit. Both settings
 changed from the 0.94 trial, and the emitted speeds differed. The result
 establishes an improvement for that combination; it does not isolate flow
@@ -127,8 +127,8 @@ The original supplied JPEG bytes are preserved; their hashes are in
 [print-jobs.json](print-jobs.json).
 
 The saved [funnel-mold.3mf](https://homesodamachine.com/print-archive/ec5bb28cafaf7b24f3af52fcb8c3377e78b1fa4f/funnel-mold.3mf) contains the **600 mL**
-rounded-mouth funnel's cavity and core from geometry commit `244508166`.
-Its finished casting solid matched that commit's [`../funnel/funnel.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/zone-c/funnel/funnel.py),
+rounded-mouth funnel's cavity and core from geometry commit `2a1030621`.
+Its finished casting solid matched that commit's [`../funnel/funnel.py`](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/printed-parts/zone-c/funnel/funnel.py),
 with zero symmetric-difference volume after trimming that design's sacrificial tip.
 Both embedded meshes match the current STL files and retain their print
 orientations. The complete process, filament and machine settings equal
@@ -191,7 +191,7 @@ use Auto. At **2026-09-18 18:43:18 UTC** (13:43 CDT), the printer reports
 **RUNNING**, the correct `funnel-mold-04-standard-flow088-z018.gcode.3mf`
 filename, 642 layers, no print error and no HMS entry. Connect shows chamber
 cooling and the left nozzle heating toward 165 °C. The saved source is commit
-`a78f28d28`. The September 20 result is recorded above.
+`abf1ba862`. The September 20 result is recorded above.
 
 ## Reduced-flow 0.4 mm Standard trial — 2026-09-17
 
@@ -209,7 +209,7 @@ normal supports. The meshes, placements and support settings are unchanged.
 The global filament variant map is Standard, matching both plate assignments.
 The other stored filament variants retain 0.97.
 
-Fresh Bambu Studio 2.8.2.61 slices of the failed project in commit `900ad704f`
+Fresh Bambu Studio 2.8.2.61 slices of the failed project in commit `598b4f17f`
 and this project each contain 642 layers. Layer 374 is Z47.24 mm in these
 reconstructed slices; support and model layers interleave, so multiplying 374
 by the nominal 0.24 mm layer height does not give its height. The original
@@ -219,7 +219,7 @@ The new cavity slice reports a 0.94 flow ratio, the left 0.4 mm Standard
 nozzle, and `G29.1 Z0.16` after the Textured PEI plate correction. Its estimate
 is 32 h 54 min 35 s and 719.38 g. The editable project contains no G-code;
 the sliced submission file is kept outside this folder.
-The flow audit in commit `afe024f6d` records identical model extrusion paths
+The flow audit in commit `82a41994e` records identical model extrusion paths
 and the 3.09% reduction in model extrusion, including internal solid infill.
 
 Editable project SHA-256:
@@ -295,7 +295,7 @@ The project selects the left 0.8 mm High Flow nozzle, Textured PEI and the
 Standard, while the selected High Flow variant retains 0.97. The filament
 preset's name alone does not establish that this print uses 0.94.
 
-The embedded cavity/core meshes and their placements match commit `5a3686148`.
+The embedded cavity/core meshes and their placements match commit `e603c34b0`.
 The saved project contains no G-code. Print start is Derek's report; the
 submitted toolpaths and printer state were not independently read. Derek
 subsequently reported cancelling this retry.
@@ -340,7 +340,7 @@ a 30° threshold and may start on the model; top and bottom interfaces have
 two layers each. Support speed is 150 mm/s and interface speed is 80 mm/s.
 
 The embedded cavity/core meshes and placements are unchanged from the saved
-0.24 mm project in commit `fc703ee22`. The six support settings above are the
+0.24 mm project in commit `ddb024aa6`. The six support settings above are the
 only process changes. The archive contains no G-code; these are saved settings,
 not a record of emitted toolpaths or printer submission.
 
@@ -470,7 +470,7 @@ of this pair was not identified. No coated fit or casting result was reported.
 
 Mark2 reported `Funnel_mold_-_solid_cavity_and_core`, 304 layers, 18 h 59 min 7 s
 and 1,315.70 g. The reference project is `solid/solid-mold.3mf` at Git revision
-`97c6b804d`, SHA-256
+`9165450d5`, SHA-256
 `8019a34f5062a185253bfe8ae5b906343ed8e454f589b75de5106e647a5e1a50`.
 The device's title, layer count, time and mass match that archive; the printer's
 job bytes were not downloaded for comparison.

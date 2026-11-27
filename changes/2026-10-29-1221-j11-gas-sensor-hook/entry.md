@@ -2,7 +2,7 @@
 title: J11 leads clip below the vents
 lede: One low hook roots onto solid wall stock and carries the four gas sensor leads.
 date: 2026-10-29T12:21:43-05:00
-commit: ab001c79978366c0e5466cbda089c5fb5247b1cc
+commit: 16b6e0dd9a208b2bef1080898c9b0831eb3341eb
 model: printed-parts/enclosure/enclosure/enclosure-front-bottom.step
 ---
 The hook organizes the four leads from PCB J11 to the MQ-6 module. Its whole

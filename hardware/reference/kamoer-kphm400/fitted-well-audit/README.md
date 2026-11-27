@@ -29,9 +29,9 @@ both pumps and no vertical play in the assembled cradle/cap. The exact print dat
 of that assembly and its individual contact faces are unconfirmed. The retained
 September 13 print is the available earlier printable comparison.
 
-The comparison’s [pump-tray recipe](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/enclosure/pump-tray/pump_tray.py) is archived in Git.
+The comparison’s [pump-tray recipe](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/printed-parts/enclosure/pump-tray/pump_tray.py) is archived in Git.
 
-The audit ([`check_fitted_well.py`](https://github.com/derekbreden/homesodamachine/blob/44191ff08b/hardware/reference/kamoer-kphm400/fitted-well-audit/check_fitted_well.py), in Git at `44191ff08b`) hashes its script, imported project sources, print input, provenance, scan
+The audit ([`check_fitted_well.py`](https://github.com/derekbreden/homesodamachine/blob/8e5371c0d5/hardware/reference/kamoer-kphm400/fitted-well-audit/check_fitted_well.py), in Git at `8e5371c0d5`) hashes its script, imported project sources, print input, provenance, scan
 reports and supplied Box, checks both raw-cloud digests, and rejects inputs that
 change during the run. It writes no native part or dependency graph. `--box` selects
 a serialized placement input and `--output` selects the report path.

@@ -70,7 +70,7 @@
           "payload": "manifold-layout/enclosure-assembly.step.mesh",
           "from": "snapshot",
           "sha256": "259efa63130b8ac31fda3ff03ec469ab751aee699367082bb4ffe807782bead8",
-          "commit": "4c4f25806e53157170103bf765050fc39f26627a",
+          "commit": "8d8d2ced4d6277d59d96e7bd723ac01fd334c416",
           "taken": "2026-10-27T04:39:56.873Z",
           "published": true
         },
@@ -78,7 +78,7 @@
           "payload": "manifold-layout/enclosure-assembly.step.mesh",
           "from": "tree",
           "sha256": "1716dc6c2a86b29c4c6643ef187336a865c489ec8a687d3f379f947f42f2b902",
-          "commit": "8e4aa6893d42289afd6526de5371c41b8de79f2c",
+          "commit": "d0918593d6d6b5a7c827734d3e937f78b5f86ccd",
           "published": true
         }
       },
@@ -213,7 +213,7 @@
           "payload": "manifold-layout/enclosure-assembly.step.mesh",
           "from": "snapshot",
           "sha256": "259efa63130b8ac31fda3ff03ec469ab751aee699367082bb4ffe807782bead8",
-          "commit": "4c4f25806e53157170103bf765050fc39f26627a",
+          "commit": "8d8d2ced4d6277d59d96e7bd723ac01fd334c416",
           "taken": "2026-10-27T04:39:56.873Z",
           "published": true
         },
@@ -221,7 +221,7 @@
           "payload": "manifold-layout/enclosure-assembly.step.mesh",
           "from": "tree",
           "sha256": "1716dc6c2a86b29c4c6643ef187336a865c489ec8a687d3f379f947f42f2b902",
-          "commit": "8e4aa6893d42289afd6526de5371c41b8de79f2c",
+          "commit": "d0918593d6d6b5a7c827734d3e937f78b5f86ccd",
           "published": true
         }
       },
@@ -355,7 +355,7 @@
           "payload": "manifold-layout/enclosure-assembly.step.mesh",
           "from": "snapshot",
           "sha256": "259efa63130b8ac31fda3ff03ec469ab751aee699367082bb4ffe807782bead8",
-          "commit": "4c4f25806e53157170103bf765050fc39f26627a",
+          "commit": "8d8d2ced4d6277d59d96e7bd723ac01fd334c416",
           "taken": "2026-10-27T04:39:56.873Z",
           "published": true
         },
@@ -363,7 +363,7 @@
           "payload": "manifold-layout/enclosure-assembly.step.mesh",
           "from": "tree",
           "sha256": "1716dc6c2a86b29c4c6643ef187336a865c489ec8a687d3f379f947f42f2b902",
-          "commit": "8e4aa6893d42289afd6526de5371c41b8de79f2c",
+          "commit": "d0918593d6d6b5a7c827734d3e937f78b5f86ccd",
           "published": true
         }
       },
@@ -497,7 +497,7 @@
           "payload": "manifold-layout/enclosure-assembly.step.mesh",
           "from": "snapshot",
           "sha256": "259efa63130b8ac31fda3ff03ec469ab751aee699367082bb4ffe807782bead8",
-          "commit": "4c4f25806e53157170103bf765050fc39f26627a",
+          "commit": "8d8d2ced4d6277d59d96e7bd723ac01fd334c416",
           "taken": "2026-10-27T04:39:56.873Z",
           "published": true
         },
@@ -505,7 +505,7 @@
           "payload": "manifold-layout/enclosure-assembly.step.mesh",
           "from": "tree",
           "sha256": "1716dc6c2a86b29c4c6643ef187336a865c489ec8a687d3f379f947f42f2b902",
-          "commit": "8e4aa6893d42289afd6526de5371c41b8de79f2c",
+          "commit": "d0918593d6d6b5a7c827734d3e937f78b5f86ccd",
           "published": true
         }
       },
@@ -626,7 +626,7 @@
           "payload": "manifold-layout/enclosure-assembly.step.mesh",
           "from": "snapshot",
           "sha256": "259efa63130b8ac31fda3ff03ec469ab751aee699367082bb4ffe807782bead8",
-          "commit": "4c4f25806e53157170103bf765050fc39f26627a",
+          "commit": "8d8d2ced4d6277d59d96e7bd723ac01fd334c416",
           "taken": "2026-10-27T04:39:56.873Z",
           "published": true
         },
@@ -634,7 +634,7 @@
           "payload": "manifold-layout/enclosure-assembly.step.mesh",
           "from": "tree",
           "sha256": "1716dc6c2a86b29c4c6643ef187336a865c489ec8a687d3f379f947f42f2b902",
-          "commit": "8e4aa6893d42289afd6526de5371c41b8de79f2c",
+          "commit": "d0918593d6d6b5a7c827734d3e937f78b5f86ccd",
           "published": true
         }
       },

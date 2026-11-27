@@ -2,7 +2,7 @@
 title: The fore valves stand over their tees at connected
 lede: Each fore valve moves 0.75 mm aft onto its tee's connected axis, so the short upper tube stands straight in service and bends the tee's 1.5 mm stroke only at release.
 date: 2026-10-22T16:50:35-05:00
-commit: b8c2fbca0cf33a8b2e965878b0fc297c10421b82
+commit: 80d274421d50f35e549e9b11baf700ab3d99c671
 model: manifold-layout/enclosure-assembly.step
 ---
 [Locate the upper tubes in 3D](https://homesodamachine.com/3d#step:manifold-layout%2Fenclosure-assembly.step?find=solid%3A%20tube-fluid-10%0Asolid%3A%20tee-y-c%0Asolid%3A%20valve-v-e).

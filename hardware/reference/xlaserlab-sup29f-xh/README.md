@@ -10,7 +10,7 @@ photo estimates.
 
 ## Files
 
-[Download the complete model package](https://github.com/derekbreden/homesodamachine/blob/feceb78779/hardware/reference/xlaserlab-sup29f-xh/reference-models.zip). It contains:
+[Download the complete model package](https://github.com/derekbreden/homesodamachine/blob/28302adc48/hardware/reference/xlaserlab-sup29f-xh/reference-models.zip). It contains:
 
 | File | Use |
 | --- | --- |
@@ -46,7 +46,7 @@ The joint cylinder fit has a 0.009 mm median and 0.037 mm 95th-percentile residu
 to the captured points. These are fitting residuals, not scanner accuracy.
 
 [alignment.json](alignment.json) supplies the exact native-to-model transform:
-`model = (native - origin) @ basis_rows.T`. [fit_frame.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/xlaserlab-sup29f-xh/fit_frame.py)
+`model = (native - origin) @ basis_rows.T`. [fit_frame.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/xlaserlab-sup29f-xh/fit_frame.py)
 records the fit against the committed source cloud.
 
 ## Measured and estimated geometry
@@ -109,4 +109,4 @@ derivatives without EXIF location metadata.
 The retained model package, delivery manifest and validation records bind the
 reference to its source cloud, measured frame and reconstructed surfaces.
 
-The source derivations are preserved at their recorded revision: [measure_photos.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/xlaserlab-sup29f-xh/measure_photos.py), [mesh_tools.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/xlaserlab-sup29f-xh/mesh_tools.py), [package_models.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/xlaserlab-sup29f-xh/package_models.py), [reconstruct.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/xlaserlab-sup29f-xh/reconstruct.py), [render_reference.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/xlaserlab-sup29f-xh/render_reference.py), [validate.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/xlaserlab-sup29f-xh/validate.py), [xlaserlab_sup29f_xh.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/xlaserlab-sup29f-xh/xlaserlab_sup29f_xh.py).
+The source derivations are preserved at their recorded revision: [measure_photos.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/xlaserlab-sup29f-xh/measure_photos.py), [mesh_tools.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/xlaserlab-sup29f-xh/mesh_tools.py), [package_models.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/xlaserlab-sup29f-xh/package_models.py), [reconstruct.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/xlaserlab-sup29f-xh/reconstruct.py), [render_reference.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/xlaserlab-sup29f-xh/render_reference.py), [validate.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/xlaserlab-sup29f-xh/validate.py), [xlaserlab_sup29f_xh.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/xlaserlab-sup29f-xh/xlaserlab_sup29f_xh.py).

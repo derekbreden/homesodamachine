@@ -37,8 +37,8 @@ The plate prints face up on its flat back. The [Mark1 identification plate](../t
 assigns the window to PETG Translucent and the frame and artwork to white PETG Basic.
 
 Derek accepts the full-thickness window's illumination with the blue LED. The
-[archived physical result](https://github.com/derekbreden/homesodamachine/blob/8d8d81a664a854a236c02cf18ec2e3e51fbd2181/hardware/printed-parts/enclosure/display-cover/prints/2026-11-09-status-light/physical-result.json)
-and [unlit and lit photographs](https://github.com/derekbreden/homesodamachine/tree/8d8d81a664a854a236c02cf18ec2e3e51fbd2181/hardware/printed-parts/enclosure/display-cover/prints/2026-11-09-status-light)
+[archived physical result](https://github.com/derekbreden/homesodamachine/blob/a01e8040ce6158ebc986cb5d95abeff6d16072bd/hardware/printed-parts/enclosure/display-cover/prints/2026-11-09-status-light/physical-result.json)
+and [unlit and lit photographs](https://github.com/derekbreden/homesodamachine/tree/a01e8040ce6158ebc986cb5d95abeff6d16072bd/hardware/printed-parts/enclosure/display-cover/prints/2026-11-09-status-light)
 record his in-person assessment. He notes that the photographs do not do the result justice.
 
 The light is the [CHANZON prewired clear-lens blue LED](https://www.amazon.com/dp/B08G4Z6KPV).

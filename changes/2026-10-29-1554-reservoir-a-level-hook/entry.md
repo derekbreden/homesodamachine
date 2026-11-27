@@ -2,7 +2,7 @@
 title: Reservoir A level leads share one lid hook
 lede: A single integral hook carries the five level leads along the rear lid.
 date: 2026-10-29T15:54:17-05:00
-commit: 8a25dd73f46ede95527220771090c2f4c7bc4d51
+commit: ef983664aa2e7120b9a8149625278f5a3d5ad88f
 model: printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 ---
 The five J6 leads seat together in a 16 mm span on the cold-core lid. The

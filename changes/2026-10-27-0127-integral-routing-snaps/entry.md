@@ -2,7 +2,7 @@
 title: Integral snaps hold the tube and cable routes on back-top
 lede: Four tube snaps and three cable hooks join the roof and walls. The quarter-inch C2 bore is 6.35 mm, and the 4P ribbon uses the accepted 16 mm clip.
 date: 2026-10-27T01:27:35-05:00
-commit: d38c63961aa06e3727c901edce1572a87da55f0a
+commit: bc42134b32cbdd876823069e98d6ccf5c8399ed9
 model: manifold-layout/enclosure-assembly.step
 ---
 Back-top carries direct tube snaps for the reservoir-A fill line, both rear flavor lines and the vent. Their filled roots meet the host faces, and the wall-mounted fill snap has a full 45° corbel. Each wing spans the complete 8 mm along its tube.
@@ -13,4 +13,4 @@ Derek selected C2 with the **6.35 mm bore** for present use, with smaller bores 
 
 The closely spaced reservoir fore pair retains its cap. Independent C2 clips at its 7.5 mm pitch intrude into the neighboring tube. Body restraints retain their existing roles.
 
-See the [physical print result](https://github.com/derekbreden/homesodamachine/blob/1f49ea24e261b5b74e8b82d8c3e9ac5690736952/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json) and the [routing review](/hardware/printed-parts/enclosure/enclosure/route-snap-review/README.md) for the geometry, installation order and fit scope.
+See the [physical print result](https://github.com/derekbreden/homesodamachine/blob/3ab1ec6115ec6c853b0ac3bf33d2a4caf3e08c4e/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json) and the [routing review](/hardware/printed-parts/enclosure/enclosure/route-snap-review/README.md) for the geometry, installation order and fit scope.

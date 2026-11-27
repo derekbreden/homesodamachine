@@ -2,7 +2,7 @@
 title: The complete LED assembly fits beneath the status plate
 lede: An open service pocket accommodates the resistor and heat-shrink, with a wire exit behind the pump. The status plate covers the opening.
 date: 2026-11-09T21:02:45-06:00
-commit: 98a74cdefa6d305f24d87b5c360e19599b63403e
+commit: 721ede093f84bc364575893f7724e4c7fa201eac
 model: printed-parts/enclosure/enclosure/enclosure-front-top.step
 ---
 

@@ -10,7 +10,7 @@ enclosure roof stock.
 The standard receiver is cropped from the production back-top solid. The
 taller cover's receiver extends only the same flank pockets upward into the
 roof stock. [geometry.json](geometry.json) records the tip dimensions, retained
-lower profiles, seated overlaps, ramp angles and roof stock. The [physical result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-07-ceiling-down-mark2/physical-result.json)
+lower profiles, seated overlaps, ramp angles and roof stock. The [physical result](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-07-ceiling-down-mark2/physical-result.json)
 records Derek's acceptance of the longer tips. The saved articles and geometry
 record identify this completed comparison; the production generator makes the
 approved lead-in on the rear caps.

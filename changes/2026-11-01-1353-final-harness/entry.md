@@ -2,7 +2,7 @@
 title: Final harness follows the finished mechanics
 lede: The neutral WAGO and its integral holder sit 7 mm farther west, clear of the pump saddle. The final conductors follow the installed mounts, fittings and cable seats.
 date: 2026-11-01T13:53:45-06:00
-commit: ab6e82d6dd6d47d33f46a46fcbcc793fabf8b34a 3d30f434be0d8c3be943ae1e926f0d5b26bd22f9
+commit: 7c9de9c6339dfe2b30d5129ec42cfd508ff2cd24 7453908ed9e715b128abb58086a00cb5c3311895
 model: manifold-layout/enclosure-assembly.step
 ---
 The neutral WAGO stands at X−61/Y457.5/Z266. Its rooted half-well preserves the purchased connector clearance and open lever and conductor access. Its three leads enter through the aisle west of the pump saddle.

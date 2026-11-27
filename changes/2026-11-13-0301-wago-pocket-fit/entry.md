@@ -2,7 +2,7 @@
 title: The front-top WAGO pockets fit closer
 lede: The two pockets grip the connector bodies more closely and their roofs bridge between the sidewalls.
 date: 2026-11-13T03:01:52-06:00
-commit: edbc97a345ccbcbef7f744a779f249cc92909d3c
+commit: e9da74690ecbe7fa73ca73692ef4f498bbbe71fd
 model: printed-parts/enclosure/enclosure/enclosure-front-top.step
 ---
 The lower five-conductor pocket has the tighter side fit of the two. Both pockets keep the tested insertion depth. The print recipe bridges across each opening and keeps the receiver clear of support.

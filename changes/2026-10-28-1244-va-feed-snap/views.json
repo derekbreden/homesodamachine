@@ -57,7 +57,7 @@
           "payload": "manifold-layout/enclosure-assembly.step.mesh",
           "from": "snapshot",
           "sha256": "75fd831610cb8076af67052a27c61b6ef78061ee991763b30b054a54eeff5fcb",
-          "commit": "b98cac7c098ac82ee9aa7866e4c0fb710157d1a8",
+          "commit": "8fde4a640b3a5f97d59e95a1856f768496a9a9e6",
           "taken": "2026-10-28T17:28:54.497Z",
           "published": true
         },

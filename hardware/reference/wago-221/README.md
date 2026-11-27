@@ -34,4 +34,4 @@ in the website viewer. Orange is reserved for the actuators.
 
 `frozen-asset.json` and `native-queries.json` accompany the exported reference.
 
-The source derivations are preserved at their recorded revision: [wago_221.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/wago-221/wago_221.py).
+The source derivations are preserved at their recorded revision: [wago_221.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/wago-221/wago_221.py).

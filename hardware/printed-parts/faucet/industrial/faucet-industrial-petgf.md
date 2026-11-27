@@ -4,7 +4,7 @@ The Industrial plate uses the Industrial base and above-counter plate, the tip
 and display cover shared with Sculpted, and the side-down lever. The
 [production selection](production-selection.json) names the approved mesh and
 print task for each part. Derek approved the tip and cover together on the
-[complete black Sculpted faucet](https://github.com/derekbreden/homesodamachine/blob/cff7e283594be4f0d37e20b0b0863f11efc4823f/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json).
+[complete black Sculpted faucet](https://github.com/derekbreden/homesodamachine/blob/ee0db891d9ab50c3882ebdec693090e0b6d53845/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json).
 
 The Industrial base, plate and lever have their own mesh and fit evidence in the
 [Industrial print's record](production/2026-10-25/README.md). The tip's ledge holds the

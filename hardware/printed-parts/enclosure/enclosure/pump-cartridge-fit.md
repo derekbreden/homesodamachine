@@ -14,7 +14,7 @@ rear passage.
 
 ## Current geometry and print evidence
 
-The [pump-snap review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/pump-snap-review/README.md) identifies the snap-wing retainer and
+The [pump-snap review](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/enclosure/enclosure/pump-snap-review/README.md) identifies the snap-wing retainer and
 receiver inputs and its geometric scope. Both wings retain their upper roots and lower
 hooks. The carrier, wing and hook use the retainer’s full Y span, with 0.25 mm running
 clearance at either receiver end. One central opening per side admits a small flathead
@@ -22,7 +22,7 @@ screwdriver; its roof continues as one solid 45° corbel. The 2.0 mm leaves have
 root-to-catch length, a 1.5 mm inside root blend and 2.6 mm seated catch overlap.
 The receiver keeps a 3 mm outer wall and 6.4 mm pocket backing.
 
-The [three-screw mount receipts](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/pump-mount-review/README.md) bind their listed front-top,
+The [three-screw mount receipts](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/enclosure/enclosure/pump-mount-review/README.md) bind their listed front-top,
 retainer, rigid paths and native slices. Their screw-access and dense-host results do not
 qualify the snap wings, receiver floors or release openings. Production orientation places
 front-top on its seam plane and the lower retainer on its Y-minus end, both in black PET-GF
@@ -46,5 +46,5 @@ retainer nor qualification of the complete fluid dock.
 
 [`pump-cartridge-generation.json`](pump-cartridge-generation.json) binds its 2026-09-23
 holder snapshot to 50 local geometry checks. The [support audit](pump-support-audit.md)
-and archived [slice reviews](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/README.md)
+and archived [slice reviews](https://github.com/derekbreden/homesodamachine/blob/c4c14e076dc4b541a01bf724889156f60828bf2b/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/README.md)
 identify their own archived articles, input hashes and print processes.

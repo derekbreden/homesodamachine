@@ -40,5 +40,5 @@
   "launch_options": "usual On/On/Auto/Auto; calibration blocks are absent from this maintenance file; do not change persistent print options",
   "native_archive_sha256": "6e965cfae91b155df1cb3af7a5c224fcf41ad75d8c857d579f1cdd782a069bb6",
   "native_archive_filename": "display-x030-receiver-z018-h2c-v5.gcode.3mf",
-  "source_record": "https://github.com/derekbreden/homesodamachine/blob/20eaf74acdbd5d962f1bfa69236bbb66c45a9c3a/tools/h2c-purge/source.json"
+  "source_record": "https://github.com/derekbreden/homesodamachine/blob/d1e60481409c1233f32883b2708852d453f9bf63/tools/h2c-purge/source.json"
 }

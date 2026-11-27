@@ -114,7 +114,7 @@ are excluded: its branch face covers 11 of 36 sectors, and its −Z run reads a 
 rather than a collet. The run collets sit 3–5° off square in most passes; the branch sits
 within 1°.
 
-The source derivations are preserved at their recorded revision: [analyze_collet_passes.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/jg-pp0208e-tee/analyze_collet_passes.py).
+The source derivations are preserved at their recorded revision: [analyze_collet_passes.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/jg-pp0208e-tee/analyze_collet_passes.py).
 
 ## Production consumers
 
@@ -138,11 +138,11 @@ above and do not qualify production enclosure fit or sleeve motion.
 
 ## Reproduce the registration
 
-The source derivations are preserved at their recorded revision: [fit_scan.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/jg-pp0208e-tee/fit_scan.py).
+The source derivations are preserved at their recorded revision: [fit_scan.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/jg-pp0208e-tee/fit_scan.py).
 
 The script rejects a different input digest. It reads the retained PLY directly, selects the
 six stated outer-wall patches, fits an area-weighted robust rigid frame, and writes the
 registration and held-out residuals. It does not infer internal bores, repair the open mesh,
 move a collet or produce a manufacturing tolerance.
 
-The source derivations are preserved at their recorded revision: [jg_pp0208e_tee.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py).
+The source derivations are preserved at their recorded revision: [jg_pp0208e_tee.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py).

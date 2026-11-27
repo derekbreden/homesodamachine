@@ -1,6 +1,6 @@
 {
   "checked_at_utc": "2026-10-22T05:44:29.983829+00:00",
-  "scope": "Fetch published native, printing and viewer geometry and compare decompressed SHA-256 with the reviewed build pointer at 8036d8810; read current component catalog. This establishes publication only.",
+  "scope": "Fetch published native, printing and viewer geometry and compare decompressed SHA-256 with the reviewed build pointer at 079cba36c; read current component catalog. This establishes publication only.",
   "members": [
     {
       "path": "hardware/manifold-layout/enclosure-assembly.step",
@@ -76,6 +76,6 @@
     "pass": true
   },
   "site_version": {
-    "commit": "202743328caf02145ffdcf0f4785e3368bfa646e"
+    "commit": "573fb645ee93fef4cb4f91d30770959768c92765"
   }
 }

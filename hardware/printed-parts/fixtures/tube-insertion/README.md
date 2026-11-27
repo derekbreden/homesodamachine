@@ -1,7 +1,7 @@
 # Tube insertion tooling
 
 Printed M5 threaded passages use the shared Ø5.2 mm fit selected in the
-[M5 sample comparison](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/print-tests/m5-seam-bearing/physical-result.json).
+[M5 sample comparison](https://github.com/derekbreden/homesodamachine/blob/6e2695bee227cf6ad5ea6089fb934eba0f8d47ec/hardware/print-tests/m5-seam-bearing/physical-result.json).
 
 Current PET-GF editable projects follow the [localized cooling policy](../../cooling/README.md).
 Re-slice them for current cooling commands. Identified native archives retain
@@ -153,15 +153,15 @@ comparison adds 560 mm³ per liner without removing the existing grip shape.
 The [physical acceptance record](physical-acceptance.json) accepts functional
 grip and successful insertion with the identified centred plus handle and
 proud TPU inserts. It addresses the
-[earlier grip failure](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/grip-failure.json)
+[earlier grip failure](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/grip-failure.json)
 for this configuration. The individual effects of centering and added
 backing, and the physical pressure distribution, are not measured separately.
 
-The [Mark1 PET-GF jaw launch](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-13-centered-grip-mark1/README.md)
+The [Mark1 PET-GF jaw launch](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-13-centered-grip-mark1/README.md)
 preserves the exact two-jaw slice for task 1335878319, accepted on October
-13 at 10:08 am CDT. Its [completion observation](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-13-centered-grip-mark1/completion.json)
+13 at 10:08 am CDT. Its [completion observation](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-13-centered-grip-mark1/completion.json)
 reports 63/63 layers without errors. The
-[matching TPU insert launch](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-13-centered-liners-mark1/README.md)
+[matching TPU insert launch](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-13-centered-liners-mark1/README.md)
 records task 1336534713, accepted at 1:59 pm CDT with startup free of
 reported errors. The physical acceptance record binds both jobs' exact
 archives and meshes to the reported successful operation.
@@ -175,7 +175,7 @@ lever's [physical record](../../faucet/lever-replica/physical-acceptance.json)
 retain their identified scope.
 
 The issued print payloads have their [producer receipt](parts.json) and
-[producer source in Git](https://github.com/derekbreden/homesodamachine/blob/3547d374615e17775190cb826fad17338e6df774/hardware/printed-parts/fixtures/tube-insertion/tube_insertion.py).
+[producer source in Git](https://github.com/derekbreden/homesodamachine/blob/12778913d16e35f4160263ca80704eec97078b0f/hardware/printed-parts/fixtures/tube-insertion/tube_insertion.py).
 
 [`tube_insertion.rs`](tube_insertion.rs) supplies `build_parts`, the
 individual builders, `assembly`, `clamp_stations` and

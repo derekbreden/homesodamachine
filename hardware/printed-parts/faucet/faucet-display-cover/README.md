@@ -6,13 +6,13 @@ rigid round neck, then its two broad lips seat in the side grooves.
 The display and cover slide onto the tip together, then seat toward the neck.
 No display fasteners are fitted.
 
-The [physical trial](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/printed-parts/fixtures/faucet-display-snap/print-log.md) establishes
+The [physical trial](https://github.com/derekbreden/homesodamachine/blob/6e2695bee227cf6ad5ea6089fb934eba0f8d47ec/hardware/printed-parts/fixtures/faucet-display-snap/print-log.md) establishes
 solid construction, useful give and spring, firm snap seating and retention
 for its two identified PET-GF covers. The [acceptance record](physical-acceptance.json)
 preserves the successful STL and reported results. The current cover matches the
 27 mm vent-bearing neck and has a different STL. Both identified current white
-covers [broke during assembly](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/reported-failure.json),
-including display loading. The [fan-off cooling trial](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/physical-result.json)
+covers [broke during assembly](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/reported-failure.json),
+including display loading. The [fan-off cooling trial](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/physical-result.json)
 passed normal display loading and cover installation. Its acceptance belongs
 to the identified pre-clearance-change STL. The current seat and bezel add
 1.50 mm outward clearance while retaining the neck snap datums.
@@ -20,12 +20,12 @@ Numerical force and cycle life have not been measured.
 
 Both faucet styles carry this cover on the tip they share. The tip's ledge holds
 the display low over the tube, with a recess for each of the display's feet and a
-pocket for each of its switches. The [lowered-head fit review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/README.md)
-and the [skirt-overlap print trial](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/README.md) record
+pocket for each of its switches. The [lowered-head fit review](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/README.md)
+and the [skirt-overlap print trial](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/README.md) record
 how that head was fitted. The extended-skirt cover's
 [physical approval](prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json)
 records its working fit and appearance. The
-[complete Sculpted faucet's result](https://github.com/derekbreden/homesodamachine/blob/dcbaf13d4d9c3d449373a059742f91478bb67e82/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json)
+[complete Sculpted faucet's result](https://github.com/derekbreden/homesodamachine/blob/b818b34788d36448453f6ec134f152037335905d/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json)
 records the accepted snap fit on the shared tip. The
 [plug-ramp photographs](../sculpted/prints/2026-11-14-plug-ramp-mark2/physical-result/cover-fit.json)
 locate the exposed rear corners. The cover's rear reach brings the rim over
@@ -131,16 +131,16 @@ across the two flat lower lands and confirms their bed-facing normals and
 height in that print pose. The named cosmetic and lower-land slope findings
 are answered beside the published mesh.
 
-The current [display-clearance reading](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/display-clearance.json)
-and [retention reading](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/display-retention.json)
+The current [display-clearance reading](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/display-clearance.json)
+and [retention reading](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/display-retention.json)
 bind the raised seat, hardware clearance, display loading, axial approach and
-snap geometry. The [rear-opening reading](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/rear-opening-rim.json)
+snap geometry. The [rear-opening reading](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/rear-opening-rim.json)
 measures complete rim boundaries and material sections in both nominal seated
 and relaxed shapes. Current geometry questions use `hsm --scene faucet` and
 [`inspect-part.mjs`](/tools/inspect-part.mjs) against the saved exports. The
 [native printed-mesh review](/tools/hsm/mesh-review/README.md) inspects the printable cover.
 Those geometric readings do not measure the printed snap's force or durability.
-The [physical trial log](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/printed-parts/fixtures/faucet-display-snap/print-log.md)
+The [physical trial log](https://github.com/derekbreden/homesodamachine/blob/6e2695bee227cf6ad5ea6089fb934eba0f8d47ec/hardware/printed-parts/fixtures/faucet-display-snap/print-log.md)
 records the reported print and retention observations.
 
 ```

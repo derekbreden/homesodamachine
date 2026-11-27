@@ -182,7 +182,7 @@ The punchline: "AI can teach you CAD. AI can type your CAD. AI cannot design you
 - **Audience:** Huge. Anyone interested in AI capabilities and limitations. Makers. Developers. The "AI discourse" crowd. This is genuinely novel insight with evidence.
 - **Shareability:** Very high. Contrarian takes with receipts get shared.
 - **Trust signal:** Strong. Honesty about failure + the lesson learned + the recovery = credibility.
-- **Where it's documented:** the [archived founding chapter](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/biography/2026-04-05.md), "3D printing and the AI design wall", git log from March 30 2026
+- **Where it's documented:** the [archived founding chapter](https://github.com/derekbreden/homesodamachine/blob/c4c14e076dc4b541a01bf724889156f60828bf2b/biography/2026-04-05.md), "3D printing and the AI design wall", git log from March 30 2026
 
 ### 6. The Snap-Fit Testing (60-90 seconds)
 

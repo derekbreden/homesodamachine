@@ -2,7 +2,7 @@
 title: M5×100 screws at both Y-seam heights
 lede: The bottom head seats move up 20 mm. The top uses front / back / front blocks with an enclosed screw-tip pocket, and both flavor tubes pass around the longer stack.
 date: 2026-10-25T19:30:29-05:00
-commit: a51cb8354e9078e7fdcd372e380be502a5f63586 6b36601ae8213346948ebcb03219cad77b58f540 1bc7e9a72529acf331ff7bff309db97b0697d2ec f69fe07f39287feaa36f844d345ea13562475ac7 cfd83df36c664ee827e99b55d0ca74af347c40c3 576a32599aa42953f46d0806d981505fe0ea1a2b
+commit: 8ef39c831236a0eeae60a9e000ca88898f027512 fbe6a2767bac01f1eb672cac1cb85fc3b579360e 88519b9cc4f618da432a9a405a8a7d45393e73a8 65b8fa05c148ee619b6faa7abace84e38e1a8c94 6e4dab13a4454c2488b4f64125b46f25551f6e8e a114db31ef7fdf156c572380d2302f1b87ab2282
 model: manifold-layout/enclosure-assembly.step
 ---
 All four Y-seam stations use the same [fully threaded SVLING M5×0.8×100 socket-head screw](https://www.amazon.com/dp/B0GHNNYVDH/). The lower stack retains back-bottom / front-bottom / back-bottom ownership. Its head seat rises from Z40.8 to Z60.8 while the insert stays under the Z seam.

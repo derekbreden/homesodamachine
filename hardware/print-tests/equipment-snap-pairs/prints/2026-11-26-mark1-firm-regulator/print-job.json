@@ -39,7 +39,7 @@
     "git_blob": "744276b44270c86cf2dcfd2a60aa06064e47d62c",
     "release_archive": "2026-11-26-mark1-firm-regulator-831543dbd1d67d0a.zip"
   },
-  "source_and_recipe_commit": "244e007084db110e1637030c3bfadb8474e4de12",
+  "source_and_recipe_commit": "433399855ceba5a9f1b72912d428f7da3a383a65",
   "printer_recipe": "firm-regulator-cap",
   "mating_part": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/water-regulator-receiver.stl",
   "mating_part_sha256": "2f6ce2cb87cd91d27f33521cfcc899879d9ff98d3b4dcc5bbeb859698c3bb8d2",

@@ -2,7 +2,7 @@
 title: One continuous pump clip spans the longer motor saddle
 lede: A 54.5 mm clip retains the pump in a 61 mm seat with 3 mm of solid material beyond each catch pocket. The pump sits 1.5 mm lower.
 date: 2026-11-01T11:13:16-06:00
-commit: de2c703111ef5916b91e7c86b843435d7bba7fc7
+commit: bc5d55c006e006fdc6cf2ccb569d08a448703df3
 model: manifold-layout/enclosure-assembly.step
 ---
 The continuous clip spans native X20–74.5 mm. Its catch pockets include

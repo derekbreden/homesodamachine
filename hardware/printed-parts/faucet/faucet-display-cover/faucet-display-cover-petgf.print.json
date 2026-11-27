@@ -1,6 +1,6 @@
 {
   "accepted_cosmetic_condition": {
-    "record": "https://github.com/derekbreden/homesodamachine/blob/cff7e283594be4f0d37e20b0b0863f11efc4823f/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json",
+    "record": "https://github.com/derekbreden/homesodamachine/blob/ee0db891d9ab50c3882ebdec693090e0b6d53845/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json",
     "uncovered_tip_hole_by_cover_edge": true
   },
   "active_nozzle": 0,
@@ -82,7 +82,7 @@
       "watertight": true
     }
   ],
-  "physical_approval": "https://github.com/derekbreden/homesodamachine/blob/cff7e283594be4f0d37e20b0b0863f11efc4823f/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json",
+  "physical_approval": "https://github.com/derekbreden/homesodamachine/blob/ee0db891d9ab50c3882ebdec693090e0b6d53845/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json",
   "plate_border_mm": 80.0,
   "plate_count": 1,
   "printable_area_extruders": [

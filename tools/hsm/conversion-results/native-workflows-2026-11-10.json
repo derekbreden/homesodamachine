@@ -2,14 +2,14 @@
   "schema": 1,
   "purpose": "Record the approved native workflow conversion, source retirement and actual website integration.",
   "recorded_at": "2026-11-10T06:45:54.906Z",
-  "source_revision": "2f4d82a29d3e2c39e18dbdbed600d1ec4da1171d",
+  "source_revision": "e9fdbcb062b11177116e8e42e0e61d632403b2a4",
   "commits": {
-    "retired_leaves": "ff2c3553f934c6242f6f7aaaadf221fc1c2185e6",
-    "retired_funnel_publication": "0be842a3af200f4f362b8c7c0e4d49d967d4cc0e",
-    "native_launcher": "81d9ae22aba29c25fd07392c9f77919eade4a63a",
-    "native_workflows": "7c59ea2198bfe600d591236d43cd6bdb5f04b81d",
-    "closed_preparation_docs": "08c8827da0376308dbd6ebfc126f1011ffbf55d2",
-    "bom_inputs": "2f4d82a29d3e2c39e18dbdbed600d1ec4da1171d"
+    "retired_leaves": "cc78c2ea6afde582f20dbfae2a5bf0bcd2c905d2",
+    "retired_funnel_publication": "d14fa238b083a439e9e6ca75573613994c71387c",
+    "native_launcher": "9d5b6bf7cb31a5b8fdef65bd99488f81e834830e",
+    "native_workflows": "8d155839ac49b2046a1f3e2a4e852bce5eb11eb0",
+    "closed_preparation_docs": "35938ad0916f08d25df9ac037de45b9923c3f66e",
+    "bom_inputs": "e9fdbcb062b11177116e8e42e0e61d632403b2a4"
   },
   "normal_build": {
     "command": "tools/run -- hsm-print-build -- //:everything",
@@ -313,7 +313,7 @@
       "firmware": {
         "receipt": "firmware/src_pgfun_positioner/assets/build-receipt.json",
         "receipt_sha256": "5508cf29219238541864247dbb08d6fca77886dcba16bc6520cc77ccefa2e033",
-        "source_commit": "7c59ea2198bfe600d591236d43cd6bdb5f04b81d",
+        "source_commit": "8d155839ac49b2046a1f3e2a4e852bce5eb11eb0",
         "receipt_sources_match_commit": true,
         "sdk_version": "2.2.0",
         "sdk_commit": "a1438dff1d38bd9c65dbd693f0e5db4b9ae91779",
@@ -871,7 +871,7 @@
       }
     },
     "marketing": {
-      "source_revision": "a9a566d2190f24a8b9da51c3630327857ec12beb",
+      "source_revision": "f5ba489dba442822b49c2a147b90eed8b8d9868e",
       "validation": {
         "firmware_blobs": {
           "byte_identical": true,
@@ -1100,8 +1100,8 @@
     }
   },
   "archives": {
-    "closed_reference_sources": "b25934c7fb755a226bfd6b804d089cf1ddcbbfcf",
-    "closed_geometry_and_preparations": "22a3f0d2e5ab3d0f06018a8fb12baea51ba14578",
+    "closed_reference_sources": "239a5b9d66dbaa215ea6ebe78ce86b5c255bf417",
+    "closed_geometry_and_preparations": "60c5b099e1f6c7b3f75442a3b092bcc17e4fc4e8",
     "policy": "Git revisions retain retired source. Current physical records and required application adapters remain in their owning locations."
   },
   "limits": [

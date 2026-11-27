@@ -2,7 +2,7 @@
 title: Short M3 screws remove the printed screw spacers
 lede: PCB screws seat directly on their mounting pads, and condenser screws use the selected flat washers. Nameplate and front-plate pilots retain regular inserts in shallower closed hosts.
 date: 2026-11-18T11:50:24-06:00
-commit: 5710c8a55c61bf34d14e5b57258f2907615b0cac
+commit: 617023ccc1dec9f76aaa6f61bb8216276e094d30
 model: manifold-layout/enclosure-assembly.step
 ---
 The short black M3 stock fastens the PCB, condenser, nameplate, display cover and status plate. The [mechanical BOM](/hardware/ledger/bom.md#13-mechanical-attach-hardware) owns the allocation.

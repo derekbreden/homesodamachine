@@ -68,4 +68,4 @@ consumes the frozen reference. [frozen-asset.json](frozen-asset.json) names the 
 fine model and viewer payload by digest; generated reference assets stay outside
 source control. Publication replaces the reference in the website's existing scenes.
 
-The source derivations are preserved at their recorded revision: [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/kamoer-kphm400/analyze_scan.py), [register_scan.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/kamoer-kphm400/register_scan.py).
+The source derivations are preserved at their recorded revision: [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/kamoer-kphm400/analyze_scan.py), [register_scan.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/kamoer-kphm400/register_scan.py).

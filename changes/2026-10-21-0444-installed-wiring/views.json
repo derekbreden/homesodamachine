@@ -60,7 +60,7 @@
           "payload": "manifold-layout/enclosure-assembly.step.mesh",
           "from": "snapshot",
           "sha256": "5b96c7e401eb25b0a2dd96b3dd9759321deab8d43c0d8ba7171869dde09b4d4f",
-          "commit": "fb425d3c15fd3782002df830dd56cc8fd3a929c4",
+          "commit": "8ab25a07201e6149d839d1690ff25157489615b6",
           "taken": "2026-10-21T05:40:41.060Z",
           "published": true
         },
@@ -68,7 +68,7 @@
           "payload": "manifold-layout/enclosure-assembly.step.mesh",
           "from": "tree",
           "sha256": "d77990dcd20ff5f75f9739ea26240a2bb06a819b4a402e8f6b56d711a74d5f21",
-          "commit": "0e8682de620118f73a4a122a51af9d5b8d8ddfcb",
+          "commit": "1b7dd1187dfb94fe3edb22519153a2914b9f82b5",
           "published": true
         }
       },
@@ -224,7 +224,7 @@
           "payload": "printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
           "from": "snapshot",
           "sha256": "6959278e7e933181a4528e64268871c2f1febbc6800ad61a01ebb22c5c262a3a",
-          "commit": "2c78dfd94bd2e5fbf87c6dd01939a3176f368712",
+          "commit": "a6b62d01007ac4d61eb601e2f33c4265560dc244",
           "taken": "2026-10-21T06:26:01.430Z",
           "published": true
         },
@@ -232,7 +232,7 @@
           "payload": "printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
           "from": "tree",
           "sha256": "162f1ee3bda798d78799b7fe151d4da9645186e0878298b1da8d034529a79b23",
-          "commit": "0e8682de620118f73a4a122a51af9d5b8d8ddfcb",
+          "commit": "1b7dd1187dfb94fe3edb22519153a2914b9f82b5",
           "published": true
         }
       },

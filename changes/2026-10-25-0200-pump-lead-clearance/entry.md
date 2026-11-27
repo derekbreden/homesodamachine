@@ -2,7 +2,7 @@
 title: The V-K control lead clears the pump head
 lede: J2-OUT3 rises ahead of the diaphragm pump and rejoins its fixed tail. Its terminal landings stay in place.
 date: 2026-10-25T02:00:07-05:00
-commit: 4242c9c042b05fb7017a116925594a7b5c3a4569 1fd57f479
+commit: b5cac46fe5632260b82dc606c9d30342f339c05b 300f65dca
 model: manifold-layout/enclosure-assembly.step
 ---
 The local lead keeps its PCB crossing, turns east at Y283.1 and rises at X15/Y274 before joining its existing X40/Y305 tail.

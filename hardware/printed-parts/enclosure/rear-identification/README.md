@@ -28,7 +28,7 @@ the cap profiles, roof stock, meter loading clearance and rear tube routes.
 These are CAD clearances. The installed wire review checks the current conductors against the receiver region. The accepted receiver-coupon fit retains its own scope, and
 the [completed multicolor print](../display-cover/prints/2026-11-08-identification-set-mark1-right-z005/physical-result.json)
 has accepted appearance and visual nozzle registration. The
-[CO2 fit result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/physical-result.json) records
+[CO2 fit result](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/physical-result.json) records
 Derek's approved clearance, applied at each side of every tile by
 `SIDE_CLEARANCE` in the generator. The bores, lettering, height and thickness
 retain their accepted geometry. The [geometry review](rail-clearance-review.json)

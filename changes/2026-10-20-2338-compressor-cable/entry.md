@@ -2,7 +2,7 @@
 title: Compressor cable follows the valve-bank gap below the funnel
 lede: The shared cable and its end fanouts clear the installed hardware and nearby wires. The fuse leads reach insulated splices beside the power box.
 date: 2026-10-20T23:38:04-05:00
-commit: 5e42c2074a4ebde4340d2f7050ddb6f8cc9c4712
+commit: 53612f21d4fa5ee395544ebb8907abb696452675
 model: manifold-layout/enclosure-assembly.step
 ---
 The shared compressor cable runs below the funnel frame, between the existing

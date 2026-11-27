@@ -68,13 +68,13 @@
           "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
           "from": "file",
           "sha256": "6a295439fad6707d36ead5305df12d260a6290dd485a2ed56be340d8252b2d8e",
-          "commit": "31a9427e4c289279e54dc0e9b16d0219eef12735"
+          "commit": "d5bdf1a62de9d87b9a99a86fc459805fe52cb07e"
         },
         "after": {
           "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
           "from": "file",
           "sha256": "2516c3fa8849ad63ef188ab43a102ba50806bddffd8fa280cb91383a50107267",
-          "commit": "e25db5e0b0d6cd79f838b9aeae9e84645e82ac9c"
+          "commit": "e00bf6cc5b6e47faa2a1d354c58a704c6b143e29"
         }
       },
       "changed": [
@@ -137,13 +137,13 @@
           "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
           "from": "file",
           "sha256": "6a295439fad6707d36ead5305df12d260a6290dd485a2ed56be340d8252b2d8e",
-          "commit": "31a9427e4c289279e54dc0e9b16d0219eef12735"
+          "commit": "d5bdf1a62de9d87b9a99a86fc459805fe52cb07e"
         },
         "after": {
           "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
           "from": "file",
           "sha256": "2516c3fa8849ad63ef188ab43a102ba50806bddffd8fa280cb91383a50107267",
-          "commit": "e25db5e0b0d6cd79f838b9aeae9e84645e82ac9c"
+          "commit": "e00bf6cc5b6e47faa2a1d354c58a704c6b143e29"
         }
       },
       "changed": [
@@ -206,13 +206,13 @@
           "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
           "from": "file",
           "sha256": "6a295439fad6707d36ead5305df12d260a6290dd485a2ed56be340d8252b2d8e",
-          "commit": "31a9427e4c289279e54dc0e9b16d0219eef12735"
+          "commit": "d5bdf1a62de9d87b9a99a86fc459805fe52cb07e"
         },
         "after": {
           "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
           "from": "file",
           "sha256": "2516c3fa8849ad63ef188ab43a102ba50806bddffd8fa280cb91383a50107267",
-          "commit": "e25db5e0b0d6cd79f838b9aeae9e84645e82ac9c"
+          "commit": "e00bf6cc5b6e47faa2a1d354c58a704c6b143e29"
         }
       },
       "changed": [

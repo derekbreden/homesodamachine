@@ -136,7 +136,7 @@ that rises toward a free face levels off one wall short of it. Every face betwee
 keeps a running fit, measured square to the face.
 
 The screws pass through printed holes, the selected
-[M5 sample fit](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/print-tests/m5-seam-bearing/physical-result.json).
+[M5 sample fit](https://github.com/derekbreden/homesodamachine/blob/6e2695bee227cf6ad5ea6089fb934eba0f8d47ec/hardware/print-tests/m5-seam-bearing/physical-result.json).
 Long passages may require turning the screw before the insert engages. Each insert and
 the manufacturer's minimum stock round it, about the axis, fit
 inside the side band. The lower axes stand in from the exterior,
@@ -224,7 +224,7 @@ surface across the seam.
 
 The printed corbel is the exposed gripping surface and retains the shared ordinary
 layer schedule. Local native tree targets support the back-bottom's rounded mouth
-and seam lip after the [handhold coupon result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-dense-roofs/D-representative-mark2/physical-result.json).
+and seam lip after the [handhold coupon result](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/petgf-dense-roofs/D-representative-mark2/physical-result.json).
 The inclined gripping interior remains outside those forced regions.
 The grip is integral with the quadrant. Surface finish and gripping comfort remain
 unqualified on the complete production handholds.
@@ -241,7 +241,7 @@ accessible through the handholds, with their head passages open toward the inner
 `handholds` reads the upward entry space, full lifting sections, complete end posts and inner walls
 on the finished pair, including the inner-wall joint's running clearance. These are geometry
 checks; no physical lifting-load test is recorded.
-The [wall-end check](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/enclosure/enclosure/handhold-joint/geometry-check.json) measures the complete
+The [wall-end check](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/enclosure/enclosure/handhold-joint/geometry-check.json) measures the complete
 3 mm section through the wall's full height and verifies the floor overlap,
 lifting roof, screw passages and assembled fit.
 
@@ -517,9 +517,9 @@ Four features bearing on the core's own faces:
   Both retain their complete 40 mm wall legs and the Z253.65 bearing plane.
   The populated back column slides over the core before the final flexible
   handoffs are connected. Printed fit and restraint strength remain unqualified.
-  The [native hold reading](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/core-hold-review/native.json) binds the complete east profile,
+  The [native hold reading](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/enclosure/enclosure/core-hold-review/native.json) binds the complete east profile,
   wall root and cap gap to the current export, and preserves the west hold exactly.
-  The [current slice](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/core-hold-review/slice.json) binds its print preparation.
+  The [current slice](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/enclosure/enclosure/core-hold-review/slice.json) binds its print preparation.
 
 The whole core pocket follows that same rounded plan with 0.25 mm around it,
 from the floor to Z253.65 above its cap crown. The floor under it is the box's one floor
@@ -618,7 +618,7 @@ two figures move OPPOSITE ways: the jamb stands half a slot off the groove's cen
 half-ellipse where the groove is shallower, so the flank behind a jamb is
  rather than the 4.8 under the groove's own floor — a wider slot never
 thins the wall and only ever thins the mullion.
-The coupon at `1aa6b47c8` printed this scheme beside the ceiling slot and a full-groove-width slot
+The coupon at `c65c1a51e` printed this scheme beside the ceiling slot and a full-groove-width slot
 down alternate grooves, on a section of this same flank at this same pitch.
 
 **Every groove, and the stations are the field's own.** `vent_grooves` walks `flute_centres` and
@@ -830,7 +830,7 @@ above their local floor, with the sliding lane open until cleanup is complete. T
 retain their flat sliding bearings and local solid stock. Their supports must
 remain reachable through the open sliding lanes. Localized bridge and foundation
 cooling follows the newly supported bearing courses. The
-[full rear enclosure result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/physical-result.json)
+[full rear enclosure result](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/physical-result.json)
 records removable rail supports with a loose underside and glossy later courses,
 and inaccessible receiver supports. Inspect the complete part rather than
 applying a coupon's cleanup result where walls block the tool.
@@ -849,7 +849,7 @@ ordinary layer schedule. Mating planes keep their required dimensions.
 Use a 0.20 mm first bed layer, six walls locally through the expanding band,
 and the saved wall-first order, speeds and 15% overlap. Keep support contacts off
 those transitions. **Inward/top show rounds retain 0.08 mm**. The
-[carrier physical record](https://github.com/derekbreden/homesodamachine/blob/fa06bf904fc54d0a998a34233ca37fedfd55c3c0/hardware/printed-parts/enclosure/tee-carrier/physical-acceptance.json) includes its
+[carrier physical record](https://github.com/derekbreden/homesodamachine/blob/a5e21ae84af9e907ee83d64db26d29ae19bc407f/hardware/printed-parts/enclosure/tee-carrier/physical-acceptance.json) includes its
 complete top R6 and qualifies the chamfer/taper's surface on that article; sliding fit and the other parts' physical
 surfaces remain separate checks. Each fresh slice must verify first/second-layer
 bead overlap and absence of support contacts on the show transitions, including
@@ -887,13 +887,13 @@ reads an exported Bambu G-code or sliced archive directly, or refreshes only the
 temporary copy of the named production project before slicing it:
 
 ```sh
-git show 0a171e777348bf368f97559c722d11fe5fef9ffb:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf \
+git show c8e1a41e96f422781847c5e175d9bbb6cd203b1f:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf \
   > /tmp/enclosure-back-top-petgf.3mf
 tools/hsm/target/release/support-audit \
   --piece enclosure-back-top --slice-current \
   --model hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl \
   --profile /tmp/enclosure-back-top-petgf.3mf \
-  --profile-label git:0a171e777348bf368f97559c722d11fe5fef9ffb:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf \
+  --profile-label git:c8e1a41e96f422781847c5e175d9bbb6cd203b1f:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf \
   --json-out hardware/printed-parts/enclosure/enclosure/enclosure-back-top.support-audit.json
 ```
 
@@ -904,7 +904,7 @@ all interface islands and both plate and CAD coordinates.
 readings describe the four quadrants and separate pump cradle/cap listed by their archived
 STL digests. They do not qualify the integral pump mount, revised front-top or underside
 retainer. Current native print preparation and review are recorded beside the
-[pump-mount review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/pump-mount-review/README.md).
+[pump-mount review](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/enclosure/enclosure/pump-mount-review/README.md).
 The current integral-mount front-top is STEP `6120cf94…`, paired with retainer
 `bd394956…`. The native assembly record binds these exact parts separately from
 its original complete-path inputs and identifies the M5-joint review for the
@@ -912,9 +912,9 @@ four Y-seam hosts. Pump, valve, glass-seat, wing and cleanout stock keep their
 separate native comparisons.
 
 The 3MF snapshots are evidence inputs in Git history: four at
-`41b9062ec23befab0f355ed18676dd2b1b29c09f`, the cap's crown-down project at
-`38850c02d34402ce660a6496cafef07df0ef1ce2`, and back-top's ceiling-down project at
-`0a171e777348bf368f97559c722d11fe5fef9ffb`. The retained October 25 Mark1 cap,
+`37c256e01e908581c8a9ea24a6a7a6d31ec4f8a0`, the cap's crown-down project at
+`27f4d93c1895365821d06e6b47077fb6d767b2c0`, and back-top's ceiling-down project at
+`c8e1a41e96f422781847c5e175d9bbb6cd203b1f`. The retained October 25 Mark1 cap,
 front-top and front-bottom slices identify STLs `fa10132c600a`, `317721279647` and
 `1a1c2762f71e`, recipe `45c16e8c8517`; the Mark2 back-bottom slice identifies
 STL `a967b77ebfbc`.
@@ -947,7 +947,7 @@ sliding face out past the exterior plane, so each of the four stands on the outs
 with a face exposed down the whole run. Front-bottom's pair is printed and pulled — the easiest
 support on the piece, off cleanly in one piece, reachable without going near the cavity.
 
-Back-top's [support-removal packet](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/support-removal-review/README.md) binds the native
+Back-top's [support-removal packet](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/enclosure/enclosure/support-removal-review/README.md) binds the native
 paths to their source geometry and printer recipe. It reads the receiver interiors,
 covered bores, valve sockets and vent passage, together with the support bodies and
 their contact islands. Release exposed contacts and remove branches before installing
@@ -1128,7 +1128,7 @@ remain the production datums.
 
 Front-top carries the V-H reservoir draw tube on a sloping shelf integral with the pump
 bulkhead. The split clip follows the level bend before the tube drops into the valve.
-Its jaws open upward with the funnel frame out. The [hand-fit record](https://github.com/derekbreden/homesodamachine/blob/feb1783dff3c65d92c01a6c2881fbec7e88d60d9/hardware/print-tests/vh-entry-clip/prints/2026-11-21-mark1/physical-result/physical-result.json)
+Its jaws open upward with the funnel frame out. The [hand-fit record](https://github.com/derekbreden/homesodamachine/blob/401ad700c560df60f449ee3c1901a6970b1076c4/hardware/print-tests/vh-entry-clip/prints/2026-11-21-mark1/physical-result/physical-result.json)
 covers the printed crop of this seat.
 
 Back-top carries the reservoir fill tube in one east-wall seat and has integral
@@ -1139,7 +1139,7 @@ strips use the [production print features](enclosure-back-top.print-features.jso
 The strips root on the lower jaw and can be reached through the tube mouth.
 
 The [routing review](route-snap-review/README.md) describes the print direction,
-other tube clips and release access. The [hand-fit record](https://github.com/derekbreden/homesodamachine/blob/9f92649048b4168ef0ad479a5773a7d12fb22977/hardware/print-tests/tube-snap-corbel/prints/2026-11-20-mark1-upper-wing-support/physical-result/physical-result.json)
+other tube clips and release access. The [hand-fit record](https://github.com/derekbreden/homesodamachine/blob/f15bb9b4dbab8cd2046ea8e1e8e08d13539381d2/hardware/print-tests/tube-snap-corbel/prints/2026-11-20-mark1-upper-wing-support/physical-result/physical-result.json)
 accepts the fill tube's fit in a printed crop of this back-top geometry. Complete
 back-top cleanup and support release still need observation on a full print.
 
@@ -1279,7 +1279,7 @@ standing drain stub. Finish the tubing and PCB connections beneath the open
 aperture, then fit the frame, engage the cradle's snap seat and complete the
 drain connection. The plug, stub, elbow and cradle travel with the frame;
 disconnect the V-B feed before lifting it. The
-[drop-in review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/zone-c/funnel/drop-in-review/native-review.json) records
+[drop-in review](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/zone-c/funnel/drop-in-review/native-review.json) records
 nominal fastener stacks and sampled motion; the
 [funnel source](../../zone-c/funnel/README.md) owns its dimensions and physical
 qualification limits.

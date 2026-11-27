@@ -27,7 +27,7 @@ unreported.
 - The native bead envelope stands at least 122.6 mm inside the left nozzle's plate.
 - Timelapse and Bed Leveling On; Flow Dynamics and Nozzle Offset Calibration Auto.
 
-[Preparation source](https://github.com/derekbreden/homesodamachine/blob/22a3f0d2e5ab3d0f06018a8fb12baea51ba14578/future/tube-bend-holder-exploration/prints/2026-10-23-walls-234-petgf-left04-z018-mark1/prepare.py) writes the project and slices it with Bambu Studio 02.08.02.61.
+[Preparation source](https://github.com/derekbreden/homesodamachine/blob/60c5b099e1f6c7b3f75442a3b092bcc17e4fc4e8/future/tube-bend-holder-exploration/prints/2026-10-23-walls-234-petgf-left04-z018-mark1/prepare.py) writes the project and slices it with Bambu Studio 02.08.02.61.
 The [readiness record](2026-10-23-tube-bend-holders-w234-petgf-left04-z018-mark1.readiness.json)
 binds the three STLs, the project, the archive and its G-code by hash.
 

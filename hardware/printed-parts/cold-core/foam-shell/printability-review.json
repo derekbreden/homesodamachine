@@ -2568,7 +2568,7 @@
   },
   "post_publication_surface_review": {
     "scope": "Manual seven-class physical-STL reading after publication87bcf23d6. The specified casing sections, named seam-channel metric and flat M5 head bearings retain instance-specific reasons and alternatives. This establishes nominal geometry and access; printed finish, cleanup force and lifetime remain physical article measurements. No automatic hook or gate is added.",
-    "publication_commit": "87bcf23d685fd261756a50f290e82c497af64207",
+    "publication_commit": "b64e62a1ee13a1a4d7bce3bf4fbeff4bae56081c",
     "reader": "hardware/scripts/geometry_lint.py",
     "reader_sha256": "bb7b1fa42e8d2985671eb2ebce6610074e65b6e2a22e5f014e498885ebfb030d",
     "parts": {

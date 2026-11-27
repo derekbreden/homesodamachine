@@ -1,9 +1,9 @@
 {
   "purpose": "Bind the production Pisco cover to the full-length four-bar Mark2 cover preferred in the original rear quadrant.",
   "material": "HSM-0449",
-  "bench": "https://github.com/derekbreden/homesodamachine/blob/2d7f9faac54a802877a41971e513dc0211d3475c/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark2/physical-result/physical-result.json",
+  "bench": "https://github.com/derekbreden/homesodamachine/blob/0dac4ec61fa39ec24accd0f72a4aa0f14b7d813c/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark2/physical-result/physical-result.json",
   "observation": "Derek preferred four bars to two in the same corner. The fitted PET-GF cover stayed engaged during the hard alternating press. He described the remaining movement as bending of the whole wing.",
-  "fitted_part": "https://github.com/derekbreden/homesodamachine/blob/f1e8c6ba98e640ec28c19d8b89ce5f78908c782e/hardware/print-tests/pisco-raised-tip-cover/parts/pisco-raised-tip-cover-040.stl",
+  "fitted_part": "https://github.com/derekbreden/homesodamachine/blob/4929e824821496fe644b6ee802f87744c5384279/hardware/print-tests/pisco-raised-tip-cover/parts/pisco-raised-tip-cover-040.stl",
   "stl_comparison": {
     "production_sha256": "c02fe2e2253a3878b1508d06d5f02de286f40e952a68e05f6b19650cb007583c",
     "fitted_sha256": "c44fe9511ac2a2650fb72ca57424b7489514d4bbd1d300e2b14bdb6ccae9eabe",
@@ -31,7 +31,7 @@
     "free_hook_overlap_mm": 0.55,
     "remaining_catch_overlap_before_flex_mm": 0.45,
     "entry": {
-      "waypoints": "https://github.com/derekbreden/homesodamachine/blob/f1e8c6ba98e640ec28c19d8b89ce5f78908c782e/hardware/print-tests/pisco-raised-tip-cover/parts/fit-check-040.json",
+      "waypoints": "https://github.com/derekbreden/homesodamachine/blob/4929e824821496fe644b6ee802f87744c5384279/hardware/print-tests/pisco-raised-tip-cover/parts/fit-check-040.json",
       "sampled_poses": 281,
       "maximum_receiver_overlap_mm3": 0,
       "maximum_hardware_overlap_mm3": 3e-08,
@@ -39,7 +39,7 @@
     }
   },
   "reference_comparison_points": "production-fit.json",
-  "prior_two_bar_mesh_and_slice": "https://github.com/derekbreden/homesodamachine/blob/81af69339f6a91c032c34e3389a2f0d2464abeed/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-fit.json",
-  "production_geometry_commit": "4fb591987d",
+  "prior_two_bar_mesh_and_slice": "https://github.com/derekbreden/homesodamachine/blob/2dd1e901a1571301a568d6bc81ce2e92d0f4affa/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-fit.json",
+  "production_geometry_commit": "d7cb6bf0d3",
   "native_crest_paths": "crest-paths.json"
 }

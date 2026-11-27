@@ -139,14 +139,14 @@ Ordinary bead and support reviews use their existing deposited-road representati
 The largest-loop profile includes pedestal, plug and terminal contours when they
 are that layer's exterior. An offset on those contours is not a verdict about
 the exposed main-body seam. The faucet's
-[feature-aware reading](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/README.md)
+[feature-aware reading](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/README.md)
 retains every exterior run and distinguishes those features from its rear show
 surfaces.
 
 ## Recorded readings
 
-The faucet's [shared-reader profiles and CSVs](https://github.com/derekbreden/homesodamachine/tree/e8cd72a084a5fe09cfeb5b428fb3c90e190c7d0c/hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/shared-reader)
+The faucet's [shared-reader profiles and CSVs](https://github.com/derekbreden/homesodamachine/tree/f850df9434d730c071c7a957ecd0979e789225cc/hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/shared-reader)
 retain the complete-height loop readings, selected-part paint checks and numerical scarf
-connectors. The pump elbow's [emitted-command record](https://github.com/derekbreden/homesodamachine/blob/e8cd72a084a5fe09cfeb5b428fb3c90e190c7d0c/future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/emitted-command-review.json)
+connectors. The pump elbow's [emitted-command record](https://github.com/derekbreden/homesodamachine/blob/f850df9434d730c071c7a957ecd0979e789225cc/future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/emitted-command-review.json)
 binds its reviewed slice and speed reader. Use these records for a focused manual comparison
 when changing the decoder.

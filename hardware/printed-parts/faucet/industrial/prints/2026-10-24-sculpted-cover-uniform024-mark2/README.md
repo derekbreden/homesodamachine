@@ -14,7 +14,7 @@ The complete set contains one Industrial base, the accepted lowered shared tip,
 a Sculpted display cover, the rigid Industrial above-counter plate and the
 side-down lever. The TPU gasket remains a separate material-specific print.
 
-The [reported tight but working Industrial-head fit](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-24-lowered-display-complete-mark2/physical-result/physical-result.json)
+The [reported tight but working Industrial-head fit](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/faucet/industrial/prints/2026-10-24-lowered-display-complete-mark2/physical-result/physical-result.json)
 binds the reused tip to task 1369497043 and its eight photographs. The display
 seat retains the complete 4.5 mm inward reduction: 1.5 mm additional tube
 clearance, 2.0 mm original support stock and 1.0 mm foot recess depth. Four
@@ -28,7 +28,7 @@ tip. This is a geometric fit check. The
 [physical result and nine photographs](physical-result/physical-result.json)
 record repeated Sculpted installation failure, a tight but working Industrial
 control on the same printed tip, and the side button housing bearing at the tip
-ledge. The [corrected fit print](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md)
+ledge. The [corrected fit print](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md)
 includes local button pockets and the Industrial control's extra cover reach.
 
 All 1,022 native layer planes advance by 0.24 mm, beginning at Z0.24. The

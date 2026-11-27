@@ -542,15 +542,15 @@ Slice saved 2026-06-10; print started (Derek: "saved a 3mf for the faucet after 
 
 **Hardware:** no nozzle change stated for this attempt. The slice is still 0.6 standard (printer `Bambu Lab H2C 0.6 nozzle`, profile `0.30mm Standard`), consistent with the attempt-18 0.6 mm DUROZZLE Diamond PCD L-side hotend still being installed. If the nozzle was swapped, that is not captured here. If the PCD is still on, the attempt-18 Flow Dynamics K = 0.013 still applies (same nozzle + filament), subject to the same send-dialog confirmation caveat from attempt 18.
 
-**Geometry — the redesign.** Accumulated since attempt 18's `841d38ab` (no-joinery) baseline through HEAD `ce096d36`. Two functional additions to the printed parts (the rest of the ~76-commit range is docgen / comment-discipline / +Z-up-rebase / repo-reorg refactor that does not change printed geometry):
+**Geometry — the redesign.** Accumulated since attempt 18's `841d38ab` (no-joinery) baseline through HEAD `57fde91e`. Two functional additions to the printed parts (the rest of the ~76-commit range is docgen / comment-discipline / +Z-up-rebase / repo-reorg refactor that does not change printed geometry):
 
-1. **Three-point screw-boss mount (shell foot ↔ above-counter plate)** — replaces attempt-16's no-joinery gravity-sit. The shell foot gains three base pods: two lateral (±X) teardrop pods tangent to the Westbrass bore, plus one front (−Y) D-pod on the centerline (the off-axis third anchor). Each pod hosts the same plate-to-shell fastener chain (dims from [`_faucet_interface.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/faucet/_faucet_interface.py) / [`faucet_shell.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py)):
+1. **Three-point screw-boss mount (shell foot ↔ above-counter plate)** — replaces attempt-16's no-joinery gravity-sit. The shell foot gains three base pods: two lateral (±X) teardrop pods tangent to the Westbrass bore, plus one front (−Y) D-pod on the centerline (the off-axis third anchor). Each pod hosts the same plate-to-shell fastener chain (dims from [`_faucet_interface.py`](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/printed-parts/faucet/_faucet_interface.py) / [`faucet_shell.py`](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py)):
    - ruthex M3 short heat-set insert (⌀4.2 OD) in a ⌀4.0 pocket, 5.25 mm deep (4 mm engagement + 1.25 mm relief), seated opening-down above an 8 mm boss-engagement hole;
    - BNUOK M3 SHCS (304 SS, head ~5.43 mm measured) driven up from under the plate, through the plate boss, into the insert — clamping the plate up into the shell;
    - plate-side counterbore ⌀5.55 + boss OD 11.55 (5.55 + 2 × 3.0 wall); shell pocket ⌀11.65 (0.10 mm diametral slip).
-   Above-counter plate reworked to match the shell foot and carry the three screw bosses on the same centers (`5c6b95c7`); gasket footprint matched (`c285e18f`); zone 2 clipped to cylinder + teardrops (`290b6470`). Shell-side pod/insert commits: `f287bf54` → `a7b50ea8`.
+   Above-counter plate reworked to match the shell foot and carry the three screw bosses on the same centers (`1d891be9`); gasket footprint matched (`1a5ec20e`); zone 2 clipped to cylinder + teardrops (`807b80be`). Shell-side pod/insert commits: `7c6d5795` → `79b87d1c`.
 
-2. **Display cradle on the dispense tip** (top piece) — the gooseneck open end now carries an open cradle for the Waveshare ESP32-S3-Touch-LCD-1.47 faucet display (housing 24.50 × 44.50 mm, ⌀5.75 corners, 10.35 mm deep). Open-faced (corners retain, nothing over the screen), head wall only (no lip/notch), open end squared so it prints from layer one, 45° skirt transition onto the gooseneck, floor drain into the pill cusp, one-extrusion cover over the bare PCB at the open end; cradle walls at three slicer lines. Commits `9a9406c7` → `ce096d36`.
+2. **Display cradle on the dispense tip** (top piece) — the gooseneck open end now carries an open cradle for the Waveshare ESP32-S3-Touch-LCD-1.47 faucet display (housing 24.50 × 44.50 mm, ⌀5.75 corners, 10.35 mm deep). Open-faced (corners retain, nothing over the screen), head wall only (no lip/notch), open end squared so it prints from layer one, 45° skirt transition onto the gooseneck, floor drain into the pill cusp, one-extrusion cover over the bare PCB at the open end; cradle walls at three slicer lines. Commits `38c477b6` → `57fde91e`.
 
 **Slice settings: functionally identical to attempt 18.** The 3mf is byte-different — re-sliced on a newer Bambu Studio (`02.07.00.55` → `02.07.01.57`; `slice_info` X-BBL-Client-Version `02.07.01.57`) — but no tracked print setting changed. The only `project_settings.config` deltas are inert version-bump noise:
 - `fuzzy_skin_point_distance` 0.3 → 0.8 and `fuzzy_skin_thickness` 0.2 → 0.3 — **both inert**: `fuzzy_skin` is `none` (unchanged), so these tune a disabled feature.
@@ -578,7 +578,7 @@ Derek said:
 
 **Outcome: success.** All fits acceptable — the mounting-plate-to-shell screw bosses seat, the two spout slip-joints (A spout↔bend, B bend↔tip) slide together, and the M3 SHCS heads clear their counterbores. This is the print that closes the fit iteration opened by attempt 19.
 
-**Geometry — clearances opened from attempt 19.** Same three-piece shell + above-counter plate; only the mating clearances changed (each one knob in [`faucet_shell.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py) / [`above_counter_plate.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py), parts re-derive):
+**Geometry — clearances opened from attempt 19.** Same three-piece shell + above-counter plate; only the mating clearances changed (each one knob in [`faucet_shell.py`](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py) / [`above_counter_plate.py`](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py), parts re-derive):
 - Boss-to-hole slip 0.10 → **0.40 diametral** (`base_pod_slip`); pods + footprint re-derive, walls stay 3.0.
 - Boss seat gap 0.5 → **1.0** (`boss_seat_clearance`; boss 7.0 in the 8.0 hole) + **0.6 × 45° lead-in chamfer** on each boss top rim (`boss_chamfer`).
 - SHCS-head counterbore ⌀5.55 → **⌀6.15** (`base_pod_counterbore_dia`, ~0.72 diametral over the ~5.43 measured head); chain re-derives boss ⌀12.15, shell hole ⌀12.55, pod radius 9.275.
@@ -586,7 +586,7 @@ Derek said:
 
 Convergence path (hand-iterated test prints between 19 and this slice, not separately sliced/saved): boss slip 0.40 made the plate seat; with the plate seating, joint A read too tight → joints opened to 0.25 / 0.30; with the joints sliding, the SHCS heads read too tight → counterbore opened to ⌀6.15. Derek attributes the small residual standoff at the plate-foot seam to surface roughness ("it is pretty close"), closed by the three screws.
 
-**Slice settings vs attempt 19** (committed `32368f23`, "Print settings probably"; Bambu Studio `02.07.01.57`):
+**Slice settings vs attempt 19** (committed `dab7f0b4`, "Print settings probably"; Bambu Studio `02.07.01.57`):
 - `wall_loops` 100 → **6**. Every functional wall in these parts is ≤ 6 lines at 0.62 (cradle 3-line walls, 3.0 pod walls, 4.0 spout wall slice identically either way); only bulk cores change.
 - `sparse_infill_density` 15 % → **100 %**, `sparse_infill_pattern` grid → **zig-zag**; `internal_solid_infill_pattern` zig-zag.
 - `xy_hole_compensation` 0 / `xy_contour_compensation` 0 (every clearance above is uncompensated-hole-based), `elefant_foot_compensation` 0.15, `seam_position` aligned.
@@ -934,7 +934,7 @@ Derek reported:
 - "we need the old clearance back there, where the previous model did not cover as much of the lever."
 - "I don't think you need to remove too much material, just over (Z+) the lever, in the same places where the old model had clearance."
 
-The [display trial log](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/printed-parts/fixtures/faucet-display-snap/print-log.md)
+The [display trial log](https://github.com/derekbreden/homesodamachine/blob/6e2695bee227cf6ad5ea6089fb934eba0f8d47ec/hardware/printed-parts/fixtures/faucet-display-snap/print-log.md)
 records the cover's fit, retention and wing-flex observations.
 
 ## PET-GF faucet with open forward lever clearance — 2026-09-18, Mark2

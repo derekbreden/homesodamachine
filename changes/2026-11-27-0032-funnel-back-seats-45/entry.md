@@ -2,7 +2,7 @@
 title: The funnel frame's back seats print at 45°
 lede: Back-top's two rear funnel ledges and the frame faces on them were flat overhangs printed on support. They now meet on a 45° seat that both parts print without support.
 date: 2026-11-27T00:32:43-06:00
-commit: e5f4348ad483d36e93f20ab909f340a5be85d5db
+commit: 8234f9b43b1a36563c1c87c7bc371c43604c08be
 model: manifold-layout/enclosure-assembly.step
 ---
 Back-top prints ceiling-down, so each rear funnel ledge's flat top faced the bed and took tree supports, and the frame's flange underside over it printed on support too. Each back ledge's seat now falls inward at 45° from the roof pocket's flank at Z346. Under each back notch the frame keeps a matching wedge whose face rises outward from its body, 0.15 mm square to the seat. The frame still lowers straight in and lifts straight out, and the screws clamp it down into the two seats. The front-top ledges keep their flat bearing.

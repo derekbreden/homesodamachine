@@ -54,7 +54,7 @@
           "payload": "printed-parts/zone-c/funnel/funnel-frame.step.mesh",
           "from": "snapshot",
           "sha256": "8974aa8753c014eba902badbe91942f39160aa9cc2f4dfbd65552abf34c07b07",
-          "commit": "62e5e1ee8b5d74cd2e144dbe98412ac3127c7c4a",
+          "commit": "640aa3f5ad9efdcca336025e14bde611e786ae6f",
           "taken": "2026-10-25T03:22:13.512Z",
           "published": true
         },
@@ -62,7 +62,7 @@
           "payload": "printed-parts/zone-c/funnel/funnel-frame.step.mesh",
           "from": "tree",
           "sha256": "8abaa20cb27099b4bba24f371268090e1af8dfcf9174e3b28d3314713f03398c",
-          "commit": "630f403e49b2f55469255f3c652f52b513e2124a",
+          "commit": "403913bab433ef9ef60eb6aab29a4170b80486fe",
           "published": false
         }
       },

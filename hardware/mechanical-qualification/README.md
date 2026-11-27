@@ -14,7 +14,7 @@ countertop arrangement. Exact installed articles, revised-part fit and complete
 cutover acceptance remain unspecified by this record; the linked part evidence
 retains its scope.
 
-The [prototype assembly-clearance review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/assembly-fit-review/README.md)
+The [prototype assembly-clearance review](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/enclosure/enclosure/assembly-fit-review/README.md)
 records the October 17 C14 height and cold-core blind-insertion feedback.
 It binds the C14 measurement to the October 10 Mark1 article and retains the
 May 31 foam-shell record's scope. Current passive core crossings are Ø7.5 mm;
@@ -48,7 +48,7 @@ The lower faucet passages, organizer, TPU gasket, rigid above-counter plate
 and steel under-counter plate share X=0 for soda, drain and ribbon, with
 symmetric flavor positions. The [centered mounting review](../cut-parts/faucet/under-counter-plate/centered-layout-check.json)
 records the full sideways slide through the 19–38 mm routing envelope.
-The [identified complete centered faucet](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/physical-result.json)
+The [identified complete centered faucet](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/physical-result.json)
 has reported overall acceptance. Numerical forces and the complete matching
 steel-plate installation are not independently measured.
 
@@ -60,19 +60,19 @@ The 3.80 mm tube socket is independent of the organizer's PET-GF sliding fit.
 Socket fit, retained tie tension, leakage and complete fault flow are unmeasured.
 
 The water pump uses [reinforced PVC joints](../reference/pump-barb-joint/README.md).
-The [archived TPU elbow trials](https://github.com/derekbreden/homesodamachine/blob/e59c4f46ec277160e3eba3883aac7b79aba253e3/future/pump-elbow-exploration/README.md)
+The [archived TPU elbow trials](https://github.com/derekbreden/homesodamachine/blob/8112a4e02c43f6f9d145bab5348a53ffa6eae24d/future/pump-elbow-exploration/README.md)
 retain their fit, print and seal observations with the articles tested.
 
 The [Industrial production selection](../printed-parts/faucet/industrial/production-selection.json)
 names the printed articles Derek approved for the Industrial base, shared tip
 and cover, rigid plate and side-down lever. Derek approves the snap fit on the
-[complete black Sculpted faucet](https://github.com/derekbreden/homesodamachine/blob/cff7e283594be4f0d37e20b0b0863f11efc4823f/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json),
+[complete black Sculpted faucet](https://github.com/derekbreden/homesodamachine/blob/ee0db891d9ab50c3882ebdec693090e0b6d53845/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json),
 with a small hole in the tip visible beside the cover's front corner. The
 [layer recipe approval](../printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json)
 selects Bambu’s default first bed layer and uniform later layers.
 
 The [October 10 shipping acceptance](../printed-parts/faucet/industrial/physical-acceptance.json)
-and [October 14 rear-seam approval](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json)
+and [October 14 rear-seam approval](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json)
 retain their exact printed articles and variable-layer recipes. The current
 production set retains Back with A2 on the base, tip and mounting plate,
 Aligned/15%/scarf-off on cover and lever, the full rear seam enforcement,
@@ -80,7 +80,7 @@ selected edge supports and localized cooling. The shared tip has the Ø4 mm
 unsealed fault-drip opening and 70° curved joint. Numerical installation force,
 retention force, hydraulic fault discharge and endurance are unmeasured.
 
-The [current-angle faucet foot comparison](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/physical-result/physical-result.json)
+The [current-angle faucet foot comparison](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/physical-result/physical-result.json)
 records Derek's completed comparison and nine photographs for Mark2 task
 1340828943. He reports stock fins strictly worse on the important front surface
 because of the missing front support, easy fin snap-off, a generally uniform
@@ -88,23 +88,23 @@ bottom face and clear sag. Many other regions he worried about printed okay.
 The necessary support count remains open; easy stock-wall release does not
 establish release for the denser Full-mode layout. Mating fit and quantified
 sag remain unmeasured.
-The [single tip fin iteration](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/README.md)
+The [single tip fin iteration](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/README.md)
 is Mark2 task 1341048254: one tip joint section at −105°, eight Full-mode plain
 fin walls and the 125% bridge-flow/70% cooling/15 mm/s Bridge recipe. Its
-[finished result](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/physical-result/physical-result.json)
+[finished result](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/physical-result/physical-result.json)
 records the best observed bottom-side rim appearance and a still-rough opposite
-side. The [Full-annulus Mark1 result](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/physical-result.json)
+side. The [Full-annulus Mark1 result](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/physical-result.json)
 reports tighter material but better underside and front-face finish with trees.
-The [two single edge-support candidates](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/README.md)
+The [two single edge-support candidates](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/README.md)
 are Mark1 tip task 1341173963, with added seam-side lip trees, and Mark2 base
 task 1341188908, with segmented curved rim walls and trees elsewhere. They
 retain the working material recipe and include no repeat controls. The
-[Mark2 arc-fin result](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json)
+[Mark2 arc-fin result](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json)
 accepts the best observed faucet underside, excellent edge support and very easy
 arc snap-off. The exact seven edge walls and narrow blocker strips are selected
 in the complete faucet project, with Tree(auto)/Default elsewhere. Physical
 acceptance covers this identified base section; assembled fit and a complete-height
-print with those arcs remain unreported. The [Mark1 tip physical failure](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/physical-result/physical-result.json)
+print with those arcs remain unreported. The [Mark1 tip physical failure](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/physical-result/physical-result.json)
 records a detached male-insertion section and loose strands despite completed
 telemetry. Its first plug bead at Z0.44 has no lower-bead bearing. The
 [prepared root-anchor correction](../printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/README.md)
@@ -118,54 +118,54 @@ is Mark2 base task `1342687225` and Mark1 tip, cover, rigid plate and lever task
 `1342697013`. It retains the accepted arcs, tip supports and hidden-root disc,
 plus the selected finish and material settings, with no repeat controls.
 The complete faucet's physical result remains unreported. The
-[foot and first-shoulder material pair](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/mark2/README.md)
+[foot and first-shoulder material pair](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/mark2/README.md)
 remains unsent and is not selected for submission.
 
-The [PET-GF fin screening plate](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/README.md) compares
+The [PET-GF fin screening plate](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/petgf-fins/README.md) compares
 4–32 mm bridges between removable fin contacts, 30–60° unsupported slopes,
 side clearances and horizontal tine widths on Mark2. A16, B16 and Y12 failed
 on the first roof layer; AI detection interrupted the run with no continuation.
 S30 and S35 have reported edge sag; S40 lacks that defect over its shorter,
 partially printed extent. No bridge or full-length angle limit is qualified.
-The [short-span follow-up](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/short-spans-v2/README.md)
+The [short-span follow-up](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/petgf-fins/short-spans-v2/README.md)
 compares 2–8 mm bridges on solid anchors and fin landings, with fan-off and
 30% part-fan plates. Its ramps finish before its bridge attempts. The
-[fan-off physical result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/short-spans-v2/physical-result-fan0.json)
+[fan-off physical result](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/petgf-fins/short-spans-v2/physical-result-fan0.json)
 records stable C bridges whose underside finish is worse than supported surfaces,
 failed F roof formation, and edge sag on four of six full-length ramps.
-The [native landing trace](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/short-spans-v2/landing-path-review.json)
+The [native landing trace](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/petgf-fins/short-spans-v2/landing-path-review.json)
 shows sparse F teeth beneath a transverse roof perimeter printed before bridge
 fill. That landing failure does not establish a PET-GF free-span limit.
 The 30% comparison and dense-contact geometry candidate remain unprinted;
 neither supplies surface or release acceptance.
 
-The [12 mm fusion and fin trial](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/bonding-and-fins-v4/README.md)
+The [12 mm fusion and fin trial](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/petgf-fins/bonding-and-fins-v4/README.md)
 is accepted by Mark1 as task 1340084547 and Mark2 as task 1340093238. Mark1
 compares single bridge layers with normal/thick extrusion and 100%/125%/150%
 volume at fixed spacing within each group. Mark2 has opposing fins in two
 directions, a solid-post control and full 14 mm ramps at 70%/100% cooling.
 Every main first-roof fin raster starts and ends on preceding tooth beads,
-and fill precedes walls. The [Mark1 physical result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/bonding-and-fins-v4/mark1/physical-result.json)
+and fill precedes walls. The [Mark1 physical result](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/petgf-fins/bonding-and-fins-v4/mark1/physical-result.json)
 identifies normal-mode N100 and N125 as the visually preferred pair, with no
 clear winner and no measured bond-strength result. The
-[Mark2 physical result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/bonding-and-fins-v4/mark2/physical-result.json)
+[Mark2 physical result](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/petgf-fins/bonding-and-fins-v4/mark2/physical-result.json)
 reports all three roofs formed with objectionable sag/finish, one substantially
 worse than the other two without identified labels. Four ramp edges improve
 with residual sag; two ramps look good, tentatively the 40° pair. Fin removal
 and the better cooling level are unreported. The
-[normal-flow/cooling follow-up](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/normal-flow-cooling-v5/README.md)
+[normal-flow/cooling follow-up](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/petgf-fins/normal-flow-cooling-v5/README.md)
 is Mark1 task 1340156908: normal bridges at 100%/115%/125% extrusion, each at
 70% and 100% cooling, with a single 12 mm first roof layer. Its
-[physical result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/normal-flow-cooling-v5/mark1/physical-result.json)
+[physical result](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/petgf-fins/normal-flow-cooling-v5/mark1/physical-result.json)
 ranks A125 (125%, 70% fan) first and B125 (125%, 100% fan) second for fewest
 gaps when held to light, both at 25 mm/s. Sag, retained underside finish and
 adjacent-line strength remain unreported for this plate.
-The [40-specimen Mark2 follow-up](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/finish-matrix-v6/README.md)
+The [40-specimen Mark2 follow-up](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/petgf-fins/finish-matrix-v6/README.md)
 is task 1340201019. It compares matched solid-post and fin bridges at 100%/125%
 volume, 15/25 mm/s and 70%/100% fan, with full 14 mm ramps at 35–42.5° facing
 opposing directions. Its fin paths directly land on preceding beads; useful
 retained fin finish and release remain unqualified. The
-[physical result and eight photos](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/finish-matrix-v6/mark2/physical-result.json)
+[physical result and eight photos](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/petgf-fins/finish-matrix-v6/mark2/physical-result.json)
 accept all 16 ramp surfaces at 35–42.5° from the bed, both orientations and
 70%/100% fan, over the tested 14 mm reach and 12 mm width. R09 is among the
 best-looking; R03 improves on R01, supporting a modest 100% ramp-cooling
@@ -174,28 +174,28 @@ including C07's one low-hanging thread. F01/F08/Y04/Y05 fail severely; F07 is
 worse than C07 but less severe. No individual outcome is assigned to unreported
 bridges. Roof bowing, loose loops and irregular contact remnants are visible;
 the sequence of tooth deformation/attachment loss or handling separation is
-unresolved. The [Mark1 comparison](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/finish-matrix-v6/mark2/comparison-with-mark1.json)
+unresolved. The [Mark1 comparison](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/petgf-fins/finish-matrix-v6/mark2/comparison-with-mark1.json)
 does not isolate a printer effect because anchor fill, height and plate size differ.
-The [geometry comparison](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/geometry-comparison.json)
+The [geometry comparison](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/petgf-fins/geometry-comparison.json)
 identifies the v4/v6 fins as local lateral walls with 2.24 mm cantilever teeth.
 Their failures do not qualify or reject PrintFins' published wall-under-ledge
 arrangement with a vertical release gap, whose physical outcome remains unqualified here.
-The [wall-under-roof comparison](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/under-roof-walls-v8/README.md)
+The [wall-under-roof comparison](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/petgf-fins/under-roof-walls-v8/README.md)
 is Mark1 task 1340689201: permanent, 0.24 mm and 0.48 mm vertical-gap conditions,
 each in X/Y. A permanent model post anchors one end; a 1 mm vertical wall
 underlies the other. All 30 native bridge strokes per specimen cross wall-top
 beads in XY, with one wall loop and no projecting teeth. Physical formation,
 release and shape are recorded in the
-[confirmed Mark1 result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/under-roof-walls-v8/mark1/physical-result.json):
+[confirmed Mark1 result](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/petgf-fins/under-roof-walls-v8/mark1/physical-result.json):
 G1 at 0.24 mm is the preferred column, bends off easily and provides good bridge
 support. G2 at 0.48 mm is okay and basically falls off, with very slight sag.
 X/Y are not separately ranked and C0 is unreported. This is a narrow-wall gap
 candidate, not a tree-support gap or sliding-joint qualification.
-The [eight-specimen Mark1 flow bracket](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/flow-bracket-v7/README.md)
+The [eight-specimen Mark1 flow bracket](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/petgf-fins/flow-bracket-v7/README.md)
 is task 1340334508, comparing 125%/130%/135%/140% first-roof extrusion at
 70% fan and 25 mm/s. Isolated first layers expose gaps; completed five-course
 roofs expose retained underside shape. All bridge ends directly land on
-preceding beads. Its [physical result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/flow-bracket-v7/mark1/physical-result.json)
+preceding beads. Its [physical result](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/petgf-fins/flow-bracket-v7/mark1/physical-result.json)
 reports all R roofs look pretty good, with R125 preferred, and L140 adds sag.
 The possible appearance decrease from A125 to L125 is uncertain; the bridge
 recipe matches but anchor deposition, position and plate conditions differ.
@@ -237,37 +237,37 @@ linked here are the authority for each observation, including their print bindin
 | Interface | Established result | Evidence limit |
 | --- | --- | --- |
 | [Kamoer cradle/cap physical record](../reference/kamoer-kphm400/physical-fit.json) | Both pumps held firmly with screws tightened; no vertical play reported in that identified assembly. | The result does not establish physical fit, no-play retention or support cleanup for the current integral upper mount and underside retainer. Bearing surfaces, operating vibration, handling capacity and wet joint performance remain separate properties. |
-| [Grip receiver and cover coupons](https://github.com/derekbreden/homesodamachine/blob/fa06bf904fc54d0a998a34233ca37fedfd55c3c0/hardware/printed-parts/enclosure/grip-cover/physical-acceptance.json) | Support removal and assembled receiver/cover fit accepted on H2C and Mark2 for the identified coupon articles. | This result does not qualify the production enclosure's bare gripping surfaces. Current handhold finish, cleanup, comfort and loaded lifting remain unmeasured. |
-| [Current back top on Mark1](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/drain-readiness/prints/2026-10-08-current-back-top-mark1/physical-result.json) | Rejected on 2026-10-09: Derek reports impracticable removal of every normal support and intends to discard the article. | Finished fit and surface qualification are unassessed; native removal access does not establish usable cleanup. |
-| [Faucet display cover](../printed-parts/faucet/faucet-display-cover/physical-acceptance.json) | The identified September PET-GF cover provides accepted give, spring, fit and retention. Two identified white covers [broke during assembly](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/reported-failure.json); the [fan-off cover passed normal assembly](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/physical-result.json). Other faucet parts fractured during its installation. The [October 25 lowered black head](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json), task 1372253517, has reported very good Sculpted-cover fit with the display, tubes and wiring. The current cover on the current shared tip is approved by the [complete Sculpted faucet's result](https://github.com/derekbreden/homesodamachine/blob/dcbaf13d4d9c3d449373a059742f91478bb67e82/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json), task 1440074146, as the best fit so far. | Acceptance retains each identified STL's scope. The lowered head has a visible front-corner opening; the [cover-only physical result](../printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json) approves task 1374330388, including the remaining gap as good enough. No further gap iteration is requested. The current cover leaves one flaw Derek names, a hole in the tip that the cover does not quite cover. Strength, retention force and cycle life are unmeasured. |
-| [Tee-carrier surface](https://github.com/derekbreden/homesodamachine/blob/fa06bf904fc54d0a998a34233ca37fedfd55c3c0/hardware/printed-parts/enclosure/tee-carrier/physical-acceptance.json) and [sliding fit](https://github.com/derekbreden/homesodamachine/blob/fa06bf904fc54d0a998a34233ca37fedfd55c3c0/hardware/printed-parts/enclosure/tee-carrier/low-force-trial/physical-acceptance.json) | Expanding show transition accepted with additive chamfer/taper and six local walls. Sliding and observed tilt accepted with the existing front-top. | Spring return, actuation force and simultaneous release of all four collets remain separate observations. Preserve the accepted surface treatment in structural profile trials. |
+| [Grip receiver and cover coupons](https://github.com/derekbreden/homesodamachine/blob/a5e21ae84af9e907ee83d64db26d29ae19bc407f/hardware/printed-parts/enclosure/grip-cover/physical-acceptance.json) | Support removal and assembled receiver/cover fit accepted on H2C and Mark2 for the identified coupon articles. | This result does not qualify the production enclosure's bare gripping surfaces. Current handhold finish, cleanup, comfort and loaded lifting remain unmeasured. |
+| [Current back top on Mark1](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/drain-readiness/prints/2026-10-08-current-back-top-mark1/physical-result.json) | Rejected on 2026-10-09: Derek reports impracticable removal of every normal support and intends to discard the article. | Finished fit and surface qualification are unassessed; native removal access does not establish usable cleanup. |
+| [Faucet display cover](../printed-parts/faucet/faucet-display-cover/physical-acceptance.json) | The identified September PET-GF cover provides accepted give, spring, fit and retention. Two identified white covers [broke during assembly](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/reported-failure.json); the [fan-off cover passed normal assembly](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/physical-result.json). Other faucet parts fractured during its installation. The [October 25 lowered black head](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json), task 1372253517, has reported very good Sculpted-cover fit with the display, tubes and wiring. The current cover on the current shared tip is approved by the [complete Sculpted faucet's result](https://github.com/derekbreden/homesodamachine/blob/b818b34788d36448453f6ec134f152037335905d/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json), task 1440074146, as the best fit so far. | Acceptance retains each identified STL's scope. The lowered head has a visible front-corner opening; the [cover-only physical result](../printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json) approves task 1374330388, including the remaining gap as good enough. No further gap iteration is requested. The current cover leaves one flaw Derek names, a hole in the tip that the cover does not quite cover. Strength, retention force and cycle life are unmeasured. |
+| [Tee-carrier surface](https://github.com/derekbreden/homesodamachine/blob/a5e21ae84af9e907ee83d64db26d29ae19bc407f/hardware/printed-parts/enclosure/tee-carrier/physical-acceptance.json) and [sliding fit](https://github.com/derekbreden/homesodamachine/blob/a5e21ae84af9e907ee83d64db26d29ae19bc407f/hardware/printed-parts/enclosure/tee-carrier/low-force-trial/physical-acceptance.json) | Expanding show transition accepted with additive chamfer/taper and six local walls. Sliding and observed tilt accepted with the existing front-top. | Spring return, actuation force and simultaneous release of all four collets remain separate observations. Preserve the accepted surface treatment in structural profile trials. |
 | [Faucet lever](../printed-parts/faucet/lever-replica/physical-acceptance.json) | Fit and functional operation accepted for the identified print. [Assembly observations](../printed-parts/faucet/lever-replica/assembly-observations.json) establish lever attachment before tube/shell insertion, sleeve fitting on the tube first, and the shell-guided lever motion. | Operating force, assembled contact pose and endurance are unmeasured. Sliding-friction comparison is qualitative. |
 | [Centred tube insertion tool](../printed-parts/fixtures/tube-insertion/physical-acceptance.json) | Successful insertion reported 2026-10-13 with the identified Mark1 plus-handle jaws and proud TPU inserts. The handle alone works well for starting insertion; the full tool makes the final press very easy. Derek reports it is far easier than before. | Effort comparison is qualitative. Numerical insertion and grip forces, structural load capacity, pressure sealing and endurance are unmeasured. |
-| [Compact TPU 85A elbow](https://github.com/derekbreden/homesodamachine/blob/e59c4f46ec277160e3eba3883aac7b79aba253e3/future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json) | The identified rough-edged 225°C / 10 mm/s Mark1 article has reported firm, stretchy friction fit and manageable manual insertion without a jig. | Qualitative fit acceptance applies to this article. Fit after correcting the 45° surfaces or changing the recipe, sealing, pressure retention and lifetime remain unassessed. |
-| [Deposited-path Siraya TPU 85A elbows](https://github.com/derekbreden/homesodamachine/blob/e59c4f46ec277160e3eba3883aac7b79aba253e3/future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/physical-result.json) | Mark2 task 1365546966 has no strings reported and seal seeming as good as before, using the right 0.6 mm nozzle, glued Engineering Plate and zero user Z trim. | Acceptance applies to the identified processed-path recipe. The seal comparison has no pressure, hold duration, fixture or identified comparison article; quantified pressure holding, retention and lifetime remain unmeasured. |
+| [Compact TPU 85A elbow](https://github.com/derekbreden/homesodamachine/blob/8112a4e02c43f6f9d145bab5348a53ffa6eae24d/future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json) | The identified rough-edged 225°C / 10 mm/s Mark1 article has reported firm, stretchy friction fit and manageable manual insertion without a jig. | Qualitative fit acceptance applies to this article. Fit after correcting the 45° surfaces or changing the recipe, sealing, pressure retention and lifetime remain unassessed. |
+| [Deposited-path Siraya TPU 85A elbows](https://github.com/derekbreden/homesodamachine/blob/8112a4e02c43f6f9d145bab5348a53ffa6eae24d/future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/physical-result.json) | Mark2 task 1365546966 has no strings reported and seal seeming as good as before, using the right 0.6 mm nozzle, glued Engineering Plate and zero user Z trim. | Acceptance applies to the identified processed-path recipe. The seal comparison has no pressure, hold duration, fixture or identified comparison article; quantified pressure holding, retention and lifetime remain unmeasured. |
 | [Touch-Flo TPU 85A sleeve](../printed-parts/faucet/tpu-o-ring/prints/2026-10-23-black-tpu85a-right06-mark2/physical-result.json) | Mark2 task 1368570348 finished; Derek reports “Okay, that came out pretty well.” The identified recipe uses deposited cap tours, the native spiral wall, black Bambu TPU 85A, the right 0.6 mm nozzle, glued Engineering Plate and zero user Z trim. | General print quality is accepted qualitatively. Specific stringing, assembled seating, sealing pressure and lifetime are unreported. |
 | [Industrial faucet production selection](../printed-parts/faucet/industrial/production-selection.json) | The Industrial base, rigid plate and lever have their own physical approval. The shared head has an approved snap fit on the complete black Sculpted print. The layer recipe uses Bambu’s default first bed layer and uniform later layers. | A small hole in the tip is visible beside the front corner of the cover. Fault discharge, load capacity and endurance are unmeasured. |
 | [Tube bend holder](../../future/tube-bend-holder-exploration/prints/2026-10-23-legs-123-w2-petgf-left04-z018-mark1/physical-result.json) | The free PET-GF holder with a 2 mm wall and 3 mm straight legs on both sides of its 90° turn holds 1/4" LLDPE round the R14 floor; Derek reports it works pretty well, 2026-10-23. It is an option for a corner that needs holding; no enclosure corner carries one. | Qualitative acceptance of the identified Mark1 article. Threading force, roundness through the turn, flow, pressure and retention over time are unmeasured. |
-| [Reservoir water hold](../printed-parts/cold-core/reservoir/water-hold-acceptance.json) | The May 30 Bambu PETG clear assembly held water for several hours with its bulkhead and TPU gaskets. Both September 0.8 mm nozzle recipes, at 0.18 and 0.24 mm layers, also held water, reported 2026-10-05. The [October 26 report](../printed-parts/cold-core/reservoir/water-hold-evidence/2026-10-26-two-hour-leak/physical-result.json) records a small leak after two hours on the most recent reservoir, reported at the wall/fill line. | Results belong to the identified articles and recipes; the October 26 report does not explicitly identify a task. The [completed left 50% article](../printed-parts/cold-core/reservoir/prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/physical-result/physical-result.json) is reported holding water so far; its duration and water head are unspecified. The [right 50% repeat](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/README.md) has no physical result. September hold duration, temperature and fill height are unspecified; warm aging and retained sealing load remain unmeasured. |
+| [Reservoir water hold](../printed-parts/cold-core/reservoir/water-hold-acceptance.json) | The May 30 Bambu PETG clear assembly held water for several hours with its bulkhead and TPU gaskets. Both September 0.8 mm nozzle recipes, at 0.18 and 0.24 mm layers, also held water, reported 2026-10-05. The [October 26 report](../printed-parts/cold-core/reservoir/water-hold-evidence/2026-10-26-two-hour-leak/physical-result.json) records a small leak after two hours on the most recent reservoir, reported at the wall/fill line. | Results belong to the identified articles and recipes; the October 26 report does not explicitly identify a task. The [completed left 50% article](../printed-parts/cold-core/reservoir/prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/physical-result/physical-result.json) is reported holding water so far; its duration and water head are unspecified. The [right 50% repeat](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/README.md) has no physical result. September hold duration, temperature and fill height are unspecified; warm aging and retained sealing load remain unmeasured. |
 
 ## Rear identification and DATA frame
 
-The [rear label set](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/drain-readiness/README.md) uses 32 mm faces.
+The [rear label set](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/drain-readiness/README.md) uses 32 mm faces.
 The six fluid labels have rounded lower corners. Accepted nameplate and
 display-cover results retain their identified geometry and print scope.
 
 ## Front-top support removal and rim finish
 
-The [front-top v17 physical result](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json)
+The [front-top v17 physical result](https://github.com/derekbreden/homesodamachine/blob/c4c14e076dc4b541a01bf724889156f60828bf2b/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json)
 is rejected. Top-rim supports are nearly impossible to remove, supported 0.08 mm
 material has extreme spaghettification, normal snug supports are fused with tree
 supports into masses too large for their cavities, and one tee-carrier
 window-cover holder broke while embedded in the support mass. Native access
-lines do not qualify cleanup. The [front-only flush roof and sliding frame](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/zone-c/funnel/flush-roof-review/README.md)
+lines do not qualify cleanup. The [front-only flush roof and sliding frame](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/zone-c/funnel/flush-roof-review/README.md)
 remove the fixed inward roof ledge, retain complete silicone brim bearing and
 clear the existing back-top in the native seated and insertion checks.
 Revised print cleanup, surface finish and assembled fit remain unqualified.
-The [front-top tree-clearance trial](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/enclosure/enclosure/support-bottom-gap/README.md)
+The [front-top tree-clearance trial](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/enclosure/enclosure/support-bottom-gap/README.md)
 uses a modest part-specific XY increase for trunk side contact; a Bottom Z
 increase does not separate those contacts in the reference native slice.
 The accepted tee-carrier surface and sliding-fit results retain their scope.
@@ -275,15 +275,15 @@ The accepted tee-carrier surface and sliding-fit results retain their scope.
 ## Front-top valve post fit
 
 Derek requests a tighter hand fit in the front-top valve sockets. The
-[upright four-post samples](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/README.md)
+[upright four-post samples](https://github.com/derekbreden/homesodamachine/blob/6e2695bee227cf6ad5ea6089fb934eba0f8d47ec/hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/README.md)
 compare Ø7.20, 7.10, 7.00, 6.90 and 6.80 mm holes in the production print
-orientation. The earlier [Ø7.20 coupon acceptance](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/printed-parts/fixtures/valve-socket-fit/physical-acceptance.json)
+orientation. The earlier [Ø7.20 coupon acceptance](https://github.com/derekbreden/homesodamachine/blob/6e2695bee227cf6ad5ea6089fb934eba0f8d47ec/hardware/printed-parts/fixtures/valve-socket-fit/physical-acceptance.json)
 covers easy insertion with zip ties for positive retention. The
-[current hand-fit selection](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json)
+[current hand-fit selection](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json)
 from those samples sets **V69 / Ø6.90 mm** as the production socket. **V70 / Ø7.00 mm** is the
 conditional alternate for a valve or print orientation that does not fit V69 well.
 The shared seat keeps its exterior envelope. The
-[request record](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/physical-request.json)
+[request record](https://github.com/derekbreden/homesodamachine/blob/6e2695bee227cf6ad5ea6089fb934eba0f8d47ec/hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/physical-request.json)
 records the intended tighter grip; retention force and endurance remain
 unmeasured.
 
@@ -296,7 +296,7 @@ well for starting insertion, and the full tool makes the final press very
 easy. Derek reports the operation is far easier than before. The record
 binds the Mark1 jaw and insert jobs and the reused base and carrier.
 
-The [identified liner trial](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/grip-failure.json)
+The [identified liner trial](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/grip-failure.json)
 reports rigid jaw closure without tube grip and uneven axial compression.
 That functional grip failure is addressed by the accepted centred
 configuration. The associated trial CAD has an 8.5 mm screw-to-liner axial
@@ -322,8 +322,8 @@ fixed 1/4-inch LLDPE pump tube to the insertion stop. Front-top’s tee bores lo
 the fittings in X and Z. Fore-valve/tee groups precede the rear valves and lower
 returns. The collets grip the tubes; the printed mount carries the pumps.
 
-The [pump-snap review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/pump-snap-review/README.md)
-records the current geometric scope. The [three-screw mount receipts](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/pump-mount-review/README.md)
+The [pump-snap review](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/enclosure/enclosure/pump-snap-review/README.md)
+records the current geometric scope. The [three-screw mount receipts](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/enclosure/enclosure/pump-mount-review/README.md)
 bind their listed artifacts and motions, support contacts and deposition. They do not
 qualify the snap interface. Physical cleanup, fit, insertion/release forces, retention,
 load capacity, vibration and lifetime of the snap-fit mount are unassessed. The
@@ -368,7 +368,7 @@ specifies the following dimensions. Its minimum surrounding wall is measured fro
 
 Ruthex specifies at least 1.0 mm of blind relief below the installed insert.
 The [native core and faucet audit](core-and-faucet-heatsets.json), produced by
-[`check_core_and_faucet_heatsets.py`](https://github.com/derekbreden/homesodamachine/blob/00f02b8acb697e4f9e5ab88838af58d557a6f168/hardware/scripts/check_core_and_faucet_heatsets.py),
+[`check_core_and_faucet_heatsets.py`](https://github.com/derekbreden/homesodamachine/blob/a582c52c523aab94fbf54f222daf557f2938e821/hardware/scripts/check_core_and_faucet_heatsets.py),
 checks complete annular stock over the full blind pocket, an open pilot and a closed end.
 Its 39 appliance pockets are the 20 cold-core cap stations, four water-pump columns,
 12 reservoir stations and three faucet-base stations. Four additional main-board
@@ -400,7 +400,7 @@ finite nominal mating regions against their named native solids. The
 covers the fixed-endpoint R25 flavor lanes and complete J1/J2 housing staging
 motions: 17 mm up, then 8 mm fore. It retains the dimensional reference and
 CAD-only scope. The
-[electrical review](https://github.com/derekbreden/homesodamachine/blob/045602339b618a84e4a08935ec77335ef975f4c5/hardware/wiring/installed/above-core-review/native-review.json)
+[electrical review](https://github.com/derekbreden/homesodamachine/blob/4a946b5244ef0c8415e1b16741c4e932af14863e/hardware/wiring/installed/above-core-review/native-review.json)
 and adjacent tube/wall records state their installed-route scopes. These
 nominal checks establish no physical fit, assembly force, strength or life.
 
@@ -469,9 +469,9 @@ published PLA/SPIROL insert loads cannot be transferred to ruthex inserts in thi
 | --- | --- | --- |
 | Enclosure Y seam | A corner stack at each flank, with one fully threaded M5×100 at each height. The lower stack is back-bottom / front-bottom / back-bottom; the upper is front-top / back-top / front-top. Each end pair captures the other half's middle block on the screw. The telescoping lap locates the halves; hooked rails retain the vertical seams. [Corner-stack geometry](../printed-parts/enclosure/enclosure/README.md#seams--corner-stacks). | Opening loads the fully threaded screws in bearing at two interfaces per station. Tightening seats the head in the same half that owns the insert; the middle block is not directly clamped axially. Block ligaments, wall roots and screw bending carry that load; equal sharing between blocks is unestablished. [Short-drop retention](#short-drop-retention) records the geometry and load-path scope. No assembled impact margin is established. |
 | Cold-core cap stacks | The common M5 closure screws engage regular inserts in the shell. The [cap dimensions](../printed-parts/cold-core/foam-cap/numbers/lib.rs) own their head seats, blind pilots and closed stock. Exterior foil bands seal the casing seams. | The caps enclose cured insulation and carry no operating fluid or pressure. Reservoir gaskets retain their separate wet sealing role. Physical cap fit and local foil adhesion remain unmeasured. |
-| Flavor reservoir caps | Six M3 screws; M3x12 engages 5.0 mm of each 5.7 mm insert. The body bosses are 10.0 mm OD. [Closure geometry](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/cold-core/reservoir/reservoir.py). | Vented reservoirs carry liquid head and handling loads. Select the pattern and cap section for controlled gasket compression with allowance for relaxation. Insert length supplies anchorage; it does not by itself preserve gasket preload. |
-| Compressor | Four M5 stations follow the donor plate and grommets. [Mount geometry](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/manifold-layout/enclosure_assembly.py). | The donor mounting pattern and isolation geometry provide a starting basis. They do not establish the strength of the printed posts, roots or floor under handling and transport. |
-| Fixed pump mount and snap-fit lower retainer | Two full-depth integral wings transfer load through their upper roots and lower hooks to front-top’s receiver floors. The fitted upper and lower lands capture the molded pump skirts. | The [pump-snap review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/pump-snap-review/README.md) records geometric scope. Physical fit, retention, insertion/release forces, handling capacity, operating vibration and lifetime are unassessed; the cradle/cap no-play report retains its own article scope. |
+| Flavor reservoir caps | Six M3 screws; M3x12 engages 5.0 mm of each 5.7 mm insert. The body bosses are 10.0 mm OD. [Closure geometry](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/printed-parts/cold-core/reservoir/reservoir.py). | Vented reservoirs carry liquid head and handling loads. Select the pattern and cap section for controlled gasket compression with allowance for relaxation. Insert length supplies anchorage; it does not by itself preserve gasket preload. |
+| Compressor | Four M5 stations follow the donor plate and grommets. [Mount geometry](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/manifold-layout/enclosure_assembly.py). | The donor mounting pattern and isolation geometry provide a starting basis. They do not establish the strength of the printed posts, roots or floor under handling and transport. |
+| Fixed pump mount and snap-fit lower retainer | Two full-depth integral wings transfer load through their upper roots and lower hooks to front-top’s receiver floors. The fitted upper and lower lands capture the molded pump skirts. | The [pump-snap review](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/enclosure/enclosure/pump-snap-review/README.md) records geometric scope. Physical fit, retention, insertion/release forces, handling capacity, operating vibration and lifetime are unassessed; the cradle/cap no-play report retains its own article scope. |
 
 The [floor thickness is 6.0 mm and grip roofs are 12.0 mm](../printed-parts/enclosure/enclosure/numbers/shell.rs).
 Those geometric dimensions do not define load capacity. Engineering assessment must include
@@ -594,7 +594,7 @@ does not require a physical comparison before choosing a supported starting reci
 wall paths and local solid regions for the load path, choose the sparse pattern for the
 remaining interior, and preserve the identified accepted flexures and surface treatments.
 
-The [Mark2 gyroid comparison](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/enclosure-infill/README.md) compares
+The [Mark2 gyroid comparison](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/enclosure-infill/README.md) compares
 two/four walls and 15%/25% infill on standing 3 mm wall strips and flat 6 mm floor
 strips. Its recipe and native readings describe those test pieces. The production
 baseline remains two walls and 15% gyroid unless Derek explicitly asks for a change.
@@ -604,10 +604,10 @@ baseline remains two walls and 15% gyroid unless Derek explicitly asks for a cha
 | Choice | Current evidence or assumption | Customer outcome and design question |
 | --- | --- | --- |
 | Retained clamping force | Printed bearing surfaces and elastomer gaskets remain in several clamping stacks. Full-length inserts improve anchorage; plastic and gasket relaxation remain separate mechanisms. The Y seam's heads bear directly on their printed floors; no retained-preload measurement exists. | Reliable sealing and retention without customer retightening. Design retained preload around its bearing path; metal compression limiters must contact the insert where used, and gasket squeeze needs its own control. [SPIROL's insert design guide](https://my.spirol.com/assets/files/ins-threaded-inserts-design-guide-uk.pdf) describes that metal load path. |
-| Compressor isolation | `FLOOR_GROMMET_SQUEEZE` is 0.4 mm; the flange thickness needed to express that as strain is unmeasured in the [mount source](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/manifold-layout/enclosure_assembly.py). The design uses the post crown as the washer stop; contact with the installed insert face is not physically established. | Quiet operation with secure mounting. Base squeeze and preload on the rubber and actual bearing path. The existing 0.4 mm does not establish appropriate rubber strain or isolation. |
+| Compressor isolation | `FLOOR_GROMMET_SQUEEZE` is 0.4 mm; the flange thickness needed to express that as strain is unmeasured in the [mount source](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/manifold-layout/enclosure_assembly.py). The design uses the post crown as the washer stop; contact with the installed insert face is not physically established. | Quiet operation with secure mounting. Base squeeze and preload on the rubber and actual bearing path. The existing 0.4 mm does not establish appropriate rubber strain or isolation. |
 | Screw material and finish | The [BOM](../ledger/bom.md) specifies black-oxide 12.9 steel for many dry-zone joints and credits its strength over 304 stainless. Joint capacity and environmental exposure are not quantified. | Durable, corrosion-resistant joints. Select sufficient fastener strength for the complete joint and appropriate protection for its moisture exposure; steel tensile strength alone does not select the best material. |
 | PET-GF print process | The shared profile is labelled PET-GF but retains PET-CF type metadata and 1.29 g/cm3 density. The [PET-GF15 data sheet](https://fiberon.polymaker.com/wp-content/uploads/TDS_FIBERON-PET-GF15_V1.0_EN.pdf) gives 1.43 g/cm3 and identifies annealed specimens for its mechanical data. | Accurate mass estimates and consistent printed material. Use the correct density for estimates, the intended drying and flow process, and the actual production material state in engineering analysis. Published annealed properties are not production allowables. |
-| Insulation thickness | The [15 mm cylinder-to-pocket spacing](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/cold-core/_cold_core_interface.py) is explicitly set by packing geometry, not a thermal target; the coil occupies part of it. | Cold delivered soda, acceptable recovery, energy use and condensation. Select foam and thermal-bridge treatment from the heat load and intended cabinet environment; available packing space alone does not establish the thermal optimum. |
+| Insulation thickness | The [15 mm cylinder-to-pocket spacing](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/printed-parts/cold-core/_cold_core_interface.py) is explicitly set by packing geometry, not a thermal target; the coil occupies part of it. | Cold delivered soda, acceptable recovery, energy use and condensation. Select foam and thermal-bridge treatment from the heat load and intended cabinet environment; available packing space alone does not establish the thermal optimum. |
 | Transit packaging | Carton, foam end-caps and exact shipping mass are open in [finish and shipping](../assembly/finish-pack-ship.md). | An intact, functional appliance on arrival. Design packaging support for the complete mass, vulnerable surfaces and shipping exposures; a larger fastener alone does not settle this system problem. |
 | Lifetime and acceptance duration | [Acceptance and burn-in](../assembly/acceptance-and-burn-in.md) explicitly marks its eight-hour duration and compressor-duty limits as proposed defaults. | Durable operation and useful production screening. Derive exposures and acceptance limits from product life and use conditions. A production screen and design endurance answer different questions; eight hours alone establishes neither. |
 

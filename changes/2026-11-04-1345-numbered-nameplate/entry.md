@@ -2,7 +2,7 @@
 title: First Edition nameplate with hidden pointed spring clips
 lede: An 88 × 100 mm numbered plate preserves the QR size and balanced lettering. The complete receiver leaves approximately 3 mm to both the color-chip frame and the curved corner.
 date: 2026-11-04T15:43:33-06:00
-commit: d3025bc04 b5274585e 9bef9a5df 0c2204e1d
+commit: f46a4fdc1 2356e40e6 fd693962f 94a251e54
 model: manifold-layout/enclosure-assembly.step
 ---
 The faucet, two-line company name, matching edition and unit-number lines, and QR share a vertical centreline within a fine rounded frame. The full receiver has a visible gap to the adjacent identification rail.

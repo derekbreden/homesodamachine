@@ -31,7 +31,7 @@ The [head replay](head-replay.json) checks the whole plate against the
 [photo-derived head envelope](../../../../../reference/h2c-toolhead/README.md).
 The flow cap applies to the [mapped tip courses](flow-cap.json). The
 [deposition audit](retained-deposition.json) binds the other parts and mounting
-plate rings to the flat-face review plate. Its [printable face geometry](https://github.com/derekbreden/homesodamachine/blob/46b73353f6a2d910bdd5c82f3b3946adc4a84415/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-tip-shoulder-mark2/dispense-face.json)
+plate rings to the flat-face review plate. Its [printable face geometry](https://github.com/derekbreden/homesodamachine/blob/2c42d5699407a33af9395fe903425a635d9874bf/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-tip-shoulder-mark2/dispense-face.json)
 describes the full-width cover and flat seam.
 
 [Run inputs](run-inputs.zip) retain the editable plate, complete native slice,

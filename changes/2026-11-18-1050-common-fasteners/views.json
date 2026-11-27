@@ -71,7 +71,7 @@
           "payload": "manifold-layout/enclosure-assembly.step.mesh",
           "from": "snapshot",
           "sha256": "83cb45a97f2259a20e0155c23a05c9a575d4d3f78edc1f2ec930ad5c134edb91",
-          "commit": "c2abfff1d2310ff8c55861284d01ff5360834dea",
+          "commit": "683ccf665335d97622fb9544f64e8b3d6c4508f6",
           "taken": "2026-11-18T15:41:13.381Z",
           "published": true
         },
@@ -79,7 +79,7 @@
           "payload": "manifold-layout/enclosure-assembly.step.mesh",
           "from": "tree",
           "sha256": "7b51aebbf16323e10d7f73138e2b93bda53b3902187df1aa7370dfd5565e0073",
-          "commit": "e7631697da80aa95ed51207a6a029fb2e4b809f9",
+          "commit": "beda41089d5f8c492f9e948a2bf2d5bcfa9cdff0",
           "published": true
         }
       },
@@ -259,7 +259,7 @@
           "payload": "manifold-layout/enclosure-assembly.step.mesh",
           "from": "snapshot",
           "sha256": "83cb45a97f2259a20e0155c23a05c9a575d4d3f78edc1f2ec930ad5c134edb91",
-          "commit": "c2abfff1d2310ff8c55861284d01ff5360834dea",
+          "commit": "683ccf665335d97622fb9544f64e8b3d6c4508f6",
           "taken": "2026-11-18T15:41:13.381Z",
           "published": true
         },
@@ -267,7 +267,7 @@
           "payload": "manifold-layout/enclosure-assembly.step.mesh",
           "from": "tree",
           "sha256": "7b51aebbf16323e10d7f73138e2b93bda53b3902187df1aa7370dfd5565e0073",
-          "commit": "e7631697da80aa95ed51207a6a029fb2e4b809f9",
+          "commit": "beda41089d5f8c492f9e948a2bf2d5bcfa9cdff0",
           "published": true
         }
       },
@@ -449,7 +449,7 @@
           "payload": "manifold-layout/enclosure-assembly.step.mesh",
           "from": "snapshot",
           "sha256": "83cb45a97f2259a20e0155c23a05c9a575d4d3f78edc1f2ec930ad5c134edb91",
-          "commit": "c2abfff1d2310ff8c55861284d01ff5360834dea",
+          "commit": "683ccf665335d97622fb9544f64e8b3d6c4508f6",
           "taken": "2026-11-18T15:41:13.381Z",
           "published": true
         },
@@ -457,7 +457,7 @@
           "payload": "manifold-layout/enclosure-assembly.step.mesh",
           "from": "tree",
           "sha256": "7b51aebbf16323e10d7f73138e2b93bda53b3902187df1aa7370dfd5565e0073",
-          "commit": "279904dcf765797d7896dae93f2ed22963503ee3",
+          "commit": "170d41733ab98271e24795079807d8c11360226f",
           "published": true
         }
       },

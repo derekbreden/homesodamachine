@@ -2,7 +2,7 @@
 title: Round copper exits leave the cold-core wall continuous
 lede: The tall shell stays tied together across its front face. Copper tails feed through two round clearance holes during assembly.
 date: 2026-10-26T20:29:00-05:00
-commit: 790f431a87de44fa18af4dda03b738d7fcd63936
+commit: 3fc130213cecbb11ebd91501f6aaab75c3b673f3
 model: printed-parts/cold-core/foam-shell/foam-shell.step
 ---
 Two 7.5 mm holes carry the nominal 6.35 mm copper tails at their retained axes. The 2.38 mm wall continues above both holes, joining the broad panel to its rounded corners along the full height. Separate copper-slot covers and their seating ledges are removed.

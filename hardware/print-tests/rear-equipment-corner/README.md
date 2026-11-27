@@ -19,7 +19,7 @@ The Pisco cover tips past the recessed meter shoulder. The flow meter, Pisco
 and ASSE fit together with all three covers installed. The original pointed
 Pisco cover rocks in this corner. The production Pisco cover uses the full-length
 raised flats that Derek fitted in the same quadrant.
-[Fitted Pisco cover and comparative press test](https://github.com/derekbreden/homesodamachine/blob/2d7f9faac54a802877a41971e513dc0211d3475c/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark2/physical-result/physical-result.json) · [Assembled corner and bench observations](https://github.com/derekbreden/homesodamachine/blob/5e6d64bf900d873c59c141b13b64fa9c34e123b3/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/physical-result/physical-result.json)
+[Fitted Pisco cover and comparative press test](https://github.com/derekbreden/homesodamachine/blob/0dac4ec61fa39ec24accd0f72a4aa0f14b7d813c/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark2/physical-result/physical-result.json) · [Assembled corner and bench observations](https://github.com/derekbreden/homesodamachine/blob/5f1c802a52643bbe10a7872b726b89a36937b676/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/physical-result/physical-result.json)
 
 Clear the removable support from the meter shoulders, upper lip and fitted
 body passages. With the meter and ASSE hardware out, seat the Pisco and tip

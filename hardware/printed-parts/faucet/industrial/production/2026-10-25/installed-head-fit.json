@@ -3,7 +3,7 @@
   "scope": "The installed Industrial faucet uses the approved lowered tip, seated display cover and companion display pose. The signal ribbon follows the lowered PCB within the display pocket and retains its upstream path.",
   "production_selection": "hardware/printed-parts/faucet/industrial/production-selection.json",
   "fit_reference": {
-    "commit": "651f0d96d5fb06c74aea20a49442740bdb2f191f",
+    "commit": "22001dd864b3b295a9790414360c7c72940b9da4",
     "seated_head_review": "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/native-review.json",
     "tube_envelope_review": "hardware/printed-parts/faucet/industrial/display-seat-review/2026-10-24/geometry-review.json"
   },

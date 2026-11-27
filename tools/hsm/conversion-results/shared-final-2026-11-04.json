@@ -1,6 +1,6 @@
 {
   "date": "2026-11-04",
-  "integration_source_revision": "79dad036fc7bffeabe25d3f43051e185b998181b",
+  "integration_source_revision": "5af937cd4619d4fabdac58adc7e1a376a13cb76d",
   "completed_scope": [
     "Ledger purchase/evidence readers, exact decimal calculations, reconciliation, validation, privacy projections, summaries, JSON/CSV exports and reports",
     "Shared materials/finish catalog processing, OCCT-compatible color arithmetic, PET-GF identity/palette selection",

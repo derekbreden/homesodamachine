@@ -2,7 +2,7 @@
 title: Full-span wings snap the lower pump retainer into place
 lede: Two broad integral wings replace the three retainer screws and inserts. Each side has a central screwdriver release beneath one continuous 45° roof.
 date: 2026-10-26T09:21:43-05:00
-commit: 2c5d3a380 cdfa5e688
+commit: 79097ce14 d7f3e9bad
 model: printed-parts/enclosure/enclosure/enclosure.step
 ---
 The carrier, wings and lower hooks share one full fore–aft span. Material fills the upper wing gap, leaving the lower 21 mm free to flex inward during upward insertion. The hooks spring outward onto the enclosure’s receiver floors.
@@ -11,4 +11,4 @@ The receivers retain 0.25 mm clearance at each Y end and a 0.15 mm floor allowan
 
 The native enclosure, full appliance, viewer and installation scenes carry the seated retainer. Standalone print files carry its relaxed wings. The assembly and BOM use no pump-retainer screws or inserts.
 
-The [native review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/pump-snap-review/README.md) records 21 passing geometry and installation checks. Fresh [offline print reviews](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/pump-snap-review/print-review.json) bind the production meshes and local solid infill through both wings and receivers. Printed fit, removal and pump retention remain untested.
+The [native review](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/enclosure/enclosure/pump-snap-review/README.md) records 21 passing geometry and installation checks. Fresh [offline print reviews](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/enclosure/enclosure/pump-snap-review/print-review.json) bind the production meshes and local solid infill through both wings and receivers. Printed fit, removal and pump retention remain untested.

@@ -1,13 +1,13 @@
 # Prepare the Mark2 plate at the machine's Z feed on the Engineering Plate
 
 The plate is the Sculpted product plate of commit
-[`b806556a9`](https://github.com/derekbreden/homesodamachine/tree/b806556a904ec8f0402c9b95a1a486a47a5e58b6).
+[`883d125f8`](https://github.com/derekbreden/homesodamachine/tree/883d125f8b20b17fcef8f714a374fc1f61520627).
 Its five meshes are the build's own outputs at that commit; the product report there,
 `hardware/printed-parts/faucet/faucet-petgf.print.json`, names each mesh's sha256, and the
 [editable project](https://homesodamachine.com/print-archive/1bc7f57c5fc6cf4a34b67386794091d31e2591b3/sculpted-faucet-machine-z-engineering-black-mark2.3mf) carries them.
 
 ```sh
-git checkout b806556a904ec8f0402c9b95a1a486a47a5e58b6
+git checkout 883d125f8b20b17fcef8f714a374fc1f61520627
 tools/run -- hsm-print-build --
 cargo_bin="$("$(command -v rustup || printf %s /opt/homebrew/bin/rustup)" which cargo)"
 tools/run -- "$cargo_bin" build --release --locked --offline -j 2 \

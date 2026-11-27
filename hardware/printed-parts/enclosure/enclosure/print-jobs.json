@@ -1,7 +1,7 @@
 {
   "archived_records": {
     "purpose": "Say where the job records named under hardware/printed-parts/enclosure/tee-readiness/, or under a prints/ folder the tree no longer has, are.",
-    "where": "In Git. tee-readiness as it last stood is at the tag archive-compression-2026-11-21, commit ab742311ac0cadb7d16e95c3272dac99a5dab130. The prints/ folders as they last stood are at the tag archive-print-records-2026-11-21, commit 0016c68223af1b237a3f23bc608fc248a7c0d7d5. A record retired before those is in the parent of the commit that `git log --diff-filter=D -- <path>` names."
+    "where": "In Git. tee-readiness as it last stood is at the tag archive-compression-2026-11-21, commit c4c14e076dc4b541a01bf724889156f60828bf2b. The prints/ folders as they last stood are at the tag archive-print-records-2026-11-21, commit eca139d1b8d5b45c1e6e73a818144b5683fae003. A record retired before those is in the parent of the commit that `git log --diff-filter=D -- <path>` names."
   },
   "jobs": [
     {
@@ -197,7 +197,7 @@
       "part_sha256": {
         "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "d9068b52c4d06c85507421ecfcd8d3e19e5812153583715b0fdc7662f2bee379"
       },
-      "geometry_commit": "5c635a0a13657b4f01890d5d29ca7d56915837fc",
+      "geometry_commit": "65d414fa7c90a40329d187f9aea9179301765046",
       "z_offset_mm": 0.04,
       "effective_textured_plate_trim_mm": 0.02,
       "nozzle": "left 0.4 mm Standard",
@@ -268,7 +268,7 @@
       "part_sha256": {
         "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "c4e3c41c0990168bbe596208df8175704560b28b0f0f81ac4f77c9f02c59a672"
       },
-      "geometry_commit": "955f47ad209d6a12a9d866963d79f9b7c690dd2a",
+      "geometry_commit": "14e6a8ab9578031509f771f65c02a2242555f6f3",
       "z_offset_mm": 0.04,
       "effective_textured_plate_trim_mm": 0.02,
       "nozzle": "left 0.4 mm Standard",
@@ -344,7 +344,7 @@
         "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl": "fba0ccdc767bb9c14a41d27868cc19a8112b93b397c4acc265f60d561e4302e0",
         "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl": "06a37899492d49aed8f82789812848b24fe3df98f6aec4dabf9cb9c83356c9e4"
       },
-      "geometry_commit": "830f95764d5f2dadf8107e0f257050fd7455c7a4",
+      "geometry_commit": "0a27bddf24e8896cb4d6c3de2245167e5d542d34",
       "z_offset_mm": 0.04,
       "effective_textured_plate_trim_mm": 0.02,
       "nozzle": "left 0.4 mm Standard",
@@ -425,7 +425,7 @@
         "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "0d15e6177dc405b0631415cc331a4e43acbf1a4cf627012e38a766964a3cb216"
       },
       "part_sha256_note": "The STL as sliced. The tree's copy hashes 9de3c25bc0efe2deef22805f35d9dc8c75ba116c18313d9ee8c2af98ed05d5f3.",
-      "geometry_commit": "a177214f22f75473490416ba37ad20785ffae116",
+      "geometry_commit": "2d904b35fc63c2c6abd3fd1d6ef9072070727c3e",
       "z_offset_mm": 0.18,
       "effective_textured_plate_trim_mm": 0.16,
       "nozzle": "left 0.4 mm (sliced as Standard; the head carries the 0.4 mm diamond PCD)",
@@ -834,7 +834,7 @@
         "reported_at": "2026-09-22",
         "authority": "Derek (relay of Scan results)",
         "result": "Pulled from H2C. Some supports are impossible to remove without damage: those in the crevice between each display skirt-pocket surround's up-slope end, the housing underside and the ridge wall. The two 2.43 mm carrier-floor strips beside the Z-rail channel read as parts that snap off during assembly.",
-        "geometry_response": "6e76d6b6f: display storey filled solid beside the display opening; the strips deleted",
+        "geometry_response": "182617a84: display storey filled solid beside the display opening; the strips deleted",
         "replacement": "front-top v5 on Mark2"
       }
     },
@@ -1108,7 +1108,7 @@
       "parts": [
         ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/display-cover.stl"
       ],
-      "geometry": "The display cover at 4b5390e78^: 34 mm skirts, for the printed front-top",
+      "geometry": "The display cover at e4e8821d1^: 34 mm skirts, for the printed front-top",
       "orientation": "Face down (X180), both skirts pointing up",
       "project": ".cache/prints/2026-09-22-display-cover-mark2-v4/display-cover-black-z004-mark2-v4-input.3mf",
       "project_sha256": "90f7e769c196ac27edf592cb67d9023116bc05705478cb467d1616f5562f627f",

@@ -2,7 +2,7 @@
 title: Flow-meter wing tips rise 0.20 mm above the original point
 lede: Both flat tips now sit 0.30 mm from the east receiver wall with the cover in its nominal position.
 date: 2026-11-24T13:33:40-06:00
-commit: 69d74939a5d30c09825d7ff40f85c6b5cdde31a2
+commit: 9476405c9d904db5eb29a0023cd5b948150b5624
 model: manifold-layout/enclosure-assembly.step
 ---
 

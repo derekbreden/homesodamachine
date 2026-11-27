@@ -1,6 +1,6 @@
 {
   "source": {
-    "commit": "de2c703111ef5916b91e7c86b843435d7bba7fc7",
+    "commit": "bc5d55c006e006fdc6cf2ccb569d08a448703df3",
     "path": "hardware/reference/worm-clamp/worm_clamp.py",
     "sha256": "0518fad8d86886811ed0b261eb7dbc97f20dbf819b018d9bed2ddcf8a3a4e8f9"
   },

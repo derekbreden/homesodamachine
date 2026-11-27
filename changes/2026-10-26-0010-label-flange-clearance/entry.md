@@ -2,7 +2,7 @@
 title: TAP and SODA lettering clears the fitting flanges by a millimetre
 lede: The lettering stands 0.25 mm higher inside the two chips, giving TAP 1.21 mm and SODA 1.19 mm of flange clearance.
 date: 2026-10-26T00:10:52-05:00
-commit: 4d8fad7d52b374a7bfaf2f3834eeb32f6977b7d4
+commit: 4d7b7dab280dcdc40529466d126e2be7a060d113
 model: manifold-layout/enclosure-assembly.step
 ---
 The two words occupy the upper band above their fitting flanges. Their recesses

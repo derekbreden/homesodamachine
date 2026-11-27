@@ -2,7 +2,7 @@
 title: The Reservoir B fill holder sits flush with the lid
 lede: The holder fills the opening in the equipment lid and leaves a narrow seam for foil tape.
 date: 2026-11-17T01:07:26-06:00
-commit: 531ce289486f807b0890899681c6903db87ea0dd
+commit: 2245a6dc88c0de8c03c8d2f3defa9527070c3afb
 model: manifold-layout/enclosure-assembly.step
 ---
 The rectangular top prints with the bend holder on its flat back. The lid

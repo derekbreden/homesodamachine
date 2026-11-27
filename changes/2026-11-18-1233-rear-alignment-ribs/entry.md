@@ -2,7 +2,7 @@
 title: Flush alignment ribs on the rear enclosure
 lede: The lower ribs follow both outboard rail edges. Matching grooves guide the top into X alignment as it slides home.
 date: 2026-11-18T12:33:09-06:00
-commit: f4eff8099770248563e428300b661c514a45e70f 3fde093aee5ec204d04d2e57ed77164e45bbec39
+commit: 015b026b93231516f34860ed118731437279a5b1 c79e1cb7a6f5dff54fc0c0df55a804b98a9ed1d9
 model: manifold-layout/enclosure-assembly.step
 ---
 Each rib has straight sides below its angled tip. The grooves open upward in

@@ -5,7 +5,7 @@
   "previous_job_id": "1482567259",
   "printer_task_id": "1483225394",
   "accepted_at": "2026-11-24T22:51:28+00:00",
-  "source_commit": "69873dc2ed26f56f74d4842401f8eeff7eab7e24",
+  "source_commit": "8e3688f24aabd3ef67cf2127c883822f1efdffda",
   "recipe": "single-meter-cap",
   "cover": {
     "object": "meter-snap-cap",

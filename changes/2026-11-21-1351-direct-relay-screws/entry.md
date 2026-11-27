@@ -2,7 +2,7 @@
 title: The relay boards screw directly to the west wall
 lede: Both Teyleten boards use their own corner holes and the M2 hardware already on hand. The four printed end clamps and their outboard bosses come off the wall.
 date: 2026-11-21T13:51:21-06:00
-commit: c3447a1627686581280212b1cb75b145f6e668d1
+commit: a19086074cc33bb7114e57a6c7d374555da65691
 model: manifold-layout/enclosure-assembly.step
 ---
 A Sutemribor socket-head screw passes through each PCB corner into a ruthex heat-set insert. The inserts sit flush with the wall bearings. Either relay can be removed independently.

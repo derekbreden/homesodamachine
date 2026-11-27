@@ -36,7 +36,7 @@ the exterior. The apron is a uniform 3 mm sheet with one flat underside
 resting on the rigid roof at Z355. The bearing brim's underside is Z349;
 the 6 mm shoulder between these planes locates it in the recessed frame.
 
-The [overflow review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/zone-c/funnel/overflow-review/README.md) records native coverage,
+The [overflow review](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/zone-c/funnel/overflow-review/README.md) records native coverage,
 roof fit, mold fit and lift-out clearance. Water exclusion has not been
 measured on a cast part.
 
@@ -76,7 +76,7 @@ The flange underside has seating relief above the shell ledges, owned by
 coupon seats under light hand pressure in the printed front-top. Over each back
 ledge the frame keeps a wedge whose face rises outward at 45° from the body to the
 roof's edge, one slip square to back-top's seat, and ends aft on the body's corbel.
-[Coupon photographs and fit record](https://github.com/derekbreden/homesodamachine/tree/635052504/hardware/print-tests/funnel-frame-seating/prints/2026-11-17-funnel-frame-seating-coupon-mark2-600b84b5-textured-pei/physical-result)
+[Coupon photographs and fit record](https://github.com/derekbreden/homesodamachine/tree/0e302285b/hardware/print-tests/funnel-frame-seating/prints/2026-11-17-funnel-frame-seating-coupon-mark2-600b84b5-textured-pei/physical-result)
 The lower body passes between the shell ledges.
 Its lower front and rear feet reach Z299.9 and keep their 30° end corbels.
 Plain open-bottom notches pass the ledges. The lower body carries
@@ -175,7 +175,7 @@ surface. Its flat top supports the silicone plug.
 
 The tip-loaded cantilever model sets the inner edge of the slot from the
 wing's inward travel as its hook passes the outer edge.
-The [cradle trial](https://github.com/derekbreden/homesodamachine/blob/fa06bf904fc54d0a998a34233ca37fedfd55c3c0/hardware/printed-parts/zone-c/funnel/cradle-trial/README.md) records accepted insertion for its
+The [cradle trial](https://github.com/derekbreden/homesodamachine/blob/a5e21ae84af9e907ee83d64db26d29ae19bc407f/hardware/printed-parts/zone-c/funnel/cradle-trial/README.md) records accepted insertion for its
 identified meshes; it does not establish this joint's loaded retention or lifetime.
 
 The cradle prints on its bottom. The hooks' flat undersides take accessible
@@ -198,18 +198,18 @@ funnel by `funnel.numbers.json`, the frame by `funnel-frame.numbers.json` and th
 
 ## Integration checks
 
-The manual [drop-in review](https://github.com/derekbreden/homesodamachine/blob/af14cecd2715054426ff40fdce2009ab5355f698/hardware/printed-parts/zone-c/funnel/drop-in-review/review.py),
+The manual [drop-in review](https://github.com/derekbreden/homesodamachine/blob/0a90fca03df41f37b4aa39b1bbac57a20fb77ae2/hardware/printed-parts/zone-c/funnel/drop-in-review/review.py),
 in Git history, measures the authored rigid
 empty frame, ledges, silicone brim bearing, original snap web/socket and screw engagement.
 With production shells included, it also measures the nominal Ø3.3 mm J10 tool
 passages with the frame and its cradled drain removed.
-Its [record](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/zone-c/funnel/drop-in-review/native-review.json) states whether exported production
+Its [record](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/zone-c/funnel/drop-in-review/native-review.json) states whether exported production
 upper shells are included. Its lift scope removes the drain cradle, elbow
 and connected tubing. Sampled geometry does not establish hand access,
 printed fit, support-removal effort, sealing, load capacity or lifetime.
 
-The retained [horizontal rail-motion record](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/zone-c/funnel/integration-review/rail-motion-check.json)
-and [frame print receipt](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/zone-c/funnel/flush-roof-review/mark2-v1/README.md) apply only to the
-artifacts named in those records. The [cradle trial](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json)
+The retained [horizontal rail-motion record](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/zone-c/funnel/integration-review/rail-motion-check.json)
+and [frame print receipt](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/zone-c/funnel/flush-roof-review/mark2-v1/README.md) apply only to the
+artifacts named in those records. The [cradle trial](https://github.com/derekbreden/homesodamachine/blob/6e2695bee227cf6ad5ea6089fb934eba0f8d47ec/hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json)
 retains its accepted insertion scope. The drop-in frame and installed drain joint require their own physical print
 and assembly observations.

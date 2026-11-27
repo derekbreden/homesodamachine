@@ -38,5 +38,5 @@ support bodies. Physical finish, removal effort and assembled fit are not yet
 assessed for this print. The review binds that pair's source geometry; it does not
 describe the current cradle's or cap's supports.
 
-The [native review and launch record](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-pump-cartridge-cap-mark2-v8/README.md)
+The [native review and launch record](https://github.com/derekbreden/homesodamachine/blob/c4c14e076dc4b541a01bf724889156f60828bf2b/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-pump-cartridge-cap-mark2-v8/README.md)
 binds the source geometry, exact archive, support contacts and removal lanes.

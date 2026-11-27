@@ -29,4 +29,4 @@ are Tees ([`fluid-topology.md`](/hardware/topology/fluid-topology.md) §Junction
 
 Accepts 1/4" (6.35 mm) OD tube; the 1/4" bore radius is 3.175 mm.
 
-The source derivations are preserved at their recorded revision: [y_divider.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/y-divider/y_divider.py).
+The source derivations are preserved at their recorded revision: [y_divider.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/y-divider/y_divider.py).

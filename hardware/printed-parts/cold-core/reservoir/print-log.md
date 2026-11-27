@@ -32,7 +32,7 @@ requested 100 walls, 0.62 mm lines and 15% grid infill. Normal cooling was
 
 The record documents the print start and saved settings, without a water-hold outcome.
 
-## PETG print attempt 3 (2026-05-30, settings per history-only `git:fbde08ba9f2eac1f620ce9d9fb9ac016e95e9be9:hardware/printed-parts/cold-core/reservoir/reservoir.3mf`)
+## PETG print attempt 3 (2026-05-30, settings per history-only `git:ff387cf78a78eed3129ef247baba7f9d33b1a903:hardware/printed-parts/cold-core/reservoir/reservoir.3mf`)
 
 First print of the watertight recipe (developed on the water-test-cup coupon, which held water; the cup, its print log and its `.3mf` stand at the `archive-water-test-cup` tag) carried onto the actual reservoir body. First reservoir print to carry supports for the slanted floor.
 
@@ -78,7 +78,7 @@ Derek said:
 
 First watertight reservoir. The slanted-floor supports (normal(auto), 0.25 mm top z-gap, interface top layers 2) released cleanly — no tear-out of the floor underside. Assembled into the printed foam shell with the bulkhead + TPU gaskets and held water for several hours with no weep. The reported fill-and-hold result passed; this was the first reservoir reported to hold water.
 
-## Saved project dated 2026-05-31 (settings per history-only `git:d52cd4062:hardware/printed-parts/cold-core/reservoir/reservoir.3mf`)
+## Saved project dated 2026-05-31 (settings per history-only `git:5a992ff14:hardware/printed-parts/cold-core/reservoir/reservoir.3mf`)
 
 PETG Translucent preset, 0.6 mm nozzle, `layer_height` **0.18 mm**
 (initial 0.30), `nozzle_temperature` **245 °C** (initial 250), flow 0.97
@@ -90,7 +90,7 @@ used tree supports with a 0.18 mm top gap.
 This saved recipe differs from the May 30 water-holding recipe. No physical
 water-hold outcome is recorded for this saved project.
 
-## PETG print attempt 4 (2026-06-10, settings per history-only `git:5d410b70d:hardware/printed-parts/cold-core/reservoir/reservoir.3mf`)
+## PETG print attempt 4 (2026-06-10, settings per history-only `git:ea1ee6f21:hardware/printed-parts/cold-core/reservoir/reservoir.3mf`)
 
 Full plate carrying both flavor reservoirs and both caps — four objects, four cut records. Bodies `reservoir-left.step` + `reservoir-right.step` placed mouth-up; caps `reservoir-cap-left.step` + `reservoir-cap-right.step` laid flat. Plate bbox ≈ 262 × 231 mm; `first_layer_time` ≈ 1107 s; `slice_info.config` header-only (no per-plate estimate written). Sliced with BambuStudio 02.07.01.57.
 
@@ -120,7 +120,7 @@ Watertight recipe (carried from attempt 3):
 
 ### Result — not yet recorded (slice committed 2026-06-10)
 
-## PETG print attempt 5 (2026-06-14, settings per history-only `git:1e14bdae0:hardware/printed-parts/cold-core/reservoir/reservoir.3mf`)
+## PETG print attempt 5 (2026-06-14, settings per history-only `git:aea1bd965:hardware/printed-parts/cold-core/reservoir/reservoir.3mf`)
 
 Full plate carrying both flavor reservoirs and both caps — four objects (`reservoir-left.step`, `reservoir-right.step`, `reservoir-cap-left.step`, `reservoir-cap-right.step`). Plate bbox ≈ 262 × 231 mm; `first_layer_time` ≈ 1097 s; `slice_info.config` header-only (no per-plate estimate written). Sliced with BambuStudio 02.07.01.57.
 
@@ -152,7 +152,7 @@ Watertight recipe (carried from attempt 4):
 
 ### Result — not yet recorded (slice committed 2026-06-14)
 
-## PETG seal trial prepared (2026-09-04, settings per history-only `git:2b8c90160ca8e58be5a094058d93efc415679f90:hardware/printed-parts/cold-core/reservoir/reservoir-08-seal-trial.3mf`)
+## PETG seal trial prepared (2026-09-04, settings per history-only `git:697c76cc0136253017a9dcdc8c93554b7ce9159e:hardware/printed-parts/cold-core/reservoir/reservoir-08-seal-trial.3mf`)
 
 One September reference left reservoir body, mouth up, and matching left cap, exterior face down
 and gasket rim up. H2C, 0.8 mm nozzle, PETG Translucent.
@@ -167,7 +167,7 @@ Bambu Studio 02.08.02.61. Estimated 26 h 12 min, 417.16 g, 984 layers.
 - Aligned scarf seams, inner walls included, conditional scarf disabled, seam gap 0%.
 - Top and bottom shells: 12 layers / 2 mm; 100% infill; top-surface ironing.
 
-[Settings and toolpath inspection](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/cold-core/reservoir/history/seal-trial.md).
+[Settings and toolpath inspection](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/cold-core/reservoir/history/seal-trial.md).
 
 ### Result — held water (reported 2026-10-05)
 
@@ -181,7 +181,7 @@ The [acceptance record](water-hold-acceptance.json) identifies the archive and
 G-code hashes. The reported water hold has no specified duration, temperature
 or fill height.
 
-## PETG 0.24 mm seal trial prepared (2026-09-04, settings per history-only `git:2b8c90160ca8e58be5a094058d93efc415679f90:hardware/printed-parts/cold-core/reservoir/reservoir-08-seal-trial-024.3mf`)
+## PETG 0.24 mm seal trial prepared (2026-09-04, settings per history-only `git:697c76cc0136253017a9dcdc8c93554b7ce9159e:hardware/printed-parts/cold-core/reservoir/reservoir-08-seal-trial-024.3mf`)
 
 One September reference left reservoir body and matching left cap. Body mouth up; cap exterior
 face down and gasket rim up. H2C, 0.8 mm nozzle, PETG Translucent.
@@ -210,7 +210,7 @@ or fill height.
 Nine 35 × 35 mm flat squares compared 15/30/60 mm/s ironing speed and
 10/20/30% flow at 0.15 mm spacing, alongside one OFF square. All used clear
 Bambu PETG, the left 0.8 mm Standard hotend, 255 °C nozzle, 70 °C bed and
-0.30/0.24 mm layers. [Launch and completion](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/ironing-study/prints/2026-10-06-mark2-squares-v1/launch.json).
+0.30/0.24 mm layers. [Launch and completion](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/ironing-study/prints/2026-10-06-mark2-squares-v1/launch.json).
 
 Derek said:
 
@@ -218,7 +218,7 @@ Derek said:
 
 He tentatively preferred the entire 30% flow column among the ironed squares.
 The 60/30 square felt more papery than 15/30 and 30/30; no ranking between
-15/30 and 30/30 was reported. [Physical observation](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json).
+15/30 and 30/30 was reported. [Physical observation](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json).
 This was a flat-finish assessment, with no water-hold or gasket-seal result.
 
 ## Left reservoir and cap, ironing off (2026-10-06, Mark2 task 1314692596)
@@ -230,7 +230,7 @@ from A4, +0.04 mm user Z trim (emitted `G29.1 Z0.02`), 255 °C nozzle and
 70 °C bed. The native model/support/brim footprint had an 80.5 mm minimum
 bed-edge inset. The native estimate was 419.09 g, 19 h 23 min and 740 layers.
 
-[Launch record](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-06-mark2-no-ironing-v1/launch.json) records the
+[Launch record](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-06-mark2-no-ironing-v1/launch.json) records the
 new job accepted without errors. Finished-part and water-hold outcomes are
 unassessed.
 
@@ -249,12 +249,12 @@ Textured PEI, +0.04 requested / +0.02 emitted trim, 255 °C nozzle and
 are On; flow dynamic and nozzle offset calibration use Auto. Probing clump
 checks remain Off. Native estimates are **19 h 23 min, 419.13 g and 740 layers**.
 
-[Project binding, preflight and accepted launch](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-07-mark2-right-no-ironing-v1/README.md).
+[Project binding, preflight and accepted launch](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-07-mark2-right-no-ironing-v1/README.md).
 Finished-part, gasket seal and water-hold results are unassessed.
 
 At 09:50:35 CDT, the right pair is RUNNING at layer 1/740 without faults.
 Runtime timelapse is enabled; the read-only card inventory contains 97 clips.
-[Timelapse observation](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-07-mark2-right-no-ironing-v1/timelapse-review.json).
+[Timelapse observation](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-07-mark2-right-no-ironing-v1/timelapse-review.json).
 
 ## Left reservoir and cap, Mark1 right 0.8 mm (2026-10-21, task 1359853920)
 
@@ -270,7 +270,7 @@ dynamic and nozzle offset calibration use Auto. The printer acknowledges SUCCESS
 and reports the new job in PREPARE without faults. Finished-part and water-hold
 results are unassessed.
 
-[Native review, preflight, packaging and launch](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-20-mark1-right08/README.md).
+[Native review, preflight, packaging and launch](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-20-mark1-right08/README.md).
 
 ### Result — stopped after first-layer non-adherence (2026-10-21)
 
@@ -278,11 +278,11 @@ Derek said:
 
 > Oh interesting,  we do have a failure on the current print, one of the inner Wall layers did not adhere and got lifted up at some point. I've stopped the print.
 
-[Photographs taken before removal](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-20-mark1-right08/physical-result/physical-result.json)
+[Photographs taken before removal](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-20-mark1-right08/physical-result/physical-result.json)
 show a lifted cap perimeter strand and separated first-layer lines. Derek
 removed the failed material and reports the bed clear for a retry with the
 +0.18 mm user Z trim removed. A separate
-[earlier corner-lifting report and timelapse review](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/cold-core/reservoir/corner-lifting/README.md)
+[earlier corner-lifting report and timelapse review](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/cold-core/reservoir/corner-lifting/README.md)
 has no established onset layer.
 
 ## Left reservoir and cap, zero-user-trim PETG retry (2026-10-21, Mark1 task 1359909015)
@@ -295,7 +295,7 @@ job: 255 °C nozzle, 70 °C bed, 0.30/0.24 mm layers, flow 0.97, 6 mm³/s ceilin
 no ironing and the same supports/cooling/deposition. The printer acknowledged
 SUCCESS and entered PREPARE without faults.
 
-[Native verification, preflight, packaging and launch](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-right08-z000/README.md).
+[Native verification, preflight, packaging and launch](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-right08-z000/README.md).
 
 ### Result — stopped; corner curl and water leakage (2026-10-21)
 
@@ -303,7 +303,7 @@ Derek supplied two finished-article photographs and said:
 
 > It leaked many places. It is from the most recent print i just stopped.
 
-The [physical result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json)
+The [physical result](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json)
 records reported corner curling and the failed water hold for this zero-trim
 article. Leak locations, fill height, hold duration and stop layer are not
 specified. A2 automatically refilled from A1 during the print.
@@ -314,7 +314,7 @@ lift onset was established. At **14:41:56 CDT / 19:41:56 UTC**, this exact
 retained task reported FAILED, heaters targeted off and HMS empty. Terminal
 layer 0 is a reset status, not the stop layer. Bambu Studio displayed
 "The task was canceled." The final camera preview was unavailable. The
-[terminal observation](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-right08-z000/terminal-observation.json)
+[terminal observation](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-right08-z000/terminal-observation.json)
 records these limits and the paused monitor.
 
 ## Left reservoir and cap, May Water adapted to 0.8 mm (2026-10-21, Mark1 task 1362179138)
@@ -336,7 +336,7 @@ No brim or ironing is emitted. Zero added user trim retains stock Textured PEI
 `G29.1 Z-0.02`. Current Tree(auto)/Default bed-only supports retain 0.18 mm gaps.
 Native plate-1 estimates: **5 h 42 min, 431.04 g, 833 layers**; no plate warnings.
 Send options for timelapse/bed leveling are On; flow dynamic/nozzle offset calibration are Auto.
-[Adaptation, native review and accepted job](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-may-water-right08-z000/README.md).
+[Adaptation, native review and accepted job](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-may-water-right08-z000/README.md).
 The 16:48:41 CDT startup check found layer 0/833, no print error/HMS, bed 70 °C
 and the mounted right 0.8 mm nozzle. Live camera frames showed the empty plate
 during startup; runtime timelapse activation at deposition is unassessed.
@@ -348,7 +348,7 @@ Finished-article corner contact and water hold are unassessed.
 Derek said: **“Leaks between infill and wall.”** Five underside photographs show
 multiple droplets along that boundary. The retained task 1362179138 reports
 FINISH at 833/833 with no print error/HMS; fill height and hold duration are
-unreported. [Physical result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-may-water-right08-z000/physical-result/physical-result.json).
+unreported. [Physical result](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-may-water-right08-z000/physical-result/physical-result.json).
 The saved May mesh has a sloped floor with sampled 3 mm vertical material thickness;
 the geometry comparison does not establish the cause of different sealing.
 
@@ -373,7 +373,7 @@ model features contain only walls, including the floor. Other May controls,
 geometry, placement, zero user Z trim, no brim, ironing Off and Tree/Default
 supports are retained. Native estimate: **5 h 46 min, 430.66 g, 833 layers**.
 No physical adhesion, corner-flatness or water-hold result is established.
-[Adaptation, native review and launch](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-walls-only-right08-z000-a4/README.md).
+[Adaptation, native review and launch](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-walls-only-right08-z000-a4/README.md).
 
 
 ### Result — walls-only article leaks along the seam (2026-10-22)
@@ -383,7 +383,7 @@ along a branching junction across the concentric floor paths and at lower
 corners. The retained task 1362982574 reports FINISH at 833/833, with no print
 error/HMS; those status fields do not establish sealing. This article fails
 its reported water hold. Fill height, duration and complete internal flow path
-are unreported. [Physical result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json).
+are unreported. [Physical result](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json).
 
 The pictured junction qualitatively resembles the native medial-junction pockets
 recorded before launch. Native comparisons retain walls-only and flow 1.02 and
@@ -416,7 +416,7 @@ The native model features are walls only. Plate 1 estimates **6 h 2 min,
 bed-edge inset, and seven bed-rooted support bodies. The regenerated project is
 byte-identical to the compared 59° candidate; its completed native slice is
 reused and packaging preserves every submitted G-code byte.
-[Adaptation, review and launch](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-walls-t59-right08-z000/README.md).
+[Adaptation, review and launch](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-walls-t59-right08-z000/README.md).
 
 ### Result — 59° trial retains bottom leakage and adds a vertical-edge defect (2026-10-22)
 
@@ -431,13 +431,13 @@ Water head, duration and leak rate are unreported; worsening is unquantified.
 The retained task 1364550539 reports **FINISH 833/833**, 100%, with no print
 error/HMS at **17:54:31 CDT / 22:54:31 UTC**. This is a failed reported water
 hold. Corner-lift onset and vertical-edge leakage are unassessed.
-[Five photographs and result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json).
+[Five photographs and result](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json).
 
 Native wall-path samples at layers 120, 400 and 700 have nine continuous runs
 at 59° versus five at 10°, including four additional sub-millimeter segments
 near curved-wall ends. The submitted body G-code has no explicit extrusion Z
 ramps away from nominal layer heights.
-[Native reading](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/wall-junction-review.json).
+[Native reading](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/wall-junction-review.json).
 
 
 ## Left reservoir and cap, five walls / flow 1.05 / overlap 30% (2026-10-22, Mark1 task 1365626370)
@@ -468,7 +468,7 @@ The 10° transition threshold is the Arachne parameter default. The recovered
 May file selects Arachne; installed stock H2C 0.8 profiles select Classic.
 The current normal/first layer heights remain **0.24/0.30 mm**. Installed presets
 provide **0.24, 0.32 and 0.40 mm**, with a **0.16–0.56 mm** custom machine range.
-[Recipe and source facts](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/cold-core/reservoir/recipe-reviews/2026-10-22-flow105-overlap30/README.md).
+[Recipe and source facts](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/cold-core/reservoir/recipe-reviews/2026-10-22-flow105-overlap30/README.md).
 
 The right **0.8 mm Standard** nozzle is selected, with **A3 PETG R**. A3 is the
 only matching loaded spool (39%); A1/A2/A4 are empty. AMS backup is visibly On.
@@ -481,7 +481,7 @@ warning, seven bed-rooted support bodies and a 70.5 mm minimum full-bead bed-edg
 inset. No brim, zero added user Z trim and ironing Off remain selected. Camera
 startup observations show the empty bed at layer 0. Model contact and sealing
 remain unassessed; no scheduled monitor was created or reactivated.
-[Launch, complete recipe and startup](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md).
+[Launch, complete recipe and startup](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md).
 
 
 ### Result — one-hour water hold on the intentionally stopped article (2026-10-23)
@@ -501,8 +501,8 @@ exact stop layer, printed height or actual elapsed print time is unavailable.
 Water head and cap/gasket assembly sealing are unspecified. No new corner
 flatness or lift-onset observation is supplied. The result applies to the
 printed article and reported one-hour hold.
-[Physical result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json) ·
-[Status visibility limit](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-flow105-overlap30-right08-z000/terminal-observation.json).
+[Physical result](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json) ·
+[Status visibility limit](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-flow105-overlap30-right08-z000/terminal-observation.json).
 
 
 ## Left reservoir and cap, temperature-only 255/260 °C trial (2026-10-24, Mark1 task 1371867808)
@@ -536,7 +536,7 @@ Mark2 read provides at least **475 seconds** of startup spacing.
 The reported name is `Flavor_reservoirs_-_PETG_0.24_mm`; archive hash, SUCCESS
 reply and new task ID identify this submission. Appearance, adhesion and water
 holding on this trial are unassessed. No scheduled monitor was created or
-reactivated. [Complete trial and source records](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/README.md).
+reactivated. [Complete trial and source records](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/README.md).
 
 
 ### Result — both October five-wall reservoirs holding water (2026-10-25)
@@ -551,8 +551,8 @@ far. Fresh status before the next Send reports **FINISH 833/833**, print error
 is also still holding water. Its original one-hour report is retained; neither
 ongoing hold has a newly specified total duration or water head. Specific
 surface concerns, corner flatness and cap/gasket sealing are not separately
-assessed. [Left result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json) ·
-[Older follow-up](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json).
+assessed. [Left result](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json) ·
+[Older follow-up](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json).
 
 ## Right reservoir and cap, identical 255/260 °C recipe (2026-10-25, Mark1 task 1372664582)
 
@@ -579,7 +579,7 @@ Changing live camera frames show the empty plate during loading; model contact
 and this right article's water holding are unassessed. Runtime timelapse is
 disabled during preparation; deposition activation is unobserved. No scheduled
 monitor was created or reactivated.
-[Launch, settings and native review](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/README.md).
+[Launch, settings and native review](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/README.md).
 
 
 ### Result — persistent lifting on the right Textured PEI pair (2026-10-25)
@@ -595,7 +595,7 @@ assessment. Fresh retained status is **FAILED**, print error 0 and no HMS.
 Its layer has reset to 0, which cannot establish the stop or lift-onset layer.
 This right article has no reported water-hold test. The earlier left articles'
 reported water holds remain accepted.
-[Physical result and photographs](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json).
+[Physical result and photographs](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json).
 
 ## Right pair, glued Engineering Plate native preparation (2026-10-25, Mark1)
 
@@ -617,7 +617,7 @@ plate warning and **70.519 mm** minimum full-bead inset. Intended material start
 **A1 (55%)**, then matching A2–A4 (100%), with automatic refill. **Not sent**:
 the Mac is locked, and CUA automatic unlock failed. Final Send selections,
 shared-circuit re-read and startup verification await manual unlock.
-[Prepared print and command comparison](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md).
+[Prepared print and command comparison](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md).
 
 
 ### Engineering Plate launch after Mac restart (2026-10-25, Mark1 task 1374272357)
@@ -641,7 +641,7 @@ live frames show the flat plate during preparation. Model adhesion and water
 holding are unassessed. Send timelapse is On; runtime activation at deposition
 is unobserved. The reviewed archive and G-code hashes remain unchanged after
 import. No scheduled monitor was created or reactivated.
-[Receipt and startup](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md).
+[Receipt and startup](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md).
 
 ## 2026-10-25 — right-hotend Engineering Plate failure and prepared left-hotend retry
 
@@ -652,7 +652,7 @@ photograph shows **Multiple motion step loss detected**, code
 footprints, loose strands and polymer around the right nozzle/hotend region.
 Fresh retained telemetry at **13:28:23 CDT / 18:28:23 UTC** reports FAILED,
 print error 0, no HMS, and layer reset to 0. Actual stop/fault layer and water
-holding are unrecorded. [Physical evidence](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json).
+holding are unrecorded. [Physical evidence](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json).
 
 Derek reports the **left 0.8 mm** hotend installed, transparent PETG AMS connected
 to that side, and Engineering Plate cleaned and glued again. Same right pair
@@ -739,7 +739,7 @@ body and its matching left lid**; no additional right lid is required.
 The successful recipe is retained, including Engineering Plate and zero
 added/effective Z compensation. Pair shifted 15 mm toward fixed-left bed center;
 minimum native full-bead inset 80.519 mm, body/cap gap 10.042 mm. Native Studio
-estimate **5 h 42 min 2 s, 444.28 g, 833 layers**. [Geometry review](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/geometry-review.json).
+estimate **5 h 42 min 2 s, 444.28 g, 833 layers**. [Geometry review](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/geometry-review.json).
 
 Studio verifies **Mark1, Engineering, A2 PETG L, Auto Refill, Timelapse On,
 Bed Leveling On, Flow Dynamics Auto, Nozzle Offset Calibration Auto**. A1 is
@@ -753,7 +753,7 @@ Startup RUNNING, layer 0/833, error 0, HMS empty. Fresh 22:08:07 CDT /
 changing live frames show the clear glued Engineering Plate during preparation.
 Deposition and model adhesion are unassessed; runtime timelapse activation at
 deposition remains unobserved.
-[Launch and startup](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/README.md).
+[Launch and startup](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/README.md).
 
 Derek:
 
@@ -771,7 +771,7 @@ reservoir, at the line between wall and infill. The
 retain the observation without an unconfirmed task assignment. Earlier
 task-specific hold reports retain their scope.
 
-The [next candidate](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/cold-core/reservoir/recipe-reviews/2026-10-26-overlap50/README.md) selects
+The [next candidate](https://github.com/derekbreden/homesodamachine/blob/2fe626524a2af57d1b057789d2359bd71bab89c9/hardware/printed-parts/cold-core/reservoir/recipe-reviews/2026-10-26-overlap50/README.md) selects
 50% Infill/Wall overlap with the latest 255/260 °C Engineering Plate / left
 0.8 mm recipe otherwise retained. Archive checks verify the exact setting
 delta and unchanged geometry/placement. Native slicing and physical sealing
@@ -820,7 +820,7 @@ left 0.8 mm Standard, A2 PETG with Auto Refill, no brim, zero trim and ironing
 Off. Native slice: **5 h 41 min, 443.37 g, 833 layers**, 80.519 mm full-bead
 inset. Mark2 task 1378515009 is observed for at least 180 seconds
 before Send. Startup has no error/HMS; physical right sealing is unassessed.
-[Native review and launch](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/README.md).
+[Native review and launch](https://github.com/derekbreden/homesodamachine/blob/eca139d1b8d5b45c1e6e73a818144b5683fae003/hardware/printed-parts/cold-core/reservoir/prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/README.md).
 
 Derek:
 

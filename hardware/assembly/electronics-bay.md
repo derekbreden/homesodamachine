@@ -25,7 +25,7 @@ The production placements are in
 The complete installed electrical graph, native terminal frames, individual
 conductors, connector housings and shared cable routes are in
 [`installed/`](/hardware/wiring/installed/). These are proposed installed
-geometry. The [native review records](https://github.com/derekbreden/homesodamachine/blob/045602339b618a84e4a08935ec77335ef975f4c5/hardware/wiring/installed/above-core-review/README.md)
+geometry. The [native review records](https://github.com/derekbreden/homesodamachine/blob/4a946b5244ef0c8415e1b16741c4e932af14863e/hardware/wiring/installed/above-core-review/README.md)
 state their artifact-bound geometry scopes. Actual harness dressing, connector
 fit and donor terminal locations retain their stated qualification limits.
 

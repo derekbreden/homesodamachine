@@ -1,6 +1,6 @@
 {
   "date": "2026-11-04",
-  "baseline_source_revision": "79dad036fc7bffeabe25d3f43051e185b998181b",
+  "baseline_source_revision": "5af937cd4619d4fabdac58adc7e1a376a13cb76d",
   "completed_scope": [
     "Faucet shell dimensions, sampled passages, lever sweep clearance, recipes, stated-bound readings and document variables",
     "Consumer and industrial faucet assembly placements, tube centerlines, dimensions, external JSON/DXF readers, hull metrics, cut lengths, recipes and document variables",

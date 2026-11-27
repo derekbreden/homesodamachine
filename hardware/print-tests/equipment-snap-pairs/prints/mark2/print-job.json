@@ -50,13 +50,13 @@
     }
   ],
   "source_geometry": {
-    "rear_caps": "4fb591987d428d62925d81f8739ad86551976a05",
-    "back_top": "4fb591987d428d62925d81f8739ad86551976a05",
-    "pump": "0dc7c9317e581614e15ab756cbbb4555cd644229",
-    "rear_receiver_crops": "df7afb5f0a95f997a5a4dcde94192cd393869548"
+    "rear_caps": "d7cb6bf0d3c6802d62fdf129037ae1240123a946",
+    "back_top": "d7cb6bf0d3c6802d62fdf129037ae1240123a946",
+    "pump": "e748b84493ab2c2cb3ff44aee35561c67ca63fd2",
+    "rear_receiver_crops": "8cacb013deb6c488a250d1fb76f574258f979216"
   },
   "native_recipe": "pump-meter-snap-pairs",
-  "recipe_repository_commit": "094b01a8368fa4bc6d19578da40444e21315cc3d",
+  "recipe_repository_commit": "2e629712de13f5c0caf2343b9d705262212b2b45",
   "recipe_sha256": "90b134be2261fcf23b3083a7fc1d60db4f41e2348cc7c95e851cfff5a62daec8",
   "review": "2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei/review.json",
   "preparation": "2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei/preparation.json",

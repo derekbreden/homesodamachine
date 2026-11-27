@@ -53,7 +53,7 @@
         20
       ],
       "september_white": {
-        "revision": "ebcd13a55349beba7837454d82a8ddebcf8ae5ab",
+        "revision": "9509f3f253fde5ecef8cb2d91aa7ae65895f7306",
         "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
         "project_sha256": "74419053e5df8a96df0978813d2d0435aa1b0abdda8e547ce3bd64f427526122",
         "rear_y_step_mm": [
@@ -62,7 +62,7 @@
         ]
       },
       "october_white": {
-        "revision": "58f1208dafc9faa7b8289f56296feb7522a694ed",
+        "revision": "b3f2f62d8e2a37c79e27bb01145f985bbac52d6e",
         "project": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/2026-10-15-sculpted-white-complete-right04-z004-mark2.3mf",
         "rear_y_step_mm": [
           0.1008,
@@ -82,7 +82,7 @@
       {
         "plate": "October white",
         "mark2_task_id": "1343785668",
-        "revision": "58f1208dafc9faa7b8289f56296feb7522a694ed",
+        "revision": "b3f2f62d8e2a37c79e27bb01145f985bbac52d6e",
         "print_archive_path": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/2026-10-15-sculpted-white-complete-right04-z004-mark2-print-only.gcode.3mf",
         "print_record_path": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/launch.json",
         "pose_report_path": "hardware/printed-parts/faucet/sculpted/prints/2026-10-15-white-right-mark2/2026-10-15-sculpted-white-complete-right04-z004-mark2.print.json",
@@ -114,7 +114,7 @@
       {
         "plate": "October white, localized cooling",
         "mark2_task_id": "1349558196",
-        "revision": "1708edbe25cae9bc3f253ef555e05d96cf0c5762",
+        "revision": "34e0009663af74f26e1d2037aca34eff0e96c821",
         "print_archive_path": "hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2-r2-print-only.gcode.3mf",
         "print_record_path": "hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/launch.json",
         "pose_report_path": "hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2.print.json",
@@ -146,7 +146,7 @@
       {
         "plate": "November black, sloped underside",
         "mark2_task_id": "1440074146",
-        "revision": "cff7e283594be4f0d37e20b0b0863f11efc4823f",
+        "revision": "ee0db891d9ab50c3882ebdec693090e0b6d53845",
         "print_archive_path": "hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/sculpted-faucet-sloped-underside-black-mark2-ready.gcode.3mf",
         "print_record_path": "hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json",
         "pose_report_path": "hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/sculpted-faucet-sloped-underside-black-mark2.print.json",

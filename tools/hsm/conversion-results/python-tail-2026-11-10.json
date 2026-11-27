@@ -3,11 +3,11 @@
   "purpose": "Close the Python source and adapter work deferred for concurrent reference and print sessions.",
   "recorded_at": "2026-11-10T07:39:54.312Z",
   "source_commits": {
-    "cleanup": "bc7679bb4547412c625f2ca6574646a6b2682ce9",
-    "workspace": "f44023bd127c348d5c6e91f44b57da7c74a0a470",
-    "observed_head": "97745250c08e9f71f81368780e11f593f4344a3d"
+    "cleanup": "ca67a354c15aa36de54c9158aabf5b530c69af05",
+    "workspace": "01cc11787c47598a0b1a1fca0ca3414ec8c91430",
+    "observed_head": "a3783bd245c10dc1eba2df7ccf46de1627bb6152"
   },
-  "archive_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+  "archive_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
   "retirement": {
     "python_sources": 81,
     "reference_sources": 36,
@@ -102,76 +102,76 @@
     ],
     "closed_trial_trees": {
       "status": "tracked retired trees removed; exact original source/physical records retained in Git",
-      "source_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+      "source_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
       "trees": [
         "hardware/print-tests/petgf-dense-roofs/rail-cavity-20",
         "hardware/printed-parts/enclosure/display-cover/face-up-trial"
       ],
       "tracked_files": {
         "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/2026-11-09-complete-rail-cavity-20-D-left04-z018-mark1.3mf": {
-          "source_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+          "source_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
           "sha256": "633c0c429883baa68d5fb3900ca97ecf358338ac0b299451338e0ea5005e9a90"
         },
         "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/README.md": {
-          "source_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+          "source_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
           "sha256": "f24a260bf300c28634cff69b5b721c92d09483ab42572f7016418ef806d761ee",
           "discarded_owned_source_retirement_edit_sha256": "24611166c60f94f70f2c2dda485598ed90951707300cb141df0ad4069a96ce21"
         },
         "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/parts/RD.stl": {
-          "source_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+          "source_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
           "sha256": "b56c6971e1f397c0e8478665514e7b096e77d678982baa3f4dc0f0aba9338d46"
         },
         "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/parts/geometry.json": {
-          "source_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+          "source_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
           "sha256": "a3258a6c5a520a5574fa477a24c5501bf950512eafd7bea06a87d894446caff4"
         },
         "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/preparation.json": {
-          "source_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+          "source_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
           "sha256": "50eca8f2b58b3a521abb99c76aa6729ce5245ce5912210cb5d3246cd105ed33f"
         },
         "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/prepare.py": {
-          "source_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+          "source_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
           "sha256": "7c93beb18e074bb37c2e4ea8cc7c86ff744d090b292371d52cad4d80f2873aac"
         },
         "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/ready/2026-11-09-complete-rail-cavity-20-D-left04-z018-mark1.gcode.3mf": {
-          "source_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+          "source_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
           "sha256": "196911f507740b3ab6e70a3488ac2b00b194cfa32357973953f785c94669d475"
         },
         "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/ready/slice-result.json": {
-          "source_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+          "source_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
           "sha256": "7df39344fc812ac38365365ff211e60e001113b1d328e0ba7111abaf8959a2c1"
         },
         "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/samples.json": {
-          "source_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+          "source_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
           "sha256": "b50e9da1489a9656e0ac8f92e09ccf2a7fea7c8efa3cca7cbf3ae0f9def35c91"
         },
         "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/samples.rs": {
-          "source_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+          "source_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
           "sha256": "40e5c14b6a51a3c9ded0fc22f9fa2e9fb1071d6e5f3cd63e71ff5198dcd357c8"
         },
         "hardware/print-tests/petgf-dense-roofs/rail-cavity-20/verification.json": {
-          "source_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+          "source_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
           "sha256": "5d45f0c69440efe17eeadd676eb2461af98545b8fee607c2739b92bd7ba9a0b7"
         },
         "hardware/printed-parts/enclosure/display-cover/face-up-trial/README.md": {
-          "source_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+          "source_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
           "sha256": "665413bb5e928208df37e5fd875a81db894d8e7fcb5c86e5d02e78f6dd801b60",
           "discarded_owned_source_retirement_edit_sha256": "c9cf9f7f30a30cba41422dc17daa8fcee57e33b4cbc320bf49db262196a9e86e"
         },
         "hardware/printed-parts/enclosure/display-cover/face-up-trial/face_up_trial.py": {
-          "source_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+          "source_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
           "sha256": "406303e006b630c12d0486922cdc43cdd9b76ce3bdbe1315ea8c76dcc1ed190a"
         },
         "hardware/printed-parts/enclosure/display-cover/face-up-trial/geometry-check.json": {
-          "source_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+          "source_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
           "sha256": "aaa46c26ea015610d8f5a2d708becb3561361d3f9aaeca7221cf7b03feba56f7"
         },
         "hardware/printed-parts/enclosure/display-cover/face-up-trial/insertion-envelope.json": {
-          "source_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+          "source_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
           "sha256": "4de2cb39a908d38ee9d8ef57a8368b76651a3fe37e96dd009202e890c8b430d2"
         },
         "hardware/printed-parts/enclosure/display-cover/face-up-trial/physical-acceptance.json": {
-          "source_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+          "source_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
           "sha256": "c04264de8898dd4900dee6629cb4f166aa3929ea1edf46d1aa9149bfc0f3526a"
         }
       },
@@ -204,7 +204,7 @@
           "classification": "retired local generated CAD output",
           "git_archived": false,
           "historical_publication_pointer": {
-            "git_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+            "git_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
             "sha256": "2ef12c8034de1b401fa10fe9f3157b797da236a9d55be915435f129082226d52",
             "matches_local_bytes": true
           }
@@ -216,7 +216,7 @@
           "classification": "retired local generated CAD output",
           "git_archived": false,
           "historical_publication_pointer": {
-            "git_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+            "git_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
             "sha256": "77c5d076a4abb649555664d09bd69239c9588fc78ef30e1fd1991e74f3e8bc53",
             "matches_local_bytes": true
           }
@@ -228,7 +228,7 @@
           "classification": "retired local generated CAD output",
           "git_archived": false,
           "historical_publication_pointer": {
-            "git_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+            "git_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
             "sha256": "bd0545aa076fed3d7adc895df205b098f11a08b6fc37c883893115aec83dd5f2",
             "matches_local_bytes": true
           }
@@ -240,7 +240,7 @@
           "classification": "retired local generated CAD output",
           "git_archived": false,
           "historical_publication_pointer": {
-            "git_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+            "git_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
             "sha256": "7141a82043aebf5dd361d7709ec6c33b1f8dfc00acdc0347a811c8db25c69bf5",
             "matches_local_bytes": true
           }
@@ -252,7 +252,7 @@
           "classification": "retired local generated CAD output",
           "git_archived": false,
           "historical_publication_pointer": {
-            "git_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+            "git_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
             "sha256": "65643c732ef66e409e36dfab70bbcbd7222bced4481070c06dec782f687730e6",
             "matches_local_bytes": true
           }
@@ -264,7 +264,7 @@
           "classification": "retired local generated CAD output",
           "git_archived": false,
           "historical_publication_pointer": {
-            "git_revision": "27c433f164134e1de2bab17fc0ab6501c2fbd401",
+            "git_revision": "e5f2bb5d5b5c330bc8cd068c9ee34dfa1b76e930",
             "sha256": "6bb5588a932e1e92bb488d8acd36ca900377277e35ad2af78131e67f80edbbdd",
             "matches_local_bytes": true
           }

@@ -21,7 +21,7 @@
     ],
     "header_line_count": 1137
   },
-  "reference_plate_commit": "46b73353f",
+  "reference_plate_commit": "2c42d5699",
   "reference_plate_gcode_sha256": "de1ed31c0a8f690d415cd1701c0404ab0e97b6cc46ce39342d143c5a3ab50d02",
   "scope": {
     "head": "Progressively checks commanded moves against deposited nominal beads and the photo-estimated stock left-active H2C assembly.",

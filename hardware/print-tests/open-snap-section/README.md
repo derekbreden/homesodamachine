@@ -57,7 +57,7 @@ The native paths give about 1.85 mm of bearing width on the first pair and 2.43 
 
 Each cover and its receiver share a dot count. The spring walls measure 2.00 mm throughout the bending section, and the cover has at least 5.01 mm of material under its dot patches. [Measured sections and insertion path](parts/solid-pairs/fit-check.json) · [Marks in the print paths](prints/2026-11-25-mark1-solid-pairs/native-paths.json)
 
-The earlier plate with added key blades was stopped. [Reason for stopping the earlier plate](https://github.com/derekbreden/homesodamachine/blob/13cbca49379e124335d453e543eb243e80613245/hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-trios/physical-result.json)
+The earlier plate with added key blades was stopped. [Reason for stopping the earlier plate](https://github.com/derekbreden/homesodamachine/blob/d754a69eaa924f19188d7a7ebc7552fc03a94be3/hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-trios/physical-result.json)
 
 ## Closing the gap along the hook
 

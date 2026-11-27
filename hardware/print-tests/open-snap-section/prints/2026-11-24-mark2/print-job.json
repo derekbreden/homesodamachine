@@ -8,7 +8,7 @@
   "firmware_layer": 1,
   "firmware_total_layers": 145,
   "firmware_remaining_minutes": 51,
-  "source_commit": "8b5ac3b90e9db6e84894fd102ca01c1d1c65cae4",
+  "source_commit": "16ab5837fd174e69f1c962e58a1cf499fd7dfb97",
   "printer_recipe": "open-snap-section",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {

@@ -4,7 +4,7 @@
   "installed_covers_mesh_sha256": "90f8046147fea778be41f63fd86cee8de9fe99d58bb60fe67a5ef16459be249c",
   "installed_back_top_source_sha256": "066538bb6cfe0278ecfc654ac6a15833978e969a79c20e072a7aeb1ae16ca989",
   "installed_back_top_viewer_asset_sha256": "a5963eab6764be958fac900bd76aea4a186861547d9231e7a3b1c83ef2c0e432",
-  "previous_raised_crest_measurements": "https://github.com/derekbreden/homesodamachine/blob/69873dc2ed26f56f74d4842401f8eeff7eab7e24/hardware/printed-parts/enclosure/rear-equipment-caps/production-fit.json",
+  "previous_raised_crest_measurements": "https://github.com/derekbreden/homesodamachine/blob/8e3688f24aabd3ef67cf2127c883822f1efdffda/hardware/printed-parts/enclosure/rear-equipment-caps/production-fit.json",
   "method": {
     "surfaces": "Invert each archived cover STL registration. Invert the production generator’s axial-end print rotation and centering with its installed fine-model bounds. The receiver fixtures and production back-top STL share machine coordinates.",
     "caps": "Boolean differences between the entire production and trial print solids, in mm³. The two values are production-only and trial-only volume. The Pisco trial has three recessed identification dots on the cover back. Production fills those marks.",

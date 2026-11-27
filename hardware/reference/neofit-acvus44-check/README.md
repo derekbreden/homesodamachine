@@ -35,7 +35,7 @@ One native project, frame database, calibration files, raw preview, fused cloud
 and SHA-256 manifest are retained in
 `~/Documents/3D Scans/2026-11-03-neofit-acvus44-stem-check/`.
 
-[analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/neofit-acvus44-check/analyze_scan.py) fits the marker-table plane and the exposed
+[analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/neofit-acvus44-check/analyze_scan.py) fits the marker-table plane and the exposed
 stem cylinder, then the stem tip, shoulder and socket release face. Physical
 height and axial bounds exclude the putty before any model comparison. The
 selection, rigid transform and residuals are in [`scan-evidence.json`](scan-evidence.json).
@@ -63,6 +63,6 @@ it does not establish hidden stops, check internals or flow direction.
 The STEP, fine model and viewer payload are frozen inputs declared in
 [`frozen-asset.json`](frozen-asset.json). Source derivation:
 
-The source derivations are preserved at their recorded revision: [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/neofit-acvus44-check/analyze_scan.py), [neofit_acvus44_check.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/neofit-acvus44-check/neofit_acvus44_check.py).
+The source derivations are preserved at their recorded revision: [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/neofit-acvus44-check/analyze_scan.py), [neofit_acvus44_check.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/neofit-acvus44-check/neofit_acvus44_check.py).
 
 The native `stem-check-reference` producer is defined in [neofit_acvus44_check.rs](neofit_acvus44_check.rs). It takes a JSON recipe containing the retained parameters and the material catalog colour, followed by an output directory.

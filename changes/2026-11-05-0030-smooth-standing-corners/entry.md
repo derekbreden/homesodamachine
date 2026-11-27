@@ -2,7 +2,7 @@
 title: Four smooth R12 corner bands meet the fluted walls
 lede: Each standing corner keeps its full smooth quarter-round at the flute-tip envelope. The adjacent grooves fade into it over 5 mm.
 date: 2026-11-05T00:30:50-06:00
-commit: ac428416705b049f15b9f498feb2611bdb679f91
+commit: a76380a6694af10ca7db3a356086f8b635c54172
 model: printed-parts/enclosure/enclosure/enclosure.step
 ---
 The four production quadrants retain their smooth R12 standing-corner surfaces through the complete 90° plan turn. The print field keeps its cutters outside those arcs, including their tangent endpoints. The straight-wall grooves fade into the corner bands over the same 5 mm runout as other smooth show boundaries.

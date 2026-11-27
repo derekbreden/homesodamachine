@@ -2,7 +2,7 @@
 title: Cold-core screw hosts and window roofs print without trapped supports
 lede: Continuous M5 hosts keep 3.2 mm around the long screw passages. Peaked windows and tapered blind ends remove the shell's deep and tall support trees.
 date: 2026-11-01T04:38:16-06:00
-commit: 7773426d659d22d600a03b9f4f71b8eb1ec87677 67b2bb2fc0ad968e13f631e6ce122a008978cf3f
+commit: 3633a9828553e534ae2ba4e894e1c7df71ce137c 7e8f5e5c5c9698e216ebb6a8b48c942c796ce9e5
 model: printed-parts/cold-core/foam-shell/foam-shell.step
 ---
 The ten M5 stations have continuous Ø11.6 mm hosts, with 2.6 mm of material around each insert pilot and 3.2 mm around the screw tails. Their bottom blind ends narrow above the complete cylindrical clearances. The CO2 descent and water line follow fitted R14 paths around the hosts; their port endpoints stay fixed.

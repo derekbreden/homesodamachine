@@ -2,7 +2,7 @@
 title: Nine Wagos, sized for their actual junctions
 lede: Reservoir A uses one continuous common instead of a connector. The two west-side junctions use three-port blocks, and the power row follows its connections.
 date: 2026-10-21T21:54:01-05:00
-commit: a876953f50b7e3a595e35e2fc0a36a81c6075675
+commit: c5f952c756d1e1d5c93a2f0456249ee557fb75b7
 model: manifold-layout/enclosure-assembly.step
 ---
 The reservoir-A Wago and its wall well are removed. One continuous J6 common follows the four signal conductors to the reed column, with insulated local taps. That connection is 293 mm, replacing two wires totaling 485 mm.
