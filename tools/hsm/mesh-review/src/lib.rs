@@ -521,11 +521,19 @@ fn pick_points(text: &str) -> Vec<V3> {
     }
     out
 }
+/// The checkout a saved piece lies in, found from the piece itself so a binary built in another
+/// checkout reads this one's answers.
+fn checkout_root(file: &Path) -> Option<PathBuf> {
+    let path = file.canonicalize().ok()?;
+    path.ancestors()
+        .find(|dir| dir.join("hardware/printed-parts/lint-answers").is_dir())
+        .map(Path::to_path_buf)
+}
+
 fn apply_answers(report: &mut Report) {
-    let root = Path::new(env!("CARGO_MANIFEST_DIR"))
-        .ancestors()
-        .nth(3)
-        .unwrap();
+    let Some(root) = checkout_root(&report.file) else {
+        return;
+    };
     let Ok(path) = report.file.canonicalize() else {
         return;
     };
@@ -595,7 +603,12 @@ pub fn print_report(report: &Report, top: usize, all: bool) {
         report.answered.len()
     );
     println!("source map: {}", report.source_binding);
+    let root = checkout_root(&report.file);
     let step = report.file.with_extension("step");
+    let step = root.as_deref().and_then(|root| {
+        let dir = report.file.canonicalize().ok()?.parent()?.to_path_buf();
+        Some(dir.strip_prefix(root).ok()?.join(step.file_name()?))
+    }).unwrap_or(step);
     let mut shown = 0;
     for class in CLASSES {
         for row in report
@@ -624,14 +637,7 @@ pub fn print_report(report: &Report, top: usize, all: bool) {
 }
 fn print_finding(row: &Finding, step: &Path) {
     println!("\n  [{}] {}", row.class, row.line);
-    let root = Path::new(env!("CARGO_MANIFEST_DIR"))
-        .ancestors()
-        .nth(3)
-        .unwrap();
-    println!(
-        "    file: {}",
-        step.strip_prefix(root).unwrap_or(step).display()
-    );
+    println!("    file: {}", step.display());
     for line in &row.pick {
         println!("    {line}");
     }
