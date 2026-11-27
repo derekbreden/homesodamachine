@@ -1,0 +1,430 @@
+{
+  "source_stl_sha256": "a952817df4e90518ebff6b3502e84a0aac60d3d070dd17df92b6c1c635ef37c1",
+  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-back-top-wago-floor-trees-mark1/2026-11-27-back-top-mark1-b73f3bd0-textured-pei/2026-11-27-back-top-mark1-b73f3bd0-textured-pei.gcode.3mf",
+  "archive_sha256": "6ff51f7c362bf9408081346bac08a47aa82e3517403b71443b2e22a9c263290a",
+  "gcode_sha256": "0036498f00b4f01fde9fe0b18b5a3a127fe31a22d7f30140149adfefceba1e88",
+  "project_sha256": "b93f3fa3925fbaa4065119297cfe1a8cafc0e531d15891b41c1222eaa7a93a86",
+  "method": "Swept positive-extrusion line/arc segments by their emitted half-widths in plate coordinates. Measured roots on the deposited floor, continuity up each tree, removable crown, first roof and the complete rigid sweep through each side mouth. The finished fit and pry force are bench measurements.",
+  "pockets": [
+    {
+      "name": "wago-h",
+      "actual_pocket_plate_xyz_mm": [
+        209.725,
+        218.425,
+        61.5,
+        70.95,
+        11.95,
+        31.3
+      ],
+      "withdrawal_axis_xy": [
+        0.0,
+        1.0
+      ],
+      "withdrawal_verified_mm": 12.45,
+      "floor_top_z_mm": 11.96,
+      "floor_foot_top_z_mm": 12.44,
+      "release_gap_to_deposited_floor_mm": 0.18,
+      "distinct_floor_feet": 1,
+      "foot_xy_bounds_mm": [
+        212.404,
+        64.554,
+        215.746,
+        67.896
+      ],
+      "foot_deposited_area_mm2": 9.273,
+      "foot_projected_onto_last_floor_percent": 100.0,
+      "middle_trunk_deposited_area_mm2": 6.033,
+      "tree_layers": 79,
+      "orphaned_above_foot": [],
+      "discontinuous_z_courses": [],
+      "crown_layer_tops_z_mm": [
+        30.68,
+        30.92,
+        31.16
+      ],
+      "crown_top_xy_bounds_mm": [
+        210.205,
+        61.984,
+        217.945,
+        71.19
+      ],
+      "crown_top_deposited_area_mm2": 70.719,
+      "clearance_to_three_closed_pocket_edges_mm": 0.48,
+      "roof_top_z_mm": 31.64,
+      "gap_from_crown_to_first_roof_bead_mm": [
+        0.18,
+        0.18
+      ],
+      "first_roof_transverse_bridge_roads": 24,
+      "max_bridge_endpoint_distance_to_prior_permanent_roads_mm": 0.0,
+      "removal_sweep_min_clearance_mm": 0.48,
+      "removal_sweep_other_plastic_overlap_mm3": 0.0,
+      "first_roof_mouth_perimeters": [
+        {
+          "distance_inside_mouth_mm": 0.21,
+          "length_mm": 8.7,
+          "directly_backed_centerline_percent": 87.241,
+          "longest_run_without_bead_overlap_mm": 0.043
+        },
+        {
+          "distance_inside_mouth_mm": 0.593,
+          "length_mm": 8.7,
+          "directly_backed_centerline_percent": 88.659,
+          "longest_run_without_bead_overlap_mm": 0.042
+        }
+      ],
+      "automatic_support_moves_near_cavity": 0,
+      "automatic_support_max_overlap_per_layer_mm2": 0.0
+    },
+    {
+      "name": "wago-g",
+      "actual_pocket_plate_xyz_mm": [
+        225.725,
+        234.425,
+        61.5,
+        70.95,
+        11.95,
+        31.3
+      ],
+      "withdrawal_axis_xy": [
+        0.0,
+        1.0
+      ],
+      "withdrawal_verified_mm": 12.45,
+      "floor_top_z_mm": 11.96,
+      "floor_foot_top_z_mm": 12.44,
+      "release_gap_to_deposited_floor_mm": 0.18,
+      "distinct_floor_feet": 1,
+      "foot_xy_bounds_mm": [
+        228.404,
+        64.554,
+        231.746,
+        67.896
+      ],
+      "foot_deposited_area_mm2": 9.273,
+      "foot_projected_onto_last_floor_percent": 100.0,
+      "middle_trunk_deposited_area_mm2": 6.034,
+      "tree_layers": 79,
+      "orphaned_above_foot": [],
+      "discontinuous_z_courses": [],
+      "crown_layer_tops_z_mm": [
+        30.68,
+        30.92,
+        31.16
+      ],
+      "crown_top_xy_bounds_mm": [
+        226.205,
+        61.984,
+        233.945,
+        71.19
+      ],
+      "crown_top_deposited_area_mm2": 70.723,
+      "clearance_to_three_closed_pocket_edges_mm": 0.48,
+      "roof_top_z_mm": 31.64,
+      "gap_from_crown_to_first_roof_bead_mm": [
+        0.18,
+        0.18
+      ],
+      "first_roof_transverse_bridge_roads": 24,
+      "max_bridge_endpoint_distance_to_prior_permanent_roads_mm": 0.0,
+      "removal_sweep_min_clearance_mm": 0.48,
+      "removal_sweep_other_plastic_overlap_mm3": 0.0,
+      "first_roof_mouth_perimeters": [
+        {
+          "distance_inside_mouth_mm": 0.21,
+          "length_mm": 8.7,
+          "directly_backed_centerline_percent": 84.701,
+          "longest_run_without_bead_overlap_mm": 0.043
+        },
+        {
+          "distance_inside_mouth_mm": 0.593,
+          "length_mm": 8.7,
+          "directly_backed_centerline_percent": 88.661,
+          "longest_run_without_bead_overlap_mm": 0.042
+        }
+      ],
+      "automatic_support_moves_near_cavity": 0,
+      "automatic_support_max_overlap_per_layer_mm2": 0.0
+    },
+    {
+      "name": "wago-n",
+      "actual_pocket_plate_xyz_mm": [
+        241.725,
+        250.425,
+        61.5,
+        70.95,
+        11.95,
+        31.3
+      ],
+      "withdrawal_axis_xy": [
+        0.0,
+        1.0
+      ],
+      "withdrawal_verified_mm": 12.45,
+      "floor_top_z_mm": 11.96,
+      "floor_foot_top_z_mm": 12.44,
+      "release_gap_to_deposited_floor_mm": 0.18,
+      "distinct_floor_feet": 1,
+      "foot_xy_bounds_mm": [
+        244.404,
+        64.554,
+        247.746,
+        67.896
+      ],
+      "foot_deposited_area_mm2": 9.273,
+      "foot_projected_onto_last_floor_percent": 100.0,
+      "middle_trunk_deposited_area_mm2": 6.034,
+      "tree_layers": 79,
+      "orphaned_above_foot": [],
+      "discontinuous_z_courses": [],
+      "crown_layer_tops_z_mm": [
+        30.68,
+        30.92,
+        31.16
+      ],
+      "crown_top_xy_bounds_mm": [
+        242.205,
+        61.984,
+        249.945,
+        71.19
+      ],
+      "crown_top_deposited_area_mm2": 70.675,
+      "clearance_to_three_closed_pocket_edges_mm": 0.48,
+      "roof_top_z_mm": 31.64,
+      "gap_from_crown_to_first_roof_bead_mm": [
+        0.18,
+        0.18
+      ],
+      "first_roof_transverse_bridge_roads": 24,
+      "max_bridge_endpoint_distance_to_prior_permanent_roads_mm": 0.0,
+      "removal_sweep_min_clearance_mm": 0.48,
+      "removal_sweep_other_plastic_overlap_mm3": 0.0,
+      "first_roof_mouth_perimeters": [
+        {
+          "distance_inside_mouth_mm": 0.21,
+          "length_mm": 8.7,
+          "directly_backed_centerline_percent": 88.643,
+          "longest_run_without_bead_overlap_mm": 0.043
+        },
+        {
+          "distance_inside_mouth_mm": 0.593,
+          "length_mm": 8.7,
+          "directly_backed_centerline_percent": 88.661,
+          "longest_run_without_bead_overlap_mm": 0.042
+        }
+      ],
+      "automatic_support_moves_near_cavity": 0,
+      "automatic_support_max_overlap_per_layer_mm2": 0.0
+    },
+    {
+      "name": "wiring-junction-compressor-n",
+      "actual_pocket_plate_xyz_mm": [
+        77.525,
+        86.225,
+        57.5,
+        66.95,
+        40.45,
+        59.8
+      ],
+      "withdrawal_axis_xy": [
+        0.0,
+        1.0
+      ],
+      "withdrawal_verified_mm": 12.45,
+      "floor_top_z_mm": 40.52,
+      "floor_foot_top_z_mm": 41.0,
+      "release_gap_to_deposited_floor_mm": 0.18,
+      "distinct_floor_feet": 1,
+      "foot_xy_bounds_mm": [
+        80.204,
+        60.554,
+        83.546,
+        63.896
+      ],
+      "foot_deposited_area_mm2": 9.273,
+      "foot_projected_onto_last_floor_percent": 100.0,
+      "middle_trunk_deposited_area_mm2": 6.033,
+      "tree_layers": 78,
+      "orphaned_above_foot": [],
+      "discontinuous_z_courses": [],
+      "crown_layer_tops_z_mm": [
+        59.0,
+        59.24,
+        59.48
+      ],
+      "crown_top_xy_bounds_mm": [
+        78.005,
+        58.007,
+        85.745,
+        67.19
+      ],
+      "crown_top_deposited_area_mm2": 70.69,
+      "clearance_to_three_closed_pocket_edges_mm": 0.48,
+      "roof_top_z_mm": 59.96,
+      "gap_from_crown_to_first_roof_bead_mm": [
+        0.18,
+        0.18
+      ],
+      "first_roof_transverse_bridge_roads": 24,
+      "max_bridge_endpoint_distance_to_prior_permanent_roads_mm": 0.0,
+      "removal_sweep_min_clearance_mm": 0.48,
+      "removal_sweep_other_plastic_overlap_mm3": 0.0,
+      "first_roof_mouth_perimeters": [
+        {
+          "distance_inside_mouth_mm": 0.21,
+          "length_mm": 8.7,
+          "directly_backed_centerline_percent": 85.183,
+          "longest_run_without_bead_overlap_mm": 0.043
+        },
+        {
+          "distance_inside_mouth_mm": 0.593,
+          "length_mm": 8.7,
+          "directly_backed_centerline_percent": 88.677,
+          "longest_run_without_bead_overlap_mm": 0.042
+        }
+      ],
+      "automatic_support_moves_near_cavity": 0,
+      "automatic_support_max_overlap_per_layer_mm2": 0.0
+    },
+    {
+      "name": "wiring-junction-compressor-h",
+      "actual_pocket_plate_xyz_mm": [
+        93.525,
+        102.225,
+        57.5,
+        66.95,
+        40.45,
+        59.8
+      ],
+      "withdrawal_axis_xy": [
+        0.0,
+        1.0
+      ],
+      "withdrawal_verified_mm": 12.45,
+      "floor_top_z_mm": 40.52,
+      "floor_foot_top_z_mm": 41.0,
+      "release_gap_to_deposited_floor_mm": 0.18,
+      "distinct_floor_feet": 1,
+      "foot_xy_bounds_mm": [
+        96.204,
+        60.554,
+        99.546,
+        63.896
+      ],
+      "foot_deposited_area_mm2": 9.273,
+      "foot_projected_onto_last_floor_percent": 100.0,
+      "middle_trunk_deposited_area_mm2": 6.033,
+      "tree_layers": 78,
+      "orphaned_above_foot": [],
+      "discontinuous_z_courses": [],
+      "crown_layer_tops_z_mm": [
+        59.0,
+        59.24,
+        59.48
+      ],
+      "crown_top_xy_bounds_mm": [
+        94.005,
+        58.007,
+        101.745,
+        67.19
+      ],
+      "crown_top_deposited_area_mm2": 70.476,
+      "clearance_to_three_closed_pocket_edges_mm": 0.48,
+      "roof_top_z_mm": 59.96,
+      "gap_from_crown_to_first_roof_bead_mm": [
+        0.18,
+        0.18
+      ],
+      "first_roof_transverse_bridge_roads": 24,
+      "max_bridge_endpoint_distance_to_prior_permanent_roads_mm": 0.0,
+      "removal_sweep_min_clearance_mm": 0.48,
+      "removal_sweep_other_plastic_overlap_mm3": 0.0,
+      "first_roof_mouth_perimeters": [
+        {
+          "distance_inside_mouth_mm": 0.21,
+          "length_mm": 8.7,
+          "directly_backed_centerline_percent": 82.643,
+          "longest_run_without_bead_overlap_mm": 0.043
+        },
+        {
+          "distance_inside_mouth_mm": 0.593,
+          "length_mm": 8.7,
+          "directly_backed_centerline_percent": 87.059,
+          "longest_run_without_bead_overlap_mm": 0.042
+        }
+      ],
+      "automatic_support_moves_near_cavity": 0,
+      "automatic_support_max_overlap_per_layer_mm2": 0.0
+    },
+    {
+      "name": "wiring-junction-pump-positive",
+      "actual_pocket_plate_xyz_mm": [
+        109.525,
+        118.225,
+        57.5,
+        66.95,
+        40.45,
+        59.8
+      ],
+      "withdrawal_axis_xy": [
+        0.0,
+        1.0
+      ],
+      "withdrawal_verified_mm": 12.45,
+      "floor_top_z_mm": 40.52,
+      "floor_foot_top_z_mm": 41.0,
+      "release_gap_to_deposited_floor_mm": 0.18,
+      "distinct_floor_feet": 1,
+      "foot_xy_bounds_mm": [
+        112.204,
+        60.554,
+        115.546,
+        63.896
+      ],
+      "foot_deposited_area_mm2": 9.273,
+      "foot_projected_onto_last_floor_percent": 100.0,
+      "middle_trunk_deposited_area_mm2": 6.033,
+      "tree_layers": 78,
+      "orphaned_above_foot": [],
+      "discontinuous_z_courses": [],
+      "crown_layer_tops_z_mm": [
+        59.0,
+        59.24,
+        59.48
+      ],
+      "crown_top_xy_bounds_mm": [
+        110.005,
+        58.007,
+        117.745,
+        67.19
+      ],
+      "crown_top_deposited_area_mm2": 70.69,
+      "clearance_to_three_closed_pocket_edges_mm": 0.48,
+      "roof_top_z_mm": 59.96,
+      "gap_from_crown_to_first_roof_bead_mm": [
+        0.18,
+        0.18
+      ],
+      "first_roof_transverse_bridge_roads": 24,
+      "max_bridge_endpoint_distance_to_prior_permanent_roads_mm": 0.0,
+      "removal_sweep_min_clearance_mm": 0.48,
+      "removal_sweep_other_plastic_overlap_mm3": 0.0,
+      "first_roof_mouth_perimeters": [
+        {
+          "distance_inside_mouth_mm": 0.21,
+          "length_mm": 8.7,
+          "directly_backed_centerline_percent": 86.586,
+          "longest_run_without_bead_overlap_mm": 0.043
+        },
+        {
+          "distance_inside_mouth_mm": 0.593,
+          "length_mm": 8.7,
+          "directly_backed_centerline_percent": 88.677,
+          "longest_run_without_bead_overlap_mm": 0.042
+        }
+      ],
+      "automatic_support_moves_near_cavity": 0,
+      "automatic_support_max_overlap_per_layer_mm2": 0.0
+    }
+  ]
+}
