@@ -1,0 +1,87 @@
+{
+  "views": [
+    {
+      "name": "seating-section",
+      "caption": "Section through FLAVOR B. The gold card clears the 45° enclosure face. Its ends seat behind the rails.",
+      "before": "seating-section-before.webp",
+      "after": "seating-section-after.webp",
+      "width": 940,
+      "height": 580,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          603.1642523576081,
+          642.6092757072824,
+          310.62371028291295
+        ],
+        "target": [
+          28.8,
+          470.3,
+          241.7
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 4.7,
+        "near": 426.64044561139724,
+        "far": 1080.54250846456,
+        "aspect": 1.6206896551724137,
+        "section": {
+          "at": [
+            28.8,
+            470.3,
+            241.7
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "bulkhead-ring-flavor-b"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "bulkhead-ring-flavor-b"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "b089f4f80365a219b8f73a61982a28cad78a8e563ada83feef65111e955c1bd4",
+          "commit": "a18d10c5d17c4b93748f44fb7ccf54d07c1eda04",
+          "taken": "2026-11-27T08:01:29.627Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "b6d1bbf18a52959fc22b3eac418a4b8d7e761e4398a9a08aed3002994a0ad088",
+          "commit": "4418111eb6a7163d62a8729bf99d801c6269a9bf",
+          "published": true
+        }
+      },
+      "changed": [
+        "wire-DC3-positive",
+        "wiring-junction-pump-positive",
+        "wire-DC3-pigtail",
+        "wire-AC4-pigtail",
+        "wire-AC4-H",
+        "wiring-junction-compressor-h",
+        "wire-AC5-pigtail",
+        "wire-AC5-N",
+        "wiring-junction-compressor-n",
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

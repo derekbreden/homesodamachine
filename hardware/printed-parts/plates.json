@@ -28,9 +28,9 @@
     "material": "HSM-0081",
     "filament": "PET-GF",
     "thumbnail": "/parts/plates/back-top.webp",
-    "detail": "Mark1 · PET-GF · four equipment receivers and sloped rear funnel seats",
+    "detail": "Mark1 · PET-GF · four equipment receivers, sloped rear funnel seats and chamfered rear label channels",
     "href": "/parts#material:HSM-0081?view=print",
-    "download": "/print-archive/5304b1e3ede67b0081f4d1a1e10dd4ba5f0e150b/enclosure-back-top-mark1.3mf",
+    "download": "/print-archive/f8025138583006daf9b58e238d7181b6d10ec457/enclosure-back-top-mark1.3mf",
     "parts": [{"label": "Enclosure back top", "material": "HSM-0081"}],
     "relatedPrints": [{"label": "ASSE vent sleeve · TPU", "material": "HSM-0088", "href": "/parts#material:HSM-0088?view=print"}]
   },
@@ -144,6 +144,7 @@
     "filament": "Multicolor PETG",
     "thumbnail": "/parts/plates/identification.webp",
     "href": "/parts#material:HSM-0062?view=print",
+    "download": "/print-archive/d7f614c6b682ce10a67454e1c8361d0885d1a997/identification-mark1.3mf",
     "parts": [
       {"label": "Nameplate", "material": "HSM-0069"},
       {"label": "Status plate", "material": "HSM-0579"},
@@ -152,7 +153,7 @@
       {"label": "Flavor A label", "material": "HSM-0064"},
       {"label": "Flavor B label", "material": "HSM-0065"},
       {"label": "CO₂ label", "material": "HSM-0066"},
-      {"label": "Vent return label", "material": "HSM-0067"}
+      {"label": "Drain label", "material": "HSM-0067"}
     ],
     "relatedPrints": [
       {"label": "Blue tube collars · PET-GF", "material": "HSM-0099", "href": "/parts#material:HSM-0099?view=print"},

@@ -1,0 +1,260 @@
+{
+  "project_sha256": "324e17da8cc6e06388eaac735961675ec42318f900dcb9f6fe2bd4dc19e49690",
+  "stl_sha256": "7a10bbd93c773fed659f20c3edba20551bc54e268a95232061402052c12ce86d",
+  "native_gcode_sha256": "3fb500e37fa25c50e005f0a0328ffbad15e1f50c670573e39fc16756f9eeea71",
+  "native_gcode": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-chamfered-label-stops-mark1/2026-11-27-back-top-mark1-bc01ba73-textured-pei/native/plate_1.gcode",
+  "model_segment_stream_sha256": "ffe56537de941f53cb8527f7486cb91b3bfd7661314446e0b4f057ac5e4e75fb",
+  "model_layers": 812,
+  "z_range_mm": [
+    0.2,
+    194.84
+  ],
+  "model_segments": 4650942,
+  "segment_features": [
+    "model_layers=812 arcs=0 plane_mismatches=0 max_dz=0.00000000",
+    "Bottom surface=1566",
+    "Bridge=16749",
+    "Floating vertical shell=45491",
+    "Gap infill=52812",
+    "Inner wall=799046",
+    "Internal solid infill=81672",
+    "Outer wall=986578",
+    "Overhang wall=728",
+    "Sparse infill=2653219",
+    "Top surface=13081"
+  ],
+  "mesh_source": "All five normal-part meshes read directly from the editable 3MF and placed by their build-item matrix. Automatic supports, travel and custom machine commands do not qualify as model deposition.",
+  "whole_components_method": "Every deposited layer is intersected at its adjacent-layer midpoint. Every nonempty connected material polygon, with holes removed, is checked against actual positive-E model roads at that layer. Interior segment-midpoint witnesses are followed by complete segment and commanded bead intersection when needed. Results describe commanded deposition, independent of physical adhesion.",
+  "by_mesh": {
+    "enclosure-back-top": {
+      "interior model-centerline witness": 1761,
+      "total connected sections": 1761
+    },
+    "Fill tube snap removable upper-wing support": {
+      "interior model-centerline witness": 78,
+      "total connected sections": 84,
+      "no model road": 6
+    },
+    "Removable west rail support 1": {
+      "interior model-centerline witness": 312,
+      "total connected sections": 312
+    },
+    "Removable west rail support 2": {
+      "interior model-centerline witness": 416,
+      "total connected sections": 416
+    },
+    "Removable east rail support 1": {
+      "interior model-centerline witness": 780,
+      "total connected sections": 780
+    }
+  },
+  "no_model_road": [
+    {
+      "model": "Fill tube snap removable upper-wing support",
+      "layer": 413,
+      "print_z_mm": 99.08,
+      "section_z_mm": 98.96,
+      "area_mm2": 0.8895858,
+      "width_xy_mm": [
+        2.367,
+        0.376
+      ],
+      "near_source_mm": [
+        90.971,
+        267.667,
+        256.04
+      ],
+      "has_0_4_mm_round_core": false
+    },
+    {
+      "model": "Fill tube snap removable upper-wing support",
+      "layer": 413,
+      "print_z_mm": 99.08,
+      "section_z_mm": 98.96,
+      "area_mm2": 0.8895858,
+      "width_xy_mm": [
+        2.367,
+        0.376
+      ],
+      "near_source_mm": [
+        90.971,
+        265.0,
+        256.04
+      ],
+      "has_0_4_mm_round_core": false
+    },
+    {
+      "model": "Fill tube snap removable upper-wing support",
+      "layer": 413,
+      "print_z_mm": 99.08,
+      "section_z_mm": 98.96,
+      "area_mm2": 0.8895858,
+      "width_xy_mm": [
+        2.367,
+        0.376
+      ],
+      "near_source_mm": [
+        90.971,
+        262.333,
+        256.04
+      ],
+      "has_0_4_mm_round_core": false
+    },
+    {
+      "model": "Fill tube snap removable upper-wing support",
+      "layer": 414,
+      "print_z_mm": 99.32,
+      "section_z_mm": 99.2,
+      "area_mm2": 0.2400414,
+      "width_xy_mm": [
+        2.367,
+        0.101
+      ],
+      "near_source_mm": [
+        90.845,
+        267.667,
+        255.8
+      ],
+      "has_0_4_mm_round_core": false
+    },
+    {
+      "model": "Fill tube snap removable upper-wing support",
+      "layer": 414,
+      "print_z_mm": 99.32,
+      "section_z_mm": 99.2,
+      "area_mm2": 0.2400414,
+      "width_xy_mm": [
+        2.367,
+        0.101
+      ],
+      "near_source_mm": [
+        90.845,
+        265.0,
+        255.8
+      ],
+      "has_0_4_mm_round_core": false
+    },
+    {
+      "model": "Fill tube snap removable upper-wing support",
+      "layer": 414,
+      "print_z_mm": 99.32,
+      "section_z_mm": 99.2,
+      "area_mm2": 0.2400414,
+      "width_xy_mm": [
+        2.367,
+        0.101
+      ],
+      "near_source_mm": [
+        90.845,
+        262.333,
+        255.8
+      ],
+      "has_0_4_mm_round_core": false
+    }
+  ],
+  "only_bead_overlap": [],
+  "centerline_crossing_without_interior_midpoint": [],
+  "shell_interior_sampling": {
+    "pitch_mm": 0.8,
+    "sample_points": 10083284,
+    "sample_points_more_than_5mm_from_nearest_raster_road_cell": 36,
+    "largest_lattice_distance_mm": 10.4,
+    "top_sampled_layers": [
+      {
+        "layer": 395,
+        "print_z_mm": 94.76,
+        "lattice_distance_mm": 10.4,
+        "distance_to_actual_road_center_mm": 10.226,
+        "near_source_mm": [
+          87.4,
+          405.525,
+          260.36
+        ]
+      },
+      {
+        "layer": 67,
+        "print_z_mm": 16.04,
+        "lattice_distance_mm": 1.6,
+        "distance_to_actual_road_center_mm": 1.765,
+        "near_source_mm": [
+          -107.0,
+          463.125,
+          339.08
+        ]
+      },
+      {
+        "layer": 124,
+        "print_z_mm": 29.72,
+        "lattice_distance_mm": 1.6,
+        "distance_to_actual_road_center_mm": 1.763,
+        "near_source_mm": [
+          -107.0,
+          463.125,
+          325.4
+        ]
+      },
+      {
+        "layer": 181,
+        "print_z_mm": 43.4,
+        "lattice_distance_mm": 1.6,
+        "distance_to_actual_road_center_mm": 1.762,
+        "near_source_mm": [
+          -107.0,
+          463.125,
+          311.72
+        ]
+      },
+      {
+        "layer": 238,
+        "print_z_mm": 57.08,
+        "lattice_distance_mm": 1.6,
+        "distance_to_actual_road_center_mm": 1.761,
+        "near_source_mm": [
+          -107.0,
+          463.125,
+          298.04
+        ]
+      },
+      {
+        "layer": 295,
+        "print_z_mm": 70.76,
+        "lattice_distance_mm": 1.6,
+        "distance_to_actual_road_center_mm": 1.76,
+        "near_source_mm": [
+          -107.0,
+          463.125,
+          284.36
+        ]
+      }
+    ],
+    "scope": "For the shell, independent interior lattice in every layer, including areas outside named stations. Rasterized road centers sampled at most 0.28 mm apart along their dominant axis. The reported lattice distance has cell quantization; the layer maxima listed also give exact point-to-segment distances. Intentional 15% gyroid infill leaves air. This does not establish exact fill fraction at every point or identify the internal source of Bambu\u2019s diagnostic.",
+    "distant_layers": [
+      {
+        "layer": 395,
+        "print_z_mm": 94.76,
+        "grid_samples": 36,
+        "bounds_source_mm": [
+          [
+            87.4,
+            400.725,
+            260.36
+          ],
+          [
+            87.4,
+            428.725,
+            260.36
+          ]
+        ],
+        "max_grid_distance_mm": 10.4,
+        "actual_max_witness_distance_mm": 10.226,
+        "max_source_mm": [
+          87.4,
+          405.525,
+          260.36
+        ]
+      }
+    ]
+  },
+  "slice_archive_sha256": "26db6538e5db7bdef9e1cb5ae56ccfdc005d7899dba7de74a882cc0242e5e09d",
+  "slice_archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-chamfered-label-stops-mark1/2026-11-27-back-top-mark1-bc01ba73-textured-pei/2026-11-27-back-top-mark1-bc01ba73-textured-pei.gcode.3mf"
+}

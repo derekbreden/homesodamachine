@@ -343,12 +343,12 @@
     "title": "Enclosure identification set · Mark1 print plan",
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/identification_mark1.rs",
     "recipe_target": "--mark1-identification",
-    "project_sha256": "3b571b71dc75045b6b6893555767b93274d6dd43e99dda07f467528179fd9a86",
-    "archive_sha256": "cc11e1c264c42cfab8060610f0d92991617bdaba74b7be148ab2a21fb4f55063",
-    "gcode_sha256": "17bb82d0c8ff5a92e76c9be5d16620029b375b86dcf484f6ef039c52130696d3",
+    "project_sha256": "197f856f4db29d9e10d9956b3e1ed6f97eb5847d15d04a97c795b3d5d56668a8",
+    "archive_sha256": "ad1fea4c43c82742c2c1ad8a2cad4e2e28927c6ce44fae8d331bc0deb5438455",
+    "gcode_sha256": "fe11fdf8240966e5d9df612a04e2920be226045f50bf06e61e4b3b79d55bec10",
     "kind": "plan",
-    "sha256": "f8346b322b109706cc7f380ab1a3993fddc86409c2817ceed0f0cb54778108bb",
-    "slice": "2026-11-10-identification-mark1-70ce10d1.gcode.3mf",
+    "sha256": "306b59e695606b204cff2263596d2495499f3bf86c38c2d04cec07dbd63d8f1f",
+    "slice": "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-27-chamfered-stop-mark1/2026-11-27-identification-mark1-65be4615/2026-11-27-identification-mark1-65be4615.gcode.3mf",
     "plate": 1,
     "layers": 32,
     "process": {
@@ -366,20 +366,20 @@
       "Process bridge speed": "50 mm/s",
       "Filament bridge speed": "25 mm/s"
     },
-    "model_sha256": "a338d0e6bc7d10e8cee610190c02c5109ae4b7e2856c24d5e1cfc88986ae48fe",
-    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
-    "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
+    "model_sha256": "4743851e64ee36d61b75a055efa71447f95c93ed06fefeeba0342ceee9a5039b",
+    "recipe_commit": "ca73ecb6eae7e173b03d63677cce88384c139c9d",
+    "recipe_sha256": "e517413e6837c775cd8354f43f78db6ba722819dc183d1850b24efbeb58078e2"
   },
   "HSM-0063": {
     "title": "Enclosure identification set · Mark1 print plan",
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/identification_mark1.rs",
     "recipe_target": "--mark1-identification",
-    "project_sha256": "3b571b71dc75045b6b6893555767b93274d6dd43e99dda07f467528179fd9a86",
-    "archive_sha256": "cc11e1c264c42cfab8060610f0d92991617bdaba74b7be148ab2a21fb4f55063",
-    "gcode_sha256": "17bb82d0c8ff5a92e76c9be5d16620029b375b86dcf484f6ef039c52130696d3",
+    "project_sha256": "197f856f4db29d9e10d9956b3e1ed6f97eb5847d15d04a97c795b3d5d56668a8",
+    "archive_sha256": "ad1fea4c43c82742c2c1ad8a2cad4e2e28927c6ce44fae8d331bc0deb5438455",
+    "gcode_sha256": "fe11fdf8240966e5d9df612a04e2920be226045f50bf06e61e4b3b79d55bec10",
     "kind": "plan",
-    "sha256": "f8346b322b109706cc7f380ab1a3993fddc86409c2817ceed0f0cb54778108bb",
-    "slice": "2026-11-10-identification-mark1-70ce10d1.gcode.3mf",
+    "sha256": "306b59e695606b204cff2263596d2495499f3bf86c38c2d04cec07dbd63d8f1f",
+    "slice": "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-27-chamfered-stop-mark1/2026-11-27-identification-mark1-65be4615/2026-11-27-identification-mark1-65be4615.gcode.3mf",
     "plate": 1,
     "layers": 32,
     "process": {
@@ -397,20 +397,20 @@
       "Process bridge speed": "50 mm/s",
       "Filament bridge speed": "25 mm/s"
     },
-    "model_sha256": "166fa15754ce0679587b0c3198c57fe4dc6ab65215c8d1d2cac3e94be887b2b8",
-    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
-    "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
+    "model_sha256": "f902ad8de5e54c62a43cf39ac28990c02d6daf3b75536c1e126655da883914f2",
+    "recipe_commit": "ca73ecb6eae7e173b03d63677cce88384c139c9d",
+    "recipe_sha256": "e517413e6837c775cd8354f43f78db6ba722819dc183d1850b24efbeb58078e2"
   },
   "HSM-0064": {
     "title": "Enclosure identification set · Mark1 print plan",
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/identification_mark1.rs",
     "recipe_target": "--mark1-identification",
-    "project_sha256": "3b571b71dc75045b6b6893555767b93274d6dd43e99dda07f467528179fd9a86",
-    "archive_sha256": "cc11e1c264c42cfab8060610f0d92991617bdaba74b7be148ab2a21fb4f55063",
-    "gcode_sha256": "17bb82d0c8ff5a92e76c9be5d16620029b375b86dcf484f6ef039c52130696d3",
+    "project_sha256": "197f856f4db29d9e10d9956b3e1ed6f97eb5847d15d04a97c795b3d5d56668a8",
+    "archive_sha256": "ad1fea4c43c82742c2c1ad8a2cad4e2e28927c6ce44fae8d331bc0deb5438455",
+    "gcode_sha256": "fe11fdf8240966e5d9df612a04e2920be226045f50bf06e61e4b3b79d55bec10",
     "kind": "plan",
-    "sha256": "f8346b322b109706cc7f380ab1a3993fddc86409c2817ceed0f0cb54778108bb",
-    "slice": "2026-11-10-identification-mark1-70ce10d1.gcode.3mf",
+    "sha256": "306b59e695606b204cff2263596d2495499f3bf86c38c2d04cec07dbd63d8f1f",
+    "slice": "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-27-chamfered-stop-mark1/2026-11-27-identification-mark1-65be4615/2026-11-27-identification-mark1-65be4615.gcode.3mf",
     "plate": 1,
     "layers": 32,
     "process": {
@@ -428,20 +428,20 @@
       "Process bridge speed": "50 mm/s",
       "Filament bridge speed": "25 mm/s"
     },
-    "model_sha256": "5b243d44c1bb9e8e53b279334fc9f350a07c51e1048ac6ebfabaae48466e8906",
-    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
-    "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
+    "model_sha256": "f49e202a33c305a7af1dcbe58294c7ac9b9f7eb7669e553bdb575a9e5cd11bde",
+    "recipe_commit": "ca73ecb6eae7e173b03d63677cce88384c139c9d",
+    "recipe_sha256": "e517413e6837c775cd8354f43f78db6ba722819dc183d1850b24efbeb58078e2"
   },
   "HSM-0065": {
     "title": "Enclosure identification set · Mark1 print plan",
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/identification_mark1.rs",
     "recipe_target": "--mark1-identification",
-    "project_sha256": "3b571b71dc75045b6b6893555767b93274d6dd43e99dda07f467528179fd9a86",
-    "archive_sha256": "cc11e1c264c42cfab8060610f0d92991617bdaba74b7be148ab2a21fb4f55063",
-    "gcode_sha256": "17bb82d0c8ff5a92e76c9be5d16620029b375b86dcf484f6ef039c52130696d3",
+    "project_sha256": "197f856f4db29d9e10d9956b3e1ed6f97eb5847d15d04a97c795b3d5d56668a8",
+    "archive_sha256": "ad1fea4c43c82742c2c1ad8a2cad4e2e28927c6ce44fae8d331bc0deb5438455",
+    "gcode_sha256": "fe11fdf8240966e5d9df612a04e2920be226045f50bf06e61e4b3b79d55bec10",
     "kind": "plan",
-    "sha256": "f8346b322b109706cc7f380ab1a3993fddc86409c2817ceed0f0cb54778108bb",
-    "slice": "2026-11-10-identification-mark1-70ce10d1.gcode.3mf",
+    "sha256": "306b59e695606b204cff2263596d2495499f3bf86c38c2d04cec07dbd63d8f1f",
+    "slice": "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-27-chamfered-stop-mark1/2026-11-27-identification-mark1-65be4615/2026-11-27-identification-mark1-65be4615.gcode.3mf",
     "plate": 1,
     "layers": 32,
     "process": {
@@ -457,22 +457,23 @@
       "Supports": "None in emitted slice",
       "Bridge flow": "1",
       "Process bridge speed": "50 mm/s",
-      "Filament bridge speed": "25 mm/s"
+      "Filament bridge speed": "25 mm/s",
+      "Elephant-foot compensation": "0.02 mm"
     },
-    "model_sha256": "d5564907639a1cbad1a127e7a104e4edf5cfe47fe78261f218349ce2ebab2f32",
-    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
-    "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
+    "model_sha256": "93b5c8916ad5932402538adc7b8554fb790b0c1cadc1cf860c81917da1421be8",
+    "recipe_commit": "ca73ecb6eae7e173b03d63677cce88384c139c9d",
+    "recipe_sha256": "e517413e6837c775cd8354f43f78db6ba722819dc183d1850b24efbeb58078e2"
   },
   "HSM-0066": {
     "title": "Enclosure identification set · Mark1 print plan",
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/identification_mark1.rs",
     "recipe_target": "--mark1-identification",
-    "project_sha256": "3b571b71dc75045b6b6893555767b93274d6dd43e99dda07f467528179fd9a86",
-    "archive_sha256": "cc11e1c264c42cfab8060610f0d92991617bdaba74b7be148ab2a21fb4f55063",
-    "gcode_sha256": "17bb82d0c8ff5a92e76c9be5d16620029b375b86dcf484f6ef039c52130696d3",
+    "project_sha256": "197f856f4db29d9e10d9956b3e1ed6f97eb5847d15d04a97c795b3d5d56668a8",
+    "archive_sha256": "ad1fea4c43c82742c2c1ad8a2cad4e2e28927c6ce44fae8d331bc0deb5438455",
+    "gcode_sha256": "fe11fdf8240966e5d9df612a04e2920be226045f50bf06e61e4b3b79d55bec10",
     "kind": "plan",
-    "sha256": "f8346b322b109706cc7f380ab1a3993fddc86409c2817ceed0f0cb54778108bb",
-    "slice": "2026-11-10-identification-mark1-70ce10d1.gcode.3mf",
+    "sha256": "306b59e695606b204cff2263596d2495499f3bf86c38c2d04cec07dbd63d8f1f",
+    "slice": "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-27-chamfered-stop-mark1/2026-11-27-identification-mark1-65be4615/2026-11-27-identification-mark1-65be4615.gcode.3mf",
     "plate": 1,
     "layers": 32,
     "process": {
@@ -490,20 +491,20 @@
       "Process bridge speed": "50 mm/s",
       "Filament bridge speed": "25 mm/s"
     },
-    "model_sha256": "3ccc0c7408063c72043f48a53ccfa5832251936740f565779de886dca7b81817",
-    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
-    "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
+    "model_sha256": "2d58c02d71a0fd812321c02e33d515ab65108ff783a52b247721e40260e87c51",
+    "recipe_commit": "ca73ecb6eae7e173b03d63677cce88384c139c9d",
+    "recipe_sha256": "e517413e6837c775cd8354f43f78db6ba722819dc183d1850b24efbeb58078e2"
   },
   "HSM-0067": {
     "title": "Enclosure identification set · Mark1 print plan",
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/identification_mark1.rs",
     "recipe_target": "--mark1-identification",
-    "project_sha256": "3b571b71dc75045b6b6893555767b93274d6dd43e99dda07f467528179fd9a86",
-    "archive_sha256": "cc11e1c264c42cfab8060610f0d92991617bdaba74b7be148ab2a21fb4f55063",
-    "gcode_sha256": "17bb82d0c8ff5a92e76c9be5d16620029b375b86dcf484f6ef039c52130696d3",
+    "project_sha256": "197f856f4db29d9e10d9956b3e1ed6f97eb5847d15d04a97c795b3d5d56668a8",
+    "archive_sha256": "ad1fea4c43c82742c2c1ad8a2cad4e2e28927c6ce44fae8d331bc0deb5438455",
+    "gcode_sha256": "fe11fdf8240966e5d9df612a04e2920be226045f50bf06e61e4b3b79d55bec10",
     "kind": "plan",
-    "sha256": "f8346b322b109706cc7f380ab1a3993fddc86409c2817ceed0f0cb54778108bb",
-    "slice": "2026-11-10-identification-mark1-70ce10d1.gcode.3mf",
+    "sha256": "306b59e695606b204cff2263596d2495499f3bf86c38c2d04cec07dbd63d8f1f",
+    "slice": "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-27-chamfered-stop-mark1/2026-11-27-identification-mark1-65be4615/2026-11-27-identification-mark1-65be4615.gcode.3mf",
     "plate": 1,
     "layers": 32,
     "process": {
@@ -519,22 +520,23 @@
       "Supports": "None in emitted slice",
       "Bridge flow": "1",
       "Process bridge speed": "50 mm/s",
-      "Filament bridge speed": "25 mm/s"
+      "Filament bridge speed": "25 mm/s",
+      "Elephant-foot compensation": "0.02 mm"
     },
-    "model_sha256": "2cbb2fa07300e794cae0ffb6cf471609b8b8171c09c948d3d5808dc856a82bf2",
-    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
-    "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
+    "model_sha256": "4460f30c7aaf11b3ce58dab0f55405455fadc0bab77efd617ce631ee13ead484",
+    "recipe_commit": "ca73ecb6eae7e173b03d63677cce88384c139c9d",
+    "recipe_sha256": "e517413e6837c775cd8354f43f78db6ba722819dc183d1850b24efbeb58078e2"
   },
   "HSM-0069": {
     "title": "Enclosure identification set · Mark1 print plan",
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/identification_mark1.rs",
     "recipe_target": "--mark1-identification",
-    "project_sha256": "3b571b71dc75045b6b6893555767b93274d6dd43e99dda07f467528179fd9a86",
-    "archive_sha256": "cc11e1c264c42cfab8060610f0d92991617bdaba74b7be148ab2a21fb4f55063",
-    "gcode_sha256": "17bb82d0c8ff5a92e76c9be5d16620029b375b86dcf484f6ef039c52130696d3",
+    "project_sha256": "197f856f4db29d9e10d9956b3e1ed6f97eb5847d15d04a97c795b3d5d56668a8",
+    "archive_sha256": "ad1fea4c43c82742c2c1ad8a2cad4e2e28927c6ce44fae8d331bc0deb5438455",
+    "gcode_sha256": "fe11fdf8240966e5d9df612a04e2920be226045f50bf06e61e4b3b79d55bec10",
     "kind": "plan",
-    "sha256": "f8346b322b109706cc7f380ab1a3993fddc86409c2817ceed0f0cb54778108bb",
-    "slice": "2026-11-10-identification-mark1-70ce10d1.gcode.3mf",
+    "sha256": "306b59e695606b204cff2263596d2495499f3bf86c38c2d04cec07dbd63d8f1f",
+    "slice": "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-27-chamfered-stop-mark1/2026-11-27-identification-mark1-65be4615/2026-11-27-identification-mark1-65be4615.gcode.3mf",
     "plate": 1,
     "layers": 32,
     "process": {
@@ -552,9 +554,9 @@
       "Process bridge speed": "50 mm/s",
       "Filament bridge speed": "25 mm/s"
     },
-    "model_sha256": "9f0a195c4561fe3945ce3e3647060c636de0176e3ead081aa4a15adf46b8e26c",
-    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
-    "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
+    "model_sha256": "d8bdfe0e3e7b5e32e3d16769c679a99f703863cff64bbe3cfbddfa523c5d3398",
+    "recipe_commit": "ca73ecb6eae7e173b03d63677cce88384c139c9d",
+    "recipe_sha256": "e517413e6837c775cd8354f43f78db6ba722819dc183d1850b24efbeb58078e2"
   },
   "HSM-0071": {
     "title": "PETG accessories · Mark1 print plan",
@@ -810,18 +812,18 @@
   },
   "HSM-0081": {
     "title": "Enclosure back top · Mark1 print plan",
-    "sha256": "0af8b777c84ff69c4091bbdb0680af4cd4782bc321f00c3680122ff14e7deaea",
-    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-fitted-back-top-mark1/2026-11-27-back-top-mark1-bb4e3273-textured-pei/2026-11-27-back-top-mark1-bb4e3273-textured-pei.gcode.3mf",
+    "sha256": "15f3f203712a254e8b81bdc16aa21694e32a339ab8faef8184e6011a8cc1c32f",
+    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-chamfered-label-stops-mark1/2026-11-27-back-top-mark1-bc01ba73-textured-pei/2026-11-27-back-top-mark1-bc01ba73-textured-pei.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "back-top",
     "recipe_sha256": "ea2f88b1a7bd408222c446447c7dea8f206eb23dadbf8e0f00e19b6286cb1c83",
-    "project_sha256": "c2c7d7610be55c049317962db3feb1030b5fe5f4254b8bb6143cba44ef9c96a4",
-    "archive_sha256": "4f6b215bc43c22c09e5fdcec6af1cff0ac1553f7ccd6ade001d97e12dd6d3808",
-    "gcode_sha256": "e7d4d8b912602de30387c60eecd68e66b53b3b5641ed84afd09ea5917de79e48",
+    "project_sha256": "324e17da8cc6e06388eaac735961675ec42318f900dcb9f6fe2bd4dc19e49690",
+    "archive_sha256": "26db6538e5db7bdef9e1cb5ae56ccfdc005d7899dba7de74a882cc0242e5e09d",
+    "gcode_sha256": "3fb500e37fa25c50e005f0a0328ffbad15e1f50c670573e39fc16756f9eeea71",
     "kind": "plan",
     "layers": 1010,
-    "model_sha256": "99314950eaf9c6d9b89ee3280eff5d0376fa8354ba7ef842180a361e13a071d5",
+    "model_sha256": "7a10bbd93c773fed659f20c3edba20551bc54e268a95232061402052c12ce86d",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark1",
@@ -846,10 +848,10 @@
       "C14 inlet": "Removable supports under the flange pocket and cord passage roofs",
       "Flow-meter receiver": "Pull the supports from beneath the short upper guide, lower shelf, boss pockets and wire floor through the open west side. The upper guide includes 0.25 mm of relief.",
       "Fill tube snap": "A corbel carries its print-down jaw from the east wall. Contoured breakaway strips rooted on that jaw carry the free jaw above it.",
-      "Rear label stops": "Clip each exterior stand’s two first-layer ties flush at the solid rail roots, then pull the stand straight out through the rear.",
+      "Rear label stops": "The 45° channel floors print from the rear wall. Slide FLAVOR B and DRAIN down their rails until their two flat ends reach the stops.",
       "Funnel frame": "The two sloped rear seats grow from the shell. Fit both inserts from below and use M3 × 25 rear screws."
     },
-    "recipe_commit": "65b5f27b884de6408ec1ea87341e83a173eb609f"
+    "recipe_commit": "4418111eb6a7163d62a8729bf99d801c6269a9bf"
   },
   "HSM-0082": {
     "title": "PET-GF accessory plate · Mark2 print plan",
@@ -1974,12 +1976,12 @@
     "title": "Enclosure identification set · Mark1 print plan",
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/identification_mark1.rs",
     "recipe_target": "--mark1-identification",
-    "project_sha256": "3b571b71dc75045b6b6893555767b93274d6dd43e99dda07f467528179fd9a86",
-    "archive_sha256": "cc11e1c264c42cfab8060610f0d92991617bdaba74b7be148ab2a21fb4f55063",
-    "gcode_sha256": "17bb82d0c8ff5a92e76c9be5d16620029b375b86dcf484f6ef039c52130696d3",
+    "project_sha256": "197f856f4db29d9e10d9956b3e1ed6f97eb5847d15d04a97c795b3d5d56668a8",
+    "archive_sha256": "ad1fea4c43c82742c2c1ad8a2cad4e2e28927c6ce44fae8d331bc0deb5438455",
+    "gcode_sha256": "fe11fdf8240966e5d9df612a04e2920be226045f50bf06e61e4b3b79d55bec10",
     "kind": "plan",
-    "sha256": "f8346b322b109706cc7f380ab1a3993fddc86409c2817ceed0f0cb54778108bb",
-    "slice": "2026-11-10-identification-mark1-70ce10d1.gcode.3mf",
+    "sha256": "306b59e695606b204cff2263596d2495499f3bf86c38c2d04cec07dbd63d8f1f",
+    "slice": "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-27-chamfered-stop-mark1/2026-11-27-identification-mark1-65be4615/2026-11-27-identification-mark1-65be4615.gcode.3mf",
     "plate": 1,
     "layers": 32,
     "process": {
@@ -1998,7 +2000,7 @@
       "Filament bridge speed": "25 mm/s"
     },
     "model_sha256": "25a3d016205296d4384aee21d2ca13e3f7123a10227772b3587905def9f9ac16",
-    "recipe_commit": "9d43fa0b76d64ed2378d87590c4c23e2017c59e3",
-    "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
+    "recipe_commit": "ca73ecb6eae7e173b03d63677cce88384c139c9d",
+    "recipe_sha256": "e517413e6837c775cd8354f43f78db6ba722819dc183d1850b24efbeb58078e2"
   }
 }

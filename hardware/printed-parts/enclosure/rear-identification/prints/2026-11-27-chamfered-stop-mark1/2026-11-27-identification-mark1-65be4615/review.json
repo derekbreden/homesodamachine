@@ -1,0 +1,68 @@
+{
+  "archive": "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-27-chamfered-stop-mark1/2026-11-27-identification-mark1-65be4615/2026-11-27-identification-mark1-65be4615.gcode.3mf",
+  "archive_sha256": "ad1fea4c43c82742c2c1ad8a2cad4e2e28927c6ce44fae8d331bc0deb5438455",
+  "bead_envelope_plate_mm": [
+    [
+      69.200004,
+      60.500004
+    ],
+    [
+      259.999996,
+      280.586
+    ]
+  ],
+  "bed_margins_mm": {
+    "back": 39.41399999999999,
+    "front": 60.500004,
+    "left": 44.20000400000001,
+    "right": 65.00000399999999
+  },
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "every_part_printed": true,
+    "face_up_tops_closed": true,
+    "no_support": true,
+    "z_trim": true
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.0,
+    0.05,
+    0.0,
+    0.05,
+    0.0,
+    0.0,
+    0.0,
+    0.05,
+    0.0,
+    0.05
+  ],
+  "estimated_seconds": 61538.80859375,
+  "face_up_tops_closed": {
+    "1.8": true,
+    "2.28": true,
+    "3": true,
+    "3.36": true,
+    "3.48": true,
+    "3.84": true
+  },
+  "gcode_md5_matches": true,
+  "gcode_sha256": "fe11fdf8240966e5d9df612a04e2920be226045f50bf06e61e4b3b79d55bec10",
+  "layers": 32,
+  "minimum_bed_margin_mm": 39.41399999999999,
+  "objects_printed": [
+    8100,
+    8101,
+    8102,
+    8103,
+    8104,
+    8105,
+    8106,
+    8107
+  ],
+  "passed": true,
+  "scope": "Commanded paths and bead envelopes from this archive. Colour registration, lettering legibility, fit and finish are physical observations.",
+  "slicer_warnings": [],
+  "support_roads": 0
+}

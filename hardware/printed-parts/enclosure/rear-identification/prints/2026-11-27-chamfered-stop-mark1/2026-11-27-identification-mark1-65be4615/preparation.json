@@ -1,0 +1,435 @@
+{
+  "archive": "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-27-chamfered-stop-mark1/2026-11-27-identification-mark1-65be4615/2026-11-27-identification-mark1-65be4615.gcode.3mf",
+  "archive_sha256": "ad1fea4c43c82742c2c1ad8a2cad4e2e28927c6ce44fae8d331bc0deb5438455",
+  "estimated_seconds": 61538.80859375,
+  "face_up_tops_mm": [
+    1.8,
+    2.28,
+    3.0,
+    3.36,
+    3.48,
+    3.84
+  ],
+  "filament_colours": [
+    "#000000",
+    "#FFFFFF",
+    "#0086D6",
+    "#D6001C",
+    "#00000000"
+  ],
+  "gcode_sha256": "fe11fdf8240966e5d9df612a04e2920be226045f50bf06e61e4b3b79d55bec10",
+  "lower_chip_elephant_foot_compensation_mm": 0.02,
+  "material": "Bambu PETG Basic and clear Bambu PETG Translucent",
+  "nozzle": {
+    "left": "0.2 mm, black PETG Basic",
+    "right": "0.2 mm, white, blue, red and clear PETG"
+  },
+  "parts": [
+    {
+      "identify_id": 8100,
+      "meshes": {
+        "nameplate-001": {
+          "bounds_mm": [
+            [
+              180.0,
+              159.54545454587787,
+              0.0
+            ],
+            [
+              260.0,
+              250.45454545412213,
+              3.360000000335276
+            ]
+          ],
+          "facets": 35274,
+          "filament": 1
+        },
+        "nameplate-001-ink": {
+          "bounds_mm": [
+            [
+              184.35454545457932,
+              163.90000000003386,
+              2.639999999664724
+            ],
+            [
+              255.64545454542068,
+              246.09999999996614,
+              3.8399999998509884
+            ]
+          ],
+          "facets": 30236,
+          "filament": 2
+        }
+      },
+      "model": "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.npz",
+      "model_sha256": "d8bdfe0e3e7b5e32e3d16769c679a99f703863cff64bbe3cfbddfa523c5d3398",
+      "part": "Nameplate unit 0001",
+      "plate_center_xy_mm": [
+        220.0,
+        205.0
+      ],
+      "step": "hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
+      "step_sha256": "71483ed7b5cdce12ef4834fb98ab541df4ca7c09568a862e282966da992a76bf"
+    },
+    {
+      "identify_id": 8101,
+      "meshes": {
+        "status-plate": {
+          "bounds_mm": [
+            [
+              195.25,
+              60.5,
+              0.0
+            ],
+            [
+              244.75,
+              143.5,
+              3.0
+            ]
+          ],
+          "facets": 9940,
+          "filament": 1
+        },
+        "status-plate-diffuser": {
+          "bounds_mm": [
+            [
+              216.79999999981374,
+              91.40000000037253,
+              0.0
+            ],
+            [
+              223.20000000018626,
+              97.79999999981374,
+              3.0
+            ]
+          ],
+          "facets": 508,
+          "filament": 5
+        },
+        "status-plate-ink": {
+          "bounds_mm": [
+            [
+              204.75,
+              70.0,
+              2.2800000002607703
+            ],
+            [
+              235.25,
+              134.0,
+              3.480000000447035
+            ]
+          ],
+          "facets": 4760,
+          "filament": 2
+        }
+      },
+      "model": "hardware/printed-parts/enclosure/display-cover/status-plate.step.npz",
+      "model_sha256": "25a3d016205296d4384aee21d2ca13e3f7123a10227772b3587905def9f9ac16",
+      "part": "Status plate",
+      "plate_center_xy_mm": [
+        220.0,
+        102.0
+      ],
+      "step": "hardware/printed-parts/enclosure/display-cover/status-plate.step",
+      "step_sha256": "23b4d22595ca873c895dd45590bd3edb6901c9914a52e889cfe4de1a7e3fc394"
+    },
+    {
+      "identify_id": 8102,
+      "meshes": {
+        "bulkhead-ring-water": {
+          "bounds_mm": [
+            [
+              69.20000000018626,
+              157.0,
+              0.0
+            ],
+            [
+              110.79999999981374,
+              195.0,
+              1.7999999998137355
+            ]
+          ],
+          "facets": 1152,
+          "filament": 2
+        },
+        "bulkhead-ring-water-word": {
+          "bounds_mm": [
+            [
+              85.1318359375,
+              185.8161471885066,
+              0.8
+            ],
+            [
+              94.8681640625,
+              189.4147800010066,
+              2.2800000004470364
+            ]
+          ],
+          "facets": 620,
+          "filament": 1
+        }
+      },
+      "model": "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.npz",
+      "model_sha256": "4743851e64ee36d61b75a055efa71447f95c93ed06fefeeba0342ceee9a5039b",
+      "part": "TAP chip",
+      "plate_center_xy_mm": [
+        90.0,
+        176.0
+      ],
+      "step": "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step",
+      "step_sha256": "91c7308684cda4cc523dbcaae415f60b5b0d58438bdbd9b4074752d329805426"
+    },
+    {
+      "identify_id": 8103,
+      "meshes": {
+        "bulkhead-ring-co2": {
+          "bounds_mm": [
+            [
+              119.20000000018626,
+              157.0,
+              0.0
+            ],
+            [
+              160.79999999981374,
+              195.0,
+              1.7999999998137355
+            ]
+          ],
+          "facets": 3396,
+          "filament": 4
+        },
+        "bulkhead-ring-co2-word": {
+          "bounds_mm": [
+            [
+              135.072021484375,
+              185.7111667197566,
+              0.8
+            ],
+            [
+              144.927978515625,
+              189.5197604697566,
+              2.2800000004470364
+            ]
+          ],
+          "facets": 2860,
+          "filament": 2
+        }
+      },
+      "model": "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.npz",
+      "model_sha256": "2d58c02d71a0fd812321c02e33d515ab65108ff783a52b247721e40260e87c51",
+      "part": "CO2 chip",
+      "plate_center_xy_mm": [
+        140.0,
+        176.0
+      ],
+      "step": "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step",
+      "step_sha256": "12609780a94a4cd384b3f45f54cb887b5c694eb760874ffc79b7be25de1abbef"
+    },
+    {
+      "identify_id": 8104,
+      "meshes": {
+        "bulkhead-ring-carb": {
+          "bounds_mm": [
+            [
+              69.20000000018626,
+              114.0,
+              0.0
+            ],
+            [
+              110.79999999981374,
+              152.0,
+              1.7999999998137355
+            ]
+          ],
+          "facets": 3644,
+          "filament": 3
+        },
+        "bulkhead-ring-carb-word": {
+          "bounds_mm": [
+            [
+              82.918701171875,
+              144.6315795902163,
+              0.8
+            ],
+            [
+              97.081298828125,
+              148.4401733402163,
+              2.280000000447037
+            ]
+          ],
+          "facets": 3112,
+          "filament": 2
+        }
+      },
+      "model": "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.npz",
+      "model_sha256": "f902ad8de5e54c62a43cf39ac28990c02d6daf3b75536c1e126655da883914f2",
+      "part": "SODA chip",
+      "plate_center_xy_mm": [
+        90.0,
+        133.0
+      ],
+      "step": "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step",
+      "step_sha256": "096ad2d847a4b9872bc76f5fc95f1170ebdd0d3ed5aebdab9e2321cb3325850b"
+    },
+    {
+      "identify_id": 8105,
+      "meshes": {
+        "bulkhead-ring-flavor-a": {
+          "bounds_mm": [
+            [
+              119.20000000018626,
+              114.0,
+              0.0
+            ],
+            [
+              160.79999999981374,
+              152.0,
+              1.7999999998137355
+            ]
+          ],
+          "facets": 2604,
+          "filament": 1
+        },
+        "bulkhead-ring-flavor-a-word": {
+          "bounds_mm": [
+            [
+              130.018310546875,
+              144.6315795902163,
+              0.8
+            ],
+            [
+              149.981689453125,
+              148.4401733402163,
+              2.2800000004470373
+            ]
+          ],
+          "facets": 2064,
+          "filament": 2
+        }
+      },
+      "model": "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step.npz",
+      "model_sha256": "f49e202a33c305a7af1dcbe58294c7ac9b9f7eb7669e553bdb575a9e5cd11bde",
+      "part": "FLAVOR A chip",
+      "plate_center_xy_mm": [
+        140.0,
+        133.0
+      ],
+      "step": "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step",
+      "step_sha256": "ca22170f8b7ade9c702a2f343f512cf2e01f0bcb9311467aa4bf3553a8962d60"
+    },
+    {
+      "identify_id": 8106,
+      "meshes": {
+        "bulkhead-ring-drain": {
+          "bounds_mm": [
+            [
+              69.20000000018626,
+              71.0,
+              0.0
+            ],
+            [
+              110.79999999981374,
+              109.0,
+              1.7999999998137355
+            ]
+          ],
+          "facets": 2066,
+          "filament": 2
+        },
+        "bulkhead-ring-drain-word": {
+          "bounds_mm": [
+            [
+              82.43408203125,
+              75.78592224158348,
+              0.8
+            ],
+            [
+              97.56591796875,
+              79.38455505408348,
+              2.2800000004470373
+            ]
+          ],
+          "facets": 1512,
+          "filament": 1
+        }
+      },
+      "model": "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step.npz",
+      "model_sha256": "4460f30c7aaf11b3ce58dab0f55405455fadc0bab77efd617ce631ee13ead484",
+      "part": "DRAIN chip",
+      "plate_center_xy_mm": [
+        90.0,
+        90.0
+      ],
+      "step": "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step",
+      "step_sha256": "6a7cce583546485287da08bfc046d5c5be06de3dbacc5503a275d3fc97a72554"
+    },
+    {
+      "identify_id": 8107,
+      "meshes": {
+        "bulkhead-ring-flavor-b": {
+          "bounds_mm": [
+            [
+              119.20000000018626,
+              71.0,
+              0.0
+            ],
+            [
+              160.79999999981374,
+              109.0,
+              1.7999999998137355
+            ]
+          ],
+          "facets": 2620,
+          "filament": 1
+        },
+        "bulkhead-ring-flavor-b-word": {
+          "bounds_mm": [
+            [
+              130.018310546875,
+              75.68094177283348,
+              0.8
+            ],
+            [
+              149.981689453125,
+              79.48953552283348,
+              2.2800000004470373
+            ]
+          ],
+          "facets": 2064,
+          "filament": 2
+        }
+      },
+      "model": "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step.npz",
+      "model_sha256": "93b5c8916ad5932402538adc7b8554fb790b0c1cadc1cf860c81917da1421be8",
+      "part": "FLAVOR B chip",
+      "plate_center_xy_mm": [
+        140.0,
+        90.0
+      ],
+      "step": "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step",
+      "step_sha256": "79074ae8e5258def862988ec6e15fd9cb9904dfc409c4e2c1e8d19bb6b5a623c"
+    }
+  ],
+  "piece": "identification",
+  "plate_border_mm": 20.0,
+  "prepared_utc": "2026-11-27T08:19:50+00:00",
+  "printer": "Mark1",
+  "profile": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/HSM-identification-set-Mark1-right-z005.3mf",
+  "profile_sha256": "822fecf8bea54e54dfffdc020919236d9de85a4283348430fbf5df52d7780193",
+  "project": "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-27-chamfered-stop-mark1/2026-11-27-identification-mark1-65be4615/2026-11-27-identification-mark1-65be4615.3mf",
+  "project_sha256": "197f856f4db29d9e10d9956b3e1ed6f97eb5847d15d04a97c795b3d5d56668a8",
+  "recipe": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/review.json",
+  "right_nozzle_trim_mm": 0.05,
+  "sliced": true,
+  "submitted": false,
+  "usable_plate_mm": [
+    [
+      25.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ]
+}

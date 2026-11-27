@@ -53,7 +53,9 @@ The `enclosure-labels` program ([`labels.rs`](labels.rs)) prepares the identific
 [accepted Mark1 project](../display-cover/prints/2026-11-08-identification-set-mark1-right-z005/README.md).
 It reads the solids from their current STEP payloads and retains the fine-nozzle PETG recipe,
 side-specific trim, bed positions and material assignments, including the clear status window.
-The flat backs sit on the glued Engineering Plate.
+The flat backs sit on the glued Engineering Plate. FLAVOR B and DRAIN use 0.02 mm
+of elephant-foot compensation across their chamfered bases. The other six parts
+use the plate’s 0.15 mm setting. [Current eight-piece slice and layer contact measurements](../rear-identification/prints/2026-11-27-chamfered-stop-mark1/identification-project-and-roads.json)
 
 `--collars-only` makes a Mark2 PET-GF plate for each collar colour. The right nozzle takes its
 measured registration offset. The collars lie with the lettered faces on the bed and their bore

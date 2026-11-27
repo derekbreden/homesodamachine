@@ -1,0 +1,101 @@
+{
+  "purpose": "Bind the complete eight-object Mark1 identification plate, its editable colour-separated project, native toolpaths and published replay to the installed design.",
+  "piece": "identification",
+  "material_id": "HSM-0062",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "status": "prepared",
+  "submitted": false,
+  "prepared_utc": "2026-11-27T08:19:50+00:00",
+  "source_revision": "ca73ecb6eae7e173b03d63677cce88384c139c9d",
+  "material": "Bambu PETG Basic and clear Bambu PETG Translucent",
+  "nozzle": {
+    "left": "0.2 mm, black PETG Basic",
+    "right": "0.2 mm, white, blue, red and clear PETG"
+  },
+  "bed_type": "Engineering Plate, glued",
+  "bed_temperature_c": 70,
+  "z_trim_mm": {
+    "left_black": 0,
+    "right_white_blue_red_clear": 0.05
+  },
+  "recipe": "hardware/printed-parts/enclosure/trial-preparation/identification_mark1.rs",
+  "recipe_sha256": "e517413e6837c775cd8354f43f78db6ba722819dc183d1850b24efbeb58078e2",
+  "settings_source_project": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/HSM-identification-set-Mark1-right-z005.3mf",
+  "settings_source_project_sha256": "822fecf8bea54e54dfffdc020919236d9de85a4283348430fbf5df52d7780193",
+  "project": "2026-11-27-identification-mark1-65be4615/2026-11-27-identification-mark1-65be4615.3mf",
+  "project_sha256": "197f856f4db29d9e10d9956b3e1ed6f97eb5847d15d04a97c795b3d5d56668a8",
+  "archive": "2026-11-27-identification-mark1-65be4615/2026-11-27-identification-mark1-65be4615.gcode.3mf",
+  "archive_sha256": "ad1fea4c43c82742c2c1ad8a2cad4e2e28927c6ce44fae8d331bc0deb5438455",
+  "gcode_sha256": "fe11fdf8240966e5d9df612a04e2920be226045f50bf06e61e4b3b79d55bec10",
+  "plate_parts": [
+    {
+      "material_id": "HSM-0069",
+      "part": "Nameplate unit 0001",
+      "identify_id": 8100,
+      "source_fine_archive": "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.npz",
+      "model_sha256": "d8bdfe0e3e7b5e32e3d16769c679a99f703863cff64bbe3cfbddfa523c5d3398"
+    },
+    {
+      "material_id": "HSM-0579",
+      "part": "Status plate",
+      "identify_id": 8101,
+      "source_fine_archive": "hardware/printed-parts/enclosure/display-cover/status-plate.step.npz",
+      "model_sha256": "25a3d016205296d4384aee21d2ca13e3f7123a10227772b3587905def9f9ac16"
+    },
+    {
+      "material_id": "HSM-0062",
+      "part": "TAP chip",
+      "identify_id": 8102,
+      "source_fine_archive": "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.npz",
+      "model_sha256": "4743851e64ee36d61b75a055efa71447f95c93ed06fefeeba0342ceee9a5039b"
+    },
+    {
+      "material_id": "HSM-0066",
+      "part": "CO2 chip",
+      "identify_id": 8103,
+      "source_fine_archive": "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.npz",
+      "model_sha256": "2d58c02d71a0fd812321c02e33d515ab65108ff783a52b247721e40260e87c51"
+    },
+    {
+      "material_id": "HSM-0063",
+      "part": "SODA chip",
+      "identify_id": 8104,
+      "source_fine_archive": "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.npz",
+      "model_sha256": "f902ad8de5e54c62a43cf39ac28990c02d6daf3b75536c1e126655da883914f2"
+    },
+    {
+      "material_id": "HSM-0064",
+      "part": "FLAVOR A chip",
+      "identify_id": 8105,
+      "source_fine_archive": "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step.npz",
+      "model_sha256": "f49e202a33c305a7af1dcbe58294c7ac9b9f7eb7669e553bdb575a9e5cd11bde"
+    },
+    {
+      "material_id": "HSM-0067",
+      "part": "DRAIN chip",
+      "identify_id": 8106,
+      "source_fine_archive": "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step.npz",
+      "model_sha256": "4460f30c7aaf11b3ce58dab0f55405455fadc0bab77efd617ce631ee13ead484"
+    },
+    {
+      "material_id": "HSM-0065",
+      "part": "FLAVOR B chip",
+      "identify_id": 8107,
+      "source_fine_archive": "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step.npz",
+      "model_sha256": "93b5c8916ad5932402538adc7b8554fb790b0c1cadc1cf860c81917da1421be8"
+    }
+  ],
+  "preparation": "2026-11-27-identification-mark1-65be4615/preparation.json",
+  "native_review": "2026-11-27-identification-mark1-65be4615/review.json",
+  "native_slicer_result": "2026-11-27-identification-mark1-65be4615/slice-result.json",
+  "project_and_roads_review": "identification-project-and-roads.json",
+  "installed_fit_review": "identification-fit.json",
+  "layers": 32,
+  "estimated_seconds": 61538.80859375,
+  "minimum_bead_bed_margin_mm": 39.414,
+  "native_slicer_warnings": [],
+  "replay_sha256": "306b59e695606b204cff2263596d2495499f3bf86c38c2d04cec07dbd63d8f1f",
+  "replay": "print-playbacks/306b59e695606b204cff2263596d2495499f3bf86c38c2d04cec07dbd63d8f1f.json.gz",
+  "replaced_replay_sha256": "f8346b322b109706cc7f380ab1a3993fddc86409c2817ceed0f0cb54778108bb"
+}

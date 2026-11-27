@@ -14,9 +14,10 @@ bore as the fitting is installed. The upper tiles finish at Z355. Each lower til
 ends 0.2 mm below the next tile, with the words above the upper two fitting rows and below the bottom row. The rails retain 3 mm of fore–aft stock at
 Y471.3–474.3, with 3 mm outer roots beside the tile channels. Their complete
 sections remain plain through exterior fluting. Print with the flat back on the
-bed and the raised words up. The [Mark1 identification plate](../trial-preparation/README.md)
+bed and the raised words up. The [Mark1 identification plate](prints/2026-11-27-chamfered-stop-mark1/print-plan.json)
 uses PETG Basic for the opaque colours and carries the accepted filament assignments,
-layer heights and side-specific trim.
+layer heights and side-specific trim. The two bottom cards use 0.02 mm of first-layer
+compensation so their first rising bevel perimeters overlap the bed-layer perimeters.
 
 The [First Edition nameplate](../nameplate/README.md) sits between the rear corner
 and the port-label rail. Screws fasten its flat back to the receiver. The

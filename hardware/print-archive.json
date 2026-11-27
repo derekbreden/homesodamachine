@@ -1728,6 +1728,12 @@
       "bytes": 4474404,
       "sha256": "c88e1021280f9cdec9ff4d73ad9ce47db72ba3c7c5586008813bccc42a3fabf4"
     },
+    "31b9195d2fdf5a7cc4c85ac64e47b999e20c2553": {
+      "archive": "identification-mark1-6d1796342c034e43.zip",
+      "bytes": 4942549,
+      "offset": 1213927,
+      "sha256": "ad1fea4c43c82742c2c1ad8a2cad4e2e28927c6ce44fae8d331bc0deb5438455"
+    },
     "31d068247f2a804663e20ec4d1b7bb9404e83ce5": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
       "offset": 1000203440,
@@ -2825,6 +2831,12 @@
       "offset": 354663633,
       "bytes": 588147,
       "sha256": "77333f6d26b981ce5e9b504b33e6f6a4f5965db3fa8cfbfa46d62756ba341c3a"
+    },
+    "559432e6990f424816d5cf5741fce154e138d847": {
+      "archive": "back-top-mark1-52c57ae3940c5454.zip",
+      "bytes": 45145537,
+      "offset": 5855265,
+      "sha256": "26db6538e5db7bdef9e1cb5ae56ccfdc005d7899dba7de74a882cc0242e5e09d"
     },
     "55d9ec999a332a112562fdd07060128ab033027f": {
       "archive": "legacy-print-2-85eb212155f93ace.zip",
@@ -7074,6 +7086,12 @@
       "bytes": 6566870,
       "sha256": "91e19c96317a697128b33cbf58eef269bf632eb1b785a3058b1298fee894315e"
     },
+    "d7f614c6b682ce10a67454e1c8361d0885d1a997": {
+      "archive": "identification-mark1-6d1796342c034e43.zip",
+      "bytes": 1213779,
+      "offset": 74,
+      "sha256": "197f856f4db29d9e10d9956b3e1ed6f97eb5847d15d04a97c795b3d5d56668a8"
+    },
     "d8968f2e94e2b62bd46e2b8b8bbd65ccb1acf448": {
       "archive": "2026-11-25-keyed-snap-trios-mark1-c1d5bf4324e3e3fa.zip",
       "bytes": 1099085,
@@ -8154,6 +8172,12 @@
       "bytes": 29873890,
       "sha256": "f251a98fdbc122e0945d689a569a0db7459d2e80b04303abe74c3a53cbd90a7d"
     },
+    "f8025138583006daf9b58e238d7181b6d10ec457": {
+      "archive": "back-top-mark1-52c57ae3940c5454.zip",
+      "bytes": 5855117,
+      "offset": 74,
+      "sha256": "324e17da8cc6e06388eaac735961675ec42318f900dcb9f6fe2bd4dc19e49690"
+    },
     "f849d9963a8bc919732fbd0a72a3c1444cb7f0f0": {
       "archive": "legacy-print-5-2deadf4a08b4b3fc.zip",
       "offset": 1030747121,
@@ -8745,6 +8769,8 @@
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-pisco-clearance-production-mark1/2026-11-21-back-top-mark1-2fb17c18-textured-pei/2026-11-21-back-top-mark1-2fb17c18-textured-pei.gcode.3mf": "2dde4881fe7411cff92a1accf831dca2d76142d6",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-relay-m2-production-mark1/2026-11-21-back-top-mark1-c8a8a278-textured-pei/2026-11-21-back-top-mark1-c8a8a278-textured-pei.3mf": "6983b8f6829b77712dbf1ea85f838eab5f00b271",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-relay-m2-production-mark1/2026-11-21-back-top-mark1-c8a8a278-textured-pei/2026-11-21-back-top-mark1-c8a8a278-textured-pei.gcode.3mf": "73ae6079c1e2260ed2b63b10069a3b8b53c43948",
+    "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-chamfered-label-stops-mark1/2026-11-27-back-top-mark1-bc01ba73-textured-pei/2026-11-27-back-top-mark1-bc01ba73-textured-pei.3mf": "f8025138583006daf9b58e238d7181b6d10ec457",
+    "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-chamfered-label-stops-mark1/2026-11-27-back-top-mark1-bc01ba73-textured-pei/2026-11-27-back-top-mark1-bc01ba73-textured-pei.gcode.3mf": "559432e6990f424816d5cf5741fce154e138d847",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-fitted-back-top-mark1/2026-11-27-back-top-mark1-bb4e3273-textured-pei/2026-11-27-back-top-mark1-bb4e3273-textured-pei.3mf": "5304b1e3ede67b0081f4d1a1e10dd4ba5f0e150b",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-fitted-back-top-mark1/2026-11-27-back-top-mark1-bb4e3273-textured-pei/2026-11-27-back-top-mark1-bb4e3273-textured-pei.gcode.3mf": "2d93e1916e37dfacafad45bd0ff9ac8893631df7",
     "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v18/2026-10-04-enclosure-front-top-flush-frame-h2c-v18-input.3mf": "7fdee04e0a1bcf37186cb0e630e3486c79d9707b",
@@ -8775,6 +8801,8 @@
     "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-26-production-snaps-mark2/2026-11-26-small-petgf-mark2-6c829073-textured-pei/2026-11-26-small-petgf-mark2-6c829073-textured-pei.gcode.3mf": "90eef5836c15b2abd468f8e35f6ad2135a847892",
     "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/HSM-CO2-width-Mark1-right-z005.3mf": "2c1c25d31f2c5a59865831172306b29751a141d5",
     "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/HSM-CO2-width-Mark1-right-z005.gcode.3mf": "6fc082ead3c8a985c83e2f23a20e7873b2c6cf59",
+    "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-27-chamfered-stop-mark1/2026-11-27-identification-mark1-65be4615/2026-11-27-identification-mark1-65be4615.3mf": "d7f614c6b682ce10a67454e1c8361d0885d1a997",
+    "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-27-chamfered-stop-mark1/2026-11-27-identification-mark1-65be4615/2026-11-27-identification-mark1-65be4615.gcode.3mf": "31b9195d2fdf5a7cc4c85ac64e47b999e20c2553",
     "hardware/printed-parts/faucet/above-counter-gasket/prints/2026-10-16-white-tpu90a-right-mark1/2026-10-16-sculpted-faucet-mounting-gasket-white-tpu90a-right06-z018-mark1.3mf": "e3f4cf81db5530c6231138009d6f1ea9f30cde0e",
     "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-industrial-tpu85a.3mf": "7652f8a15aacd93ec50219db1196467d84fc729d",
     "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-tpu85a.3mf": "6fbc2578f854d4cbdeb6c95328f06ac50b081be8",

@@ -1,0 +1,185 @@
+{
+  "error_string": "Success.",
+  "export_time": 2564,
+  "layer_height": 0.11999999731779099,
+  "plate_index": 0,
+  "prepare_time": 393,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 2268.769775390625,
+        "Custom": 510.120361328125,
+        "Flush": 1890.0,
+        "Gap infill": 19.593830108642578,
+        "Inner wall": 3069.145751953125,
+        "Internal solid infill": 22910.732421875,
+        "Outer wall": 2325.508544921875,
+        "Prime tower": 4945.38916015625,
+        "Sparse infill": 19604.89453125,
+        "Top surface": 2198.688720703125,
+        "Travel": 1851.5955810546875,
+        "Undefined": 1841.8216552734375
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFG00",
+          "id": 1,
+          "main_used_g": 47.545982360839844,
+          "total_used_g": 49.015769958496094
+        },
+        {
+          "filament_id": "GFG00",
+          "id": 2,
+          "main_used_g": 6.991245746612549,
+          "total_used_g": 8.71835708618164
+        },
+        {
+          "filament_id": "GFG00",
+          "id": 3,
+          "main_used_g": 2.8716418743133545,
+          "total_used_g": 3.4809486865997314
+        },
+        {
+          "filament_id": "GFG00",
+          "id": 4,
+          "main_used_g": 3.038583278656006,
+          "total_used_g": 3.942889928817749
+        },
+        {
+          "filament_id": "GFG01",
+          "id": 5,
+          "main_used_g": 0.11260411888360977,
+          "total_used_g": 1.039168357849121
+        }
+      ],
+      "generate_support_material_time": 198,
+      "id": 1,
+      "infill_time": 2676,
+      "layer_filament_change": 0,
+      "main_predication": 54188.0703125,
+      "make_perimeters_time": 2584,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 90.90908813476562,
+            "height": 3.8399999141693115,
+            "width": 80.0,
+            "x": 180.0,
+            "y": 159.5454559326172,
+            "z": 0.0
+          },
+          "id": 5,
+          "name": "Nameplate unit 0001",
+          "triangle_count": 65510
+        },
+        {
+          "bbox": {
+            "depth": 83.0,
+            "height": 3.4800000190734863,
+            "width": 49.5,
+            "x": 195.25,
+            "y": 60.5,
+            "z": 0.0
+          },
+          "id": 9,
+          "name": "Status plate",
+          "triangle_count": 15208
+        },
+        {
+          "bbox": {
+            "depth": 38.0,
+            "height": 2.2799999713897705,
+            "width": 41.600006103515625,
+            "x": 69.19999694824219,
+            "y": 157.0,
+            "z": 0.0
+          },
+          "id": 13,
+          "name": "TAP chip",
+          "triangle_count": 1772
+        },
+        {
+          "bbox": {
+            "depth": 38.0,
+            "height": 2.2799999713897705,
+            "width": 41.600006103515625,
+            "x": 119.19999694824219,
+            "y": 157.0,
+            "z": 0.0
+          },
+          "id": 17,
+          "name": "CO2 chip",
+          "triangle_count": 6256
+        },
+        {
+          "bbox": {
+            "depth": 38.0,
+            "height": 2.2799999713897705,
+            "width": 41.600006103515625,
+            "x": 69.19999694824219,
+            "y": 114.0,
+            "z": 0.0
+          },
+          "id": 21,
+          "name": "SODA chip",
+          "triangle_count": 6756
+        },
+        {
+          "bbox": {
+            "depth": 38.0,
+            "height": 2.2799999713897705,
+            "width": 41.600006103515625,
+            "x": 119.19999694824219,
+            "y": 114.0,
+            "z": 0.0
+          },
+          "id": 25,
+          "name": "FLAVOR A chip",
+          "triangle_count": 4668
+        },
+        {
+          "bbox": {
+            "depth": 38.0,
+            "height": 2.2799999713897705,
+            "width": 41.600006103515625,
+            "x": 69.19999694824219,
+            "y": 71.0,
+            "z": 0.0
+          },
+          "id": 29,
+          "name": "DRAIN chip",
+          "triangle_count": 3578
+        },
+        {
+          "bbox": {
+            "depth": 38.0,
+            "height": 2.2799999713897705,
+            "width": 41.600006103515625,
+            "x": 119.19999694824219,
+            "y": 71.0,
+            "z": 0.0
+          },
+          "id": 33,
+          "name": "FLAVOR B chip",
+          "triangle_count": 4684
+        }
+      ],
+      "sliced_time": 9582,
+      "sliced_time_with_cache": 3775,
+      "total_predication": 61538.80859375,
+      "triangle_count": 108432,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 100.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.2 nozzle",
+    "Bambu Lab H2D 0.2 nozzle",
+    "Bambu Lab H2D Pro 0.2 nozzle",
+    "Bambu Lab A2L 0.2 nozzle"
+  ],
+  "wall_loops": 3
+}

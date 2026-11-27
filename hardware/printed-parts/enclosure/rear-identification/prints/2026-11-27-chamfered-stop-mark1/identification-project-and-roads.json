@@ -1,0 +1,1308 @@
+{
+  "scope": "Editable eight-object production project, original machine recipe, source fine-mesh arrays and deposited roads from the finished Mark1 toolpaths. Road overlap uses the commanded horizontal bead footprint of consecutive courses.",
+  "project": "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-27-chamfered-stop-mark1/2026-11-27-identification-mark1-65be4615/2026-11-27-identification-mark1-65be4615.3mf",
+  "project_sha256": "197f856f4db29d9e10d9956b3e1ed6f97eb5847d15d04a97c795b3d5d56668a8",
+  "archive": "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-27-chamfered-stop-mark1/2026-11-27-identification-mark1-65be4615/2026-11-27-identification-mark1-65be4615.gcode.3mf",
+  "archive_sha256": "ad1fea4c43c82742c2c1ad8a2cad4e2e28927c6ce44fae8d331bc0deb5438455",
+  "gcode_sha256": "fe11fdf8240966e5d9df612a04e2920be226045f50bf06e61e4b3b79d55bec10",
+  "slicer": "BambuStudio 02.08.02.61",
+  "native_return_code": 0,
+  "native_plate_warnings": [],
+  "native_slice_review": "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-27-chamfered-stop-mark1/2026-11-27-identification-mark1-65be4615/review.json",
+  "layers": 32,
+  "estimated_seconds": 61538.80859375,
+  "minimum_bed_margin_mm": 39.414,
+  "support_roads": 0,
+  "profile_project": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/HSM-identification-set-Mark1-right-z005.3mf",
+  "profile_project_sha256": "822fecf8bea54e54dfffdc020919236d9de85a4283348430fbf5df52d7780193",
+  "process": {
+    "bed_type": "Engineering Plate",
+    "bed_temperature_c": [
+      70.0,
+      70.0,
+      70.0,
+      70.0,
+      70.0
+    ],
+    "nozzle_diameters_mm": [
+      0.2,
+      0.2
+    ],
+    "filament_to_nozzle": [
+      1,
+      2,
+      2,
+      2,
+      2
+    ],
+    "filament_colours": [
+      "#000000",
+      "#FFFFFF",
+      "#0086D6",
+      "#D6001C",
+      "#00000000"
+    ],
+    "layer_height_mm": 0.12,
+    "first_layer_height_mm": 0.12,
+    "first_layer_line_width_mm": 0.25,
+    "outer_wall_width_mm": 0.22,
+    "wall_loops": 3,
+    "infill": "100% zig-zag",
+    "brim": "no_brim",
+    "support_enabled": false,
+    "default_elephant_foot_compensation_mm": 0.15,
+    "right_nozzle_z_trim_mm": 0.05,
+    "left_nozzle_z_trim_mm": 0.0,
+    "all_five_filaments_start_and_reset_their_accepted_trim": true
+  },
+  "unchanged_donor_project_members_except": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "model_settings_match_donor_after_removing_two_local_offsets": true,
+  "parts": [
+    {
+      "part": "Nameplate unit 0001",
+      "material_id": "HSM-0069",
+      "identify_id": 8100,
+      "model": "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.npz",
+      "model_sha256": "d8bdfe0e3e7b5e32e3d16769c679a99f703863cff64bbe3cfbddfa523c5d3398",
+      "before_model_sha256": "d8bdfe0e3e7b5e32e3d16769c679a99f703863cff64bbe3cfbddfa523c5d3398",
+      "plate_center_xy_mm": [
+        220.0,
+        205.0
+      ],
+      "solids": [
+        {
+          "solid": "nameplate-001",
+          "filament_slot": 1,
+          "facets": 35274,
+          "source_vertices_and_triangles_equal_to_before": true,
+          "maximum_project_vertex_error_mm": 5e-10,
+          "top_z_mm": 3.36,
+          "emitted_roads_of_this_colour_on_top_course": 6540
+        },
+        {
+          "solid": "nameplate-001-ink",
+          "filament_slot": 2,
+          "facets": 30236,
+          "source_vertices_and_triangles_equal_to_before": true,
+          "maximum_project_vertex_error_mm": 5e-10,
+          "top_z_mm": 3.84,
+          "emitted_roads_of_this_colour_on_top_course": 3463
+        }
+      ],
+      "effective_elephant_foot_compensation_mm": 0.15,
+      "emitted_road_counts_by_slot": {
+        "1": 121115,
+        "2": 44368
+      },
+      "emitted_changes_from_control_by_slot": {
+        "1": {
+          "road_segment_count": -9,
+          "deposited_path_mm": 0.0168,
+          "commanded_filament_mm": -0.00071
+        },
+        "2": {
+          "road_segment_count": -3,
+          "deposited_path_mm": -0.00079,
+          "commanded_filament_mm": 0.00049
+        }
+      }
+    },
+    {
+      "part": "Status plate",
+      "material_id": "HSM-0579",
+      "identify_id": 8101,
+      "model": "hardware/printed-parts/enclosure/display-cover/status-plate.step.npz",
+      "model_sha256": "25a3d016205296d4384aee21d2ca13e3f7123a10227772b3587905def9f9ac16",
+      "before_model_sha256": "25a3d016205296d4384aee21d2ca13e3f7123a10227772b3587905def9f9ac16",
+      "plate_center_xy_mm": [
+        220.0,
+        102.0
+      ],
+      "solids": [
+        {
+          "solid": "status-plate",
+          "filament_slot": 1,
+          "facets": 9940,
+          "source_vertices_and_triangles_equal_to_before": true,
+          "maximum_project_vertex_error_mm": 4.99e-10,
+          "top_z_mm": 3.0,
+          "emitted_roads_of_this_colour_on_top_course": 2177
+        },
+        {
+          "solid": "status-plate-ink",
+          "filament_slot": 2,
+          "facets": 4760,
+          "source_vertices_and_triangles_equal_to_before": true,
+          "maximum_project_vertex_error_mm": 4.99e-10,
+          "top_z_mm": 3.48,
+          "emitted_roads_of_this_colour_on_top_course": 482
+        },
+        {
+          "solid": "status-plate-diffuser",
+          "filament_slot": 5,
+          "facets": 508,
+          "source_vertices_and_triangles_equal_to_before": true,
+          "maximum_project_vertex_error_mm": 4.86e-10,
+          "top_z_mm": 3.0,
+          "emitted_roads_of_this_colour_on_top_course": 71
+        }
+      ],
+      "effective_elephant_foot_compensation_mm": 0.15,
+      "emitted_road_counts_by_slot": {
+        "1": 68695,
+        "2": 7034,
+        "5": 6083
+      },
+      "emitted_changes_from_control_by_slot": {
+        "1": {
+          "road_segment_count": 0,
+          "deposited_path_mm": 0.0,
+          "commanded_filament_mm": 0.0
+        },
+        "2": {
+          "road_segment_count": 0,
+          "deposited_path_mm": 0.0,
+          "commanded_filament_mm": 0.0
+        },
+        "5": {
+          "road_segment_count": 0,
+          "deposited_path_mm": 0.0,
+          "commanded_filament_mm": 0.0
+        }
+      }
+    },
+    {
+      "part": "TAP chip",
+      "material_id": "HSM-0062",
+      "identify_id": 8102,
+      "model": "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.npz",
+      "model_sha256": "4743851e64ee36d61b75a055efa71447f95c93ed06fefeeba0342ceee9a5039b",
+      "before_model_sha256": "a338d0e6bc7d10e8cee610190c02c5109ae4b7e2856c24d5e1cfc88986ae48fe",
+      "plate_center_xy_mm": [
+        90.0,
+        176.0
+      ],
+      "solids": [
+        {
+          "solid": "bulkhead-ring-water",
+          "filament_slot": 2,
+          "facets": 1152,
+          "source_vertices_and_triangles_equal_to_before": true,
+          "maximum_project_vertex_error_mm": 5e-10,
+          "top_z_mm": 1.8,
+          "emitted_roads_of_this_colour_on_top_course": 634
+        },
+        {
+          "solid": "bulkhead-ring-water-word",
+          "filament_slot": 1,
+          "facets": 620,
+          "source_vertices_and_triangles_equal_to_before": true,
+          "maximum_project_vertex_error_mm": 5e-10,
+          "top_z_mm": 2.28,
+          "emitted_roads_of_this_colour_on_top_course": 134
+        }
+      ],
+      "effective_elephant_foot_compensation_mm": 0.15,
+      "emitted_road_counts_by_slot": {
+        "1": 2198,
+        "2": 16653
+      },
+      "emitted_changes_from_control_by_slot": {
+        "1": {
+          "road_segment_count": 0,
+          "deposited_path_mm": 0.0,
+          "commanded_filament_mm": 0.0
+        },
+        "2": {
+          "road_segment_count": 0,
+          "deposited_path_mm": 0.0,
+          "commanded_filament_mm": 0.0
+        }
+      }
+    },
+    {
+      "part": "CO2 chip",
+      "material_id": "HSM-0066",
+      "identify_id": 8103,
+      "model": "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.npz",
+      "model_sha256": "2d58c02d71a0fd812321c02e33d515ab65108ff783a52b247721e40260e87c51",
+      "before_model_sha256": "3ccc0c7408063c72043f48a53ccfa5832251936740f565779de886dca7b81817",
+      "plate_center_xy_mm": [
+        140.0,
+        176.0
+      ],
+      "solids": [
+        {
+          "solid": "bulkhead-ring-co2",
+          "filament_slot": 4,
+          "facets": 3396,
+          "source_vertices_and_triangles_equal_to_before": true,
+          "maximum_project_vertex_error_mm": 4.99e-10,
+          "top_z_mm": 1.8,
+          "emitted_roads_of_this_colour_on_top_course": 687
+        },
+        {
+          "solid": "bulkhead-ring-co2-word",
+          "filament_slot": 2,
+          "facets": 2860,
+          "source_vertices_and_triangles_equal_to_before": true,
+          "maximum_project_vertex_error_mm": 4.99e-10,
+          "top_z_mm": 2.28,
+          "emitted_roads_of_this_colour_on_top_course": 238
+        }
+      ],
+      "effective_elephant_foot_compensation_mm": 0.15,
+      "emitted_road_counts_by_slot": {
+        "2": 2658,
+        "4": 17131
+      },
+      "emitted_changes_from_control_by_slot": {
+        "2": {
+          "road_segment_count": 0,
+          "deposited_path_mm": 0.0,
+          "commanded_filament_mm": 0.0
+        },
+        "4": {
+          "road_segment_count": 0,
+          "deposited_path_mm": 0.0,
+          "commanded_filament_mm": 0.0
+        }
+      }
+    },
+    {
+      "part": "SODA chip",
+      "material_id": "HSM-0063",
+      "identify_id": 8104,
+      "model": "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.npz",
+      "model_sha256": "f902ad8de5e54c62a43cf39ac28990c02d6daf3b75536c1e126655da883914f2",
+      "before_model_sha256": "166fa15754ce0679587b0c3198c57fe4dc6ab65215c8d1d2cac3e94be887b2b8",
+      "plate_center_xy_mm": [
+        90.0,
+        133.0
+      ],
+      "solids": [
+        {
+          "solid": "bulkhead-ring-carb",
+          "filament_slot": 3,
+          "facets": 3644,
+          "source_vertices_and_triangles_equal_to_before": true,
+          "maximum_project_vertex_error_mm": 5e-10,
+          "top_z_mm": 1.8,
+          "emitted_roads_of_this_colour_on_top_course": 781
+        },
+        {
+          "solid": "bulkhead-ring-carb-word",
+          "filament_slot": 2,
+          "facets": 3112,
+          "source_vertices_and_triangles_equal_to_before": true,
+          "maximum_project_vertex_error_mm": 5e-10,
+          "top_z_mm": 2.28,
+          "emitted_roads_of_this_colour_on_top_course": 273
+        }
+      ],
+      "effective_elephant_foot_compensation_mm": 0.15,
+      "emitted_road_counts_by_slot": {
+        "2": 3933,
+        "3": 18314
+      },
+      "emitted_changes_from_control_by_slot": {
+        "2": {
+          "road_segment_count": 0,
+          "deposited_path_mm": 0.0,
+          "commanded_filament_mm": 0.0
+        },
+        "3": {
+          "road_segment_count": 0,
+          "deposited_path_mm": 0.0,
+          "commanded_filament_mm": 0.0
+        }
+      }
+    },
+    {
+      "part": "FLAVOR A chip",
+      "material_id": "HSM-0064",
+      "identify_id": 8105,
+      "model": "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step.npz",
+      "model_sha256": "f49e202a33c305a7af1dcbe58294c7ac9b9f7eb7669e553bdb575a9e5cd11bde",
+      "before_model_sha256": "5b243d44c1bb9e8e53b279334fc9f350a07c51e1048ac6ebfabaae48466e8906",
+      "plate_center_xy_mm": [
+        140.0,
+        133.0
+      ],
+      "solids": [
+        {
+          "solid": "bulkhead-ring-flavor-a",
+          "filament_slot": 1,
+          "facets": 2604,
+          "source_vertices_and_triangles_equal_to_before": true,
+          "maximum_project_vertex_error_mm": 5e-10,
+          "top_z_mm": 1.8,
+          "emitted_roads_of_this_colour_on_top_course": 805
+        },
+        {
+          "solid": "bulkhead-ring-flavor-a-word",
+          "filament_slot": 2,
+          "facets": 2064,
+          "source_vertices_and_triangles_equal_to_before": true,
+          "maximum_project_vertex_error_mm": 5e-10,
+          "top_z_mm": 2.28,
+          "emitted_roads_of_this_colour_on_top_course": 306
+        }
+      ],
+      "effective_elephant_foot_compensation_mm": 0.15,
+      "emitted_road_counts_by_slot": {
+        "1": 19147,
+        "2": 4356
+      },
+      "emitted_changes_from_control_by_slot": {
+        "1": {
+          "road_segment_count": 0,
+          "deposited_path_mm": 0.0,
+          "commanded_filament_mm": 0.0
+        },
+        "2": {
+          "road_segment_count": 0,
+          "deposited_path_mm": -0.00126,
+          "commanded_filament_mm": -1e-05
+        }
+      }
+    },
+    {
+      "part": "DRAIN chip",
+      "material_id": "HSM-0067",
+      "identify_id": 8106,
+      "model": "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step.npz",
+      "model_sha256": "4460f30c7aaf11b3ce58dab0f55405455fadc0bab77efd617ce631ee13ead484",
+      "before_model_sha256": "2cbb2fa07300e794cae0ffb6cf471609b8b8171c09c948d3d5808dc856a82bf2",
+      "plate_center_xy_mm": [
+        90.0,
+        90.0
+      ],
+      "solids": [
+        {
+          "solid": "bulkhead-ring-drain",
+          "filament_slot": 2,
+          "facets": 2066,
+          "source_vertices_and_triangles_equal_to_before": false,
+          "maximum_project_vertex_error_mm": 5e-10,
+          "top_z_mm": 1.8,
+          "emitted_roads_of_this_colour_on_top_course": 764
+        },
+        {
+          "solid": "bulkhead-ring-drain-word",
+          "filament_slot": 1,
+          "facets": 1512,
+          "source_vertices_and_triangles_equal_to_before": true,
+          "maximum_project_vertex_error_mm": 5e-10,
+          "top_z_mm": 2.28,
+          "emitted_roads_of_this_colour_on_top_course": 252
+        }
+      ],
+      "effective_elephant_foot_compensation_mm": 0.02,
+      "emitted_road_counts_by_slot": {
+        "1": 3682,
+        "2": 18455
+      },
+      "emitted_changes_from_control_by_slot": {
+        "1": {
+          "road_segment_count": 6,
+          "deposited_path_mm": -0.00743,
+          "commanded_filament_mm": -0.00063
+        },
+        "2": {
+          "road_segment_count": 641,
+          "deposited_path_mm": -3785.45056,
+          "commanded_filament_mm": -35.29109
+        }
+      }
+    },
+    {
+      "part": "FLAVOR B chip",
+      "material_id": "HSM-0065",
+      "identify_id": 8107,
+      "model": "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step.npz",
+      "model_sha256": "93b5c8916ad5932402538adc7b8554fb790b0c1cadc1cf860c81917da1421be8",
+      "before_model_sha256": "d5564907639a1cbad1a127e7a104e4edf5cfe47fe78261f218349ce2ebab2f32",
+      "plate_center_xy_mm": [
+        140.0,
+        90.0
+      ],
+      "solids": [
+        {
+          "solid": "bulkhead-ring-flavor-b",
+          "filament_slot": 1,
+          "facets": 2620,
+          "source_vertices_and_triangles_equal_to_before": false,
+          "maximum_project_vertex_error_mm": 5e-10,
+          "top_z_mm": 1.8,
+          "emitted_roads_of_this_colour_on_top_course": 828
+        },
+        {
+          "solid": "bulkhead-ring-flavor-b-word",
+          "filament_slot": 2,
+          "facets": 2064,
+          "source_vertices_and_triangles_equal_to_before": true,
+          "maximum_project_vertex_error_mm": 5e-10,
+          "top_z_mm": 2.28,
+          "emitted_roads_of_this_colour_on_top_course": 306
+        }
+      ],
+      "effective_elephant_foot_compensation_mm": 0.02,
+      "emitted_road_counts_by_slot": {
+        "1": 19867,
+        "2": 4368
+      },
+      "emitted_changes_from_control_by_slot": {
+        "1": {
+          "road_segment_count": 776,
+          "deposited_path_mm": -3777.50662,
+          "commanded_filament_mm": -35.22106
+        },
+        "2": {
+          "road_segment_count": -2,
+          "deposited_path_mm": -0.01856,
+          "commanded_filament_mm": -0.00165
+        }
+      }
+    }
+  ],
+  "lower_edge_toolpaths": {
+    "DRAIN": {
+      "relief_perimeter": {
+        "transverse_stations": 387,
+        "transverse_span_plate_mm": [
+          70.7,
+          109.3
+        ],
+        "station_pitch_mm": 0.1,
+        "previous_course_minimum_outer_road_overlap_mm": 0.0792,
+        "rows": [
+          {
+            "layer_top_mm": 0.12,
+            "outer_road_center_mm": 73.297,
+            "extreme_center_min_max_mm": [
+              73.297,
+              73.297
+            ],
+            "features": [
+              "Outer wall"
+            ]
+          },
+          {
+            "layer_top_mm": 0.24,
+            "outer_road_center_mm": 73.142,
+            "extreme_center_min_max_mm": [
+              73.1412,
+              73.142
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.155,
+            "maximum_advance_mm": 0.1558,
+            "minimum_previous_perimeter_overlap_mm": 0.0792,
+            "minimum_fraction_of_current_perimeter_backed": 0.36
+          },
+          {
+            "layer_top_mm": 0.36,
+            "outer_road_center_mm": 73.022,
+            "extreme_center_min_max_mm": [
+              73.0212,
+              73.022
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4544
+          },
+          {
+            "layer_top_mm": 0.48,
+            "outer_road_center_mm": 72.902,
+            "extreme_center_min_max_mm": [
+              72.9012,
+              72.902
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4545
+          },
+          {
+            "layer_top_mm": 0.6,
+            "outer_road_center_mm": 72.782,
+            "extreme_center_min_max_mm": [
+              72.7812,
+              72.782
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4545
+          },
+          {
+            "layer_top_mm": 0.72,
+            "outer_road_center_mm": 72.662,
+            "extreme_center_min_max_mm": [
+              72.6612,
+              72.662
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4545
+          },
+          {
+            "layer_top_mm": 0.84,
+            "outer_road_center_mm": 72.542,
+            "extreme_center_min_max_mm": [
+              72.5412,
+              72.542
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4545
+          },
+          {
+            "layer_top_mm": 0.96,
+            "outer_road_center_mm": 72.422,
+            "extreme_center_min_max_mm": [
+              72.4212,
+              72.422
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4545
+          },
+          {
+            "layer_top_mm": 1.08,
+            "outer_road_center_mm": 72.302,
+            "extreme_center_min_max_mm": [
+              72.3012,
+              72.302
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4545
+          },
+          {
+            "layer_top_mm": 1.2,
+            "outer_road_center_mm": 72.182,
+            "extreme_center_min_max_mm": [
+              72.1812,
+              72.182
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4545
+          },
+          {
+            "layer_top_mm": 1.32,
+            "outer_road_center_mm": 72.062,
+            "extreme_center_min_max_mm": [
+              72.0612,
+              72.062
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4545
+          },
+          {
+            "layer_top_mm": 1.44,
+            "outer_road_center_mm": 71.942,
+            "extreme_center_min_max_mm": [
+              71.9412,
+              71.942
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4545
+          },
+          {
+            "layer_top_mm": 1.56,
+            "outer_road_center_mm": 71.822,
+            "extreme_center_min_max_mm": [
+              71.8212,
+              71.822
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4545
+          },
+          {
+            "layer_top_mm": 1.68,
+            "outer_road_center_mm": 71.702,
+            "extreme_center_min_max_mm": [
+              71.7012,
+              71.702
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4545
+          },
+          {
+            "layer_top_mm": 1.8,
+            "outer_road_center_mm": 71.582,
+            "extreme_center_min_max_mm": [
+              71.5809,
+              71.582
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.1203,
+            "minimum_previous_perimeter_overlap_mm": 0.0997,
+            "minimum_fraction_of_current_perimeter_backed": 0.4533
+          }
+        ]
+      },
+      "seating_lands": [
+        {
+          "transverse_span_plate_mm": [
+            69.65,
+            70.1
+          ],
+          "minimum_successive_perimeter_overlap_mm": 0.2,
+          "first_to_second_mm": 0.2
+        },
+        {
+          "transverse_span_plate_mm": [
+            109.9,
+            110.35
+          ],
+          "minimum_successive_perimeter_overlap_mm": 0.2,
+          "first_to_second_mm": 0.2
+        }
+      ],
+      "complete_lower_edge_including_corners": {
+        "plate_y_band_mm": [
+          70.7,
+          73.65
+        ],
+        "maximum_sample_spacing_mm": 0.04,
+        "minimum_sampled_bead_reach_into_previous_course_mm": 0.0774,
+        "conservative_margin_between_samples_mm": 0.0574,
+        "layers": [
+          {
+            "layer_top_mm": 0.24,
+            "boundary_length_mm": 50.39,
+            "samples": 1304,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.0774,
+            "conservative_between_sample_margin_mm": 0.0574,
+            "minimum_at_plate_xy_mm": [
+              70.52,
+              73.139
+            ]
+          },
+          {
+            "layer_top_mm": 0.36,
+            "boundary_length_mm": 50.151,
+            "samples": 1298,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.1,
+            "conservative_between_sample_margin_mm": 0.08,
+            "minimum_at_plate_xy_mm": [
+              70.746,
+              73.022
+            ]
+          },
+          {
+            "layer_top_mm": 0.48,
+            "boundary_length_mm": 49.911,
+            "samples": 1292,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.1,
+            "conservative_between_sample_margin_mm": 0.08,
+            "minimum_at_plate_xy_mm": [
+              70.821,
+              72.902
+            ]
+          },
+          {
+            "layer_top_mm": 0.6,
+            "boundary_length_mm": 49.671,
+            "samples": 1286,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.1,
+            "conservative_between_sample_margin_mm": 0.08,
+            "minimum_at_plate_xy_mm": [
+              70.821,
+              72.782
+            ]
+          },
+          {
+            "layer_top_mm": 0.72,
+            "boundary_length_mm": 49.428,
+            "samples": 1279,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.1,
+            "conservative_between_sample_margin_mm": 0.08,
+            "minimum_at_plate_xy_mm": [
+              70.821,
+              72.662
+            ]
+          },
+          {
+            "layer_top_mm": 0.84,
+            "boundary_length_mm": 49.188,
+            "samples": 1273,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.1,
+            "conservative_between_sample_margin_mm": 0.08,
+            "minimum_at_plate_xy_mm": [
+              70.821,
+              72.542
+            ]
+          },
+          {
+            "layer_top_mm": 0.96,
+            "boundary_length_mm": 48.948,
+            "samples": 1267,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.1,
+            "conservative_between_sample_margin_mm": 0.08,
+            "minimum_at_plate_xy_mm": [
+              70.821,
+              72.422
+            ]
+          },
+          {
+            "layer_top_mm": 1.08,
+            "boundary_length_mm": 48.708,
+            "samples": 1261,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.1,
+            "conservative_between_sample_margin_mm": 0.08,
+            "minimum_at_plate_xy_mm": [
+              70.821,
+              72.302
+            ]
+          },
+          {
+            "layer_top_mm": 1.2,
+            "boundary_length_mm": 48.468,
+            "samples": 1255,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.1,
+            "conservative_between_sample_margin_mm": 0.08,
+            "minimum_at_plate_xy_mm": [
+              70.821,
+              72.182
+            ]
+          },
+          {
+            "layer_top_mm": 1.32,
+            "boundary_length_mm": 48.228,
+            "samples": 1249,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.1,
+            "conservative_between_sample_margin_mm": 0.08,
+            "minimum_at_plate_xy_mm": [
+              70.821,
+              72.062
+            ]
+          },
+          {
+            "layer_top_mm": 1.44,
+            "boundary_length_mm": 47.988,
+            "samples": 1243,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.1,
+            "conservative_between_sample_margin_mm": 0.08,
+            "minimum_at_plate_xy_mm": [
+              70.821,
+              71.942
+            ]
+          },
+          {
+            "layer_top_mm": 1.56,
+            "boundary_length_mm": 47.748,
+            "samples": 1237,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.1,
+            "conservative_between_sample_margin_mm": 0.08,
+            "minimum_at_plate_xy_mm": [
+              70.821,
+              71.822
+            ]
+          },
+          {
+            "layer_top_mm": 1.68,
+            "boundary_length_mm": 47.509,
+            "samples": 1231,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.1,
+            "conservative_between_sample_margin_mm": 0.08,
+            "minimum_at_plate_xy_mm": [
+              70.821,
+              71.702
+            ]
+          },
+          {
+            "layer_top_mm": 1.8,
+            "boundary_length_mm": 47.254,
+            "samples": 1225,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.0985,
+            "conservative_between_sample_margin_mm": 0.0785,
+            "minimum_at_plate_xy_mm": [
+              109.478,
+              71.58
+            ]
+          }
+        ]
+      }
+    },
+    "FLAVOR B": {
+      "relief_perimeter": {
+        "transverse_stations": 387,
+        "transverse_span_plate_mm": [
+          120.7,
+          159.3
+        ],
+        "station_pitch_mm": 0.1,
+        "previous_course_minimum_outer_road_overlap_mm": 0.0792,
+        "rows": [
+          {
+            "layer_top_mm": 0.12,
+            "outer_road_center_mm": 73.297,
+            "extreme_center_min_max_mm": [
+              73.297,
+              73.297
+            ],
+            "features": [
+              "Outer wall"
+            ]
+          },
+          {
+            "layer_top_mm": 0.24,
+            "outer_road_center_mm": 73.142,
+            "extreme_center_min_max_mm": [
+              73.1412,
+              73.142
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.155,
+            "maximum_advance_mm": 0.1558,
+            "minimum_previous_perimeter_overlap_mm": 0.0792,
+            "minimum_fraction_of_current_perimeter_backed": 0.36
+          },
+          {
+            "layer_top_mm": 0.36,
+            "outer_road_center_mm": 73.022,
+            "extreme_center_min_max_mm": [
+              73.0212,
+              73.022
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4544
+          },
+          {
+            "layer_top_mm": 0.48,
+            "outer_road_center_mm": 72.902,
+            "extreme_center_min_max_mm": [
+              72.9012,
+              72.902
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4545
+          },
+          {
+            "layer_top_mm": 0.6,
+            "outer_road_center_mm": 72.782,
+            "extreme_center_min_max_mm": [
+              72.7812,
+              72.782
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4545
+          },
+          {
+            "layer_top_mm": 0.72,
+            "outer_road_center_mm": 72.662,
+            "extreme_center_min_max_mm": [
+              72.6612,
+              72.662
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4545
+          },
+          {
+            "layer_top_mm": 0.84,
+            "outer_road_center_mm": 72.542,
+            "extreme_center_min_max_mm": [
+              72.5412,
+              72.542
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4545
+          },
+          {
+            "layer_top_mm": 0.96,
+            "outer_road_center_mm": 72.422,
+            "extreme_center_min_max_mm": [
+              72.4212,
+              72.422
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4545
+          },
+          {
+            "layer_top_mm": 1.08,
+            "outer_road_center_mm": 72.302,
+            "extreme_center_min_max_mm": [
+              72.3012,
+              72.302
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4545
+          },
+          {
+            "layer_top_mm": 1.2,
+            "outer_road_center_mm": 72.182,
+            "extreme_center_min_max_mm": [
+              72.1812,
+              72.182
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4545
+          },
+          {
+            "layer_top_mm": 1.32,
+            "outer_road_center_mm": 72.062,
+            "extreme_center_min_max_mm": [
+              72.0612,
+              72.062
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4545
+          },
+          {
+            "layer_top_mm": 1.44,
+            "outer_road_center_mm": 71.942,
+            "extreme_center_min_max_mm": [
+              71.9412,
+              71.942
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4545
+          },
+          {
+            "layer_top_mm": 1.56,
+            "outer_road_center_mm": 71.822,
+            "extreme_center_min_max_mm": [
+              71.8212,
+              71.822
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4545
+          },
+          {
+            "layer_top_mm": 1.68,
+            "outer_road_center_mm": 71.702,
+            "extreme_center_min_max_mm": [
+              71.7012,
+              71.702
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.12,
+            "minimum_previous_perimeter_overlap_mm": 0.1,
+            "minimum_fraction_of_current_perimeter_backed": 0.4545
+          },
+          {
+            "layer_top_mm": 1.8,
+            "outer_road_center_mm": 71.582,
+            "extreme_center_min_max_mm": [
+              71.5809,
+              71.582
+            ],
+            "features": [
+              "Outer wall"
+            ],
+            "advance_mm": 0.12,
+            "maximum_advance_mm": 0.1203,
+            "minimum_previous_perimeter_overlap_mm": 0.0997,
+            "minimum_fraction_of_current_perimeter_backed": 0.4533
+          }
+        ]
+      },
+      "seating_lands": [
+        {
+          "transverse_span_plate_mm": [
+            119.65,
+            120.1
+          ],
+          "minimum_successive_perimeter_overlap_mm": 0.2,
+          "first_to_second_mm": 0.2
+        },
+        {
+          "transverse_span_plate_mm": [
+            159.9,
+            160.35
+          ],
+          "minimum_successive_perimeter_overlap_mm": 0.2,
+          "first_to_second_mm": 0.2
+        }
+      ],
+      "complete_lower_edge_including_corners": {
+        "plate_y_band_mm": [
+          70.7,
+          73.65
+        ],
+        "maximum_sample_spacing_mm": 0.04,
+        "minimum_sampled_bead_reach_into_previous_course_mm": 0.0774,
+        "conservative_margin_between_samples_mm": 0.0574,
+        "layers": [
+          {
+            "layer_top_mm": 0.24,
+            "boundary_length_mm": 50.39,
+            "samples": 1304,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.0774,
+            "conservative_between_sample_margin_mm": 0.0574,
+            "minimum_at_plate_xy_mm": [
+              120.52,
+              73.139
+            ]
+          },
+          {
+            "layer_top_mm": 0.36,
+            "boundary_length_mm": 50.152,
+            "samples": 1300,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.0999,
+            "conservative_between_sample_margin_mm": 0.0799,
+            "minimum_at_plate_xy_mm": [
+              159.463,
+              73.021
+            ]
+          },
+          {
+            "layer_top_mm": 0.48,
+            "boundary_length_mm": 49.911,
+            "samples": 1296,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.0999,
+            "conservative_between_sample_margin_mm": 0.0799,
+            "minimum_at_plate_xy_mm": [
+              159.486,
+              72.901
+            ]
+          },
+          {
+            "layer_top_mm": 0.6,
+            "boundary_length_mm": 49.671,
+            "samples": 1290,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.0999,
+            "conservative_between_sample_margin_mm": 0.0799,
+            "minimum_at_plate_xy_mm": [
+              159.486,
+              72.781
+            ]
+          },
+          {
+            "layer_top_mm": 0.72,
+            "boundary_length_mm": 49.428,
+            "samples": 1283,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.0999,
+            "conservative_between_sample_margin_mm": 0.0799,
+            "minimum_at_plate_xy_mm": [
+              159.486,
+              72.661
+            ]
+          },
+          {
+            "layer_top_mm": 0.84,
+            "boundary_length_mm": 49.188,
+            "samples": 1277,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.0999,
+            "conservative_between_sample_margin_mm": 0.0799,
+            "minimum_at_plate_xy_mm": [
+              159.486,
+              72.541
+            ]
+          },
+          {
+            "layer_top_mm": 0.96,
+            "boundary_length_mm": 48.948,
+            "samples": 1271,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.0999,
+            "conservative_between_sample_margin_mm": 0.0799,
+            "minimum_at_plate_xy_mm": [
+              159.486,
+              72.421
+            ]
+          },
+          {
+            "layer_top_mm": 1.08,
+            "boundary_length_mm": 48.708,
+            "samples": 1265,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.0999,
+            "conservative_between_sample_margin_mm": 0.0799,
+            "minimum_at_plate_xy_mm": [
+              159.486,
+              72.301
+            ]
+          },
+          {
+            "layer_top_mm": 1.2,
+            "boundary_length_mm": 48.468,
+            "samples": 1259,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.0999,
+            "conservative_between_sample_margin_mm": 0.0799,
+            "minimum_at_plate_xy_mm": [
+              159.486,
+              72.181
+            ]
+          },
+          {
+            "layer_top_mm": 1.32,
+            "boundary_length_mm": 48.228,
+            "samples": 1253,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.0999,
+            "conservative_between_sample_margin_mm": 0.0799,
+            "minimum_at_plate_xy_mm": [
+              159.486,
+              72.061
+            ]
+          },
+          {
+            "layer_top_mm": 1.44,
+            "boundary_length_mm": 47.988,
+            "samples": 1247,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.0999,
+            "conservative_between_sample_margin_mm": 0.0799,
+            "minimum_at_plate_xy_mm": [
+              159.486,
+              71.941
+            ]
+          },
+          {
+            "layer_top_mm": 1.56,
+            "boundary_length_mm": 47.748,
+            "samples": 1241,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.0999,
+            "conservative_between_sample_margin_mm": 0.0799,
+            "minimum_at_plate_xy_mm": [
+              159.486,
+              71.821
+            ]
+          },
+          {
+            "layer_top_mm": 1.68,
+            "boundary_length_mm": 47.509,
+            "samples": 1235,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.0999,
+            "conservative_between_sample_margin_mm": 0.0799,
+            "minimum_at_plate_xy_mm": [
+              159.486,
+              71.701
+            ]
+          },
+          {
+            "layer_top_mm": 1.8,
+            "boundary_length_mm": 47.254,
+            "samples": 1227,
+            "minimum_sampled_bead_reach_into_previous_course_mm": 0.0988,
+            "conservative_between_sample_margin_mm": 0.0788,
+            "minimum_at_plate_xy_mm": [
+              159.487,
+              71.58
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,197 @@
+{
+  "purpose": "Read the first deposited courses of the two rear label seats in the complete Mark1 ceiling-down enclosure.",
+  "current_native": {
+    "archive": "2026-11-27-back-top-mark1-bc01ba73-textured-pei.gcode.3mf",
+    "archive_sha256": "26db6538e5db7bdef9e1cb5ae56ccfdc005d7899dba7de74a882cc0242e5e09d",
+    "project_sha256": "324e17da8cc6e06388eaac735961675ec42318f900dcb9f6fe2bd4dc19e49690",
+    "source_stl_sha256": "7a10bbd93c773fed659f20c3edba20551bc54e268a95232061402052c12ce86d",
+    "gcode_sha256": "3fb500e37fa25c50e005f0a0328ffbad15e1f50c670573e39fc16756f9eeea71"
+  },
+  "comparison_native": {
+    "archive": "2026-11-27-back-top-mark1-bb4e3273-textured-pei.gcode.3mf",
+    "archive_sha256": "4f6b215bc43c22c09e5fdcec6af1cff0ac1553f7ccd6ade001d97e12dd6d3808",
+    "project_sha256": "c2c7d7610be55c049317962db3feb1030b5fe5f4254b8bb6143cba44ef9c96a4",
+    "source_stl_sha256": "99314950eaf9c6d9b89ee3280eff5d0376fa8354ba7ef842180a361e13a071d5",
+    "gcode_sha256": "e7d4d8b912602de30387c60eecd68e66b53b3b5641ed84afd09ea5917de79e48"
+  },
+  "method": {
+    "coordinates": "Machine coordinates are millimetres, X across the openings, +Y towards the rear, +Z upwards when installed. Layer tops are in the printer frame. The embedded model settings and native build transform agree with preparation.",
+    "source_to_plate": {
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ]
+      ],
+      "translation_mm": [
+        -178.12499084472657,
+        160.0,
+        355.0
+      ]
+    },
+    "deposition": "Read positive XY extrusion moves in the archived G-code, with its object ID, feature, layer height and bead width. For layer-to-layer contact, buffer projected centerlines by their commanded half-width. Join adjacent segments of the same continuous extrusion path and measure spans that clear the entire previous-model bead footprint. Distances describe commanded plastic; finish and sag require a printed part.",
+    "stand_search": "Check model beads in the 36.4 mm central width of each former stand, from source Y474.85 to 479.9, for all layers from the plate through the former top. Also check Support, Support interface and Support transition across the full 42.3 mm channel and through the former stand location, Y469.299 to 479.9.",
+    "ramps": "At 0.10 mm transverse intervals compare consecutive outer road widths along the main 45 degree faces. Over their complete 38 mm width, clip the advancing roads and measure any zero-overlap spans on the continuously extruding path. At the DRAIN flare, trace the actual start of the lateral slope and the final perimeter where the two faces join."
+  },
+  "stand_removal": {
+    "FLAVOR B": {
+      "old_model": {
+        "positive_extrusion_segments": 149350,
+        "layers": 476
+      },
+      "current_model": {
+        "positive_extrusion_segments": 0,
+        "layers": 0
+      },
+      "current_native_support_segments_through_channel_or_old_stand": 0
+    },
+    "DRAIN": {
+      "old_model": {
+        "positive_extrusion_segments": 149431,
+        "layers": 476
+      },
+      "current_model": {
+        "positive_extrusion_segments": 0,
+        "layers": 0
+      },
+      "current_native_support_segments_through_channel_or_old_stand": 0
+    }
+  },
+  "current_normal_parts": [
+    "enclosure-back-top",
+    "Fill tube snap removable upper-wing support",
+    "Removable west rail support 1",
+    "Removable west rail support 2",
+    "Removable east rail support 1"
+  ],
+  "current_native_support_enforcers": 24,
+  "main_openings": {
+    "width_each_mm": 38,
+    "layer_height_mm": 0.24,
+    "working_bead_width_mm": 0.42,
+    "first_advancing_layer_top_mm": 112.76,
+    "last_advancing_layer_top_mm": 114.44,
+    "transverse_stations_per_opening": 375,
+    "straight_run_minimum_projected_previous_perimeter_overlap_mm": 0.179,
+    "main_openings_at_all_advancing_courses": "All advancing strokes touch model on the preceding layer except the short DRAIN perimeter connection described below."
+  },
+  "drain_corner_return": {
+    "source_x_mm": [
+      88.333,
+      95.5
+    ],
+    "outer_corner_max_projection_beyond_nominal_rear_face_mm": 2.663,
+    "printable_outer_section": {
+      "source_x_samples_mm": [
+        90.5,
+        91,
+        91.5,
+        92,
+        92.5,
+        93,
+        93.5,
+        94,
+        94.5,
+        95,
+        95.48
+      ],
+      "cad_width_at_ends_mm": [
+        0.4054,
+        2.6585
+      ],
+      "minimum_overlap_on_first_covering_bead_mm": 0.18,
+      "onset": "The first road reaches each sampled station on its nominal layer and has continuous overlap with the previous layer."
+    },
+    "merge": {
+      "layer_top_mm": 114.44,
+      "continuous_clear_span_mm": 0.8888,
+      "lands_at_both_ends": true,
+      "role": "Outer wall",
+      "uninterrupted_path_mm": 136.8411,
+      "source_xy_endpoints_mm": [
+        [
+          89.2576,
+          471.19
+        ],
+        [
+          90.1217,
+          471.3782
+        ]
+      ]
+    },
+    "thin_end": {
+      "source_pick_xyz_mm": [
+        88.388,
+        471.301,
+        240.898
+      ],
+      "local_cad_width_mm": 0.001,
+      "nominal_first_layer_top_mm": 114.2,
+      "actual_first_layer_top_mm": 114.68,
+      "first_covering_wall_width_mm": 0.42,
+      "unlanded_length_on_that_segment_mm": 0.0,
+      "observation": "The sub-line-width taper reaches the sampled point as the ordinary exterior perimeter joins it. It produces no separate extrusion."
+    }
+  },
+  "seating_flats": {
+    "nominal_flat_size_mm": [
+      2.15,
+      2.001
+    ],
+    "first_layer_top_mm": 114.68,
+    "preceding_layer_top_mm": 114.44,
+    "flats": [
+      {
+        "flat": "FLAVOR B left",
+        "source_x_mm": [
+          7.65,
+          9.8
+        ],
+        "covered_square_area_mm2": 4.302,
+        "longest_continuous_clear_span_mm": 1.6871,
+        "all_spans_land_at_both_ends": true
+      },
+      {
+        "flat": "FLAVOR B right",
+        "source_x_mm": [
+          47.8,
+          49.95
+        ],
+        "covered_square_area_mm2": 4.2983,
+        "longest_continuous_clear_span_mm": 1.6871,
+        "all_spans_land_at_both_ends": true
+      },
+      {
+        "flat": "DRAIN left",
+        "source_x_mm": [
+          55.35,
+          57.5
+        ],
+        "covered_square_area_mm2": 4.2973,
+        "longest_continuous_clear_span_mm": 1.6871,
+        "all_spans_land_at_both_ends": true
+      },
+      {
+        "flat": "DRAIN right",
+        "source_x_mm": [
+          95.5,
+          97.65
+        ],
+        "covered_square_area_mm2": 4.3022,
+        "longest_continuous_clear_span_mm": 1.5274,
+        "all_spans_land_at_both_ends": true
+      }
+    ]
+  }
+}

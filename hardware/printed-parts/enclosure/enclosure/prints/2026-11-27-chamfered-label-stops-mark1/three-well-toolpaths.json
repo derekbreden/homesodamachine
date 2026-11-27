@@ -1,0 +1,64 @@
+{
+  "scope": "Three blind 221-413 wells in the full Mark1 back-top plate. Dimensions below are in build-plate millimetres.",
+  "model_stl_sha256": "7a10bbd93c773fed659f20c3edba20551bc54e268a95232061402052c12ce86d",
+  "archive": "2026-11-27-back-top-mark1-bc01ba73-textured-pei.gcode.3mf",
+  "archive_sha256": "26db6538e5db7bdef9e1cb5ae56ccfdc005d7899dba7de74a882cc0242e5e09d",
+  "plate_gcode_sha256": "3fb500e37fa25c50e005f0a0328ffbad15e1f50c670573e39fc16756f9eeea71",
+  "open_layer_count": 79,
+  "open_layer_top_z_range_mm": [
+    40.76,
+    59.48
+  ],
+  "first_cover_layer_top_z_mm": 59.72,
+  "inspection": "At every open layer, swept each positive-extrusion segment by its emitted line half-width against the cavity, inset 0.02 mm from its CAD boundary. Measured the clear width across the side walls at mid-depth. On the first cover layer compared the ends of each bridge road with deposited bead footprints on the preceding layer.",
+  "wells": [
+    {
+      "connection": "compressor-neutral",
+      "center_x_mm": 81.875,
+      "measured_clear_width_mm": [
+        8.7,
+        8.7
+      ],
+      "blind_back_y_mm": [
+        57.5,
+        57.5
+      ],
+      "intruding_model_roads": 0,
+      "intruding_support_roads": 0,
+      "roof_bridge_roads": 24,
+      "bridge_ends_on_prior_layer_plastic": 48
+    },
+    {
+      "connection": "compressor-hot",
+      "center_x_mm": 97.875,
+      "measured_clear_width_mm": [
+        8.7,
+        8.7
+      ],
+      "blind_back_y_mm": [
+        57.5,
+        57.5
+      ],
+      "intruding_model_roads": 0,
+      "intruding_support_roads": 0,
+      "roof_bridge_roads": 24,
+      "bridge_ends_on_prior_layer_plastic": 48
+    },
+    {
+      "connection": "diaphragm-pump-positive",
+      "center_x_mm": 113.875,
+      "measured_clear_width_mm": [
+        8.7,
+        8.7
+      ],
+      "blind_back_y_mm": [
+        57.5,
+        57.5
+      ],
+      "intruding_model_roads": 0,
+      "intruding_support_roads": 0,
+      "roof_bridge_roads": 24,
+      "bridge_ends_on_prior_layer_plastic": 48
+    }
+  ]
+}
