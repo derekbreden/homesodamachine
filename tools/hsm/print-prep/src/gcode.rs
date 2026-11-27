@@ -2,7 +2,7 @@
 //! its roads, the straight runs a bead is laid along, with their heights, plastic, width, feature
 //! and object.
 
-use crate::support_stock::{StockMoves, StockObject};
+use crate::support_stock::{StockMoves, StockObject, StockRole};
 use anyhow::{Context, Result};
 use std::io::{BufRead, BufReader, Read};
 use std::path::Path;
@@ -58,15 +58,15 @@ pub fn layers(gcode: &[u8], each: impl FnMut(Layer)) {
 
 pub(crate) fn layers_with_stock(gcode: &[u8], stock: &StockMoves, mut each: impl FnMut(Layer)) {
     let mut reader = Reader::default();
-    let support: Option<Rc<str>> = (!stock.is_empty()).then(|| Rc::from("Support"));
+    let features = StockRole::ALL.map(|role| Rc::<str>::from(role.feature()));
     for (index, line) in BufReader::new(gcode).split(b'\n').enumerate() {
         let Ok(line) = line else { break };
         let start = reader.roads.len();
         if let Some(layer) = reader.line(&String::from_utf8_lossy(&line), true) {
             each(layer);
-        } else if let Some(support) = support.as_ref().filter(|_| stock.contains(index + 1)) {
+        } else if reader.roads.len() > start && let Some(role) = stock.role(index + 1) {
             for road in &mut reader.roads[start..] {
-                road.feature = support.clone();
+                road.feature = features[role as usize].clone();
             }
         }
     }
@@ -76,7 +76,7 @@ pub(crate) fn layers_with_stock(gcode: &[u8], stock: &StockMoves, mut each: impl
 }
 
 /// Identify complete G-code moves in a stock section, retaining the decoder's modal position.
-pub(crate) fn stock_lines(gcode: &str, objects: &[StockObject]) -> Vec<usize> {
+pub(crate) fn stock_lines(gcode: &str, objects: &[StockObject]) -> Vec<(usize, StockRole)> {
     let mut reader = Reader::default();
     let mut top = 0.0;
     let mut sections = Vec::new();
@@ -92,9 +92,9 @@ pub(crate) fn stock_lines(gcode: &str, objects: &[StockObject]) -> Vec<usize> {
         }
         reader.line(line, !sections.is_empty());
         if reader.roads.first().is_some_and(|road| MODEL.contains(&&*road.feature))
-            && sections.iter().any(|section| reader.roads.iter().all(|road| section.contains(road, top)))
+            && let Some(section) = sections.iter().find(|section| reader.roads.iter().all(|road| section.contains(road, top)))
         {
-            lines.push(index + 1);
+            lines.push((index + 1, section.role));
         }
         reader.roads.clear();
     }

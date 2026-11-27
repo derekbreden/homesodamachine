@@ -5,7 +5,7 @@ use anyhow::{Context, Result, ensure};
 use clap::Args;
 use hsm_print_prep::motion::{Motion, Move, distance, read};
 use hsm_print_prep::profile::{SETTINGS_MEMBER, first_text};
-use hsm_print_prep::support_stock::StockMoves;
+use hsm_print_prep::support_stock::{StockMoves, StockRole};
 use hsm_print_prep::xml;
 use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
@@ -230,11 +230,11 @@ fn mark_support_stock(motion: &mut Motion, stock: &StockMoves) {
     if stock.is_empty() {
         return;
     }
-    let mut support = motion.features.iter().position(|name| name == "Support");
+    let mut features = StockRole::ALL.map(|role| motion.features.iter().position(|name| name == role.feature()));
     for movement in &mut motion.moves {
-        if movement.extrusion && stock.contains(movement.line) {
-            movement.feature = *support.get_or_insert_with(|| {
-                motion.features.push("Support".into());
+        if movement.extrusion && let Some(role) = stock.role(movement.line) {
+            movement.feature = *features[role as usize].get_or_insert_with(|| {
+                motion.features.push(role.feature().into());
                 motion.features.len() - 1
             });
         }

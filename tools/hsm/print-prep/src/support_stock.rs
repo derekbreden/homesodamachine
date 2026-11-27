@@ -21,20 +21,37 @@ const SECTION_INSET: f64 = 0.0001;
 
 /// Source line numbers of commands that lay declared removable stock.
 #[derive(Default)]
-pub struct StockMoves(Vec<usize>);
+pub struct StockMoves(pub(crate) Vec<(usize, StockRole)>);
+
+/// A removable solid can carry dense roof contact courses on its top face.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum StockRole {
+    Body,
+    Interface,
+}
+
+impl StockRole {
+    pub const ALL: [Self; 2] = [Self::Body, Self::Interface];
+
+    pub fn feature(self) -> &'static str {
+        match self {
+            Self::Body => "Support",
+            Self::Interface => "Support interface",
+        }
+    }
+}
 
 impl StockMoves {
     pub fn is_empty(&self) -> bool {
         self.0.is_empty()
     }
 
-    pub fn contains(&self, line: usize) -> bool {
-        self.0
-            .first()
-            .zip(self.0.last())
-            .is_some_and(|(&first, &last)| {
-                (first..=last).contains(&line) && self.0.binary_search(&line).is_ok()
-            })
+    pub fn role(&self, line: usize) -> Option<StockRole> {
+        if line < self.0.first()?.0 || line > self.0.last()?.0 {
+            return None;
+        }
+        let index = self.0.binary_search_by_key(&line, |entry| entry.0).ok()?;
+        Some(self.0[index].1)
     }
 
     /// Use the preparation beside a sliced plate when it binds that plate's G-code.
@@ -123,6 +140,7 @@ mod tests {
             identify: 1901,
             stock: vec![StockPart {
                 bounds,
+                interface_start_z: None,
                 triangles: box_triangles(bounds[0], bounds[1]),
             }],
             model: vec![box_triangles([3., 1., 0.], [4., 3., 1.])],
@@ -133,7 +151,7 @@ mod tests {
                     G1 X2.5 Y4 Z.2\nG1 X4.5 E.1\n";
         let stock = StockMoves(gcode::stock_lines(code, &parts));
         // The second extrusion crosses retained model stock and the third changes Z.
-        assert_eq!(stock.0, [7]);
+        assert_eq!(stock.0, [(7, StockRole::Body)]);
         let audit = audit_with_stock(
             code.as_bytes(),
             &Options {
@@ -150,12 +168,33 @@ mod tests {
         assert_eq!(audit["trees"][0]["declared_removable_stock"], true);
         assert!(audit["summary"]["interface_islands"].is_null());
     }
+
+    #[test]
+    fn cap_role_is_local_to_its_stock_and_print_height() {
+        let bounds = [[1., 1., 0.], [6., 6., 1.]];
+        let part = StockObject {
+            identify: 1901,
+            stock: vec![StockPart {
+                bounds,
+                interface_start_z: Some(0.4),
+                triangles: box_triangles(bounds[0], bounds[1]),
+            }],
+            model: vec![],
+        };
+        let code = "M83\n; OBJECT_ID: 1901\n; FEATURE: Outer wall\n; Z_HEIGHT: .2\n\
+                    G1 X2 Y2 Z.2\nG1 X4 E.1\n; Z_HEIGHT: .4\nG1 Z.4\nG1 X2 E.1\n\
+                    ; Z_HEIGHT: .6\nG1 Z.6\nG1 X4 E.1\nG1 X8 E.1\n";
+        let stock = StockMoves(gcode::stock_lines(code, &[part]));
+        assert_eq!(stock.0, [(6, StockRole::Body), (9, StockRole::Body), (12, StockRole::Interface)]);
+        assert_eq!(stock.role(13), None);
+    }
 }
 
 #[derive(Deserialize)]
 struct Declaration {
     name: String,
     plate_bounds_mm: Bounds,
+    interface_top_depth_mm: Option<f64>,
 }
 
 fn member(zip: &mut ZipArchive<File>, path: &str) -> Result<String> {
@@ -304,7 +343,12 @@ fn read_object(
                     .all(|(actual, declared)| (actual - declared).abs() < POSE_TOLERANCE),
                 "sliced placement of {name} differs from its preparation"
             );
-            stock.push(StockPart { bounds, triangles });
+            let interface_start_z = declaration.interface_top_depth_mm.map(|depth| bounds[1][2] - depth);
+            ensure!(
+                interface_start_z.is_none_or(|z| (bounds[0][2]..bounds[1][2]).contains(&z)),
+                "invalid removable interface depth on {name}"
+            );
+            stock.push(StockPart { bounds, triangles, interface_start_z });
         } else {
             triangles.retain(|t| {
                 t.iter().any(|p| p[2] <= highest + POSE_TOLERANCE)
@@ -327,6 +371,7 @@ fn read_object(
 struct StockPart {
     bounds: Bounds,
     triangles: Vec<Triangle>,
+    interface_start_z: Option<f64>,
 }
 
 pub(crate) struct StockObject {
@@ -337,6 +382,7 @@ pub(crate) struct StockObject {
 
 pub(crate) struct StockSection {
     identify: i64,
+    pub(crate) role: StockRole,
     bounds: Bounds,
     solid: Section,
     model: std::rc::Rc<Vec<Section>>,
@@ -365,6 +411,11 @@ impl StockObject {
                 });
                 Some(StockSection {
                     identify: self.identify,
+                    role: if part.interface_start_z.is_some_and(|z| plane >= z - POSE_TOLERANCE) {
+                        StockRole::Interface
+                    } else {
+                        StockRole::Body
+                    },
                     bounds: part.bounds,
                     solid: Section::new(&part.triangles, plane),
                     model: model.clone(),

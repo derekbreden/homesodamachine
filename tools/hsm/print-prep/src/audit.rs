@@ -6,7 +6,7 @@
 //! Support paths are marked on a grid in plan. Cells of one layer within a link distance are one
 //! node; a node joins the nodes of the support layer below it within the same distance.
 
-use crate::support_stock::StockMoves;
+use crate::support_stock::{StockMoves, StockRole};
 use serde_json::{json, Map, Value};
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 
@@ -389,11 +389,11 @@ pub fn audit_with_stock(gcode: &[u8], options: &Options, stock: &StockMoves) -> 
         let nx = if absolute { get(b'X').unwrap_or(x) } else { x + get(b'X').unwrap_or(0.0) };
         let ny = if absolute { get(b'Y').unwrap_or(y) } else { y + get(b'Y').unwrap_or(0.0) };
         let de = if relative_e { get(b'E').unwrap_or(0.0) } else { get(b'E').unwrap_or(e) - e };
-        let authored = stock.contains(index + 1) && options.object.is_none_or(|o| current_object == Some(o));
-        let support = authored || crate::gcode::SUPPORT.contains(&feature.as_str());
+        let authored = stock.role(index + 1).filter(|_| options.object.is_none_or(|o| current_object == Some(o)));
+        let support = authored.is_some() || crate::gcode::SUPPORT.contains(&feature.as_str());
         if z.is_some() && support && de > 1e-9 && ((nx - x).abs() > 1e-9 || (ny - y).abs() > 1e-9) {
-            let interface = feature == "Support interface";
-            if authored {
+            let interface = authored == Some(StockRole::Interface) || feature == "Support interface";
+            if authored.is_some() {
                 stock_moves += 1;
                 layer_stock.insert((q(x), q(y)));
             }
