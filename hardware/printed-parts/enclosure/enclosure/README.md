@@ -398,6 +398,11 @@ Supported pocket edges receive their directional allowance in back-top's
 inverted print pose. The label pads retain full backing through their
 print-down edges before their run-outs.
 
+Before loading the identification tiles, clip the two first-layer ties on each
+stand where they meet the outer backs of the retaining rails. Pull each stand
+straight out of the rear opening. The flat stop at Z240.6 sets the tile height.
+[Support removal guide](prints/2026-11-27-fitted-back-top-mark1/label-stand-removal.png)
+
 The [screw-mounted nameplate](../nameplate/README.md) bears on its receiver.
 The [fit review](../nameplate/production-fit.json) records the receiver
 stock and clearance to the installed PSU and cold core.
@@ -410,14 +415,17 @@ even though the whole enclosure does not — that is the point of the split.
 The [production arrangement](/hardware/manifold-layout/above-core.md) owns the native
 component frames. Back-top carries integral upper seats for the ASSE and
 Pisco, an east-wall meter seat, and the water regulator's ceiling seat.
-Four removable caps close these seats with reinforced 2.6 mm spring leaves.
+Each removable cap has two 2.00 mm spring walls with a 1.5 mm inside root
+radius. The [equipment cap drawings and fit records](../rear-equipment-caps/README.md)
+identify the bearing surfaces at each station.
 The ASSE and Pisco load 16 mm fore of their seated positions and slide aft;
 the meter slides aft onto its soda outlet stub before its cap enters from
 the west. Ordinary supporting stock is at least 3 mm.
 Fit and service the meter cap with back-top separated from the cold core.
 Fit it before the ASSE cap. For removal, disconnect and dress the tubes and
-leads aside, remove the ASSE cap, spread the meter leaves, withdraw 20 mm west,
-relax the leaves and move 40 mm fore. This bench sequence leaves room for
+leads aside, remove the ASSE cap, spread the meter leaves and withdraw the
+cap 20 mm west. Relax the leaves, move another 25 mm west, then 40 mm fore.
+This bench sequence leaves room for
 the complete lower leaf to open.
 
 The PSU mounts base-up on its ceiling hosts with its AC end aft. The relay
@@ -427,10 +435,12 @@ landing its terminal wires.
 
 The shared V69 socket sections carry V-A and V-K. Preserve the
 [accepted valve-fit scope](/hardware/mechanical-qualification/README.md).
-The PCB, bare pump and V-B belong to the cold-core lid. Its broad pump base
-has a straight cover channel, fixed rail-end stops, a filled 6.2 mm cap and
-one 4 mm chamfer clearing the rear flavor bulkhead. Junction wells follow
-their branch points on the rear wall, core lid and front manifold.
+The PCB, bare carbonator pump and V-B belong to the cold-core lid. The pump
+rests on two rails between fore and aft stops. Its 54.5 mm cover engages the
+lid's two integral catches. The cover's east shoulder clears the ASSE.
+[Pump installation and measured fit](../../cold-core/foam-cap/README.md)
+
+Junction wells follow their branch points on the rear wall, core lid and front manifold.
 
 The rear fluid field retains its relieved clamping land. The mains inlet uses
 an internal flange pocket and inward screw access in a broad wall-rooted tunnel;
@@ -736,7 +746,8 @@ the actual branches and removal openings in the emitted native slice. A smaller
 footprint or an open-looking lane alone does not establish easy cleanup.
 
 Back-top prints ceiling-down with its rear flutes clear of the bed. Manual Tree
-Slim carries the exposed joint ends, funnel receiver shoulders and valve seat.
+Slim carries the exposed joint ends and valve seat. The two 45° rear funnel-frame
+seats grow from the flanks. Each rear insert enters from below.
 The fill tube seat's free upper wing prints on breakaway strips rooted on its
 corbelled lower wing. The cable hooks' beak lands overhang too little
 to need support, as front-bottom's same hooks print without it. The first model courses on the tube-seat and relay-boss arcs
@@ -750,10 +761,10 @@ slope. Each split rail cap covers the bearing from its stop to its rear end,
 splitting at the vent's open passage, and starts on narrow roots in its own cavity. Sever the
 necks and pull the cap inward through the open sliding lane. The
 native slice review confirms the cap air gaps, bed border and clear fitted
-interiors. Funnel insert pilots bridge between their own walls inside the
-supported shoulders, and so do the power inlet's blind pilots inside its
-supported flange pocket and cord passage. The connector insertion pockets
-remain clear. The [production print plan](prints/2026-11-26-production-snaps-mark1/print-plan.json)
+interiors. The rear funnel screw passages and insert bores stay open. The
+power inlet's blind pilots bridge inside its supported flange pocket and cord passage.
+The connector insertion pockets
+remain clear. The [production print plan](prints/2026-11-27-fitted-back-top-mark1/print-plan.json)
 binds those results to the exact enclosure mesh and toolpaths. Physical cleanup
 and fit of this prepared plate await its first print.
 
@@ -1258,9 +1269,9 @@ Its brim bearing is Z349 and lower body reaches Z299.9. Two full-width end
 corbels stand 30° from vertical. The flange is 196.5 mm wide and lower body
 176.5 mm wide; its aft shoulders clear the upper M5 seam blocks.
 
-The frame drops vertically through both upper shell openings and seats on four
-broad ledges. Four recessed M3 × 12 screws engage full RX-M3×5.7 inserts in the
-shell. There are no frame slide rails. The complete silicone brim retains 3 mm
+The frame drops vertically through both upper shell openings. Its two rear
+wedges match the sloped seats on this back top. Four front M3 × 12 and two rear
+M3 × 25 screws engage RX-M3×5.7 inserts in the shell. The complete silicone brim retains 3 mm
 of bearing stock. Its apron covers the screw wells; lift the silicone for access.
 
 The drain cradle snaps into the frame's lower web and supports the elbow and

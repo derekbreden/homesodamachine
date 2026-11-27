@@ -5,35 +5,35 @@
       "bounds_source_mm": [
         4.6499988712316025,
         52.9499988712316,
-        469.299,
-        472.799,
+        466.299,
+        471.31,
         237.6,
         243.6
       ],
       "bridge_print_axis_source": [
-        1,
         0,
+        1,
         0
       ],
       "name": "Identification channel 1 stop",
-      "reason": "The stop bridges between its complete side rails."
+      "reason": "Lay the stop's first infill across its 2 mm depth from the rear wall to the supported edge."
     },
     {
       "bounds_source_mm": [
         52.35,
         100.65,
-        469.299,
-        472.799,
+        466.299,
+        471.31,
         237.6,
         243.6
       ],
       "bridge_print_axis_source": [
-        1,
         0,
+        1,
         0
       ],
       "name": "Identification channel 2 stop",
-      "reason": "The stop bridges between its complete side rails."
+      "reason": "Lay the stop's first infill across its 2 mm depth from the rear wall to the supported edge."
     },
     {
       "bounds_source_mm": [
@@ -136,6 +136,32 @@
   "producer": "enclosure-back-top",
   "removable_support_stock": [
     {
+      "bed_source_z_mm": 355.0,
+      "channel_face_y_mm": 469.299,
+      "contact_source_z_mm": 240.6,
+      "name": "Removable Identification channel 1 loading stop stand",
+      "opening_x_mm": [
+        9.799998871231601,
+        47.7999988712316
+      ],
+      "rail_back_y_mm": 474.3,
+      "reason": "The stand rises from the bed outside the rear rail faces. Its top supports the exposed stop across the release gap. Clip the two first-layer ties at the exterior rail backs and pull the stand straight rearward before fitting the tiles.",
+      "shape": "identification_stop_stand"
+    },
+    {
+      "bed_source_z_mm": 355.0,
+      "channel_face_y_mm": 469.299,
+      "contact_source_z_mm": 240.6,
+      "name": "Removable Identification channel 2 loading stop stand",
+      "opening_x_mm": [
+        57.5,
+        95.5
+      ],
+      "rail_back_y_mm": 474.3,
+      "reason": "The stand rises from the bed outside the rear rail faces. Its top supports the exposed stop across the release gap. Clip the two first-layer ties at the exterior rail backs and pull the stand straight rearward before fitting the tiles.",
+      "shape": "identification_stop_stand"
+    },
+    {
       "bore_radius_mm": 3.175,
       "centre_source_mm": [
         94.31,
@@ -202,11 +228,11 @@
       ]
     }
   ],
-  "source_stl_sha256": "c8b0f3d18d5cf0678c9a7689ecb6b72f3913b5535e3b2742271f277cf3ded226",
+  "source_stl_sha256": "99314950eaf9c6d9b89ee3280eff5d0376fa8354ba7ef842180a361e13a071d5",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
-        6.151860222036486,
+        3.6018602220364855,
         9.001860222036488,
         392.9532545933731,
         441.6179848073112,
@@ -214,7 +240,7 @@
         355.0
       ],
       "bounds_source_mm": [
-        6.151860222036486,
+        3.6018602220364855,
         9.001860222036488,
         396.2032545933731,
         438.3679848073112,
@@ -227,7 +253,7 @@
     {
       "blocking_bounds_source_mm": [
         48.59813977796351,
-        51.44813977796352,
+        53.998139777963516,
         392.9532545933731,
         441.6179848073112,
         340.45,
@@ -235,7 +261,7 @@
       ],
       "bounds_source_mm": [
         48.59813977796351,
-        51.44813977796352,
+        53.998139777963516,
         396.2032545933731,
         438.3679848073112,
         340.45,
@@ -246,18 +272,18 @@
     },
     {
       "blocking_bounds_source_mm": [
-        64.59438431246909,
-        67.44438431246908,
+        63.91238431246909,
+        66.31438431246909,
         417.09571720240064,
-        465.8,
+        461.411,
         340.45,
         355.0
       ],
       "bounds_source_mm": [
-        64.59438431246909,
-        67.44438431246908,
+        63.91238431246909,
+        66.31438431246909,
         420.34571720240064,
-        462.55,
+        458.161,
         340.45,
         351.8
       ],
@@ -266,18 +292,18 @@
     },
     {
       "blocking_bounds_source_mm": [
-        85.55561568753092,
-        88.40561568753091,
+        86.68561568753091,
+        89.08761568753091,
         417.09571720240064,
-        465.8,
+        461.411,
         340.45,
         355.0
       ],
       "bounds_source_mm": [
-        85.55561568753092,
-        88.40561568753091,
+        86.68561568753091,
+        89.08761568753091,
         420.34571720240064,
-        462.55,
+        458.161,
         340.45,
         351.8
       ],
@@ -301,34 +327,14 @@
         258.15000000000003,
         263.00000000000006
       ],
-      "name": "Flow meter lower cap pocket",
-      "reason": "Keep support out of the lower hook pocket below the wire chamber floor."
-    },
-    {
-      "blocking_bounds_source_mm": [
-        88.19999999999999,
-        98.5,
-        395.5086388104271,
-        417.34571720240064,
-        305.34999999999997,
-        309.7
-      ],
-      "bounds_source_mm": [
-        88.19999999999999,
-        98.5,
-        395.5086388104271,
-        417.34571720240064,
-        305.34999999999997,
-        309.7
-      ],
-      "name": "Flow meter upper cap pocket",
-      "reason": "Beyond the supported lip's plane the catch and its return to the flank are chamfered, with no flat pocket floor to support."
+      "name": "Upward-facing long lower wing seat",
+      "reason": "The long lower wing bears on a print-up face. Its accessible back takes support through the wire chamber."
     },
     {
       "blocking_bounds_source_mm": [
         -58.82391030388001,
         -15.823910303880005,
-        289.103633714998,
+        286.553633714998,
         291.95363371499803,
         337.2151460770961,
         355.0
@@ -336,7 +342,7 @@
       "bounds_source_mm": [
         -55.57391030388001,
         -19.073910303880005,
-        289.103633714998,
+        286.553633714998,
         291.95363371499803,
         337.2151460770961,
         348.56514607709613
@@ -349,7 +355,7 @@
         -58.82391030388001,
         -15.823910303880005,
         323.3600400329926,
-        326.2100400329926,
+        328.7600400329926,
         337.2151460770961,
         355.0
       ],
@@ -357,7 +363,7 @@
         -55.57391030388001,
         -19.073910303880005,
         323.3600400329926,
-        326.2100400329926,
+        328.7600400329926,
         337.2151460770961,
         348.56514607709613
       ],
@@ -391,17 +397,45 @@
         49.9499988712316,
         469.299,
         472.799,
-        240.35,
+        246.6,
         357.0
       ],
-      "bridge_axis_source": [
-        1,
-        0,
-        0
-      ],
-      "bridge_span_mm": 42.3,
       "name": "Identification channel 1",
-      "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column.",
+      "reason": "Only the inclined tip of the removable stand enters the open end. The stand stays behind the rail faces along the long card channel and all nut bores.",
+      "support_print_up_source": [
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "bounds_source_mm": [
+        7.6499988712316025,
+        9.799998871231601,
+        469.299,
+        472.799,
+        240.35,
+        246.6
+      ],
+      "name": "Identification channel 1 left retaining lip",
+      "reason": "Keep the undercut behind the retaining lip clear so the stop stand can pull straight out of the rear opening.",
+      "support_print_up_source": [
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "bounds_source_mm": [
+        47.7999988712316,
+        49.9499988712316,
+        469.299,
+        472.799,
+        240.35,
+        246.6
+      ],
+      "name": "Identification channel 1 right retaining lip",
+      "reason": "Keep the undercut behind the retaining lip clear so the stop stand can pull straight out of the rear opening.",
       "support_print_up_source": [
         0,
         0,
@@ -414,17 +448,11 @@
         97.65,
         469.299,
         472.799,
-        240.35,
+        246.6,
         357.0
       ],
-      "bridge_axis_source": [
-        1,
-        0,
-        0
-      ],
-      "bridge_span_mm": 42.300000000000004,
       "name": "Identification channel 2",
-      "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column.",
+      "reason": "Only the inclined tip of the removable stand enters the open end. The stand stays behind the rail faces along the long card channel and all nut bores.",
       "support_print_up_source": [
         0,
         0,
@@ -433,55 +461,61 @@
     },
     {
       "bounds_source_mm": [
-        -89.7,
-        -85.7,
-        257.4915079232813,
-        261.4915079232813,
-        338.8,
-        346.0
+        55.35,
+        57.5,
+        469.299,
+        472.799,
+        240.35,
+        246.6
       ],
-      "name": "West funnel frame insert pilot",
-      "reason": "Bridge the blind insert pilot across its own walls while the exposed surrounding ledge receives removable support.",
-      "void_source": {
-        "end_mm": [
-          -87.7,
-          259.4915079232813,
-          346.0
-        ],
-        "kind": "cylinder",
-        "radius_mm": 2.0,
-        "start_mm": [
-          -87.7,
-          259.4915079232813,
-          338.8
-        ]
-      }
+      "name": "Identification channel 2 left retaining lip",
+      "reason": "Keep the undercut behind the retaining lip clear so the stop stand can pull straight out of the rear opening.",
+      "support_print_up_source": [
+        0,
+        0,
+        -1
+      ]
     },
     {
       "bounds_source_mm": [
-        85.7,
-        89.7,
-        257.4915079232813,
-        261.4915079232813,
-        338.8,
+        95.5,
+        97.65,
+        469.299,
+        472.799,
+        240.35,
+        246.6
+      ],
+      "name": "Identification channel 2 right retaining lip",
+      "reason": "Keep the undercut behind the retaining lip clear so the stop stand can pull straight out of the rear opening.",
+      "support_print_up_source": [
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "bounds_source_mm": [
+        -91.5,
+        -82.7,
+        253.4915079232813,
+        265.4915079232813,
+        337.2,
         346.0
       ],
-      "name": "East funnel frame insert pilot",
-      "reason": "Bridge the blind insert pilot across its own walls while the exposed surrounding ledge receives removable support.",
-      "void_source": {
-        "end_mm": [
-          87.7,
-          259.4915079232813,
-          346.0
-        ],
-        "kind": "cylinder",
-        "radius_mm": 2.0,
-        "start_mm": [
-          87.7,
-          259.4915079232813,
-          338.8
-        ]
-      }
+      "name": "West funnel frame seat",
+      "reason": "The seat falls inward at 45 degrees from the pocket's flank and grows without support. Its insert pilot opens on the ledge's flat underside."
+    },
+    {
+      "bounds_source_mm": [
+        82.7,
+        91.5,
+        253.4915079232813,
+        265.4915079232813,
+        337.2,
+        346.0
+      ],
+      "name": "East funnel frame seat",
+      "reason": "The seat falls inward at 45 degrees from the pocket's flank and grows without support. Its insert pilot opens on the ledge's flat underside."
     },
     {
       "bounds_source_mm": [
@@ -1045,18 +1079,6 @@
     {
       "bounds_source_mm": [
         83.05,
-        86.69999999999999,
-        395.5086388104271,
-        417.34571720240064,
-        309.7,
-        310.2
-      ],
-      "name": "Accessible flow meter front lip",
-      "reason": "Support the bar the cap's wing rides over through the slot's open west side, where a screwdriver slides in along the bar and levers the support up off it."
-    },
-    {
-      "bounds_source_mm": [
-        83.05,
         93.85000000000001,
         382.16863881042707,
         406.0186388104271,
@@ -1064,7 +1086,7 @@
         267.95
       ],
       "name": "Accessible flow meter fore boss channel floor",
-      "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away."
+      "reason": "Support this exposed face at its fitted height. The interface and trees lift away through the open west side before the meter is installed."
     },
     {
       "bounds_source_mm": [
@@ -1076,7 +1098,7 @@
         267.95
       ],
       "name": "Accessible flow meter aft boss channel floor",
-      "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away."
+      "reason": "Support this exposed face at its fitted height. The interface and trees lift away through the open west side before the meter is installed."
     },
     {
       "bounds_source_mm": [
@@ -1088,7 +1110,7 @@
         268.75
       ],
       "name": "Accessible flow meter fore screw-head channel floor",
-      "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away."
+      "reason": "Support this exposed face at its fitted height. The interface and trees lift away through the open west side before the meter is installed."
     },
     {
       "bounds_source_mm": [
@@ -1100,7 +1122,7 @@
         268.75
       ],
       "name": "Accessible flow meter aft screw-head channel floor",
-      "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away."
+      "reason": "Support this exposed face at its fitted height. The interface and trees lift away through the open west side before the meter is installed."
     },
     {
       "bounds_source_mm": [
@@ -1112,7 +1134,67 @@
         263.75000000000006
       ],
       "name": "Accessible flow meter wire chamber floor",
-      "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away."
+      "reason": "Support this exposed face at its fitted height. The interface and trees lift away through the open west side before the meter is installed."
+    },
+    {
+      "bounds_source_mm": [
+        83.05,
+        87.75,
+        395.5086388104271,
+        417.34571720240064,
+        307.72999999999996,
+        312.25
+      ],
+      "name": "Upper wing pilot, approach and retaining lip",
+      "reason": "Support this exposed face at its fitted height. The interface and trees lift away through the open west side before the meter is installed."
+    },
+    {
+      "bounds_source_mm": [
+        87.75,
+        98.5,
+        395.5086388104271,
+        417.34571720240064,
+        307.72999999999996,
+        312.25
+      ],
+      "name": "Upper wing retaining shoulder and running guide",
+      "reason": "Support this exposed face at its fitted height. The interface and trees lift away through the open west side before the meter is installed."
+    },
+    {
+      "bounds_source_mm": [
+        85.0,
+        98.5,
+        395.5086388104271,
+        418.66863881042707,
+        263.45000000000005,
+        263.95000000000005
+      ],
+      "name": "Accessible long lower hook backing",
+      "reason": "Support this exposed face at its fitted height. The interface and trees lift away through the open west side before the meter is installed."
+    },
+    {
+      "bounds_source_mm": [
+        94.15222454533959,
+        95.55000000000001,
+        385.7686388104271,
+        402.41863881042707,
+        296.25000000000006,
+        296.75000000000006
+      ],
+      "name": "Accessible fore upper screw-head recess ledge",
+      "reason": "Support this exposed face at its fitted height. The interface and trees lift away through the open west side before the meter is installed."
+    },
+    {
+      "bounds_source_mm": [
+        94.15222454533959,
+        95.55000000000001,
+        410.7686388104271,
+        427.41863881042707,
+        296.25000000000006,
+        296.75000000000006
+      ],
+      "name": "Accessible aft upper screw-head recess ledge",
+      "reason": "Support this exposed face at its fitted height. The interface and trees lift away through the open west side before the meter is installed."
     },
     {
       "bounds_source_mm": [
@@ -1137,102 +1219,6 @@
       ],
       "name": "Accessible front joint underside -1",
       "reason": "Support the exposed sloping joint end and counterbore roof through the open front removal path; the bed-edge chamfer lies outside this contact band."
-    },
-    {
-      "bounds_source_mm": [
-        -107.5,
-        -91.45,
-        253.4915079232813,
-        265.4915079232813,
-        345.75,
-        346.25
-      ],
-      "name": "West funnel frame receiver west shoulder",
-      "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges."
-    },
-    {
-      "bounds_source_mm": [
-        -83.95,
-        -82.7,
-        253.4915079232813,
-        265.4915079232813,
-        345.75,
-        346.25
-      ],
-      "name": "West funnel frame receiver east shoulder",
-      "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges."
-    },
-    {
-      "bounds_source_mm": [
-        -91.45,
-        -83.95,
-        253.4915079232813,
-        255.7415079232813,
-        345.75,
-        346.25
-      ],
-      "name": "West funnel frame receiver front shoulder",
-      "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges."
-    },
-    {
-      "bounds_source_mm": [
-        -91.45,
-        -83.95,
-        263.2415079232813,
-        265.4915079232813,
-        345.75,
-        346.25
-      ],
-      "name": "West funnel frame receiver back shoulder",
-      "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges."
-    },
-    {
-      "bounds_source_mm": [
-        82.7,
-        83.95,
-        253.4915079232813,
-        265.4915079232813,
-        345.75,
-        346.25
-      ],
-      "name": "East funnel frame receiver west shoulder",
-      "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges."
-    },
-    {
-      "bounds_source_mm": [
-        91.45,
-        107.5,
-        253.4915079232813,
-        265.4915079232813,
-        345.75,
-        346.25
-      ],
-      "name": "East funnel frame receiver east shoulder",
-      "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges."
-    },
-    {
-      "bounds_source_mm": [
-        83.95,
-        91.45,
-        253.4915079232813,
-        255.7415079232813,
-        345.75,
-        346.25
-      ],
-      "name": "East funnel frame receiver front shoulder",
-      "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges."
-    },
-    {
-      "bounds_source_mm": [
-        83.95,
-        91.45,
-        263.2415079232813,
-        265.4915079232813,
-        345.75,
-        346.25
-      ],
-      "name": "East funnel frame receiver back shoulder",
-      "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges."
     },
     {
       "bounds_source_mm": [

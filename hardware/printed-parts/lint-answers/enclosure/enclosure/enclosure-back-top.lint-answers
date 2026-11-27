@@ -167,22 +167,6 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=88.350 y=393.364 z=297.650
 click: x=88.350 y=418.953 z=305.000
 
-[ceiling] Required funnel-frame flange ledges: the removable frame's flange bears on these two Z346 faces and screws down into their RX-M3x5.7 inserts (`funnel_frame.receivers`, `shell_screw_cuts`). The roof's funnel opening leaves them open to the bed 9 mm up, so Tree(auto)/Default support stands on the bed through the opening (slice 257a5648, interfaces 3 and 4) and leaves before the frame is fitted. Physical cleanup remains unqualified.
-alternatives: Sloping the ledge tilts the flange's bearing; a corbel over it occupies the flange seat.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-87.100 y=259.492 z=346.000
-click: x=87.100 y=259.492 z=346.000
-
-[ledge] Required capped insert pilots: each is the blind floor of a funnel-frame ledge's Ø4 RX-M3x5.7 pilot, one millimetre of relief past the insert with one wall of cap under it (`fastener_datums`: `host_bottom_z`); the pilot opens to the bed through the roof's funnel opening and its floor prints as a Ø4 bridge.
-alternatives: A through pilot opens the ledge's underside under the frame flange; a shorter relief bottoms the screw.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-88.030 y=259.127 z=338.800
-click: x=87.370 y=259.127 z=338.800
-click: x=-88.206 y=259.785 z=338.800
-click: x=87.194 y=259.785 z=338.800
-click: x=-87.667 y=258.826 z=338.800
-click: x=87.667 y=260.157 z=338.800
-
 [ceiling] Required lower edge of the rear port nut-access recess: this 67 x 3 mm face at Z258 is the step between the full rear wall below and the recessed clamping panel above. It is the boundary of the named access pocket. The current Mark2 preparation retains Tree(auto)/Default and its native bridge decisions; physical cleanup remains unqualified.
 alternatives: Extending the recess to the seam removes full rear-wall stock below the port field. Filling or sloping into the pocket changes its specified nut-access boundary. A different panel or pocket extent needs a complete port-clamping layout.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -466,11 +450,11 @@ alternatives: Filling or corbelling into these faces enters the fitted housing o
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=85.767 y=418.005 z=260.300
 
-[ceiling] Lower loading stop of each continuous identification-card channel at Z240.6. The 2 mm-deep flat locates the stack of three rectangular cards before the bulkheads clamp them. Back-top prints ceiling-down; Tree(auto)/Default supports leave through the open rear channels before cards and fittings are installed.
+[ceiling] The 2 mm-deep stop at Z240.6 locates the stack of three rectangular identification cards before the bulkheads clamp them. In the ceiling-down print, a separate stand rises behind each pair of retaining lips. Its inclined tip supports the exposed stop across a 0.24 mm release gap. Clip the two first-layer ties at each stand’s exterior rail backs and withdraw the stands straight to the rear before fitting the cards and bulkheads.
 alternatives: Removing the stop loses the stack's loading datum. A sloping stop needs a matching wedge on the bottom card and changes the requested rectangular color face. Separate stops add small features and edges.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=28.800 y=470.299 z=240.600
-click: x=76.500 y=470.299 z=240.600
+click: x=76.500 y=471.631 z=240.600
 
 [sliver] Complete upper ASSE hex-bearing facet. The receiver follows the six flat directions of the measured wrench profile; this 0.793 mm-wide face is the transition between its adjacent upper bearing planes. The ASSE cap and receiver retain their conforming hex fit.
 alternatives: A circular cavity abandons the requested hex conformity. Moving one flat onto the neighboring plane changes the fitted wrench clearance; deleting the transition removes part of the upper hex bearing.
