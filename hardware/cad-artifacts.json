@@ -100,7 +100,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": "208d30cfa3bad79f7173b338a3fe1f6f9fd42f8c2d7aae402fa4720906752e9d",
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "28ae8937a70f7a55571a37a303b38477bef45d5c4c9d2aef2c22fe58da4c34f8",
     "hardware/magnetic-float-guide/magnetic-float-guide.pdf": "a859dec2d803a66ba4801399af7366562be0f24813922d9e410b2b6895968341",
-    "hardware/manifold-layout/enclosure-assembly.facts.json": "c6447947aa43bcbf2229418766cda1bfaa88af259612239694c5b15b7abd9f77",
+    "hardware/manifold-layout/enclosure-assembly.facts.json": "0813d23b3cdd31e46178ccec08ce94a6d73445d7c96781c4050c70acb37e7f60",
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": "96be0d51a69a4bfce5f3984d9f08a82c5a97fa6c220bf7d72d389c15af217370",
     "hardware/manifold-layout/enclosure-assembly.step.mesh": "7e351fbda8f42c488f7cb747fa41a72b30e0513bbb29aac64e53a35b54e9112c",
     "hardware/manifold-layout/manifold-layout.step": "3fd31ca1b78af2be4868175bb325370c9cfdebf1bb465778901b55c1912ec7eb",
@@ -954,7 +954,7 @@
       "hardware/gun-positioner-guide/gun-positioner-guide.pdf": "30312203b212860160e6abcc678521440e5652395b94f76c59354637cb6eb19b",
       "hardware/install-guide/install-guide.pdf": "ddfd116f90ab4dd8d106d00ac0febca12b102fc64475fbf01ed85ca80064cf2f",
       "hardware/magnetic-float-guide/magnetic-float-guide.pdf": "a859dec2d803a66ba4801399af7366562be0f24813922d9e410b2b6895968341",
-      "hardware/manifold-layout/enclosure-assembly.facts.json": "c6447947aa43bcbf2229418766cda1bfaa88af259612239694c5b15b7abd9f77",
+      "hardware/manifold-layout/enclosure-assembly.facts.json": "0813d23b3cdd31e46178ccec08ce94a6d73445d7c96781c4050c70acb37e7f60",
       "hardware/manifold-layout/enclosure-assembly.step.mesh": "7e351fbda8f42c488f7cb747fa41a72b30e0513bbb29aac64e53a35b54e9112c",
       "hardware/mold-guide/mold-guide.pdf": "2c1b7ba629ac0f482079ff8e99058f79afefb2a170d24aea2abc66bbed4ad824",
       "hardware/pcb/pcba/out/pcba.bom.csv": "8e50da9512f4775249bb0a81e7ef8dc1059fbd3ed31513aaae1511838bb65209",
@@ -2985,7 +2985,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": 1793830497,
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1793830497,
     "hardware/magnetic-float-guide/magnetic-float-guide.pdf": 1795765666.951245,
-    "hardware/manifold-layout/enclosure-assembly.facts.json": 1795760849.206556,
+    "hardware/manifold-layout/enclosure-assembly.facts.json": 1795767426.230642,
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": 1793858653,
     "hardware/manifold-layout/enclosure-assembly.step.mesh": 1795767406.834215,
     "hardware/manifold-layout/manifold-layout.step": 1794269272.362814,
@@ -4003,8 +4003,8 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.facts.json": {
-      "commit": "682dc03fc5709a54c529a5434f3ac38732bfa4b6",
-      "inputs": "0c4a30a98e9527735101d6232e63952b8b02512f0a312dd475965a310248cb3b",
+      "commit": "79032e63de30cadefd868ca3f4f9b66a583951b3",
+      "inputs": "8cf7688decb0b5a073ce608152db9431c4fe4b063f9296df38db9284e5bafea1",
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": {
