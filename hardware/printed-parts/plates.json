@@ -63,8 +63,10 @@
     "scope": "machine",
     "material": "HSM-0020",
     "filament": "PET-GF",
+    "detail": "Mark1 · PET-GF · fits the current ten-insert HSM-0018 shell",
     "thumbnail": "/parts/plates/foam-cap-lid-top.webp",
     "href": "/parts#material:HSM-0020?view=print",
+    "download": "/print-archive/2a65213d48ca67ad323adf56c83662521541d44a/cold-core-equipment-lid-mark1.3mf",
     "parts": [{"label": "Cold-core equipment lid", "material": "HSM-0020"}],
     "relatedPrints": [
       {"label": "Reservoir caps · translucent PETG", "material": "HSM-0027", "href": "/parts#material:HSM-0027?view=print"},
@@ -98,8 +100,10 @@
     "scope": "machine",
     "material": "HSM-0073",
     "filament": "PET-GF",
+    "detail": "Mark2 · 13 PET-GF pieces, including all five equipment covers",
     "thumbnail": "/parts/plates/small-petgf.webp",
     "href": "/parts#material:HSM-0073?view=print",
+    "download": "/print-archive/81e9d54d26bda28de77969a8a1adc0dd2bcf248b/pet-gf-accessories-mark2.3mf",
     "parts": [
       {"label": "ASSE snap cap", "material": "HSM-0448"},
       {"label": "CO₂ regulator snap cap", "material": "HSM-0449"},
