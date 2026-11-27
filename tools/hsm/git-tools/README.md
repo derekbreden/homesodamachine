@@ -42,6 +42,7 @@ End the message with one trailer block.
 
 ```text
 Session: <session title>
+Model: <app, model, effort>
 Derek: "<his words, exactly as typed>"
 Derek: "<another passage, with ... marking a cut; a long one wraps onto
  lines that start with a space>"
@@ -49,7 +50,8 @@ Co-Authored-By: <the harness's line, when it adds one>
 ```
 
 `python3 ~/Developer/claude-code-setup/jsonl2md/jsonl2md.py whoami` prints the
-session title. It marks an unnamed title `(auto-generated)`. In a cloud session
+session title, then the `Model:` line as the commit carries it. It marks an unnamed
+title `(auto-generated)`. In a cloud session
 the `Claude-Session:` link names the session. Quote a passage from Derek exactly
 for each request the commit answers. Omit `Derek:` for a commit he did not request.
 Read the passages with `git log --format='%(trailers:key=Derek)'`.
@@ -57,6 +59,11 @@ Read the passages with `git log --format='%(trailers:key=Derek)'`.
 The commit that sets a value says what it does on the part and where its evidence
 is. A commit that moves a setting carries Derek's original words with it. When a
 rewrite breaks blame, record the link with [`git why link`](#following-a-line-past-a-rewrite).
+
+An instruction is a setting on the agents who read it. The commit that adds, rewrites
+or removes one says what an agent did that led to it, in which app and on which model,
+and what a session does differently once it reads the new text. A removal says what
+was seen while the line was in. A rewrite or move records its `git why link`.
 
 ## Following a line past a rewrite
 
@@ -89,7 +96,8 @@ with `git fetch origin refs/notes/agent-trace:refs/notes/agent-trace`.
 
 The Rust ports' records point to the earlier hand-written lines that set or computed
 their values. When an earlier rewrite also has a record for the line, `git why` follows
-both.
+both. The instruction guides' records tie each line that `6a685efd1a` and `9685395782`
+reworded or put back to the root instruction it came from.
 
 Build and install it like the other tools:
 

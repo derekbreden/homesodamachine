@@ -6,8 +6,8 @@ that owns them. Comments and docs point there. The costs ledger keeps the figure
 the site shows.
 
 When writing or editing source code, follow the [source comment guidance](source-comments.md).
-Settings files hold values. A setting's commit records its purpose and evidence
-according to the [Git conventions](../tools/hsm/git-tools/README.md#commit-messages).
+Settings files hold values. A setting's commit, and an instruction's, records its
+purpose and evidence according to the [Git conventions](../tools/hsm/git-tools/README.md#commit-messages).
 
 ## Purpose
 
