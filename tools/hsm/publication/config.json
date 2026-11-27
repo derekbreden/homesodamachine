@@ -124,7 +124,22 @@
     ".pdf",
     ".png.scene.json"
   ],
-  "BUNDLED_ART_FILES": [],
+  "BUNDLED_ART_FILES": [
+    "hardware/assembly-letter-guide/assembly-drill-and-weld-letter.pdf",
+    "hardware/carbonator-filming-guide/carbonator-filming-guide.pdf",
+    "hardware/drill-and-cut-guide/drill-and-cut-guide.pdf",
+    "hardware/faucet-assembly-guide/faucet-assembly-guide.pdf",
+    "hardware/gun-positioner-guide/gun-positioner-guide.pdf",
+    "hardware/install-guide/install-guide.pdf",
+    "hardware/magnetic-float-guide/magnetic-float-guide.pdf",
+    "hardware/mold-guide/mold-guide.pdf",
+    "hardware/printing-the-machine/printing-the-machine.pdf",
+    "hardware/reed-sweep-rig-guide/reed-sweep-rig-guide.pdf",
+    "hardware/refrigeration-guide/refrigeration-guide.pdf",
+    "hardware/tube-insertion-guide/tube-insertion-guide.pdf",
+    "hardware/water-inlet-jet-guide/water-inlet-jet-guide.pdf",
+    "hardware/weld-rotator-guide/weld-rotator-guide.pdf"
+  ],
   "BUNDLED_BOARD_DIRS": [
     "hardware/pcb/pcba/out"
   ],
