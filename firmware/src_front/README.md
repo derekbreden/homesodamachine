@@ -368,15 +368,16 @@ The palette is cobalt `#1749D1`, navy `#10319C`, ice `#DCE6FF`, and orange `#FF9
 One **Settings** button fills the rail from the bottom of flavor 2 to the edge of the
 glass. The gear sits above the tank temperature. Cooling activity appears underneath.
 When the machine is idle, the gear and temperature sit together in the center. Touching
-anywhere in the blue block opens the Settings overview. The portrait beside it runs
-the full height of the screen.
+anywhere in the button opens the Settings overview. On a flavor page the button sits on
+navy with a fine rule above it. On Settings and Water & sensors its cobalt background
+continues across the page and the rule disappears.
 
-**The flavor on tap** has an ice-colored rail cell and a checkmark. Beside the large
-portrait, the cell holds the flavor number with the check underneath. When Settings or
-Water & sensors takes the portrait's place, the full-color thumbnail returns to the cell
-with the check beside its number. The other flavor keeps its muted thumbnail and white
-number. Tapping it puts that flavor on tap. While the machine's selection is unknown,
-both thumbnails appear in color with their numbers.
+**The flavor on tap** has a checkmark. Beside the full-height portrait, the flavor's
+ice-colored cell joins the portrait and holds the large number with the check underneath.
+When a machine page takes the portrait's place, both flavor cells are navy. The on-tap
+thumbnail returns in full color, with a light check beside its number. The other flavor
+keeps its muted thumbnail and white number. Tapping it puts that flavor on tap. While
+the machine's selection is unknown, both thumbnails appear in color with their numbers.
 
 **At rest** the pane runs the glass's full height, with the
 reservoir's caption and gauge at its top, then Fill, Prime and Clean, and apart from them

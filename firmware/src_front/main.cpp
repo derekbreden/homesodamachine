@@ -221,8 +221,8 @@ static_assert(RAIL_W + HERO_W + TASK_W == SCREEN_W, "Big Blue fills the display"
 static_assert(4 * TILE_BTN_W + 3 * TILE_GAP <= DETAIL_W, "four whole portraits per page");
 
 // ── The rail and the portrait ──
-// The ice cell identifies the flavor on tap. Its picture lives in the portrait panel
-// when that panel is visible, and in the cell when machine settings take its place.
+// The ice cell joins the on-tap flavor to its portrait. On a machine page the
+// thumbnail and check still identify that flavor on the navy rail.
 #define RAIL_CARD_INSET       10   // a card from the rail's edges
 #define RAIL_CARD_PITCH      170
 #define RAIL_CARD_W           84
@@ -5124,7 +5124,7 @@ static lv_obj_t *mkBackChevron(lv_obj_t *band) {
 }
 
 static void buildRail(lv_obj_t *scr) {
-  flavorRail = mkFlat(scr, 0, 0, RAIL_W, SCREEN_H, lv_color_hex(COL_CARD));
+  flavorRail = mkFlat(scr, 0, 0, RAIL_W, RAIL_CELL_FOOT, lv_color_hex(COL_CARD));
   lv_obj_add_flag(flavorRail, LV_OBJ_FLAG_CLICKABLE);
   lv_obj_add_event_cb(flavorRail, flavorBackCb, ACT_EVENT, NULL);
   // Beneath the cards, so a tap there still reaches the card or the rail.
@@ -5165,7 +5165,7 @@ static void buildRail(lv_obj_t *scr) {
   lv_obj_align(heroCaption, LV_ALIGN_TOP_MID, 0, HERO_CAPTION_Y);
 }
 
-// The selected cell trades its large number for a thumbnail when the portrait leaves the screen.
+// The page owns the joined background. The check follows what is on tap on either page.
 static void paintRailSelection() {
   if (!heroPanel) return;
   const int8_t selected = homeFlavorShown;
@@ -5179,17 +5179,18 @@ static void paintRailSelection() {
     lv_obj_set_pos(railCell, 0, selected ? RAIL_CELL_SPLIT : 0);
     lv_obj_set_height(railCell, selected ? RAIL_CELL_FOOT - RAIL_CELL_SPLIT : RAIL_CELL_SPLIT);
   }
-  showIf(railCell, selected >= 0);
+  showIf(railCell, selected >= 0 && portraitVisible);
   for (uint8_t i = 0; i < 2; ++i) {
     const bool on = selected == i;
     const bool largeNumber = on && portraitVisible;
     lv_img_set_src(homeFlavorArtObj[i], railArt(i));
     showIf(homeFlavorArtObj[i], !largeNumber);
     lv_obj_set_style_text_font(railNumber[i], largeNumber ? &lv_font_montserrat_48 : &lv_font_montserrat_24, 0);
-    lv_obj_set_style_text_color(railNumber[i], lv_color_hex(on ? COL_INK : COL_TEXT), 0);
+    lv_obj_set_style_text_color(railNumber[i], lv_color_hex(largeNumber ? COL_INK : COL_TEXT), 0);
     lv_obj_align(railNumber[i], LV_ALIGN_TOP_MID, 0, largeNumber ? RAIL_BIG_NUMBER_Y : RAIL_NUMBER_Y);
     // Center the check under the large number, or place it beside the number below the thumbnail.
     lv_obj_set_pos(railCheck[i], largeNumber ? 33 : 13, largeNumber ? 109 : RAIL_NUMBER_Y + 9);
+    lv_obj_set_style_line_color(railCheck[i], lv_color_hex(largeNumber ? COL_INK : COL_DIM), 0);
     showIf(railCheck[i], on);
   }
 }
@@ -5244,15 +5245,15 @@ static lv_obj_t *mkBackRow(lv_obj_t *band, lv_coord_t w, lv_event_cb_t cb, lv_ob
 }
 
 static void buildSettingsButton(lv_obj_t *scr) {
-  settingsBtn = mkBtn(scr, RAIL_W, SCREEN_H - RAIL_CELL_FOOT, COL_BLUE);
+  settingsBtn = mkBtn(scr, RAIL_W, SCREEN_H - RAIL_CELL_FOOT, COL_CARD);
   lv_obj_set_pos(settingsBtn, 0, RAIL_CELL_FOOT);
   lv_obj_clear_flag(settingsBtn, LV_OBJ_FLAG_SCROLLABLE);
-  lv_obj_set_style_border_width(settingsBtn, 2, 0);
+  lv_obj_set_style_border_width(settingsBtn, 1, 0);
   lv_obj_set_style_border_side(settingsBtn, LV_BORDER_SIDE_TOP, 0);
-  lv_obj_set_style_border_color(settingsBtn, lv_color_hex(COL_OFF), 0);
-  lv_obj_set_style_border_color(settingsBtn, lv_color_hex(COL_DIM), LV_STATE_CHECKED);
-  lv_obj_set_style_bg_color(settingsBtn, lv_color_hex(COL_CARD_ON), LV_STATE_CHECKED);
-  lv_obj_set_style_bg_color(settingsBtn, lv_color_hex(COL_OFF), LV_STATE_PRESSED);
+  lv_obj_set_style_border_color(settingsBtn, lv_color_hex(COL_CARD_ON), 0);
+  lv_obj_set_style_border_opa(settingsBtn, LV_OPA_TRANSP, LV_STATE_CHECKED);
+  lv_obj_set_style_bg_color(settingsBtn, THEME_BG, LV_STATE_CHECKED);
+  lv_obj_set_style_bg_color(settingsBtn, THEME_BG, LV_STATE_PRESSED);
   lv_obj_add_event_cb(settingsBtn, settingsCb, ACT_EVENT, NULL);
   coolingStrip.build(settingsBtn, RAIL_W, lv_color_hex(COL_DIM), lv_color_hex(COL_WARN));
 
