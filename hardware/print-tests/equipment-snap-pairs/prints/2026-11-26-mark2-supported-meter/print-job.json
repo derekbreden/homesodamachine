@@ -49,5 +49,8 @@
   "geometry_fit_record": "hardware/print-tests/equipment-snap-pairs/parts/supported-meter/fit-check.json",
   "purpose": "Replace the failed receiver with removable support under the exposed catches and one supported-face allowance at the short upper guide.",
   "support_coverage": "support-coverage.json",
-  "support_comparison": "support-comparison.png"
+  "support_comparison": "support-comparison.png",
+  "intervention_status": "intervention-status.json",
+  "completion_status": "completion-status.json",
+  "finish_observed_at": "2026-11-27T06:41:34+00:00"
 }
