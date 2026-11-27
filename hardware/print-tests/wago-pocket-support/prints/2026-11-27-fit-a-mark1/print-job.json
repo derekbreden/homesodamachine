@@ -1,0 +1,65 @@
+{
+  "purpose": "Compare one opening each for the 10-, 5- and 3-way WAGO connectors, using the signed dimensional changes requested after the first physical trial.",
+  "printer": "Mark1",
+  "firmware_printer": "H2C",
+  "printer_task_id": "1494444834",
+  "submitted_name": "2026-11-27-fit-a-mark1-af0c2aaa.gcode.3mf",
+  "accepted_at": "2026-11-27T19:19:11+00:00",
+  "previous_finished_job": "1492717061",
+  "first_layer_verified_at": "2026-11-27T19:29:04+00:00",
+  "firmware_layer_at_verification": 1,
+  "firmware_total_layers": 181,
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Print the pocket walls and the detachable tree in the production black PET-GF hotend.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.1,
+  "timelapse": "On, smooth",
+  "objects": [
+    {
+      "name": "fit-a-420",
+      "stl": "hardware/print-tests/wago-pocket-support/parts/fit-a-420.stl",
+      "stl_sha256": "76915c14c4fa50ea0c9ba38f63cbcf33f515d62f1a083050863bed5202e6bcaa"
+    },
+    {
+      "name": "fit-a-415",
+      "stl": "hardware/print-tests/wago-pocket-support/parts/fit-a-415.stl",
+      "stl_sha256": "cf0fd81443d19af1b2a4e54d1b273d431a7d8ac5d522f04ec78781732e753328"
+    },
+    {
+      "name": "fit-a-413",
+      "stl": "hardware/print-tests/wago-pocket-support/parts/fit-a-413.stl",
+      "stl_sha256": "e0517a46ba68f39250c7f932b77192782de397bce5da582c7967daedceab6b88"
+    }
+  ],
+  "printer_recipe": "wago-fit-a",
+  "source_and_recipe_commit": "64ad19773f90febbd88f50ea1f74a731195b46c4",
+  "native_review": "2026-11-27-wago-fit-a-mark1-8f5106a4/review.json",
+  "pocket_measurements": "fit-toolpaths.json",
+  "launch": "launch.json",
+  "prelaunch_status": "prelaunch-status.json",
+  "printing_status": "printing-status.json",
+  "project": {
+    "file": "2026-11-27-wago-fit-a-mark1-8f5106a4/2026-11-27-wago-fit-a-mark1-8f5106a4.3mf",
+    "sha256": "6341735c44874b10b764a5f25575e846cf834f427ce1673313112fec4e07fffa",
+    "git_blob": "7192c4d82daee2fe58b8b67799abc1bfb11e7943",
+    "release_archive": "wago-fit-a-mark1-cf0ecccd646a68b6.zip"
+  },
+  "slice": {
+    "file": "2026-11-27-wago-fit-a-mark1-8f5106a4/2026-11-27-wago-fit-a-mark1-8f5106a4.gcode.3mf",
+    "sha256": "af0c2aaac7608a312aaeb56af307a11b20878d87f9925bf8a65efde1c5203303",
+    "git_blob": "bb9008997728c298a41c95e989231dc28c0f7054",
+    "release_archive": "wago-fit-a-mark1-cf0ecccd646a68b6.zip"
+  },
+  "gcode_sha256": "55e50e1fb2ceab9e0a53c70f0cb95f140f30d54e576faedf26039a4bc5329ed8",
+  "estimated_seconds": 10143,
+  "filament_g": 64.51,
+  "minimum_bead_bed_margin_mm": 104.09
+}

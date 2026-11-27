@@ -14,6 +14,8 @@ The table gives the designed openings. The 0.20 mm increment applies to the enti
 
 On the production 0.24 mm layer schedule, each 0.20 mm change in the designed long dimension moved the underside of the first bridge by a full layer. The measured opening from the top of the floor to the underside of the first roof bead is 30.18, 29.94 and 18.66 mm on Mark1, and 30.42, 29.70 and 18.42 mm on Mark2, in 10-, 5- and 3-way order. [Mark1 toolpaths](prints/2026-11-27-fit-a-mark1/fit-toolpaths.json) · [Mark2 toolpaths](prints/2026-11-27-fit-b-mark2/fit-toolpaths.json)
 
+The [one-bar Mark1 job](prints/2026-11-27-fit-a-mark1/print-job.json) and [two-bar Mark2 job](prints/2026-11-27-fit-b-mark2/print-job.json) identify the exact files sent to each printer.
+
 ## Original support-removal coupons
 
 Each coupon has one blind production pocket and one removable tree. The tree sits over the pocket floor and flares into a three-course crown beneath the transverse roof bridge. The 8 mm side cheeks and blind back, 7.16 mm floor and 6 mm roof give a screwdriver a solid edge to bear against. The dots recessed into the top of the blind back identify the specimen after removal from the plate.
