@@ -30,18 +30,18 @@
   },
   "HSM-0020": {
     "title": "Cold-core top cap lid · Mark1 print plan",
-    "sha256": "36bfd4e269de2ee73f51add11882161ebef61b1282d79fdd113b61141ceec8b1",
-    "slice": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-26-production-snaps-mark1/2026-11-26-foam-cap-lid-top-mark1-f40b229a-textured-pei/2026-11-26-foam-cap-lid-top-mark1-f40b229a-textured-pei.gcode.3mf",
+    "sha256": "6d9eeaf0215b6abff6c17cadd6da8a34d99c4574f9905f441c454553402c4ae4",
+    "slice": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-27-lid-wago-floor-trees-mark1/2026-11-27-foam-cap-lid-top-mark1-f40b229a-textured-pei/2026-11-27-foam-cap-lid-top-mark1-f40b229a-textured-pei.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "foam-cap-lid-top",
-    "recipe_sha256": "ea2f88b1a7bd408222c446447c7dea8f206eb23dadbf8e0f00e19b6286cb1c83",
-    "project_sha256": "b4b5fc8219fcd10390bf3117c4470cc4b52a87975a7914e3d77b6b5628951222",
-    "archive_sha256": "0f94034153ef0e8cacf6d7fb39a725ebc296dcdcf0bada021d0d40a4af676067",
-    "gcode_sha256": "d44aaf3458acbaa3ceb0987e3e92af5ed580f144eda11ee9ccf8a7d2654fe744",
+    "recipe_sha256": "91435d4f9a7efee861d81271b48b5d09584fdaabf3d2c6c330c78ea31107a660",
+    "project_sha256": "b14acc0a392babb119b54b75e76a10d82ca703a2009c8768be361dec3405b272",
+    "archive_sha256": "5067c7dac6b29fac2816856d41a6189e0ed423bb048a4abf3de580320c975229",
+    "gcode_sha256": "20bdbb6f50798073488ac372aad9770f14c156bdcfc77c024e49597b5f9da6de",
     "kind": "plan",
     "layers": 224,
-    "recipe_commit": "8e25a2bff795af3b3deb01cf3a1395c24602cc66",
+    "recipe_commit": "71f896f3500207b735f88f7f000ca530a485ea3e",
     "model_sha256": "2a74672a1c10c6393afd85701725f7c8701ddb14c408804879863f768b808859",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
@@ -58,7 +58,8 @@
       "Bridge flow": "1.25",
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s",
-      "Support contact": "WAGO openings, valve seat and the underside groove for the reservoir B fill tube. The two 45° pump-catch shoulders grow on the preceding model layer."
+      "Support contact": "The valve seat and the underside groove for the reservoir B fill tube receive support. The two 45° pump-catch shoulders grow on the preceding layer.",
+      "WAGO pockets": "Each of the four pockets has one floor-rooted tree. Withdraw the cap and stem together through the mouth."
     }
   },
   "HSM-0021": {

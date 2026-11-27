@@ -65,10 +65,10 @@
     "scope": "machine",
     "material": "HSM-0020",
     "filament": "PET-GF",
-    "detail": "Mark1 · PET-GF · fits the current ten-insert HSM-0018 shell",
+    "detail": "Mark1 · PET-GF · four floor-rooted WAGO trees and the current ten-insert HSM-0018 shell",
     "thumbnail": "/parts/plates/foam-cap-lid-top.webp",
     "href": "/parts#material:HSM-0020?view=print",
-    "download": "/print-archive/2a65213d48ca67ad323adf56c83662521541d44a/cold-core-equipment-lid-mark1.3mf",
+    "download": "/print-archive/503ee13b24f3ff780d7e92c14cd9e6702892a61e/cold-core-equipment-lid-mark1.3mf",
     "parts": [{"label": "Cold-core equipment lid", "material": "HSM-0020"}],
     "relatedPrints": [
       {"label": "Reservoir caps · translucent PETG", "material": "HSM-0027", "href": "/parts#material:HSM-0027?view=print"},
