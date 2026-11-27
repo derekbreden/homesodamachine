@@ -1,380 +1,282 @@
 {
-  "purpose": "Measure the two flat crests on each production rear cover against the receiver and the installed hardware.",
-  "back_top_stl_sha256": "c8b0f3d18d5cf0678c9a7689ecb6b72f3913b5535e3b2742271f277cf3ded226",
-  "installed_covers_mesh_sha256": "6d06f31020fdc26c77f162009838c8078b7ba4749f27953a1fa9e2863138e10c",
-  "pointed_reference_commit": "55bdc1dcbf",
-  "pointed_profile_measurements": "https://github.com/derekbreden/homesodamachine/blob/81af69339f6a91c032c34e3389a2f0d2464abeed/hardware/printed-parts/enclosure/rear-equipment-caps/production-fit.json",
-  "four_bar_bench": "https://github.com/derekbreden/homesodamachine/blob/2d7f9faac54a802877a41971e513dc0211d3475c/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark2/physical-result/physical-result.json",
-  "pisco_print_comparison": "pisco-fit.json",
-  "pump_fit": "../../../print-tests/pump-seated-snaps/parts/fit-check.json",
-  "method": "Restore each earlier pointed STL to its production axes. Read both flat crest runs on the new installed mesh and ray-cast from each midpoint into the production back-top. Translate the cover and purchased hardware independently to first solid intersection of 0.0000001 mm\u00b3. For the loaded case stop 0.001 mm before the roof and let each fixed-root leaf spring back to its inclined catch. Tilt the centered cap either way about its longitudinal axis. Positive overlap in those tilted poses identifies solid restraint. The ASSE body and its threaded inlet coupling move together.",
+  "purpose": "Compare the finished production caps and integral back-top receivers with the full-size fitting trials, and register the same parts in the installed viewer.",
+  "back_top_stl_sha256": "1f56d9ab5871bc232f789cf32e4be0e1a1b0445d8c9e51f131165e2276d92a1b",
+  "installed_covers_mesh_sha256": "90f8046147fea778be41f63fd86cee8de9fe99d58bb60fe67a5ef16459be249c",
+  "previous_raised_crest_measurements": "https://github.com/derekbreden/homesodamachine/blob/69873dc2ed26f56f74d4842401f8eeff7eab7e24/hardware/printed-parts/enclosure/rear-equipment-caps/production-fit.json",
+  "method": {
+    "surfaces": "Invert each archived cover STL registration. Invert the production generator’s axial-end print rotation and centering with its installed fine-model bounds. The receiver fixtures and production back-top STL share machine coordinates.",
+    "caps": "Boolean differences between the entire production and trial print solids, in mm³. The two values are production-only and trial-only volume. The Pisco trial has three recessed identification dots on the cover back. Production fills those marks.",
+    "receivers": "Intersect each print solid with the listed installed XYZ box, enclosing both cheeks, their ends and the fitted hardware passage in the working span. Compare the volumes in both directions. An exterior panel strip beyond the ASSE working span carries the full part’s print flutes. The Pisco fixture has three further exterior ID dots on its flange.",
+    "sections": "Section both sides at 11 equally spaced axial positions, from 0.03 mm inside the fore end to 0.03 mm inside the aft end. Compare both directions across the contour of each leaf from root to foot, and across its fixed cheek from the approach through the stop. Distances are maxima of the densified section-edge Hausdorff distances in mm.",
+    "viewer": "The installed assembly references the current source payload digest. Decode each of its four immutable cap assets and compare its position, normal, triangle-index and face-range buffers byte for byte against the matching body of the current installed cover set. All four use identity placement. The back-top node references the same asset as the current quadrant."
+  },
   "stations": {
     "asse": {
-      "stl_sha256": "f34f987d6f74b260b26840a0fd74b6265cedb55247d4c9caa63688fc0afd6b1a",
-      "pointed_stl_sha256": "62de58cac6bfd05cb0bedfde4c21d4c3db33f490de0dcf6cda3c5081acec333d",
-      "connected_solids": 1,
-      "closing_axis": "+Z",
-      "wing_order": [
-        "west",
-        "east"
+      "cover": "asse-snap-cap",
+      "production_stl_sha256": "46f498e91975665fd805e2220accf38a62a43735993f6c2e2d3281b085a6d181",
+      "donor_cover": "../../../print-tests/equipment-snap-pairs/parts/three-dot/asse-snap-cap.stl",
+      "donor_cover_sha256": "3c74ef90414d2547ff8e12e62fd762fc1d790e69b051adef7b7d3f6b7111912f",
+      "donor_receiver": "../../../print-tests/equipment-snap-pairs/parts/three-dot/asse-receiver.stl",
+      "donor_receiver_sha256": "9b256c7a3119594817986f72b928419d732fbe078336f34d7a2fa41956d3bfda",
+      "full_cover_added_removed_mm3": [
+        0.001427,
+        0.002602
       ],
-      "old_point_mm": 351.05,
-      "new_crests_mm": [
-        351.45,
-        351.45
+      "working_receiver_xyz_mm": [
+        [
+          2,
+          395.9,
+          330.5
+        ],
+        [
+          55,
+          438.7,
+          352.1
+        ]
       ],
-      "rise_mm_each": 0.4,
-      "crest_widths_mm": [
-        0.9,
-        0.9
+      "working_receiver_added_removed_mm3": [
+        4.4e-05,
+        5.8e-05
       ],
-      "crest_runs_mm": [
-        41.665,
-        41.665
+      "side_order": "west and east",
+      "maximum_leaf_section_difference_mm": [
+        4.95e-05,
+        4.95e-05
       ],
-      "pocket_stops_mm": [
-        351.68,
-        351.68
+      "maximum_cheek_section_difference_mm": [
+        1.5e-06,
+        0.0
       ],
-      "centered_travel_to_stop_mm": 0.23,
-      "free_hook_overlap_mm": 0.68,
-      "residual_catch_overlap_before_flex_mm": 0.45,
-      "flexed_hook_engagement_past_lip_mm": [
-        2.058,
-        2.058
+      "viewer_asset_sha256": "982423698b5e10f75de3d8a6439a323bd92f9430bc209451233eae4c4d5310b6",
+      "installed_viewer_bounds_mm": [
+        [
+          3.65186,
+          396.453247,
+          309.421082
+        ],
+        [
+          53.948139,
+          461.078247,
+          351.485504
+        ]
       ],
-      "cap_to_stationary_hardware_mm": 0.147,
-      "housing_to_far_seat_mm": 0.25,
-      "first_cap_contact": [
-        "gagira-coupling"
-      ],
-      "first_far_contact": [
-        "asse1022-assembly"
-      ],
-      "hardware_far_seat_travel_remaining_at_stop_mm": 0.167,
-      "centered_hardware_displacement_mm": 0.082,
-      "outward_crest_deflection_mm": 0.963,
-      "centered_receiver_overlap_mm3": 0.0,
-      "fixed_center_roll_deg": [
-        -0.1,
-        0.1
-      ],
-      "fixed_center_roll_receiver_overlap_mm3": [
-        5.504,
-        5.508
-      ],
-      "modeled_entry_and_reverse_release": {
-        "sampled_poses": 104,
-        "axial_start_from_nominal_mm": -20.0,
-        "outward_crest_splay_mm": 6.2,
-        "maximum_receiver_overlap_mm3": 0.0,
-        "maximum_hardware_overlap_mm3": 1e-07
-      }
+      "full_size_fit": "../../../print-tests/equipment-snap-pairs/parts/three-dot/fit-check.json",
+      "bench_record": "../../../print-tests/equipment-snap-pairs/prints/2026-11-26-mark2-pisco-asse/physical-result.json",
+      "modeled_radial_hook_capture_per_side_mm": 1.676385
     },
     "pisco": {
-      "stl_sha256": "c02fe2e2253a3878b1508d06d5f02de286f40e952a68e05f6b19650cb007583c",
-      "pointed_stl_sha256": "f82eb60611585171a80c188efcd0720129e8a12ed8d759d0f339e6a9b5d1b846",
-      "connected_solids": 1,
-      "closing_axis": "+Z",
-      "wing_order": [
-        "west",
-        "east"
+      "cover": "pisco-snap-cap",
+      "production_stl_sha256": "42122f3a2a22ac7d7c6fcea0151f040a4710a1766eebf5a8cec07294739201dc",
+      "donor_cover": "../../../print-tests/pisco-wide-snap/parts/three-dot/cover.stl",
+      "donor_cover_sha256": "95882ef5cce90972c4ea6def9fd467a0497186644683524c605df4b19ec055d6",
+      "donor_receiver": "../../../print-tests/pisco-wide-snap/parts/three-dot/receiver.stl",
+      "donor_receiver_sha256": "299021a11a9075af646cd14295962ff75fd3468fc4ef633185543a906eee9f8f",
+      "full_cover_added_removed_mm3": [
+        1.887058,
+        0.000949
       ],
-      "old_point_mm": 351.05,
-      "new_crests_mm": [
-        351.45,
-        351.45
+      "working_receiver_xyz_mm": [
+        [
+          60,
+          419,
+          337.5
+        ],
+        [
+          93,
+          458.46,
+          351.6
+        ]
       ],
-      "rise_mm_each": 0.4,
-      "crest_widths_mm": [
-        0.9,
-        0.9
+      "working_receiver_added_removed_mm3": [
+        0.00014,
+        0.00212
       ],
-      "crest_runs_mm": [
-        37.315,
-        37.315
+      "side_order": "west and east",
+      "maximum_leaf_section_difference_mm": [
+        4.95e-05,
+        4.95e-05
       ],
-      "pocket_stops_mm": [
-        351.55,
-        351.55
+      "maximum_cheek_section_difference_mm": [
+        7.4e-06,
+        7.4e-06
       ],
-      "centered_travel_to_stop_mm": 0.1,
-      "free_hook_overlap_mm": 0.55,
-      "residual_catch_overlap_before_flex_mm": 0.45,
-      "flexed_hook_engagement_past_lip_mm": [
-        2.059,
-        2.059
+      "viewer_asset_sha256": "f530b235013853b7e429d257c8cf3f4eff9bb3d1c130ad893f4b349889e8d8f7",
+      "installed_viewer_bounds_mm": [
+        [
+          62.094383,
+          420.595703,
+          316.972595
+        ],
+        [
+          90.905617,
+          462.299988,
+          351.485504
+        ]
       ],
-      "cap_to_stationary_hardware_mm": 0.147,
-      "housing_to_far_seat_mm": 0.121,
-      "first_cap_contact": [
-        "gas-regulator/1"
+      "full_size_fit": "../../../print-tests/pisco-wide-snap/parts/three-dot/fit-check.json",
+      "bench_record": "../../../print-tests/equipment-snap-pairs/prints/2026-11-26-mark2-pisco-asse/physical-result.json",
+      "additional_fore_stop_sections_x_mm": [
+        85.493,
+        85.51,
+        86.2,
+        86.91,
+        88.0,
+        89.21,
+        90.3
       ],
-      "first_far_contact": [
-        "gas-regulator/1"
+      "maximum_fore_stop_section_difference_mm": 1.91e-05,
+      "rigid_outlet_lip_advance_mm": 0.24,
+      "forward_wing_wall_advance_mm": 0.12,
+      "cradle_rise_mm": 0.2,
+      "forward_and_aft_entry_relief_mm": [
+        0.8,
+        1.25
       ],
-      "hardware_far_seat_travel_remaining_at_stop_mm": 0.168,
-      "centered_hardware_displacement_mm": 0.0,
-      "outward_crest_deflection_mm": 0.951,
-      "centered_receiver_overlap_mm3": 0.0,
-      "fixed_center_roll_deg": [
-        -0.1,
-        0.1
+      "pilot_clearance_in_trial_extrusion_mm": [
+        0.65698,
+        0.65726
       ],
-      "fixed_center_roll_receiver_overlap_mm3": [
-        0.8807,
-        0.8807
-      ],
-      "modeled_tilt_entry_and_reverse_release": {
-        "waypoints": "https://github.com/derekbreden/homesodamachine/blob/f1e8c6ba98e640ec28c19d8b89ce5f78908c782e/hardware/print-tests/pisco-raised-tip-cover/parts/fit-check-040.json",
-        "sampled_poses": 281,
-        "maximum_receiver_overlap_mm3": 0,
-        "maximum_hardware_overlap_mm3": 3e-08,
-        "minimum_backed_meter_shoulder_clearance_mm": 0.6072
-      }
+      "hook_capture_at_first_hardware_contact_in_trial_extrusion_mm": [
+        1.36881,
+        1.36877
+      ]
     },
     "meter": {
-      "stl_sha256": "bd0ad93e5c8708523e513f50140897029eace7dd65c190d5ce0008ecd2e79f89",
-      "pointed_stl_sha256": "f45512624ea3c12eea103247c0574083386a94f000ec4d7ff547b39114fe424d",
-      "connected_solids": 1,
-      "closing_axis": "+X",
-      "wing_order": [
-        "lower",
-        "upper"
+      "cover": "meter-snap-cap",
+      "production_stl_sha256": "1acb6611485eb87c9e602cd7e74e8f8d1e823b859d0b9d133623e764e914687d",
+      "donor_cover": "../../../print-tests/equipment-snap-pairs/parts/three-dot/meter-snap-cap.stl",
+      "donor_cover_sha256": "54a328976ed885be0553dceb0637470516f9019fa083c05e254ab76f9b34e8f3",
+      "donor_receiver": "../../../print-tests/equipment-snap-pairs/parts/supported-meter/meter-receiver.stl",
+      "donor_receiver_sha256": "221d9138d5493abb2672f84d48c9704d4f49cebdd506b7d941bc9842c41022b4",
+      "full_cover_added_removed_mm3": [
+        0.001045,
+        0.001033
       ],
-      "old_point_mm": 98.0,
-      "new_crests_mm": [
-        98.4,
-        98.4
-      ],
-      "rise_mm_each": 0.4,
-      "crest_widths_mm": [
-        0.9,
-        0.9
-      ],
-      "crest_runs_mm": [
-        38.0,
-        21.337
-      ],
-      "pocket_stops_mm": [
-        98.5,
-        98.5
-      ],
-      "centered_travel_to_stop_mm": 0.1,
-      "free_hook_overlap_mm": 0.55,
-      "residual_catch_overlap_before_flex_mm": 0.45,
-      "flexed_hook_engagement_past_lip_mm": [
-        2.0725,
-        2.0725
-      ],
-      "cap_to_stationary_hardware_mm": 0.55,
-      "housing_to_far_seat_mm": 0.15,
-      "first_cap_contact": [
-        "digiten-flow/1",
-        "digiten-flow/2",
-        "digiten-flow/3"
-      ],
-      "first_far_contact": [
-        "digiten-flow/7",
-        "digiten-flow/9",
-        "digiten-flow/10",
-        "digiten-flow/11",
-        "digiten-flow/12"
-      ],
-      "hardware_far_seat_travel_remaining_at_stop_mm": 0.6,
-      "centered_hardware_displacement_mm": 0.0,
-      "outward_crest_deflection_mm": 0.836,
-      "centered_receiver_overlap_mm3": 0.0,
-      "fixed_center_roll_deg": [
-        -0.1,
-        0.1
-      ],
-      "fixed_center_roll_receiver_overlap_mm3": [
-        1.791,
-        1.1913
-      ],
-      "modeled_entry_and_reverse_release": {
-        "sampled_poses": 104,
-        "axial_start_from_nominal_mm": -20.0,
-        "outward_crest_splay_mm": 6.2,
-        "maximum_receiver_overlap_mm3": 0.0,
-        "maximum_hardware_overlap_mm3": 0.0
-      },
-      "installed_solid_comparison": {
-        "method": "Boolean differences of closed solids decoded from the previous +0.20 mm cover and the relieved cover at their installed poses.",
-        "previous_meter_mesh_sha256": "2c55b08ac7e2b8a2cc37234fcda407b96752089a13d46f2b44f3e376c2a413d1",
-        "current_meter_mesh_sha256": "44efe3ba92d11adb5fc9f69321c6918fb45735e285f3e4ffdb9ab606da915ba8",
-        "added_mm3": 860.95897,
-        "removed_mm3": 777.88815
-      },
-      "wall_measurement": {
-        "method": "Cast +X rays from the lower and upper crest flats into the enclosure east wall. Place the flexed cover at that stop, then measure the distance along +X to the nominal meter and to the meter on its far seat.",
-        "origins_mm": [
-          [
-            98.4,
-            405.0,
-            258.6
-          ],
-          [
-            98.4,
-            405.0,
-            312.0
-          ]
+      "working_receiver_xyz_mm": [
+        [
+          82,
+          383,
+          255
         ],
-        "wall_x_mm": [
-          98.5,
-          98.5
-        ],
-        "clearances_mm": [
-          0.1,
-          0.1
-        ],
-        "cap_to_nominal_meter_at_stop_mm": 0.45,
-        "cap_to_far_seated_meter_at_stop_mm": 0.6
-      },
-      "single_cover_toolpaths": "prints/2026-11-24-meter-040-relief-mark2/crest-paths.json",
-      "hook_measurement": {
-        "y_mm": 404,
-        "z_mm": [
-          262.2,
-          308.4
-        ],
-        "cap_retaining_face_x_mm": [
-          89.2,
-          89.2
-        ],
-        "receiver_retaining_face_x_mm": [
-          89.75,
-          89.75
-        ],
-        "centered_flex_test_travel_mm": 0.099,
-        "fixed_center_roll_hardware_overlap_mm3": [
-          0.0,
-          0.0
+        [
+          99.1,
+          444.7,
+          313
         ]
-      },
-      "saddle_setback": {
-        "reference_040_meter_mesh_sha256": "391ba1eaadb033562c51f376b657645e5480dfea53ba89fc99f87e166ddf8557",
-        "reference_root_x_mm": 66.35,
-        "relieved_root_x_mm": 65.95,
-        "reference_root_to_crest_mm": 32.05,
-        "relieved_root_to_crest_mm": 32.45,
-        "surface_measurement": "Cast +X rays at each Y and Z listed below. Read the last cover surface toward the meter in the previous +0.40 mm cover and in the relieved cover.",
-        "surfaces": [
-          {
-            "surface": "center face",
-            "y_mm": 415.0,
-            "z_mm": 285.3,
-            "reference_x_mm": 66.95,
-            "relieved_x_mm": 66.55
-          },
-          {
-            "surface": "housing taper",
-            "y_mm": 415.0,
-            "z_mm": 270.7,
-            "reference_x_mm": 67.552,
-            "relieved_x_mm": 67.152
-          },
-          {
-            "surface": "fore neck passage",
-            "y_mm": 396.0,
-            "z_mm": 294.2,
-            "reference_x_mm": 68.4,
-            "relieved_x_mm": 68.0
-          },
-          {
-            "surface": "aft neck passage",
-            "y_mm": 432.0,
-            "z_mm": 294.2,
-            "reference_x_mm": 68.4,
-            "relieved_x_mm": 68.0
-          },
-          {
-            "surface": "bearing face outside the housing profile",
-            "y_mm": 401.0,
-            "z_mm": 277.0,
-            "reference_x_mm": 70.35,
-            "relieved_x_mm": 69.95
-          }
+      ],
+      "working_receiver_added_removed_mm3": [
+        0.0,
+        0.0
+      ],
+      "side_order": "upper and lower",
+      "maximum_leaf_section_difference_mm": [
+        4.77e-05,
+        4.77e-05
+      ],
+      "maximum_cheek_section_difference_mm": [
+        0.0,
+        0.0
+      ],
+      "viewer_asset_sha256": "cccc9cf9a1d6a32b1a88ef69c8a918d0b786ccdb9e926b70d5884f2a37fc9854",
+      "installed_viewer_bounds_mm": [
+        [
+          56.950001,
+          395.758636,
+          258.149994
+        ],
+        [
+          98.435509,
+          433.758636,
+          312.450012
         ]
-      }
+      ],
+      "full_size_fit": "../../../print-tests/equipment-snap-pairs/parts/supported-meter/fit-check.json",
+      "bench_record": "../../../print-tests/equipment-snap-pairs/prints/2026-11-26-mark1-meter-water/physical-result/physical-result.json",
+      "entire_fixture_crop_added_removed_mm3_to_five_places": [
+        0.0,
+        0.0
+      ],
+      "supported_upper_guide_relief_mm": 0.25,
+      "lower_bearing_relief_mm": 0,
+      "modeled_radial_hook_capture_upper_lower_mm": [
+        1.599,
+        1.676
+      ],
+      "filled_splice_volume_upper_and_lower_mm3": [
+        36.90436,
+        25.92434
+      ]
     },
-    "regulator": {
-      "stl_sha256": "76491433b0bb93d9c78ef6a52dbf8bf070b002084b564e74fcb103b92cc151e2",
-      "pointed_stl_sha256": "09ff2ca023ad7e8640c6f6b79bcf4de2608f3846a8270224e266db3abad1ba13",
-      "connected_solids": 1,
-      "closing_axis": "+Z",
-      "wing_order": [
-        "fore",
-        "aft"
+    "water": {
+      "cover": "regulator-snap-cap",
+      "production_stl_sha256": "17796d35573e1d2e9f47a067c6214bba0b7991a2e86368b7d539d20229e1e4fd",
+      "donor_cover": "../../../print-tests/equipment-snap-pairs/parts/firm-regulator/regulator-snap-cap.stl",
+      "donor_cover_sha256": "7c1cdad76610e6fc4d50f46d73b05adea7ffbdf90fee04a5c60ec1d83712d3e8",
+      "donor_receiver": "../../../print-tests/equipment-snap-pairs/parts/three-dot/water-regulator-receiver.stl",
+      "donor_receiver_sha256": "2f6ce2cb87cd91d27f33521cfcc899879d9ff98d3b4dcc5bbeb859698c3bb8d2",
+      "full_cover_added_removed_mm3": [
+        0.001035,
+        0.00102
       ],
-      "old_point_mm": 347.8151,
-      "new_crests_mm": [
-        348.2151,
-        348.2151
+      "working_receiver_xyz_mm": [
+        [
+          -55.88,
+          284,
+          334
+        ],
+        [
+          -18.77,
+          331,
+          349
+        ]
       ],
-      "rise_mm_each": 0.4,
-      "crest_widths_mm": [
-        0.9,
-        0.9
+      "working_receiver_added_removed_mm3": [
+        0.000501,
+        0.00049
       ],
-      "crest_runs_mm": [
-        36.0,
-        36.0
+      "side_order": "fore and aft",
+      "maximum_leaf_section_difference_mm": [
+        5.04e-05,
+        5.04e-05
       ],
-      "pocket_stops_mm": [
-        348.5451,
-        348.5451
+      "maximum_cheek_section_difference_mm": [
+        1.43e-05,
+        1.5e-05
       ],
-      "centered_travel_to_stop_mm": 0.33,
-      "free_hook_overlap_mm": 0.78,
-      "residual_catch_overlap_before_flex_mm": 0.45,
-      "flexed_hook_engagement_past_lip_mm": [
-        2.052,
-        2.052
+      "viewer_asset_sha256": "a05eb07dfc247c61640faacd4986518503d10491893e9a2ee195f3967f75653e",
+      "installed_viewer_bounds_mm": [
+        [
+          -55.32391,
+          286.603638,
+          315.924133
+        ],
+        [
+          -19.32391,
+          328.710052,
+          348.250641
+        ]
       ],
-      "cap_to_stationary_hardware_mm": 0.248,
-      "housing_to_far_seat_mm": 0.251,
-      "first_cap_contact": [
-        "flow-regulator"
-      ],
-      "first_far_contact": [
-        "flow-regulator"
-      ],
-      "hardware_far_seat_travel_remaining_at_stop_mm": 0.168,
-      "centered_hardware_displacement_mm": 0.081,
-      "outward_crest_deflection_mm": 1.007,
-      "centered_receiver_overlap_mm3": 0.0,
-      "fixed_center_roll_deg": [
-        -0.1,
-        0.1
-      ],
-      "fixed_center_roll_receiver_overlap_mm3": [
-        1.3989,
-        1.3989
-      ],
-      "modeled_entry_and_reverse_release": {
-        "sampled_poses": 104,
-        "axial_start_from_nominal_mm": -20.0,
-        "outward_crest_splay_mm": 6.2,
-        "maximum_receiver_overlap_mm3": 0.0,
-        "maximum_hardware_overlap_mm3": 9e-08
-      }
+      "full_size_fit": "../../../print-tests/equipment-snap-pairs/parts/firm-regulator/fit-check.json",
+      "bench_record": "../../../print-tests/equipment-snap-pairs/prints/2026-11-26-mark1-firm-regulator/physical-result.json",
+      "bearing_rise_mm": 0.4,
+      "modeled_rigid_stop_shortfall_mm": 0.2322,
+      "modeled_radial_hook_capture_per_side_mm": 1.53437
     }
   },
-  "scope": "Closure and hardware travel use nominal centered geometry. The loaded flex and roll figures are simulations for the specified covers. Plumbing can hold the hardware elsewhere within its travel. The four-bar Pisco was tested in the original corner.",
-  "meter_wire_chamber_section": {
-    "method": "Vertical rays at Y406 on the earlier rear-corner STL and the production receiver. Follow the two bevels on either side of the open cable passage where they meet its Z263.50 floor.",
-    "retaining_nose_limit_x_mm": 90.8,
-    "old_opening_x_mm": [
-      91.05,
-      93.15
-    ],
-    "production_opening_x_mm": [
-      91.05,
-      94.05
-    ],
-    "backed_shoulder_comparison": "Within its installed bounds inboard of the flank, the production shoulder reproduces the printed 45-degree specimen within 0.00006 mm\u00b3.",
-    "reference": "../../../print-tests/rear-receiver-quick/parts/meter-fit-check.json"
+  "flow_meter_supports": {
+    "checked_positive_regions": {
+      "Accessible flow meter fore shoulder": 0.0,
+      "Accessible flow meter fore boss channel floor": 0.0,
+      "Accessible flow meter aft boss channel floor": 0.0,
+      "Accessible flow meter fore screw-head channel floor": 0.0,
+      "Accessible flow meter aft screw-head channel floor": 0.0,
+      "Accessible flow meter wire chamber floor": 0.0,
+      "Upper wing pilot, approach and retaining lip": 1.4e-05,
+      "Upper wing retaining shoulder and running guide": 1.4e-05,
+      "Accessible long lower hook backing": 1.2e-05,
+      "Accessible fore upper screw-head recess ledge": 0.000888,
+      "Accessible aft upper screw-head recess ledge": 0.000888
+    },
+    "metric": "Maximum difference per support box, in mm, between the integrated back-top and the supported receiver fixture."
   }
 }

@@ -54,6 +54,8 @@ The ASSE cap uses the native dense interface and the surrounding model stock
 to back its fitted shoulder. The meter's narrow port shoulder bridges with its
 opening clear, and the Pisco cap prints without support. The [earlier raised-crest print review](print-plan-review.json) records the gaps and bridge anchors for those earlier solids.
 
+The [full Mark2 accessory plate](prints/2026-11-26-production-snaps-mark2/print-plan.json) carries these four caps and the motor cover. Its [crest review](prints/2026-11-26-production-snaps-mark2/cover-crests-and-cooling.json) follows both sides of each cap through the actual toolpaths.
+
 For an individual water-regulator cover, use the `single-regulator-cap`
 [preparation recipe](../trial-preparation/pieces.json). Its native smooth-timelapse
 tower provides time away from the cap between layers while retaining the

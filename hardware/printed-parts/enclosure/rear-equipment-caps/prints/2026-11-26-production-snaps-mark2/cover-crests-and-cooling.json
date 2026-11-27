@@ -5,6 +5,13 @@
   "archive": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-26-production-snaps-mark2/2026-11-26-small-petgf-mark2-6c829073-textured-pei/2026-11-26-small-petgf-mark2-6c829073-textured-pei.gcode.3mf",
   "archive_sha256": "04308af145416e26040908b4458b8a6501cf2873fa616a512c489caa2f8e7075",
   "header_gcode_sha256": "ef13ce5c36da33d7ed3e5fd0c4b92dafb2da38b612ef95a0e9755aff2210f370",
+  "meter_port_bridges": {
+    "scope": "Explicit bridge moves at the meter cap port on the native Mark2 accessory plate, sampled at intervals of at most 0.08 mm against earlier model extrusion.",
+    "print_z_mm": [34.52, 34.76],
+    "roads": 43,
+    "longest_road_mm": 5.004,
+    "roads_with_both_ends_landed": 43
+  },
   "objects": [
     {
       "part": "asse-snap-cap",

@@ -1,0 +1,164 @@
+{
+  "views": [
+    {
+      "name": "pisco-entry",
+      "caption": "Pisco cover in amber and its receiver in gray. The pilot leads the spring into the catch. The solid return face retains the cover after the pilot passes.",
+      "before": "pisco-entry-before.webp",
+      "after": "pisco-entry-after.webp",
+      "width": 1200,
+      "height": 900,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          64.35,
+          413.1005050633883,
+          347.05
+        ],
+        "target": [
+          64.35,
+          430,
+          347.05
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.2675432434799753,
+        "far": 536.1728911880878,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            64.35,
+            430,
+            347.05
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "pisco-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "pisco-snap-cap",
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "0d5fa8845778ea5f2bf1114a9d932a0daaa3ef5c38d813166b00763fbfac586c",
+          "commit": "b20503aaa317b234c7bc1a423a712a2dfec02489",
+          "taken": "2026-11-27T05:09:51.365Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "20eee18f8f167667928941b1d5757d8354347a42bf1928d11841a1bf1b2cdb4b",
+          "commit": "be3e0967913b5f79f1c3b2c0d411ceb8d8901bc0",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/foam-cap-lid-top",
+        "enclosure-back-top",
+        "cold-core/pump-snap-cap",
+        "regulator-snap-cap",
+        "asse-snap-cap",
+        "pisco-snap-cap",
+        "meter-snap-cap"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "motor-catch",
+      "caption": "The carbonator cover in amber meets the fixed cheek in the lid. The cut follows one of the two 54.5 mm working shoulders along the motor.",
+      "before": "motor-catch-before.webp",
+      "after": "motor-catch-after.webp",
+      "width": 1200,
+      "height": 900,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          19,
+          393.59207793864215,
+          257.2
+        ],
+        "target": [
+          19,
+          415.32,
+          257.2
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.15144338120260545,
+        "far": 417.51310886138964,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            19,
+            415.32,
+            257.2
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "cold-core/pump-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/pump-snap-cap",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "0d5fa8845778ea5f2bf1114a9d932a0daaa3ef5c38d813166b00763fbfac586c",
+          "commit": "b20503aaa317b234c7bc1a423a712a2dfec02489",
+          "taken": "2026-11-27T05:09:51.365Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "20eee18f8f167667928941b1d5757d8354347a42bf1928d11841a1bf1b2cdb4b",
+          "commit": "be3e0967913b5f79f1c3b2c0d411ceb8d8901bc0",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/foam-cap-lid-top",
+        "enclosure-back-top",
+        "cold-core/pump-snap-cap",
+        "regulator-snap-cap",
+        "asse-snap-cap",
+        "pisco-snap-cap",
+        "meter-snap-cap"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
