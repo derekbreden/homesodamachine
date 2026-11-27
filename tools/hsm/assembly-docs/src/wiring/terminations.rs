@@ -1,6 +1,7 @@
 use super::*;
 use model::{Body, Colour, Segment, V, add, mul, sub};
-use wire_request::{Cylinder, Pose, Shape};
+use wire_request::{Cylinder, Shape};
+use hsm_enclosure_numbers::junctions::final_join_id;
 const RING_BORE: f64 = 3.2;
 fn cylinder(radius: f64, height: f64, base: V, axis: V) -> Cylinder {
     Cylinder {
@@ -41,22 +42,8 @@ pub fn inputs(
     let mut records = BTreeMap::new();
     let mut bodies = Vec::new();
     let terminals = &at.terminals;
-    let rotation = sources::PORTS_FORE;
-    let join = src.checkout_name(&src.wago_reference("413")?)?;
-    let color = Colour::Linear(src.ac_hub_colour()?);
-    for (id, point) in terminals::FINAL_JOINS {
-        let name = format!("wiring-junction-{id}");
-        bodies.push(Body {
-            name: name.clone(),
-            shape: Shape::Import {
-                step: join.clone(),
-                pose: Pose {
-                    rotation,
-                    translation_mm: point,
-                },
-            },
-            colour: color,
-        });
+    for (name, row) in src.placements()? {
+        let Some(id) = final_join_id(&name) else { continue };
         let mut used = BTreeSet::new();
         for connection in connections {
             for terminal in [&connection.start, &connection.end] {
@@ -68,7 +55,7 @@ pub fn inputs(
         let unused = (1..=3)
             .filter(|i| !used.contains(&format!("join-{id}.{i}")))
             .collect::<Vec<_>>();
-        records.insert(name, json!({"kind":"WAGO 221-413 final connection","size":"413","parent":"final-connections","translation_mm":point,"rotation":rotation,"terminal_ids":used,"unused_ports":unused,"mount":"Free connector retained by its dressed leads","assembly":"Connect through the open funnel after closing the quadrants; fit the frame afterward."}));
+        records.insert(name, json!({"kind":"WAGO 221-413 final connection","size":"413","parent":row.parent,"translation_mm":row.pose.translation_mm,"rotation":row.pose.rotation,"terminal_ids":used,"unused_ports":unused,"mount":"Blind insertion well in the seam-to-roof bank on the west wall","assembly":"Close the quadrants, terminate through the funnel opening, and seat the connectors before fitting the frame."}));
     }
     let name = "terminal-carbonator-pe";
     let (ring, bond) = ring(src)?;

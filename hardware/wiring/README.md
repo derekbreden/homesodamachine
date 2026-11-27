@@ -206,10 +206,9 @@ ten 221-413 connectors and the two manifold commons, one 221-415 and one
 pump-positive branches beneath the removable funnel frame. Each has two
 populated ports and one unused port. Their separate pigtails preserve the
 open-bench preparation and final through-opening connections.
-The compressor hot and neutral joins sit side by side beneath the opening,
-with neutral west of hot. The pump-positive join sits lower and east of them.
+The three connectors seat edge-on in the west wall of back-top. From the display toward the rear, the wells hold compressor neutral, compressor hot and pump positive. The bank joins the front seam rib to the roof. Its wire mouths face inboard and its levers face the display.
 
-The front-going J1 leads pass below those free joins before rising into the
+The front-going J1 leads pass below the west-wall joins before rising into the
 Z297.6 crossing above the drain stem and V-B inlet fitting. J2 and J9 use the
 same crossing height below the funnel frame. The manifold leads descend into
 their two fixed lid channels; the display ribbon retains the shared rear
@@ -221,8 +220,7 @@ aisles before turning toward the motor's aft lead exits.
 
 Open the core junction levers with the V-B return disconnected.
 
-For board service, remove the funnel and frame, release the three free joins
-and lift them with their leads out of the housing paths. Disconnect the
+For board service, remove the funnel and frame. The three final joins can be pulled straight inboard out of their west-wall wells and brought toward the front well for lifting through the opening. Disconnect the
 V-B-to-Y-B return and cradled drain before withdrawing J11. The
 [current housing sweeps](../mechanical-qualification/enclosure-above-core/connector-service-review.json)
 retain J1/J2's 17 mm lift and 8 mm fore movement; J11 lifts 6 mm, moves

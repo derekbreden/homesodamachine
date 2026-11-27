@@ -9,6 +9,14 @@ use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::Path;
 
+/// Mounted junctions come from the mechanical assembly. The wiring stage supplies these bodies.
+pub fn routed_body(name: &str) -> bool {
+    name.starts_with("wire-")
+        || name.starts_with("terminal-")
+        || (name.starts_with("wiring-")
+            && hsm_enclosure_numbers::junctions::final_join_id(name).is_none())
+}
+
 /// The request and review the routed wiring is written up as.
 #[allow(dead_code, unused_imports)]
 #[path = "../../../tools/hsm/assembly-docs/src/wiring/build.rs"]

@@ -3395,6 +3395,9 @@
    "wago-sensors",
    "wago-v12",
    "water-split",
+   "wiring-junction-compressor-h",
+   "wiring-junction-compressor-n",
+   "wiring-junction-pump-positive",
    "ya-stem-elbow",
    "yb-stem-elbow"
   ]

@@ -552,9 +552,6 @@ pub fn connections() -> Vec<Connection> {
     out
 }
 pub fn owner(part: &str) -> &str {
-    if part.starts_with("wiring-junction-") {
-        return "final-connections";
-    }
     if part.starts_with("cold-core/")
         || [
             "pcba",

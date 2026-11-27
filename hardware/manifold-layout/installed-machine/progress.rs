@@ -108,12 +108,6 @@ fn read(path: &Path) -> Result<Value> {
     scene::pack(&std::fs::read(path).with_context(|| format!("reading scene {}", path.display()))?)
 }
 
-fn wiring(name: &str) -> bool {
-    ["wire-", "wiring-", "terminal-"]
-        .iter()
-        .any(|prefix| name.starts_with(prefix))
-}
-
 fn replace_source(head: &mut Value, source: &str, bytes: &[u8]) -> Result<usize> {
     if !head["source_inventory"][source].is_array() {
         let incoming = scene::digest(bytes);
@@ -254,7 +248,7 @@ pub fn mechanics(mechanical: &Path, previous_scene: &Path, out: &Path) -> Result
                 .as_array()
                 .into_iter()
                 .flatten()
-                .filter(|node| wiring(node["name"].as_str().unwrap_or("")))
+                .filter(|node| crate::wiring::routed_body(node["name"].as_str().unwrap_or("")))
                 .cloned(),
         );
     }
@@ -268,7 +262,7 @@ pub fn mechanics(mechanical: &Path, previous_scene: &Path, out: &Path) -> Result
 pub fn complete(mechanical: &Path, wires: Option<&Path>, out: &Path) -> Result<()> {
     let mut head = read(mechanical)?;
     let nodes = head["meshes"].as_array_mut().context("mechanical nodes")?;
-    nodes.retain(|node| !wiring(node["name"].as_str().unwrap_or("")));
+    nodes.retain(|node| !crate::wiring::routed_body(node["name"].as_str().unwrap_or("")));
     if let Some(wires) = wires {
         let wires = read(wires)?;
         nodes.extend(

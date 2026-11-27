@@ -42,9 +42,9 @@ fit and donor terminal locations retain their stated qualification limits.
 | Reservoir B common | 221-413 | Cold-core lid | PCB J7 GND; reservoir B reed common; carbonator reed common |
 | Manifold A common | 221-420 | Front-top east wall | PCB J1 COM; valve A–H positive leads |
 | Manifold B common | 221-415 | Front-top east wall | PCB J2 COM; valve I/J/K and condenser-fan positive leads |
-| Compressor H join | 221-413 | Free, under the funnel opening | Relay 1 NO pigtail; compressor switched-H core |
-| Compressor N join | 221-413 | Free, under the funnel opening | N junction pigtail; compressor neutral core |
-| Pump positive join | 221-413 | Free, under the funnel opening | Relay 2 NO pigtail; pump positive |
+| Compressor N join | 221-413 | Back-top west wall, front well | N junction pigtail; compressor neutral core |
+| Compressor H join | 221-413 | Back-top west wall, middle well | Relay 1 NO pigtail; compressor switched-H core |
+| Pump positive join | 221-413 | Back-top west wall, rear well | Relay 2 NO pigtail; pump positive |
 
 The rear H/G connectors share a column at X−85, with H at Z264 and G at
 Z296.5. N sits beside H at X−54/Z266. All three centres are Y457.5. Their
@@ -58,11 +58,12 @@ reservoir-B common above GND. Their wire entries face fore or aft and their
 levers open west toward the PCB. The printed wells capture each connector's blank
 rear half with 3 mm stock. The manifold common connectors retain their native
 front-top stations and their two lever faces remain accessible from the front
-assembly's open interior and through the funnel opening. The three joins have no
-well; they go in last, where their leads meet, with one port of each empty.
-Their closed bodies sit beneath the removable frame: H at (−65, 247, 290.5),
-N at (−65, 221, 290.5) and pump positive at (−45, 255, 278) mm.
-Open their levers and finish the joins with the frame removed.
+assembly's open interior and through the funnel opening. Three more 221-413s
+seat in the west wall of the back-top below the removable frame. From front
+to rear, the wells hold compressor neutral, compressor hot and pump positive.
+Make these joins through the opening with the frame off. Each connector has
+one spare port. Close its levers and push its blank rear half into the well
+with the wire mouths facing inward.
 
 The PSU's wire entries face fore/aft. Its screw axes point down from the ceiling. Land and inspect these terminals on accessible back-top before
 closing the quadrants; the continuous ceiling provides no separate rear hatch.

@@ -1,7 +1,8 @@
 use super::*;
 use model::{V, add, dot, mul, sub, unit, v};
 use serde::{Deserialize, Serialize};
-use sources::{PORTS_FORE, Sources};
+use hsm_enclosure_numbers::junctions::final_join_id;
+use sources::Sources;
 
 /// A rotation and translation that carry a part's own frame into the installed frame.
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -556,9 +557,10 @@ fn wagos(src: &Sources, at: &mut State, root: &Path) -> Result<()> {
     let entry_z = number(&interfaces["entry_center_z_mm"])?;
     let placements = src.placements()?;
     for (name, row) in &placements {
-        if !name.starts_with("wago-") {
-            continue;
-        }
+        let prefix = match final_join_id(name) {
+            Some(id) => format!("join-{id}"),
+            None => name.clone(),
+        };
         let size = row.size.as_str();
         let reference = src.wago_reference(size)?;
         let pose = frame(src, at, root, name, &reference.to_string_lossy(), None)?;
@@ -577,7 +579,7 @@ fn wagos(src: &Sources, at: &mut State, root: &Path) -> Result<()> {
             ];
             apply(
                 at,
-                &format!("{name}.{}", i + 1),
+                &format!("{prefix}.{}", i + 1),
                 name,
                 &pose,
                 p,
@@ -589,39 +591,9 @@ fn wagos(src: &Sources, at: &mut State, root: &Path) -> Result<()> {
             );
         }
     }
-    for (name, point) in FINAL_JOINS {
-        let pose = Pose {
-            rotation: PORTS_FORE,
-            translation_mm: point,
-        };
-        for i in 0..3 {
-            apply(
-                at,
-                &format!("join-{name}.{}", i + 1),
-                &format!("wiring-junction-{name}"),
-                &pose,
-                [
-                    (i as f64 - 1.) * pitch,
-                    18.6 / 2.,
-                    entry_z,
-                ],
-                [0., 1., 0.],
-                "WAGO-port",
-                "Modeled wire mouth through the final connector pose",
-                "nominal",
-                &(i + 1).to_string(),
-            );
-        }
-    }
     Ok(())
 }
 
-/// Where each final connection's WAGO stands, by the join it makes.
-pub const FINAL_JOINS: [(&str, V); 3] = [
-    ("compressor-h", [-65., 247., 290.5]),
-    ("compressor-n", [-85., 247., 290.5]),
-    ("pump-positive", [-45., 255., 278.]),
-];
 fn power(src: &Sources, at: &mut State, root: &Path) -> Result<()> {
     let supply = hsm_kernel::reads::json(
         root.join("hardware/reference/meanwell-irm90/replica-parameters.json"),
@@ -1070,11 +1042,7 @@ pub fn init(scene: BTreeMap<String, Body>) -> State {
     State {
         scene: scene
             .into_iter()
-            .filter(|(name, _)| {
-                !["wire-", "wiring-", "terminal-"]
-                    .iter()
-                    .any(|p| name.starts_with(p))
-            })
+            .filter(|(name, _)| !super::routed_body(name))
             .map(|(name, body)| (name.replace('_', "-"), body))
             .collect(),
         terminals: BTreeMap::new(),

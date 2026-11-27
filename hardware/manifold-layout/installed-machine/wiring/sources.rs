@@ -15,10 +15,6 @@ use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
 use std::rc::Rc;
 
-/// The final connections' WAGOs stand with their ports fore: a half turn about Z from the
-/// reference's own frame.
-pub const PORTS_FORE: [[f64; 3]; 3] = [[-1., 0., 0.], [0., -1., 0.], [0., 0., 1.]];
-
 /// The reference family every WAGO lever connector of the wiring is drawn from.
 const WAGO_REFERENCE: &str = "hardware/reference/wago-221";
 
@@ -26,6 +22,7 @@ const WAGO_REFERENCE: &str = "hardware/reference/wago-221";
 #[derive(Clone, Debug, Deserialize)]
 pub struct Placement {
     pub size: String,
+    pub parent: String,
     #[serde(flatten)]
     pub pose: Pose,
 }
@@ -75,11 +72,6 @@ impl Sources {
     /// upright by the facet's tilt from level less a quarter turn.
     pub fn display_tilt(&self) -> Turn {
         ([1., 0., 0.], structure::ANGLE - 90.)
-    }
-
-    /// The colour of the hub the final connections' WAGOs are drawn in, as linear RGB.
-    pub fn ac_hub_colour(&self) -> Result<[f64; 3]> {
-        design::material("C_AC_HUB")
     }
 
     /// The foam shell's outer height, which the cap lid's frame stands above.
@@ -383,12 +375,6 @@ impl Sources {
         readers::reference(Path::new(path), rotation)
     }
 
-    /// The name the installed-wires program imports the STEP at `path` by: its checkout path.
-    pub fn checkout_name(&self, path: &Path) -> Result<String> {
-        let relative = path.strip_prefix(&self.root)
-            .with_context(|| format!("{} is outside the checkout", path.display()))?;
-        Ok(relative.to_string_lossy().into_owned())
-    }
 }
 
 /// A number of a source document.

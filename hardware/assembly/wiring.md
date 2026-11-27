@@ -40,8 +40,9 @@ Each conductor's end lands at the first stage where the end is reachable, and th
 
 Dress each free end so it lies within the funnel opening's footprint once the box is closed, clear of the seams, the rails and every surface that slides. Label each free end with its run ID while it waits.
 
-For board service, remove the funnel and frame, release the three free joins
-and move them with their leads aside before lifting J1/J2. Disconnect the
+Make the three final joins through the open funnel. Seat the closed connectors butt-first into the west wall, with their ports facing inward. From front to rear the order is compressor neutral, compressor hot and pump positive.
+
+For board service, remove the funnel and frame. When a join needs to come out, pull it inward, bring it to the front of the bank and lift it through the opening. Disconnect the
 V-B-to-Y-B return and cradled drain before J11 withdrawal. The
 [current native housing paths](/hardware/mechanical-qualification/enclosure-above-core/connector-service-review.json)
 use 17 mm up then 8 mm fore for J1/J2, and 6 mm up, 10 mm east, then

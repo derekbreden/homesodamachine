@@ -1648,30 +1648,23 @@
     "stations": [
       {
         "point_mm": [
-          -58,
-          237.7,
-          282.2
+          -69.0,
+          312.0,
+          310.0
         ]
       },
       {
         "point_mm": [
-          -58,
-          265,
-          282.2
+          -55.0,
+          340.0,
+          307.0
         ]
       },
       {
         "point_mm": [
-          -58,
-          283,
-          301.5
-        ]
-      },
-      {
-        "point_mm": [
-          -58,
-          436,
-          301.5
+          -57.0,
+          436.0,
+          293.5
         ]
       },
       {
@@ -1699,11 +1692,11 @@
     "preserve_stations": true,
     "bend_radius_mm": 3.0,
     "end_lands_mm": [
-      8,
-      8
+      7.5,
+      8.0
     ],
     "route_status": "selected_layout",
-    "note": "Dressed through the fixed cable seats and open aisles around the completed equipment. Only larger installed bodies constrain the insulated conductors."
+    "note": "The lead leaves port 2 of the aft well and follows the west aisle to the original approach to the pump motor."
   },
   "AC2-N": {
     "stations": [
@@ -3903,43 +3896,31 @@
   "AC4-pigtail": {
     "stations": [
       {
-        "terminal": "relay-1.NO",
-        "offset": [
-          20.25667,
-          -84.15014,
-          -0.20661
+        "point_mm": [
+          -80.0,
+          445.0,
+          285.0
         ]
       },
       {
-        "terminal": "join-compressor-h.1",
-        "offset": [
-          -4.0,
-          32.0,
-          4.0
+        "point_mm": [
+          -73.0,
+          437.0,
+          285.0
         ]
       },
       {
-        "terminal": "join-compressor-h.1",
-        "offset": [
-          -4.0,
-          20.0,
-          -8.0
+        "point_mm": [
+          -57.0,
+          345.0,
+          291.0
         ]
       },
       {
-        "terminal": "join-compressor-h.1",
-        "offset": [
-          -4.0,
-          0.0,
-          -8.0
-        ]
-      },
-      {
-        "terminal": "join-compressor-h.1",
-        "offset": [
-          0.0,
-          -4.0,
-          -4.0
+        "point_mm": [
+          -68.0,
+          307.0,
+          295.0
         ]
       }
     ],
@@ -3947,40 +3928,75 @@
     "bend_radius_mm": 3.0,
     "end_lands_mm": [
       8.0,
-      4.0
+      7.5
     ],
     "route_status": "selected_layout",
-    "note": "Dressed through retained supports and clear of the larger installed bodies; wires and tubes are excluded from wire obstacles."
+    "note": "The relay pigtail approaches the middle west-wall well from aft with a straight landing at port 1."
   },
   "AC5-pigtail": {
     "stations": [
       {
         "terminal": "wago-n.3",
         "offset": [
-          12.0,
+          3.05,
           0.0,
-          0.0
+          5.35
+        ]
+      },
+      {
+        "terminal": "wago-n.3",
+        "offset": [
+          10.0,
+          0.0,
+          5.35
         ]
       },
       {
         "point_mm": [
-          -75.0,
-          380.0,
-          283.6
+          -55.0,
+          343.0,
+          330.0
+        ]
+      }
+    ],
+    "preserve_stations": true,
+    "bend_radius_mm": 3.0,
+    "end_lands_mm": [
+      3.05,
+      7.5
+    ],
+    "route_status": "selected_layout",
+    "note": "The rear neutral pigtail passes along the west aisle to port 1 of the foremost final join.",
+    "endpoint_tangent_fraction": 0.95
+  },
+  "DC3-pigtail": {
+    "stations": [
+      {
+        "point_mm": [
+          -80.0,
+          445.0,
+          305.5
         ]
       },
       {
         "point_mm": [
-          -75.0,
-          320.0,
-          283.6
+          -72.0,
+          437.0,
+          303.0
         ]
       },
       {
         "point_mm": [
-          -75.0,
-          225.7,
-          283.6
+          -60.0,
+          340.0,
+          297.0
+        ]
+      },
+      {
+        "point_mm": [
+          -69.0,
+          325.0,
+          298.0
         ]
       }
     ],
@@ -3988,57 +4004,10 @@
     "bend_radius_mm": 3.0,
     "end_lands_mm": [
       8.0,
-      8.0
+      7.5
     ],
     "route_status": "selected_layout",
-    "note": "The neutral pigtail leaves the west-wall junction row through the inboard aisle and joins the retained compressor lead route."
-  },
-  "DC3-pigtail": {
-    "stations": [
-      {
-        "point_mm": [
-          -58,
-          433.85013907925554,
-          315.40660569377764
-        ]
-      },
-      {
-        "point_mm": [
-          -58,
-          433.85013907925554,
-          301.5
-        ]
-      },
-      {
-        "point_mm": [
-          -58,
-          283,
-          301.5
-        ]
-      },
-      {
-        "point_mm": [
-          -58,
-          265,
-          282.2
-        ]
-      },
-      {
-        "point_mm": [
-          -58,
-          237.7,
-          282.2
-        ]
-      }
-    ],
-    "preserve_stations": true,
-    "bend_radius_mm": 3.0,
-    "end_lands_mm": [
-      8,
-      8
-    ],
-    "route_status": "selected_layout",
-    "note": "Dressed through the fixed cable seats and open aisles around the completed equipment. Only larger installed bodies constrain the insulated conductors."
+    "note": "The pump relay pigtail approaches port 3 of the aft well beside the outgoing motor lead."
   },
   "AC1-PE": {
     "stations": [],
