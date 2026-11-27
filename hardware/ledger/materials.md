@@ -19,8 +19,13 @@ kind preserves a current installation reference; it does not archive a removed p
 Each material has a permanent `id`, a readable `description` and a `kind`. The
 `id` is `HSM-` and the number padded to four digits, as in `HSM-0001`; past
 `HSM-9999` the number takes a fifth digit and the earlier ids keep theirs. New
-records take the next unused number above the highest allocated number. Existing numbers stay with their material when descriptions, manufacturer
-numbers or file paths change. Allocated numbers are never reused.
+records take the next unused number above the highest allocated number:
+`node tools/material-number.mjs` prints it and records it in
+[`materials.allocated.json`](materials.allocated.json), which is committed with the
+record. Existing numbers stay with their material when descriptions, manufacturer
+numbers or file paths change. Allocated numbers are never reused;
+`node tools/material-number.mjs --check` names any record whose number is
+retired, unallocated or shared.
 
 `aliases` and `manufacturer_number` are searchable vocabulary, alongside the id,
 description and model file paths. Search also reads the cost lines on each part:
