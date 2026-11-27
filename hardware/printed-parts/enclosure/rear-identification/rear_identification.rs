@@ -6,6 +6,7 @@
 use anyhow::{Context, Result, anyhow, ensure};
 use hsm_bulkhead_ring_numbers as ring;
 use hsm_enclosure_components::{output, port_colors, write_colored_part};
+use hsm_enclosure_numbers::{catalog::slip, rear_wall};
 use hsm_kernel::{Body, Loop, Plane, Profile, Seg, Solid, V2, V3, v2, v3};
 use serde::Deserialize;
 use serde_json::{Value, json};
@@ -90,6 +91,7 @@ struct Plumbing {
 struct Tile {
     which: &'static str,
     bottom: f64,
+    on_channel_stop: bool,
     top: f64,
     word_center: f64,
     bore: [f64; 2],
@@ -123,6 +125,7 @@ fn tiles(a: &AboveCore) -> Result<Vec<Tile>> {
             out.push(Tile {
                 which,
                 bottom: z - bottom,
+                on_channel_stop: index + 1 == grid.rows_z_mm.len(),
                 top: top - z,
                 word_center: word - z,
                 bore: [p.center_x_mm - x, p.center_z_mm - z],
@@ -149,6 +152,22 @@ fn build(tile: &Tile, width: f64, word: &Value, scale: f64) -> Result<(Solid, So
         tile.word_center - (bounds.min.z + bounds.max.z) / 2.0,
     ));
     let blank = Solid::cuboid(v3(-width / 2.0, 0.0, -tile.bottom), v3(width / 2.0, THICK, tile.top));
+    let blank = if tile.on_channel_stop {
+        let column_width = width + 2.0 * SIDE_CLEARANCE;
+        let side_play = rear_wall::TILE_SLIP / 2.0 + SIDE_CLEARANCE;
+        let half = rear_wall::tile_open_half_width(column_width) + side_play + slip();
+        // Parallel 45-degree faces retain the slip allowance measured normal to
+        // the slope. The two uncut ends register the bore at its installed height.
+        let cut_at_face = rear_wall::TILE_FACE_RECESS + slip() * std::f64::consts::SQRT_2;
+        let z = -tile.bottom;
+        let relief = Profile::polygon(&[
+            v2(0., z), v2(THICK, z), v2(THICK, z + cut_at_face), v2(0., z + THICK + cut_at_face),
+        ]);
+        let bevel = Plane::YZ.at(v3(-half, 0., 0.)).extrude(&relief, 2.0 * half)?;
+        blank.cut(&bevel)?
+    } else {
+        blank
+    };
     let bore = Solid::cylinder(
         v3(tile.bore[0], -BORE_OVERRUN, tile.bore[1]),
         V3::Y,

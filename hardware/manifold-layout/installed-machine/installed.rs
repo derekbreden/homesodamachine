@@ -23,8 +23,6 @@ const PIECES: [&str; 5] = ["front-bottom", "front-top", "back-bottom", "back-top
 /// Numbers other parts own that none of their typed crates, design files or published files
 /// states. Each stands here only until its owner states it, and is read from there after.
 mod unowned {
-    /// How far inside the rear face an identification tile's face stands in its channel.
-    pub const TILE_FACE_RECESS: f64 = 0.2;
     /// Which wet port each identification tile labels, by the tile's own name.
     pub const TILE_PORTS: [(&str, &str); 6] = [
         ("water", "bulkhead-water"),
@@ -354,7 +352,7 @@ pub fn installed_instances(root: &Path) -> Result<Value> {
     let tiles: Identification = serde_json::from_value(design::read(labels.join("rear-identification.numbers.json"))?)?;
     let above: AboveCore = serde_json::from_value(design::read(root.join("hardware/manifold-layout/above-core.json"))?)?;
     // Each tile's back stands its thickness under its face, which keeps inside the rear face.
-    let floor_y = site.shells.outer[3] - unowned::TILE_FACE_RECESS - tiles.thick;
+    let floor_y = site.shells.outer[3] - hsm_enclosure_numbers::rear_wall::TILE_FACE_RECESS - tiles.thick;
     let grid = &above.fluid_grid;
     for (z, ports) in grid.rows_z_mm.iter().zip(&grid.assignment) {
         for (x, port) in grid.columns_x_mm.iter().zip(ports) {

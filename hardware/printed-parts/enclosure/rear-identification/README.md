@@ -8,7 +8,9 @@ therefore includes the scanned adapter's offset from the nominal grid.
 Each tile slides in a continuous side-rail channel at Y469.3–471.1, retaining
 printed wall between its floor and the nut plane and 0.2 mm below the Y471.3 flange.
 Each side rail overlaps the tile's edge, leaving the color face exposed.
-The channel floor is Z240.6. The upper tiles finish at Z355. Each lower tile
+FLAVOR B and DRAIN have a 45° underside relief across the opening. Their two
+ends sit on the square stops behind the retaining lips at Z240.6, aligning each
+bore as the fitting is installed. The upper tiles finish at Z355. Each lower tile
 ends 0.2 mm below the next tile, with the words above the upper two fitting rows and below the bottom row. The rails retain 3 mm of fore–aft stock at
 Y471.3–474.3, with 3 mm outer roots beside the tile channels. Their complete
 sections remain plain through exterior fluting. Print with the flat back on the

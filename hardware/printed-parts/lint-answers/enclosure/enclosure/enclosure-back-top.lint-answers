@@ -450,12 +450,6 @@ alternatives: Filling or corbelling into these faces enters the fitted housing o
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=85.767 y=418.005 z=260.300
 
-[ceiling] The 2 mm-deep stop at Z240.6 locates the stack of three rectangular identification cards before the bulkheads clamp them. In the ceiling-down print, a separate stand rises behind each pair of retaining lips. Its inclined tip supports the exposed stop across a 0.24 mm release gap. Clip the two first-layer ties flush with the backs of the solid rail roots, 3.35 mm from the adjacent edges of the tile mouth and withdraw the stands straight to the rear before fitting the cards and bulkheads.
-alternatives: Removing the stop loses the stack's loading datum. A sloping stop needs a matching wedge on the bottom card and changes the requested rectangular color face. Separate stops add small features and edges.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=28.800 y=470.299 z=240.600
-click: x=76.500 y=471.631 z=240.600
-
 [sliver] Complete upper ASSE hex-bearing facet. The receiver follows the six flat directions of the measured wrench profile; this 0.793 mm-wide face is the transition between its adjacent upper bearing planes. The ASSE cap and receiver retain their conforming hex fit.
 alternatives: A circular cavity abandons the requested hex conformity. Moving one flat onto the neighboring plane changes the fitted wrench clearance; deleting the transition removes part of the upper hex bearing.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step

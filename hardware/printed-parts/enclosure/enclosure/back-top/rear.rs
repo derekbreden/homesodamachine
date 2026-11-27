@@ -7,7 +7,7 @@ use crate::layout::{Pose, layout};
 use crate::plan::{Bounds, Flange, Graph, Op, P2, P3, Shape, Snap};
 use crate::quadrant::{Quadrant, sorted};
 use crate::rear_wall::{
-    FIELD_PROUD, PLATE_HEIGHT, PLATE_THICK, PLATE_WIDTH, c14, keystone, keystone_land,
+    BOUND_Y, FIELD_PROUD, PLATE_HEIGHT, PLATE_THICK, PLATE_WIDTH, c14, keystone, keystone_land,
     label_channels, rail_bounds, rail_roots,
 };
 use crate::shapes::{place, rounded};
@@ -437,12 +437,27 @@ pub fn receiver_field(g: &mut Graph) -> Shape {
 
 /// One open channel per column, its side rails and their roots, and the nameplate's receiver.
 fn identify(g: &mut Graph, mut piece: Shape, b: &Box) -> Shape {
-    for mut channel in label_channels() {
+    let lips = rail_bounds();
+    for (index, mut channel) in label_channels().into_iter().enumerate() {
         channel[3] = channel[3].max(b.exterior_bounds()[3] + running());
-        let channel = g.box_(channel);
-        piece = g.cut(piece, &[channel]);
+        let [_, _, back, outside, floor, _] = channel;
+        let (left, right) = (lips[index][1], lips[index + 1][0]);
+        let face = BOUND_Y[0];
+        // In the ceiling-down print each course grows from the rear wall. The square
+        // stops behind the lips set the installed card height on both sides.
+        let ramp = g.yz_prism(left, right, vec![[back, floor], [face, floor], [back, floor + face - back]]);
+        let mut stock = vec![ramp];
+        if index + 2 == lips.len() {
+            // The enclosure corner flares outboard of the card face in the last
+            // 7.2 mm of the DRAIN opening. Carry that stock sideways from the outer rail.
+            let run = 7.5;
+            stock.push(g.xz_prism(face, outside, vec![[right - run, floor], [right, floor], [right, floor + run]]));
+        }
+        let opening = g.box_(channel);
+        let slot = g.cut(opening, &stock);
+        piece = g.cut(piece, &[slot]);
     }
-    for rail in rail_roots().into_iter().chain(rail_bounds()) {
+    for rail in rail_roots().into_iter().chain(lips) {
         let rail = g.box_(rail);
         piece = g.union(piece, &[rail]);
     }

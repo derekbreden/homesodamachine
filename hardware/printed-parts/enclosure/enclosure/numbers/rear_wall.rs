@@ -103,6 +103,8 @@ pub mod keystone {
 /// a channel, how far a rail's bound stands inside a tile's edge, the headroom a channel runs
 /// past the roof, and the planes a channel, a rail's root and a rail's bound run between.
 pub const TILE_SLIP: f64 = 0.3;
+/// The installed card face sits this far inside the retaining lips.
+pub const TILE_FACE_RECESS: f64 = 0.20;
 pub const RAIL_STOCK: f64 = 3.0;
 pub const RAIL_INSET: f64 = 2.0;
 pub const CHANNEL_HEADROOM: f64 = 2.0;
@@ -160,9 +162,14 @@ pub fn rail_roots() -> [Bounds; 3] {
     rails((layout().rear_identification.width_mm + TILE_SLIP) / 2.0, ROOT_Y)
 }
 
+/// Half the opening between the two lips that capture a column of cards.
+pub fn tile_open_half_width(column_width: f64) -> f64 {
+    column_width / 2.0 - RAIL_INSET
+}
+
 /// The rails' bounds proud of the rear face, over the tiles' edges.
 pub fn rail_bounds() -> [Bounds; 3] {
-    rails(layout().rear_identification.width_mm / 2.0 - RAIL_INSET, BOUND_Y)
+    rails(tile_open_half_width(layout().rear_identification.width_mm), BOUND_Y)
 }
 
 /// The wing nameplate's two retaining lips, each round one wing from the plate's edge to past its

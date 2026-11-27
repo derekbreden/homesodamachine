@@ -76,24 +76,11 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
         "blocking_bounds_source_mm":backing,"review_interior":false,
         "reason":"The permanent slope supports the boss crown. Trees pass beside its exposed face to reach the fore shoulder, lip and channels."}));
     let mut bridges = vec![];
-    let mut stop_stands = vec![];
-    let rail_lips = rear_wall::rail_bounds();
-    for (index, [x0, x1, y0, y1, floor, roof]) in rear_wall::label_channels().into_iter().enumerate() {
-        let name = format!("Identification channel {}", index + 1);
-        let [left, right] = [rail_lips[index][1], rail_lips[index + 1][0]];
-        let branch_turn = floor + 2.0 * rear_wall::RAIL_STOCK;
-        regions.push(json!({"name":name,"bounds_source_mm":[x0,x1,y0,y1,branch_turn,roof],
+    for (index, [x0, x1, y0, _, floor, roof]) in rear_wall::label_channels().into_iter().enumerate() {
+        regions.push(json!({"name":format!("Identification channel {}", index + 1),
+            "bounds_source_mm":[x0,x1,y0,rear_wall::BOUND_Y[1]+catalog::running(),floor-catalog::running(),roof],
             "support_print_up_source":[0,0,-1],
-            "reason":"Only the inclined tip of the removable stand enters the open end. The stand stays behind the rail faces along the long card channel and all nut bores."}));
-        for (side, xa, xb) in [("left", x0, left), ("right", right, x1)] {
-            regions.push(json!({"name":format!("{name} {side} retaining lip"),
-                "bounds_source_mm":[xa,xb,y0,y1,floor-catalog::running(),branch_turn],
-                "support_print_up_source":[0,0,-1],
-                "reason":"Keep the undercut behind the retaining lip clear so the stop stand can pull straight out of the rear opening."}));
-        }
-        let (stand, short_bridge) = identification_stop(&name, [x0, x1], [left, right], y0, floor, b.outer[5]);
-        stop_stands.push(stand);
-        bridges.push(short_bridge);
+            "reason":"The wall and the outer rail carry the lower chamfers. Keep the sliding opening and both seating flats clear."}));
     }
     let mut targets = vec![json!({"name":"Accessible flow meter fore shoulder","bounds_source_mm":supports::meter_fore_shoulder_target(),
         "reason":"Support the exposed end shoulder through the open west side, clear of the fitted cap pocket."})];
@@ -166,8 +153,7 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
     }
     let rail_contact = b.splits[1] + shell::HOOK_FOOT;
     let rail_floor = b.splits[1] + shell::Z_RISE + shell::slide_slip();
-    let mut support_stock = stop_stands;
-    support_stock.extend(routes::upper_wing_support_stock(quadrant::Quadrant::BACK_TOP));
+    let mut support_stock = routes::upper_wing_support_stock(quadrant::Quadrant::BACK_TOP);
     // Follow the complete bearing, breaking only at the vent's actual open passage.
     for run in hsm_enclosure_quadrants::rails::z_rail_runs(&b.inner, b.y_joint, quadrant::Y::Back) {
         let mut spans = vec![[run.y1 + shell::RAIL_STOP_LEN, run.y0]];
@@ -392,15 +378,13 @@ fn write(
             let relief = Solid::union_all(&relief)?;
             let fluted = skin::flute_solid(&smooth.simplified()?, field, rails, &[land])?;
             let mut joined = fluted.union(&ops::manifold(&relief)?);
-            // Keep the raised rails' embedded print skin out of the sliding channels. Their fitted
-            // lips start at the outer wall plane.
-            let rear = o[3];
+            // Trim skin that entered the card slots, following the finished core so
+            // the print keeps the chamfer and both seating flats at each channel floor.
+            let designed_core = ops::manifold(&core)?;
             for bounds in &print.label_channels {
                 let (lo, hi) = ops::corners(bounds);
-                joined = joined.difference(&ops::manifold(&Solid::cuboid(
-                    lo,
-                    v3(hi.x, hi.y.min(rear), hi.z),
-                ))?);
+                let channel = ops::manifold(&Solid::cuboid(lo, v3(hi.x, hi.y.min(o[3]), hi.z)))?;
+                joined = joined.difference(&channel.difference(&designed_core));
             }
             ops::print_solid(&ops::quantized(&joined)?)
         },
@@ -418,28 +402,4 @@ fn write(
     })?;
     keep(&dir.join(format!("{name}.stl")), &stl)?;
     payload(dir, name, color, &stl, &step, None, Some(identities))
-}
-
-/// The 2 mm-deep loading datum is open to the rear between the two tile retaining lips.
-fn identification_stop(
-    name: &str, [x0, x1]: [f64; 2], [left, right]: [f64; 2], y0: f64, floor: f64, bed: f64,
-) -> (serde_json::Value, serde_json::Value) {
-    use serde_json::json;
-    let back = rear_wall::ROOT_Y[1];
-    let root_offset = rear_wall::RAIL_INSET + rear_wall::TILE_SLIP / 2.0 + 1.20;
-    let stand = json!({
-        "name": format!("Removable {name} loading stop stand"),
-        "shape": "identification_stop_stand",
-        "opening_x_mm": [left, right], "channel_face_y_mm": y0, "rail_back_y_mm": rear_wall::BOUND_Y[1],
-        "tie_root_centres_x_mm": [left - root_offset, right + root_offset],
-        "contact_source_z_mm": floor, "bed_source_z_mm": bed,
-        "reason": "The first-layer ties join the backs of the solid rail roots outside the tile mouth. Clip both ties flush with the root backs and pull the stand straight rearward. The inclined tip supports the exposed stop across the release gap."
-    });
-    let bridge = json!({
-        "name": format!("{name} stop"),
-        "bounds_source_mm": [x0-shell::WALL, x1+shell::WALL, y0-shell::WALL, back, floor-shell::WALL, floor+shell::WALL],
-        "bridge_print_axis_source": [0, 1, 0],
-        "reason": "Lay the stop's first infill across its 2 mm depth from the rear wall to the supported edge."
-    });
-    (stand, bridge)
 }

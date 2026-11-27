@@ -394,15 +394,10 @@ the bulkheads mount through and the wall the box is built to cannot drift apart.
 
 The [rear identification plates](../rear-identification/README.md) seat in
 flush pockets at the [back-top connections](../y-wall-of-back-top/README.md).
-Supported pocket edges receive their directional allowance in back-top's
-inverted print pose. The label pads retain full backing through their
-print-down edges before their run-outs.
-
-Before loading the identification tiles, clip each stand's two first-layer ties
-flush with the backs of the solid rail roots. Each clipping point sits 3.35 mm
-along the rail from the adjacent edge of the tile opening. Pull each stand straight
-out of the rear opening. The flat stop at Z240.6 sets the tile height.
-[Support removal guide](prints/2026-11-27-fitted-back-top-mark1/label-stand-removal.png)
+The two channel floors grow from the rear wall on 45° chamfers in the
+ceiling-down print. The DRAIN channel also follows the flared corner back to
+the outer rail on a 45° face. Slide FLAVOR B and DRAIN down first. The small
+flats behind the retaining lips set both tiles at Z240.6 and align the bores.
 
 The [screw-mounted nameplate](../nameplate/README.md) bears on its receiver.
 The [fit review](../nameplate/production-fit.json) records the receiver
