@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-26",
+  "as_of": "2026-11-27",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -10274,6 +10274,25 @@
         "value": "2026-11-26"
       },
       "row_date_basis": "receipt_date"
+    },
+    "pur-236c0d0992d3437c9bce1195c189e322": {
+      "vendor": "Anthropic",
+      "purpose": "engineering_software_services",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "anthropic:8C2842D3-0014"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-3154c008c70b4814815b8f08c7963dd1"
+      ],
+      "stream": "automatic_top_up",
+      "service_period": null,
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-11-26"
+      },
+      "row_date_basis": "receipt_date"
     }
   },
   "orders": {
@@ -16708,6 +16727,15 @@
       "source_ids": [
         "src-4461b6635c64480c9486007434e06f05"
       ]
+    },
+    "anthropic:8C2842D3-0014": {
+      "vendor": "Anthropic",
+      "reference": "8C2842D3-0014",
+      "order_date": null,
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-3154c008c70b4814815b8f08c7963dd1"
+      ]
     }
   },
   "events": [
@@ -21209,6 +21237,31 @@
       "order_ids": [
         "bambu:us795729195777990656"
       ]
+    },
+    {
+      "event_id": "evt-d03898372587487ab3721e8a502c9637",
+      "vendor": "Anthropic",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-26"
+      },
+      "amount_minor": 4010,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-3154c008c70b4814815b8f08c7963dd1"
+      ],
+      "verified_at": "2026-11-27",
+      "order_ids": [
+        "anthropic:8C2842D3-0014"
+      ],
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-11-26"
+      },
+      "service_period": null
     }
   ],
   "allocations": [
@@ -23082,6 +23135,14 @@
       "purchase_id": null,
       "order_id": "bambu:us795729195777990656",
       "amount_minor": 46,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-c3b33780337b435684f1ce2c7da516ae",
+      "event_id": "evt-d03898372587487ab3721e8a502c9637",
+      "purchase_id": "pur-236c0d0992d3437c9bce1195c189e322",
+      "order_id": "anthropic:8C2842D3-0014",
+      "amount_minor": 4010,
       "currency": "USD"
     }
   ],
@@ -35770,6 +35831,32 @@
       ],
       "verified_at": "2026-11-26",
       "note": "Bambu Lab confirms 46 store Credits from this exact order are available (advertised equivalent approximately USD 0.46), valid until 23:59 GMT+8 on November 30, 2027. These are restricted checkout credits, not a cash refund. The notice does not establish a separate posting date or subsequent redemption."
+    },
+    "src-3154c008c70b4814815b8f08c7963dd1": {
+      "vendor": "Anthropic",
+      "document_type": "merchant_monetary_receipt",
+      "reference": "8C2842D3-0014",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-26"
+      },
+      "proves": [
+        "price",
+        "charge",
+        "receipt_date",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-11-27",
+      "note": "Anthropic monetary receipt shows a distinct automatic credit recharge, paid November 26, 2026 for USD 40.10. Same invoice series and recharge stream as earlier recorded project credits. The receipt does not establish when credits are used.",
+      "invoice_reference": "8C2842D3-0014",
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-11-26"
+      },
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-26"
+      }
     }
   },
   "coverage": [
@@ -38209,6 +38296,26 @@
         "bambu:us795729195777990656"
       ],
       "note": "Scoped review of the named order credit notice. No full account balance, historical credit origin, or redemption evidence."
+    },
+    {
+      "coverage_id": "coverage-5536d175cd594648bfcac2ec5a425c5c",
+      "vendor": "Anthropic",
+      "stream": "prepaid usage-credit receipt",
+      "evidence_type": "merchant_receipts",
+      "checked_at": "2026-11-27",
+      "examined_period": {
+        "start": "2026-11-26",
+        "end": "2026-11-26"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-3154c008c70b4814815b8f08c7963dd1"
+      ],
+      "order_ids": [
+        "anthropic:8C2842D3-0014"
+      ],
+      "note": "Review of the named Anthropic receipt; no claim of complete Anthropic account coverage."
     }
   ],
   "gaps": [

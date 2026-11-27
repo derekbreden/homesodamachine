@@ -793,6 +793,7 @@ Additional project receipts:
 | <!--purchase:pur-ad8073cabdb043f5988b69d7acae93c1--> 2026-10-07 | Claude prepaid usage credit — automatic recharge; invoice 8C2842D3-0012 | 1 | $40.12 | ACQUIRED |
 | <!--purchase:pur-ff6404193aa640179f2209f33f2997f8--> 2026-10-28 | Claude Max 20x subscription; invoice HYODLCRX-0084 | 1 | $200.00 | ACQUIRED |
 | <!--purchase:pur-1106641e9db944f386a53c3acb4bb52a--> 2026-11-26 | Claude prepaid usage credit — automatic recharge; invoice 8C2842D3-0013 | 1 | $40.28 | ACQUIRED |
+| <!--purchase:pur-236c0d0992d3437c9bce1195c189e322--> 2026-11-26 | Claude prepaid usage credit — automatic recharge; invoice 8C2842D3-0014 | 1 | $40.10 | ACQUIRED |
 
 ---
 
@@ -868,18 +869,18 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Status | $ |
 |---|---|
 | Acquired hardware valuation — includes replaced/returned originals | [$44,006.99](LEDGER_ACQUIRED_HW) |
-| Engineering services (§18) | [$6,759.79](LEDGER_LABOR) |
-| Acquired procurement valuation (combined) | [$50,766.78](LEDGER_ACQUIRED_COMBINED) |
+| Engineering services (§18) | [$6,799.89](LEDGER_LABOR) |
+| Acquired procurement valuation (combined) | [$50,806.88](LEDGER_ACQUIRED_COMBINED) |
 | ON-ORDER | [$79.97](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$50,899.82](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$50,939.92](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$29,175.07](LEDGER_FINAL_VENDOR) |
+| Final vendor amounts | [$29,215.17](LEDGER_FINAL_VENDOR) |
 | Estimated amounts | [$2,741.67](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$18,983.08](LEDGER_LEGACY_UNVERIFIED) |
 
@@ -887,9 +888,9 @@ Merchant-evidenced payments (project shares; includes the undated bucket):
 
 | Event basis | USD |
 |---|---|
-| Completed charges | [$26,089.49](LEDGER_MERCHANT_CHARGES) |
+| Completed charges | [$26,129.59](LEDGER_MERCHANT_CHARGES) |
 | Issued monetary refunds | [$0.00](LEDGER_MERCHANT_REFUNDS) |
-| Charges less monetary refunds | [$26,089.49](LEDGER_MERCHANT_NET) |
+| Charges less monetary refunds | [$26,129.59](LEDGER_MERCHANT_NET) |
 
 The retrieved records have partial vendor coverage. An empty month or refund total is not evidence of account-wide zero activity. Authorizations, pending charges and noncash credit do not enter this view.
 
