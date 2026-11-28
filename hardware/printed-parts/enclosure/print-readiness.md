@@ -14,7 +14,7 @@ carbonator.
 | --- | --- | --- |
 | [Enclosure back top](enclosure/prints/2026-11-27-back-top-square-seats-mark1/print-plan.json) | Mark1 | Both 45° funnel seats and all six floor-supported WAGO pockets were checked in the finished G-code. The Pisco and ASSE fitting pairs were accepted. The water regulator’s full cover and receiver fixture fit very well with the 0.40 mm saddle adjustment. The sideways Digiten pocket carries the supported upper guide and ledges into the enclosure. |
 | [Accessory plate](rear-equipment-caps/prints/2026-11-26-production-snaps-mark2/print-plan.json) | Mark2 | Thirteen pieces, including the five mating equipment covers. The native slice preserves both crest perimeters on every measured working layer. |
-| [Cold-core equipment lid](../cold-core/foam-cap/prints/2026-11-27-lid-fitted-wago-mark1/print-plan.json) | Mark1 | The motor rails, fore-and-aft stops and both integral catches match the production pump cover. All ten lid holes align with the insert pilots on the current HSM-0018 shell. The October fit-tested shell has a different bolt pattern. |
+| [Cold-core equipment lid](../cold-core/foam-cap/prints/2026-11-28-lid-mark2/print-plan.json) | Mark2 | The motor rails, fore-and-aft stops and both integral catches match the production pump cover. All ten lid holes align with the insert pilots on the current HSM-0018 shell. The October fit-tested shell has a different bolt pattern. |
 
 The front-top 5-way and 10-way pockets use the accepted 8.10 × 30.20 mm and 15.70 × 30.10 mm openings. Their deposited openings match the Mark2 coupons at 8.10 × 30.18 mm and 15.70 × 29.94 mm. All six back-top and four equipment-lid 3-way pockets use 8.20 × 18.70 mm and print at 8.20 × 18.66 mm. Each of the twelve pockets has one removable floor tree, with a crown that pulls through the connector mouth. [Front-top print plan](enclosure/prints/2026-11-27-front-top-fit-d-mark1/print-plan.json) · [5-way bench fit](../../print-tests/wago-pocket-support/prints/2026-11-27-fit-d-mark2/physical-result.json) · [10-way and 3-way bench fits](../../print-tests/wago-pocket-support/prints/2026-11-27-fit-c-mark2/physical-result.json)
 
@@ -28,7 +28,7 @@ The standalone full-size meter receiver finished printing on Mark2. On both nati
 
 Slide the chamfered FLAVOR B and DRAIN cards into their channels first. Each rests on two small flats behind the rails, setting the bore height. The two channels print clear. Remove the flow-meter supports through the open west side before installing the meter. [Matching nameplate and labels plate](rear-identification/prints/2026-11-27-chamfered-stop-mark1/print-plan.json) · [Meter installation and service](rear-equipment-caps/README.md#installation-and-service)
 
-The installed-machine review identified wire routes to dress clear of the meter receiver and V‑B clip, and measured the funnel-frame clearance with the lid seated on its shell. [Back-top and cold-core lid before the full print](final-draft-review-2026-11-27.md)
+The production assembly shows the three flow-meter leads clearing the receiver and V‑B clip. The review gives their clearances and the measured funnel-frame clearance with the lid seated on its shell. [Back-top and cold-core lid before the full print](final-draft-review-2026-11-27.md)
 
 ## Earlier enclosure reviews
 

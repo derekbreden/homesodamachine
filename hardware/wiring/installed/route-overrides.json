@@ -1438,14 +1438,14 @@
       {
         "point_mm": [
           5,
-          214.2442,
+          215.2442,
           260.1
         ]
       },
       {
         "point_mm": [
           5,
-          214.2442,
+          215.2442,
           271.26666666666665
         ]
       }
@@ -1801,7 +1801,7 @@
         "offset": [
           -11.950000000000003,
           21.899999999999977,
-          3.5200000000000387
+          2.52
         ]
       },
       {
@@ -1809,7 +1809,7 @@
         "offset": [
           -11.950000000000003,
           -3.1000000000000227,
-          3.5200000000000387
+          2.52
         ]
       },
       {
@@ -2879,19 +2879,17 @@
   "flow-GND": {
     "stations": [
       {
-        "terminal": "wago-sensors.3",
-        "offset": [
-          -5.5,
-          1.7558,
-          -4.83333
+        "point_mm": [
+          10,
+          220,
+          281.5
         ]
       },
       {
-        "terminal": "wago-sensors.3",
-        "offset": [
-          -9.5,
-          9.7558,
-          -4.83333
+        "point_mm": [
+          8.8,
+          229,
+          270.0
         ]
       },
       {
@@ -2905,71 +2903,96 @@
         "point_mm": [
           9.2,
           266.4,
-          268
+          270
         ]
       },
       {
         "point_mm": [
           19.9,
           268.6,
-          266.7
+          267.5
         ]
       },
       {
         "point_mm": [
           19.9,
-          280,
-          266.66667
-        ]
-      },
-      {
-        "terminal": "wago-sensors.3",
-        "offset": [
-          72.5,
-          57.7558,
-          -14.83333
-        ]
-      },
-      {
-        "terminal": "flow.GND",
-        "offset": [
-          -0.3,
-          -45.81,
-          -5.5
-        ]
-      },
-      {
-        "terminal": "flow.GND",
-        "offset": [
-          -0.3,
-          -33.81,
-          2.5
-        ]
-      },
-      {
-        "terminal": "flow.GND",
-        "offset": [
-          -0.3,
-          -21.81,
-          2.5
+          278,
+          267.6
         ]
       },
       {
         "point_mm": [
-          91.0,
-          400.0,
-          263.0
+          25,
+          278,
+          268.2
+        ]
+      },
+      {
+        "point_mm": [
+          93.2,
+          278,
+          266.67
+        ]
+      },
+      {
+        "point_mm": [
+          95.5,
+          319,
+          275
+        ]
+      },
+      {
+        "point_mm": [
+          95.5,
+          378,
+          275
+        ]
+      },
+      {
+        "point_mm": [
+          93.2,
+          388,
+          270.2
+        ]
+      },
+      {
+        "point_mm": [
+          93.2,
+          395.2,
+          270.2
+        ]
+      },
+      {
+        "point_mm": [
+          93.2,
+          400,
+          265
+        ]
+      },
+      {
+        "point_mm": [
+          97.3,
+          408,
+          265.35
+        ]
+      },
+      {
+        "terminal": "flow.GND",
+        "offset": [
+          6,
+          0,
+          -1.5
         ]
       }
     ],
     "end_lands_mm": [
-      6.0,
+      8,
       1.5
     ],
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "The flow-meter ground passes through the inside of the bend and clears the valve end of the V-B clip before crossing to the east aisle."
+    "note": "The meter ground takes the outside lane along the east aisle and rises over the receiver floor into the sensor."
   },
   "J5-GND": {
     "stations": [
@@ -3714,134 +3737,231 @@
       {
         "terminal": "J4.IO25",
         "offset": [
-          4.19999,
-          46.79708,
-          3.6
-        ]
-      },
-      {
-        "terminal": "J4.IO25",
-        "offset": [
-          16.19999,
-          54.79708,
-          -2.4
-        ]
-      },
-      {
-        "terminal": "J4.IO25",
-        "offset": [
-          106.19999,
-          54.79708,
-          -2.4
-        ]
-      },
-      {
-        "terminal": "flow.PULSE",
-        "offset": [
-          -0.3,
-          -44.01,
-          -5.5
-        ]
-      },
-      {
-        "terminal": "flow.PULSE",
-        "offset": [
-          -0.3,
-          -32.01,
-          2.5
-        ]
-      },
-      {
-        "terminal": "flow.PULSE",
-        "offset": [
-          -0.3,
-          -20.01,
-          2.5
+          -5.40001,
+          0,
+          9
         ]
       },
       {
         "point_mm": [
-          91.0,
-          400.0,
-          263.0
+          -21.6,
+          265,
+          277.4
+        ]
+      },
+      {
+        "point_mm": [
+          -14,
+          274,
+          274
+        ]
+      },
+      {
+        "point_mm": [
+          0,
+          286,
+          268
+        ]
+      },
+      {
+        "point_mm": [
+          18,
+          286,
+          268
+        ]
+      },
+      {
+        "point_mm": [
+          30,
+          280.0,
+          268
+        ]
+      },
+      {
+        "point_mm": [
+          91.2,
+          280.0,
+          268
+        ]
+      },
+      {
+        "point_mm": [
+          93.5,
+          319,
+          275
+        ]
+      },
+      {
+        "point_mm": [
+          93.5,
+          378,
+          275
+        ]
+      },
+      {
+        "point_mm": [
+          91.2,
+          388,
+          270.2
+        ]
+      },
+      {
+        "point_mm": [
+          91.2,
+          395.2,
+          270.2
+        ]
+      },
+      {
+        "point_mm": [
+          91.2,
+          400,
+          265.0
+        ]
+      },
+      {
+        "point_mm": [
+          95.3,
+          408,
+          265.35
+        ]
+      },
+      {
+        "terminal": "flow.PULSE",
+        "offset": [
+          4.0,
+          0,
+          -1.5
         ]
       }
     ],
     "end_lands_mm": [
-      6.0,
+      9,
       1.5
     ],
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
+    "note": "The meter pair passes aft of the V-B clip root in separate lanes, then rises over the receiver floor into the fixed sensor terminals."
   },
   "J4-V5": {
     "stations": [
       {
         "terminal": "J4.V5",
         "offset": [
-          4.19999,
-          49.29708,
-          3.6
-        ]
-      },
-      {
-        "terminal": "J4.V5",
-        "offset": [
-          16.19999,
-          57.29708,
-          -2.4
-        ]
-      },
-      {
-        "terminal": "J4.V5",
-        "offset": [
-          106.19999,
-          57.29708,
-          -2.4
-        ]
-      },
-      {
-        "terminal": "flow.V",
-        "offset": [
-          -0.3,
-          -42.21,
-          -5.5
-        ]
-      },
-      {
-        "terminal": "flow.V",
-        "offset": [
-          -0.3,
-          -30.21,
-          2.5
-        ]
-      },
-      {
-        "terminal": "flow.V",
-        "offset": [
-          -0.3,
-          -18.21,
-          2.5
+          -8.80001,
+          0,
+          9
         ]
       },
       {
         "point_mm": [
-          91.0,
-          400.0,
-          263.0
+          -25,
+          265,
+          277.4
+        ]
+      },
+      {
+        "point_mm": [
+          -18,
+          274,
+          274
+        ]
+      },
+      {
+        "point_mm": [
+          0,
+          289,
+          274
+        ]
+      },
+      {
+        "point_mm": [
+          18,
+          289,
+          274
+        ]
+      },
+      {
+        "point_mm": [
+          26,
+          287,
+          268.5
+        ]
+      },
+      {
+        "point_mm": [
+          30,
+          282.0,
+          268.5
+        ]
+      },
+      {
+        "point_mm": [
+          89.2,
+          282.0,
+          268.5
+        ]
+      },
+      {
+        "point_mm": [
+          91.5,
+          319,
+          275
+        ]
+      },
+      {
+        "point_mm": [
+          91.5,
+          378,
+          275
+        ]
+      },
+      {
+        "point_mm": [
+          89.2,
+          388,
+          270.2
+        ]
+      },
+      {
+        "point_mm": [
+          89.2,
+          395.2,
+          270.2
+        ]
+      },
+      {
+        "point_mm": [
+          89.2,
+          400,
+          265.0
+        ]
+      },
+      {
+        "point_mm": [
+          93.3,
+          408,
+          265.35
+        ]
+      },
+      {
+        "terminal": "flow.V",
+        "offset": [
+          2.0,
+          0,
+          -1.5
         ]
       }
     ],
     "end_lands_mm": [
-      6.0,
+      9,
       1.5
     ],
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
+    "note": "The meter pair passes aft of the V-B clip root in separate lanes, then rises over the receiver floor into the fixed sensor terminals."
   },
   "AC3-L": {
     "stations": [

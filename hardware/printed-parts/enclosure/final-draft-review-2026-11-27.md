@@ -1,16 +1,18 @@
 # Back-top and cold-core lid before the full print
 
-The two Mark1 jobs use black Fiberon PET-GF15 on textured PEI. The new back-top slice includes the shortened rear ledges and the insert mouths that open square to the 45° seats. The existing lid download matches its current production mesh and emitted G-code. The five-way WAGO belongs to MAN-B in the front top. Its accepted opening is 8.10 × 30.20 mm, short side first, with 8.70 mm of insertion depth. [Back-top seat measurements](enclosure/prints/2026-11-27-back-top-square-seats-mark1/funnel-seat-toolpaths.json) · [Cold-core lid print plan](../cold-core/foam-cap/prints/2026-11-27-lid-fitted-wago-mark1/print-plan.json) · [Five-way bench result](../../print-tests/wago-pocket-support/prints/2026-11-27-fit-d-mark2/physical-result.json)
+The back top on Mark1 and the cold-core equipment lid on Mark2 use black Fiberon PET-GF15 on textured PEI. The new back-top slice includes the shortened rear ledges and the insert mouths that open square to the 45° seats. The Mark2 lid slice uses the current production mesh and matches every executable line of the reviewed Mark1 lid. The five-way WAGO belongs to MAN-B in the front top. Its accepted opening is 8.10 × 30.20 mm, short side first, with 8.70 mm of insertion depth. [Back-top seat measurements](enclosure/prints/2026-11-27-back-top-square-seats-mark1/funnel-seat-toolpaths.json) · [Cold-core lid print plan](../cold-core/foam-cap/prints/2026-11-28-lid-mark2/print-plan.json) · [Five-way bench result](../../print-tests/wago-pocket-support/prints/2026-11-27-fit-d-mark2/physical-result.json)
 
 ## Harness routing
 
-The installed model shows five flexible leads passing through printed plastic along part of their routes. The table gives local movements that cleared the neighboring equipment and tubes in the model while holding the terminals fixed. The production illustration still shows the original routes. Correct it before using it to guide assembly, and allow slack for the meter cover to come off. The model check covers rigid obstacles. Lead-to-lead dressing and bend strain need the physical harness. [Wiring route and assembly](../../wiring/README.md#routing-and-assembly)
+The production assembly now shows the three flow-meter leads in separate lanes. From J4, take the power and pulse wires aft around the root of the V‑B return clip. Carry all three over the tubes along the east wall, keep them high until they pass the receiver lip, then fan them into their own meter terminals. Leave enough slack to remove the meter cover. The model retains all 100 conductors and the same ten terminal positions on the five edited routes. [Installed wire routes](../../wiring/installed/route-overrides.json) · [Routing and assembly](../../wiring/README.md#routing-and-assembly)
 
-| Location | Leads in the model | Route that clears the printed part |
-| --- | --- | --- |
-| Back-top flow meter | J4‑IO25, J4‑V5 and flow GND enter the receiver floor and the cap. | Raise these three leads 2 mm near machine Y400. |
-| Lid, V‑B return clip | J4‑IO25 and J4‑V5 cross the solid clip root for about 13 mm each. | Dress the pair 6 mm aft around the root. |
-| Lid, DC1 and J1 | DC1‑V12 and J1 common each catch the lid locally. | Shift the DC1 bend 1 mm aft and the J1 bend 1 mm down. |
+| Location | Clearance in the rebuilt assembly |
+| --- | --- |
+| Back-top flow meter | The three insulated leads clear the enclosure by at least 0.36 mm and the removable cap by at least 1.48 mm. Each lead also clears the other two. |
+| Lid, V‑B return clip | The power and pulse wires pass aft of the clip. Their minimum clearances to the lid are 4.16 mm and 1.14 mm respectively. |
+| Lid, DC1 and J1 | The DC1 supply bend moves 1 mm aft and the J1 common bend 1 mm down. They clear the lid by 0.15 mm and 0.23 mm respectively. |
+
+The illustration establishes the routes in the assembled model. Check slack and bend strain on the physical harness. A separate, pre-existing crossing between J1 common and tube-fluid-26 near machine (−22, 203, 298) still needs dressing at assembly.
 
 ## Lid closure and frame seating
 
