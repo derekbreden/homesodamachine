@@ -1377,6 +1377,14 @@
       "purchase_id": "pur-9910099ea22c4c47900afde42039954e"
     },
     {
+      "allocation_id": "alloc-b4010059662649ac9c541b2f5b26f88c",
+      "amount_minor": 4011,
+      "currency": "USD",
+      "event_id": "evt-02fc72e7a30e42619dd2a01f09af0368",
+      "order_id": "anthropic:8C2842D3-0017",
+      "purchase_id": "pur-dfd28f4952b7492d8cc5be1cc5e6f753"
+    },
+    {
       "allocation_id": "alloc-b4a9b98fd2f8455f8c76c220c6050831",
       "amount_minor": 8404,
       "currency": "USD",
@@ -1897,7 +1905,7 @@
       "purchase_id": "pur-e09e5d28db894792aef087da03caea51"
     }
   ],
-  "as_of": "2026-11-27",
+  "as_of": "2026-11-28",
   "coverage": [
     {
       "checked_at": "2026-10-04",
@@ -3658,6 +3666,26 @@
       "vendor": "Amazon"
     },
     {
+      "checked_at": "2026-11-28",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-b864386dd033446988970c43b3782df3",
+      "evidence_type": "merchant_receipts",
+      "examined_period": {
+        "end": "2026-11-28",
+        "start": "2026-11-28"
+      },
+      "note": "Review of the named Anthropic receipt; no claim of complete Anthropic account coverage.",
+      "order_ids": [
+        "anthropic:8C2842D3-0017"
+      ],
+      "source_ids": [
+        "src-8b631ed5f5d14999967cee53667c4b73"
+      ],
+      "stream": "prepaid usage-credit receipt",
+      "vendor": "Anthropic"
+    },
+    {
       "checked_at": "2026-10-13",
       "complete_period": null,
       "coverage": "partial",
@@ -4438,6 +4466,38 @@
       "unallocated_to_purchase_minor": 0,
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "allocation_ids": [
+        "alloc-b4010059662649ac9c541b2f5b26f88c"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 4011,
+      "confirmation": "confirmed",
+      "currency": "USD",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-28"
+      },
+      "event_id": "evt-02fc72e7a30e42619dd2a01f09af0368",
+      "event_type": "charge",
+      "order_ids": [
+        "anthropic:8C2842D3-0017"
+      ],
+      "purchase_ids": [
+        "pur-dfd28f4952b7492d8cc5be1cc5e6f753"
+      ],
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-11-28"
+      },
+      "service_period": null,
+      "source_ids": [
+        "src-8b631ed5f5d14999967cee53667c4b73"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Anthropic",
+      "verified_at": "2026-11-28"
     },
     {
       "allocation_ids": [
@@ -10953,7 +11013,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:40e2685b5b3da2aef10b0d3c51cd2b2b4e523cafb91d2dadc35f9236491ab0ba",
+  "input_fingerprint": "sha256:202db0b2ea2064da12250b56881882e94d5d0de82e0d28998dd351b60ecbaf52",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -17707,6 +17767,22 @@
       "reference": "8C2842D3-0016",
       "source_ids": [
         "src-fd13184ffc634cd8b1f2d4dc992eb072"
+      ],
+      "vendor": "Anthropic"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-02fc72e7a30e42619dd2a01f09af0368"
+      ],
+      "order_date": null,
+      "order_id": "anthropic:8C2842D3-0017",
+      "purchase_ids": [
+        "pur-dfd28f4952b7492d8cc5be1cc5e6f753"
+      ],
+      "reference": "8C2842D3-0017",
+      "source_ids": [
+        "src-8b631ed5f5d14999967cee53667c4b73"
       ],
       "vendor": "Anthropic"
     },
@@ -52644,6 +52720,52 @@
     },
     {
       "allocation_status": "all_project",
+      "amount_evidence": "final_vendor_amount",
+      "amount_minor": 4011,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Claude prepaid usage credit — automatic recharge; invoice 8C2842D3-0017",
+      "event_ids": [
+        "evt-02fc72e7a30e42619dd2a01f09af0368"
+      ],
+      "fulfillment": "ACQUIRED",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-dfd28f4952b7492d8cc5be1cc5e6f753",
+      "merchant_charge_allocated_minor": 4011,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": null,
+      "order_ids": [
+        "anthropic:8C2842D3-0017"
+      ],
+      "payment_evidence": "merchant_charge",
+      "price_basis": "row_total",
+      "purchase_id": "pur-dfd28f4952b7492d8cc5be1cc5e6f753",
+      "purpose": "engineering_software_services",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-11-28"
+      },
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-28"
+      },
+      "row_date_basis": "receipt_date",
+      "section": "18. AI-assisted engineering services",
+      "service_period": null,
+      "source_ids": [
+        "src-8b631ed5f5d14999967cee53667c4b73"
+      ],
+      "split_charge": false,
+      "stream": "automatic_top_up",
+      "unit_amount_minor": null,
+      "vendor": "Anthropic"
+    },
+    {
+      "allocation_status": "all_project",
       "amount_evidence": "legacy_unverified",
       "amount_minor": 642,
       "contributes": true,
@@ -67448,6 +67570,33 @@
       "verified_at": "2026-11-10"
     },
     {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-28"
+      },
+      "document_type": "merchant_monetary_receipt",
+      "invoice_reference": "8C2842D3-0017",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-28"
+      },
+      "note": "Anthropic monetary receipt shows a separate automatic credit recharge paid November 28, 2026 for USD 40.11. Same invoice series as earlier recorded project credits; time of credit use is not shown.",
+      "proves": [
+        "price",
+        "charge",
+        "receipt_date",
+        "merchant_event_date"
+      ],
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-11-28"
+      },
+      "reference": "8C2842D3-0017",
+      "source_id": "src-8b631ed5f5d14999967cee53667c4b73",
+      "vendor": "Anthropic",
+      "verified_at": "2026-11-28"
+    },
+    {
       "document_date": null,
       "document_type": "carrier_delivery_notice",
       "note": "Carrier notice explicitly gives Delivered Date 2026-04-30 and Reference Order SG019619, linking actual delivery to the carbonator end-cap plates.",
@@ -71105,7 +71254,7 @@
       "basis": "Current procurement status, independently of payment evidence.",
       "by_status": [
         {
-          "amount_minor": 5081062,
+          "amount_minor": 5085073,
           "currency": "USD",
           "fulfillment": "ACQUIRED",
           "purchase_ids": [
@@ -71747,6 +71896,7 @@
             "pur-de2cb021f33742498cca36744fab885f",
             "pur-df73d68d78794bbabd31f36a20ddfcaf",
             "pur-dfd251509a3543c5b3bd9e358dcef85f",
+            "pur-dfd28f4952b7492d8cc5be1cc5e6f753",
             "pur-dfdb0e2d51ff4980ad36338435d00bee",
             "pur-dffe2f4f491a4467804cfeba9abf5eda",
             "pur-dffebdfeb1fc4197bc32e2de35b7e42a",
@@ -72202,9 +72352,10 @@
         },
         {
           "authorizations_minor": 0,
-          "charges_minor": 119692,
+          "charges_minor": 123703,
           "currency": "USD",
           "event_ids": [
+            "evt-02fc72e7a30e42619dd2a01f09af0368",
             "evt-03528b8bbe2f47c39bee9b7de9b837c3",
             "evt-0daeac8a24434db6abdfdeb3d8dc4a57",
             "evt-1192b2180d784a0cb3a1c85da3946034",
@@ -72233,7 +72384,7 @@
           ],
           "evidence_scope": "retrieved_records_only",
           "month": "2026-11",
-          "net_minor": 119692,
+          "net_minor": 123703,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unknown_amount_ids": [],
@@ -72256,9 +72407,9 @@
       "totals": [
         {
           "authorizations_minor": 0,
-          "charges_minor": 2621053,
+          "charges_minor": 2625064,
           "currency": "USD",
-          "net_minor": 2621053,
+          "net_minor": 2625064,
           "noncash_credits_minor": 46,
           "refunds_minor": 0,
           "unresolved_project_share_minor": 0
@@ -73097,7 +73248,7 @@
           "purpose": "documentation_marketing"
         },
         {
-          "amount_minor": 688083,
+          "amount_minor": 692094,
           "currency": "USD",
           "purpose": "engineering_software_services"
         },
@@ -73121,16 +73272,16 @@
         {
           "currency": "USD",
           "estimate_minor": 274167,
-          "final_vendor_amount_minor": 2929611,
+          "final_vendor_amount_minor": 2933622,
           "legacy_unverified_minor": 1898308,
-          "total_minor": 5102086
+          "total_minor": 5106097
         }
       ],
       "undated_unallocated": [
         {
           "currency": "USD",
           "estimate_minor": 21478,
-          "final_vendor_amount_minor": 844043,
+          "final_vendor_amount_minor": 848054,
           "legacy_unverified_minor": 125743,
           "purchase_ids": [
             "pur-039f49fc6eef49008dd6a93defa86b27",
@@ -73241,6 +73392,7 @@
             "pur-dcfef64f3f264f2f95eb43659806718f",
             "pur-ddb913745e3c493195aa3411e9795a3d",
             "pur-de2cb021f33742498cca36744fab885f",
+            "pur-dfd28f4952b7492d8cc5be1cc5e6f753",
             "pur-dffe2f4f491a4467804cfeba9abf5eda",
             "pur-dffebdfeb1fc4197bc32e2de35b7e42a",
             "pur-e09e5d28db894792aef087da03caea51",
@@ -73258,7 +73410,7 @@
             "pur-fed6d00353fc4faab696ce743483e8b4",
             "pur-ff6404193aa640179f2209f33f2997f8"
           ],
-          "total_minor": 991264,
+          "total_minor": 995275,
           "unknown_amount_ids": []
         }
       ]
@@ -73302,7 +73454,7 @@
           "purchases_without_merchant_charge_minor": 2487594,
           "undated_charge_minor": 563952,
           "undated_refund_minor": 0,
-          "undated_unallocated_purchase_minor": 991264,
+          "undated_unallocated_purchase_minor": 995275,
           "unknown_amount_event_count": 0,
           "unknown_amount_purchase_count": 0,
           "unresolved_allocation_purchase_minor": 2174,
@@ -73430,6 +73582,7 @@
         "coverage-b315012d5a28447bb3ce18fede75ae7f",
         "coverage-b33231d38620439992b31e180cbd4e92",
         "coverage-b3638bce1721458893c995d406a8e011",
+        "coverage-b864386dd033446988970c43b3782df3",
         "coverage-b8b45e49d70542c79e84138ae30ce7a7",
         "coverage-b9b06230952f4f6795765fbb8e7c1222",
         "coverage-ba4bf9754c174c37ad1d77933b5a2574",
@@ -74609,6 +74762,7 @@
         "pur-dcfef64f3f264f2f95eb43659806718f",
         "pur-ddb913745e3c493195aa3411e9795a3d",
         "pur-de2cb021f33742498cca36744fab885f",
+        "pur-dfd28f4952b7492d8cc5be1cc5e6f753",
         "pur-dffe2f4f491a4467804cfeba9abf5eda",
         "pur-dffebdfeb1fc4197bc32e2de35b7e42a",
         "pur-e09e5d28db894792aef087da03caea51",
@@ -74718,6 +74872,7 @@
       "coverage-b315012d5a28447bb3ce18fede75ae7f: evidence coverage is partial",
       "coverage-b33231d38620439992b31e180cbd4e92: evidence coverage is partial",
       "coverage-b3638bce1721458893c995d406a8e011: evidence coverage is partial",
+      "coverage-b864386dd033446988970c43b3782df3: evidence coverage is partial",
       "coverage-b8b45e49d70542c79e84138ae30ce7a7: evidence coverage is partial",
       "coverage-b9b06230952f4f6795765fbb8e7c1222: evidence coverage is unknown",
       "coverage-ba4bf9754c174c37ad1d77933b5a2574: evidence coverage is partial",
