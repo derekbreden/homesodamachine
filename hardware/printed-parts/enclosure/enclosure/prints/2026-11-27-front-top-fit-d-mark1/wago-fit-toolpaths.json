@@ -1,0 +1,246 @@
+{
+  "part": "front-top",
+  "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+  "source_stl_sha256": "91ffb56f7b1b0f048f62fda0b7be86c94808ac728a4eb274ebc406c36f880ef6",
+  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-front-top-fit-d-mark1/2026-11-27-front-top-mark1-dae7663f-textured-pei/2026-11-27-front-top-mark1-dae7663f-textured-pei.gcode.3mf",
+  "archive_sha256": "3ca798083854014ac8a150977e98faf39f2dd3a06a373f16ba1354969348a258",
+  "gcode_member": "Metadata/plate_1.gcode",
+  "gcode_sha256": "f8bb1712930c08a29b056d9671277b160247b8a695de29c29c7e3f6c60622b37",
+  "method": "Deposited lines and arcs are expanded to their emitted bead width. Each open course is measured between the permanent pocket walls from its mouth to 0.25 mm before its back. Depth runs from each cheek to three positions on the back. Height runs from the last floor surface to the first transverse roof bead. Every tree course is swept 3 mm beyond the mouth against other deposited roads. The remaining native support strokes include their plate positions, feature, width, height, arcs and extrusion. The exterior trees are compared stroke for stroke, independent of path order.",
+  "pass": true,
+  "pockets": [
+    {
+      "name": "wago-mana",
+      "cad_short_long_depth_mm": [
+        15.7,
+        30.1,
+        8.7
+      ],
+      "plate_cavity_min_xyz_mm": [
+        258.3,
+        219.4,
+        101.7
+      ],
+      "plate_cavity_max_xyz_mm": [
+        267.0,
+        235.1,
+        131.8
+      ],
+      "withdrawal_axis_plate_xy": [
+        -1,
+        0
+      ],
+      "open_courses_measured": 125,
+      "emitted_width_range_mm": [
+        15.7,
+        15.7
+      ],
+      "emitted_height_mm": 29.94,
+      "last_floor_top_z_mm": 101.72,
+      "first_roof_top_z_mm": 131.96,
+      "first_roof_max_bead_height_mm": 0.3,
+      "separate_tree_feet": 1,
+      "first_foot_z_mm": 102.2,
+      "foot_width_depth_mm": [
+        3.343,
+        3.343
+      ],
+      "foot_on_deposited_floor_percent": 100.0,
+      "under_foot_release_gap_mm": 0.18,
+      "connected_tree_courses": 123,
+      "max_islands_in_tree_course": 1,
+      "orphaned_tree_islands": 0,
+      "largest_air_gap_between_tree_courses_mm": 0.0,
+      "crown_course_tops_z_mm": [
+        131.0,
+        131.24,
+        131.48
+      ],
+      "under_roof_release_gap_mm": 0.18,
+      "other_native_support_inside_cavity_mm2": 0.0,
+      "transverse_roof_roads": {
+        "Overhang wall": 2,
+        "Bridge": 21
+      },
+      "max_bridge_endpoint_to_prior_wall_mm": 0.0,
+      "roof_mouth_perimeters": [
+        {
+          "inside_mouth_mm": 0.21,
+          "road_length_mm": 15.7,
+          "longest_wholly_unbacked_mm": 0.017
+        },
+        {
+          "inside_mouth_mm": 0.593,
+          "road_length_mm": 15.7,
+          "longest_wholly_unbacked_mm": 0.017
+        }
+      ],
+      "removal_sweep_distance_mm": 11.7,
+      "removal_sweep_min_clearance_mm": 0.48,
+      "removal_sweep_max_overlap_area_mm2": 0.0,
+      "emitted_depth_range_mm": [
+        8.7,
+        8.7
+      ],
+      "connector": "221-420",
+      "reference": "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-c-mark2/fit-toolpaths.json",
+      "reference_object": "fit-c-420",
+      "reference_archive_sha256": "6799c2727f9d90e0697590c5d5f925777d5d391c7ef74371a467208133a9652c",
+      "reference_gcode_sha256": "13f27b40037184318e8a5edc257a85f5aa022a54894c719db506a2c0e551ebea",
+      "reference_emitted_width_height_mm": [
+        15.7,
+        29.94
+      ],
+      "checks": {
+        "opening_matches_reference": true,
+        "one_contiguous_tree_on_floor": true,
+        "release_interfaces_match_coupon": true,
+        "straight_withdrawal_through_mouth": true,
+        "roof_lands_on_both_cheeks": true,
+        "crown_backs_mouth_edges": true
+      }
+    },
+    {
+      "name": "wago-manb",
+      "cad_short_long_depth_mm": [
+        8.1,
+        30.2,
+        8.7
+      ],
+      "plate_cavity_min_xyz_mm": [
+        258.3,
+        219.5,
+        67.65
+      ],
+      "plate_cavity_max_xyz_mm": [
+        267.0,
+        227.6,
+        97.85
+      ],
+      "withdrawal_axis_plate_xy": [
+        -1,
+        0
+      ],
+      "open_courses_measured": 126,
+      "emitted_width_range_mm": [
+        8.1,
+        8.1
+      ],
+      "emitted_height_mm": 30.18,
+      "last_floor_top_z_mm": 67.64,
+      "first_roof_top_z_mm": 98.12,
+      "first_roof_max_bead_height_mm": 0.3,
+      "separate_tree_feet": 1,
+      "first_foot_z_mm": 68.12,
+      "foot_width_depth_mm": [
+        3.343,
+        3.343
+      ],
+      "foot_on_deposited_floor_percent": 100.0,
+      "under_foot_release_gap_mm": 0.18,
+      "connected_tree_courses": 124,
+      "max_islands_in_tree_course": 1,
+      "orphaned_tree_islands": 0,
+      "largest_air_gap_between_tree_courses_mm": 0.0,
+      "crown_course_tops_z_mm": [
+        97.16,
+        97.4,
+        97.64
+      ],
+      "under_roof_release_gap_mm": 0.18,
+      "other_native_support_inside_cavity_mm2": 0.0,
+      "transverse_roof_roads": {
+        "Overhang wall": 2,
+        "Bridge": 21
+      },
+      "max_bridge_endpoint_to_prior_wall_mm": 0.0,
+      "roof_mouth_perimeters": [
+        {
+          "inside_mouth_mm": 0.21,
+          "road_length_mm": 8.1,
+          "longest_wholly_unbacked_mm": 0.017
+        },
+        {
+          "inside_mouth_mm": 0.593,
+          "road_length_mm": 8.1,
+          "longest_wholly_unbacked_mm": 0.017
+        }
+      ],
+      "removal_sweep_distance_mm": 11.7,
+      "removal_sweep_min_clearance_mm": 0.48,
+      "removal_sweep_max_overlap_area_mm2": 0.0,
+      "emitted_depth_range_mm": [
+        8.7,
+        8.7
+      ],
+      "connector": "221-415",
+      "reference": "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-d-mark2/fit-toolpaths.json",
+      "reference_object": "fit-d-415",
+      "reference_archive_sha256": "fafb601963ffc4ab80d859c101bd0ba14df26e9b5c0840fcfcf8e1d949104ec0",
+      "reference_gcode_sha256": "c69e1be032246667407babcfa0f072da053bdff0a9de77d40424a5a6d82dad58",
+      "reference_emitted_width_height_mm": [
+        8.1,
+        30.18
+      ],
+      "checks": {
+        "opening_matches_reference": true,
+        "one_contiguous_tree_on_floor": true,
+        "release_interfaces_match_coupon": true,
+        "straight_withdrawal_through_mouth": true,
+        "roof_lands_on_both_cheeks": true,
+        "crown_backs_mouth_edges": true
+      }
+    }
+  ],
+  "full_plate": {
+    "previous_print_plan": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-front-top-fitted-wago-mark1/print-plan.json",
+    "matching_project_settings_sha256": "c3fc9b0f32174eb248a0e31f322e4ac1279f841138b54a2f50fdcd5da94c5843",
+    "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
+    "matching_native_layer_ranges": 1,
+    "reinforcement_and_bridge_modifiers": 23,
+    "native_review": "2026-11-27-front-top-mark1-dae7663f-textured-pei/review.json",
+    "native_slicer_warnings": [],
+    "minimum_deposited_bed_margin_mm": 51.848,
+    "support_crossings_in_protected_regions": 0,
+    "matching_bed_rooted_trees_and_contacts": 6,
+    "floor_rooted_wago_trees": 2,
+    "other_native_supports": {
+      "strokes_by_role": {
+        "Support": 108174,
+        "Support transition": 1099,
+        "Support interface": 1751
+      },
+      "first_last_z_mm": [
+        0.2,
+        64.52
+      ],
+      "matching_strokes": 111024,
+      "matched_stroke_fields": [
+        "feature",
+        "start and end XYZ",
+        "motion and arc geometry",
+        "bead width",
+        "bead height",
+        "extrusion"
+      ],
+      "matching_undirected_strokes_sha256": "a59c208e8bf1a6d5dabbf28942c50073724094cafd14f5af525bb5d2919936bf",
+      "matching_drawing_directions": true,
+      "matching_directed_strokes_sha256": "6c0805f9b906a2d044da058f695aa0abfb5bd01548586fa4b9bfc342ade2930a"
+    }
+  },
+  "print_view": {
+    "replay_sha256": "e40195852b6471e362d0319db6a86e7698ecc9798b1d93030d930653819696a0",
+    "visible_wago_roads": [
+      {
+        "pocket": "wago-mana",
+        "visible_support_roads": 2639,
+        "visible_interface_roads": 179
+      },
+      {
+        "pocket": "wago-manb",
+        "visible_support_roads": 2579,
+        "visible_interface_roads": 103
+      }
+    ]
+  }
+}
