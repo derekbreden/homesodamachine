@@ -102,7 +102,7 @@
     "hardware/magnetic-float-guide/magnetic-float-guide.pdf": "a859dec2d803a66ba4801399af7366562be0f24813922d9e410b2b6895968341",
     "hardware/manifold-layout/enclosure-assembly.facts.json": "74f7a50bd3982a67ea7bb68ffb13d7a8431495c3c72e81215e4bfa4e6c346692",
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": "96be0d51a69a4bfce5f3984d9f08a82c5a97fa6c220bf7d72d389c15af217370",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "04190c2b65a94caaba89e0e3c393ba08ac9e36b4e0761ae65c26371e142c2038",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "6b8d83558116af00417c006445a893d820a0cbbc77d3eca055650bdbd07cc2f1",
     "hardware/manifold-layout/manifold-layout.step": "3fd31ca1b78af2be4868175bb325370c9cfdebf1bb465778901b55c1912ec7eb",
     "hardware/manifold-layout/manifold-layout.step.mesh": "bab8b49406c2fc510d46d51e99acfcc8bd70c6e1608564d3e03e6dbd0f4dafbe",
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": "e95046f067ee746da9528bfea02b503cede9a75098f6b1b513dab1bbaa2f058c",
@@ -955,7 +955,7 @@
       "hardware/install-guide/install-guide.pdf": "ddfd116f90ab4dd8d106d00ac0febca12b102fc64475fbf01ed85ca80064cf2f",
       "hardware/magnetic-float-guide/magnetic-float-guide.pdf": "a859dec2d803a66ba4801399af7366562be0f24813922d9e410b2b6895968341",
       "hardware/manifold-layout/enclosure-assembly.facts.json": "74f7a50bd3982a67ea7bb68ffb13d7a8431495c3c72e81215e4bfa4e6c346692",
-      "hardware/manifold-layout/enclosure-assembly.step.mesh": "04190c2b65a94caaba89e0e3c393ba08ac9e36b4e0761ae65c26371e142c2038",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh": "6b8d83558116af00417c006445a893d820a0cbbc77d3eca055650bdbd07cc2f1",
       "hardware/mold-guide/mold-guide.pdf": "2c1b7ba629ac0f482079ff8e99058f79afefb2a170d24aea2abc66bbed4ad824",
       "hardware/pcb/pcba/out/pcba.bom.csv": "8e50da9512f4775249bb0a81e7ef8dc1059fbd3ed31513aaae1511838bb65209",
       "hardware/pcb/pcba/out/pcba.bottom.png": "9daeef19d29ef35ba7c6d0f04a7090ca88bb2d3795f5a9470c4447f6f3207f5a",
@@ -1991,6 +1991,7 @@
     "5969b319a4dd80d42aaf84f8647d5c3026af776e383037942334faeecaff0515",
     "59c8cc89e8df5f4dde6e0d3927b6eb97128cc6bac8292081ed36dc6b6ce1b741",
     "5a1b251a48e352e1942d6c4eb1cb6e05a1c0339e56be94652514c45ac657b16b",
+    "5a1f34b27871f31a342bb7ce09d456ba901d479eb6152b4f40192bc0b0f5bcbf",
     "5a2a99f73ff6e7a593361427641011d36957c2990db4a97f1d458c9913903b88",
     "5a48e170c374f99312190dfce85955d8484925e51f1443d59542bb614c8e8638",
     "5a8792f3e8dcf39738fde7a987a64360cca1e1abaec6326fcfb3639fa33ff868",
@@ -2927,6 +2928,7 @@
     "fa7325f456197f5b40ed904a5a2e61eecfd9646a5a9aee6b21d00f5e481592b9",
     "fa82a2b0703b1b87388c2ad246216bd977ad80e146e088072a9fa519b7a7daac",
     "fa8fdd560c07fe8c0465dee5c6114c48a3d1c6a66ef9ee836e840e25575fc42e",
+    "faf0b8a022888fea797f1aefe78ca8c43d8a50bd58c4f598f9fdc69221f56a57",
     "fb0af1c5ef5d6f71335b4077df96907c6c77904c4735dd9d79ea891f6c40e399",
     "fb2040990227aff08ac761bdae02bbc1b37de43aba8ef539ec8add3b1ee86805",
     "fb338917aa2ae331bfe226353fc276a74c51c4bc03d589ec9a52c9051daec8d9",
@@ -3043,7 +3045,7 @@
     "hardware/magnetic-float-guide/magnetic-float-guide.pdf": 1795765666.951245,
     "hardware/manifold-layout/enclosure-assembly.facts.json": 1795837972.418211,
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": 1793858653,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1795846643.74125,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1795846651.522132,
     "hardware/manifold-layout/manifold-layout.step": 1794269272.362814,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1794445929.08732,
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": 1792828088,
@@ -4070,7 +4072,7 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
-      "commit": "eba1ffd0f64aadc00e1c98c5718dd680c8b3674f",
+      "commit": "bb47f63379f646751ee43166945af995c8587b91",
       "unproven": true
     },
     "hardware/manifold-layout/manifold-layout.step": {
