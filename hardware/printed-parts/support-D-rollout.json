@@ -782,7 +782,7 @@
   "production_recipes": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
   "production_equipment_print_plans": {
     "front_top_Mark1": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-front-top-fitted-wago-mark1/print-plan.json",
-    "back_top_Mark1": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-back-top-wago-floor-trees-mark1/print-plan.json",
+    "back_top_Mark1": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-back-top-fitted-wago-mark1/print-plan.json",
     "accessory_plate_Mark2": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-26-production-snaps-mark2/print-plan.json",
     "equipment_lid_Mark1": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-27-lid-fitted-wago-mark1/print-plan.json"
   },

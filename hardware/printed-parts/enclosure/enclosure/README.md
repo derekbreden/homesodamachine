@@ -761,7 +761,7 @@ interiors. The rear funnel screw passages and insert bores stay open. The
 power inlet's blind pilots bridge inside its supported flange pocket and cord passage.
 Each of the six WAGO pockets carries its roof on a single removable tree. The
 tree starts on that pocket’s floor and can be reached through its connector mouth.
-The [production print plan](prints/2026-11-27-back-top-wago-floor-trees-mark1/print-plan.json)
+The [production print plan](prints/2026-11-27-back-top-fitted-wago-mark1/print-plan.json)
 binds those results to the exact enclosure mesh and toolpaths. Physical cleanup
 and fit of this prepared plate await its first print.
 

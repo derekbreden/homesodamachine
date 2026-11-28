@@ -813,18 +813,18 @@
   },
   "HSM-0081": {
     "title": "Enclosure back top · Mark1 print plan",
-    "sha256": "34f116672cfbfd1124833525c9513abde96b0a0892835668302c495952a4d49d",
-    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-back-top-wago-floor-trees-mark1/2026-11-27-back-top-mark1-b73f3bd0-textured-pei/2026-11-27-back-top-mark1-b73f3bd0-textured-pei.gcode.3mf",
+    "sha256": "82ba7771179aa54d0588e87375563fa6a69f2d01aa18300b751b579e84a00d04",
+    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-back-top-fitted-wago-mark1/2026-11-27-back-top-mark1-d74a376b-textured-pei/2026-11-27-back-top-mark1-d74a376b-textured-pei.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "back-top",
-    "recipe_sha256": "91435d4f9a7efee861d81271b48b5d09584fdaabf3d2c6c330c78ea31107a660",
-    "project_sha256": "b93f3fa3925fbaa4065119297cfe1a8cafc0e531d15891b41c1222eaa7a93a86",
-    "archive_sha256": "6ff51f7c362bf9408081346bac08a47aa82e3517403b71443b2e22a9c263290a",
-    "gcode_sha256": "0036498f00b4f01fde9fe0b18b5a3a127fe31a22d7f30140149adfefceba1e88",
+    "recipe_sha256": "693e7d8045566a9e75987ed0f2337a8856ea68bc8078a103704e873aad6d8bec",
+    "project_sha256": "26f69482a073de7aa91984566310e2e932bc63523aba9aa5a335383e3b4d6b2e",
+    "archive_sha256": "46a3a012c9954aaa3657e187e758b7c534fd461fe420678189a53c27a70e618b",
+    "gcode_sha256": "04014df80be4adb5545d8fdf479983d69448c91219160828fa66efde3be9dc48",
     "kind": "plan",
     "layers": 1010,
-    "model_sha256": "a952817df4e90518ebff6b3502e84a0aac60d3d070dd17df92b6c1c635ef37c1",
+    "model_sha256": "7effa137afaa3e58c6982042bcff7ee13c8b0b941c0a6b84d2a2b12d29b4350b",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark1",
@@ -851,9 +851,9 @@
       "Fill tube snap": "A corbel carries its print-down jaw from the east wall. Contoured breakaway strips rooted on that jaw carry the free jaw above it.",
       "Rear label stops": "The 45° channel floors print from the rear wall. Slide FLAVOR B and DRAIN down their rails until their two flat ends reach the stops.",
       "Funnel frame": "The two sloped rear seats grow from the shell. Fit both inserts from below and use M3 × 25 rear screws.",
-      "WAGO pockets": "Each of the six pockets has its own floor-rooted tree. The cap backs the roof and mouth edge and can be pried out through the opening."
+      "WAGO pockets": "Each of the six 8.20 × 18.70 mm wells has a separate floor tree. Withdraw its crown through the connector mouth."
     },
-    "recipe_commit": "8c6a32de86593f2cc53c0fd040566c8cb255af07"
+    "recipe_commit": "08ea432dc123124250fb58e04dc890e4702c0d20"
   },
   "HSM-0082": {
     "title": "PET-GF accessory plate · Mark2 print plan",
