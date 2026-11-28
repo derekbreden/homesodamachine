@@ -124,6 +124,20 @@ const CAD_KINDS = {
   glb:  { ext: ".glb",  hashPrefix: "glb:"  },
 };
 
+// Model and record-only materials share the same workspace view switch.
+export function mountWorkspaceHeader(workspace) {
+  const header = document.createElement("header"); header.className = "cad-workspace-header";
+  const context = document.createElement("div"); context.className = "cad-context";
+  const viewTools = document.createElement("div"); viewTools.className = "cad-view-tools";
+  const views = document.createElement("div"); views.className = "cad-view-slot";
+  const documentTools = document.createElement("div"); documentTools.className = "cad-document-slot";
+  viewTools.append(views, documentTools);
+  const actions = document.createElement("div"); actions.className = "cad-header-actions";
+  header.append(context, viewTools, actions);
+  workspace.append(header);
+  return actions;
+}
+
 export function openCadDetail(type, file, pushHistory = true, path = null, target = null) {
   const kind = CAD_KINDS[type];
   // Set currentDetail BEFORE touching location.hash. In Puppeteer (and
@@ -151,15 +165,8 @@ export function openCadDetail(type, file, pushHistory = true, path = null, targe
   const stage = document.createElement("div");
   stage.className = "cad-stage";
   stage.append(wrapper);
-  const header = document.createElement("header"); header.className = "cad-workspace-header";
-  const context = document.createElement("div"); context.className = "cad-context";
-  const viewTools = document.createElement("div"); viewTools.className = "cad-view-tools";
-  const views = document.createElement("div"); views.className = "cad-view-slot";
-  const documentTools = document.createElement("div"); documentTools.className = "cad-document-slot";
-  viewTools.append(views, documentTools);
-  const actions = document.createElement("div"); actions.className = "cad-header-actions";
-  header.append(context, viewTools, actions);
-  workspace.append(header, stage);
+  const actions = mountWorkspaceHeader(workspace);
+  workspace.append(stage);
   const materialPanel = type === "step" ? mountMaterialPanel(workspace, { file }) : null;
   wrapper.appendChild(renderer.domElement);
   wrapper.appendChild(gizmoCanvas);

@@ -6,7 +6,7 @@ import { materialHash } from "/contracts/material-tabs.js";
 export { materialHash } from "/contracts/material-tabs.js";
 
 export async function openMaterial(id, pushHistory = true, options = {}) {
-  const { tab = null, panel = null, instance = null } = options;
+  const { instance = null } = options;
   // Links written with six-digit ids (`HSM-000546`) open the same material.
   id = id.replace(/^HSM-0*(\d+)$/, (_, n) => "HSM-" + n.padStart(4, "0"));
   const material = materialIndex(state.materialCatalog).get(id);
@@ -51,9 +51,26 @@ export async function openMaterial(id, pushHistory = true, options = {}) {
     const { mountMaterialPanel } = await import("./material-panel.js");
     const workspace = document.createElement("div");
     workspace.className = "material-record-workspace";
+    let actions;
+    if (state.materialCatalog.fittedClearances?.records.some(fit => fit.host === id || fit.mate === id)) {
+      const { mountWorkspaceHeader } = await import("./cad-detail.js");
+      workspace.classList.add("cad-record-views");
+      actions = mountWorkspaceHeader(workspace);
+      const stage = document.createElement("div"); stage.className = "material-record-stage"; workspace.append(stage);
+    }
     const materialPanel = mountMaterialPanel(workspace, { material: id });
+    function escapeView(event) {
+      if (event.key === "Escape" && workspace.isConnected && materialPanel.closeView()) {
+        event.preventDefault(); event.stopPropagation();
+      }
+    }
+    if (actions) document.addEventListener("keydown", escapeView, true);
     state.currentDetail = null; // an existing modal's teardown must not navigate history
-    ContentViewer.open({ content: workspace, filename: material.description, onClose: () => {
+    ContentViewer.open({ content: workspace, filename: material.description, onOpen: () => {
+      const close = workspace.closest(".cv-card")?.querySelector(".cv-close");
+      if (actions && close) actions.append(close);
+    }, onClose: () => {
+      document.removeEventListener("keydown", escapeView, true);
       materialPanel.dispose();
       if (state.currentDetail?.type === "material") {
         state.currentDetail = null;
@@ -61,7 +78,7 @@ export async function openMaterial(id, pushHistory = true, options = {}) {
       }
     } });
     state.currentDetail = { type: "material", file: id };
-    materialPanel.applyRoute({ tab, panel });
-    if (pushHistory) history.pushState(null, "", "#" + materialHash(id, { tab, panel }));
+    if (pushHistory) history.pushState(null, "", "#" + materialHash(id, options));
+    materialPanel.applyRoute(options);
   }
 }

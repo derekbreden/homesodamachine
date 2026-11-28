@@ -51,7 +51,7 @@ test(recordsOnly ? "material record trees and combined sections retain their sta
         await page.goto(`${origin}/3d#material:HSM-0331?panel=materials`);
         await waitReady(page);
         assert.deepEqual(await page.$$eval('.material-tabs button', nodes => nodes.map(node => node.textContent)),
-          ['BOM & Where used', 'Stock & Cost', 'Location', 'Fitted clearances']);
+          ['BOM & Where used', 'Stock & Cost', 'Location']);
         assert.equal(await page.$('.material-locations'), null);
         assert.match(await page.$eval('.material-parent-tree', node => node.textContent), /Soda machine/);
         assert.match(await page.$eval('.material-parent-tree', node => node.textContent), /Direct parent/);
@@ -90,15 +90,19 @@ test(recordsOnly ? "material record trees and combined sections retain their sta
           await page.evaluate(async () => (await import('/js/viewer/state.js')).state.materialPanel.applyRoute({tab:'used',panel:'materials'}));
           await settle(page);
           assert.equal(await page.$eval('.material-tabs [aria-selected="true"]', node => node.dataset.tab), 'structure');
-          await page.click('.material-tabs [data-tab="clearances"]');
-          const fit = '.clearance-fit[open]';
-          assert.match(await page.$eval(fit + ' .clearance-table', table => table.innerText), /0\.15/);
-          // Follow the mate's face from an already open model, then reopen the same record with Back.
-          await page.click(fit + ' .clearance-surfaces a');
-          await page.waitForFunction(() => window.__hsm?.mountedStepFile?.endsWith('?component=pisco-snap-cap')
-            && window.__hsm.scene.getObjectByName('pick-find')?.children.some(child => child.isMesh));
-          await page.goBack();
-          await page.waitForSelector('.material-tabs [data-tab="clearances"][aria-selected="true"]');
+          const mode = label => page.evaluate(name => {
+            document.querySelectorAll(".material-view-switch button").forEach(button => {
+              if (button.textContent === name) button.click();
+            });
+          }, label);
+          await mode("Clearances");
+          await page.waitForSelector('.material-clearance-view[data-ready="true"]', { visible: true });
+          assert.match(await page.$eval(".fit-values", table => table.innerText), /Raised body cradle/);
+          assert.match(await page.$eval(".fit-values", table => table.innerText), /0\.15/);
+          assert.match(page.url(), /material:HSM-0331\?view=clearances$/);
+          assert.equal(await page.$(".cad-workspace.materials-open"), null);
+          await mode("3D");
+          assert.equal(await page.$(".material-clearance-view"), null);
           assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
           assert.deepEqual(errors, []);
           results.push({width:viewport.width,records:true});

@@ -1,121 +1,191 @@
-// The material's fitted interfaces, their default CAD sizes, and the two sets of faces in the viewer.
-import { fpt } from "./pick-format.js";
-import { PARTS_PATH } from "/contracts/viewer-links.js";
+// The material's clearance view pairs the actual mating surfaces with the chosen and default CAD numbers.
+import { materialIndex } from "/contracts/materials.js";
+import { inspectionMeshes } from "./step.js";
+import { fitSide, nominalTube } from "./clearance-surfaces.js";
+import { clearanceScene } from "./clearance-scene.js";
 
-const mm = (value, places = 2) => value.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: places });
+const el = (tag, cls, text) => {
+  const node = document.createElement(tag);
+  if (cls) node.className = cls;
+  if (text !== undefined) node.textContent = text;
+  return node;
+};
+const mm = (value, places = 2) => Number(value.toFixed(places)).toLocaleString("en-US", {
+  minimumFractionDigits: 2, maximumFractionDigits: places,
+}).replace(/^-/, "−");
 
-function faceLink(el, label, file, site) {
-  const point = ([x, y, z]) => fpt({ x, y, z });
-  const picks = (site.faces || []).map(([name, ...xyz]) => `face: ${point(xyz)} "${name}"`);
-  if (site.band) picks.push(`box: ${point(site.band.lo)} to ${point(site.band.hi)} "${site.band.label}"`);
-  const [az, elevation] = site.view;
-  picks.push(`view: az=${az} el=${elevation}`);
-  const link = el("a", "material-link", label);
-  link.href = `${PARTS_PATH}#step:${encodeURIComponent(site.file || file)}?find=${encodeURIComponent(picks.join("\n"))}`;
-  return link;
+function readings(dim, fit, allowance) {
+  const gap = allowance[fit.motion] * (dim.faces ?? 2) + allowance.supported * (dim.supported || 0);
+  const standard = dim.nominal == null ? gap : dim.nominal + (dim.external ? -gap : gap);
+  return [dim.chosen, standard].map(n => mm(n, dim.places));
+}
+function button(label) {
+  const control = el("button", "", label);
+  control.type = "button";
+  return control;
+}
+function selector(label) {
+  const field = el("label", "fit-field", label);
+  const input = el("select");
+  field.append(input);
+  return { field, input };
 }
 
-function surfaces(el, label, file, sites) {
-  const group = el("div", "clearance-surfaces");
-  const target = site => faceLink(el, label, file, site);
-  let link = target(sites[0]);
-  group.append(link);
-  if (sites.length > 1) {
-    const select = el("select");
-    select.setAttribute("aria-label", label + " location");
-    for (const site of sites) select.append(el("option", "", site.label));
-    select.addEventListener("change", () => {
-      const next = target(sites[select.selectedIndex]);
-      link.replaceWith(next);
-      link = next;
-    });
-    group.append(select);
-  }
-  return group;
-}
-
-// The install-kit runs have specified stock diameters and no installed model. Show their mating outlines to scale.
-function tubeSection(el, fit) {
-  const { nominal, chosen } = fit.dimensions[0];
-  const figure = el("figure", "clearance-section");
-  const outline = el("div", "clearance-bore-outline");
-  outline.setAttribute("aria-hidden", "true");
-  const tube = el("i");
-  tube.style.width = (100 * nominal / chosen) + "%";
-  outline.append(tube);
-  const caption = el("figcaption");
-  caption.append(el("strong", "", "Nominal cross-section"),
-    el("span", "clearance-tube-key", `Tube outer wall · Ø${mm(nominal)} mm`),
-    el("span", "clearance-bore-key", `Collar bore · Ø${mm(chosen)} mm`));
-  figure.append(outline, caption);
-  return figure;
-}
-
-function dimensionTable(el, dimensions, motion, allowance) {
-  const table = el("table", "clearance-table");
-  const headers = table.createTHead().insertRow();
-  for (const title of ["Dimension (mm)", "Chosen CAD", "Default CAD"]) {
-    const th = el("th", "", title);
-    th.scope = "col"; headers.append(th);
+export function mountClearances(wrapper, material, records, catalog) {
+  const index = materialIndex(catalog), allowance = catalog.fittedClearances.allowance;
+  const host = el("section", "material-clearance-view");
+  host.setAttribute("aria-label", "Fitted clearances");
+  const header = el("header", "fit-head");
+  header.append(el("h2", "", material.description));
+  const fitField = selector("Fitted to"), siteField = selector("Location");
+  header.append(fitField.field, siteField.field);
+  const diagram = el("div", "fit-diagram"), plot = el("div", "fit-plot");
+  const panel = el("div", "fit-readings"), table = el("table", "fit-values");
+  table.setAttribute("aria-label", "Chosen and default CAD dimensions in millimetres");
+  const headRow = table.createTHead().insertRow();
+  for (const text of ["mm", "Chosen", "Default"]) {
+    const th = el("th", "", text); th.scope = "col"; headRow.append(th);
   }
   const body = table.createTBody();
-  for (const dim of dimensions) {
-    const row = body.insertRow();
-    const th = el("th", "", dim.label); th.scope = "row";
-    const external = dim.external ? -1 : 1;
-    const ordinary = allowance[motion];
-    const total = ordinary * (dim.faces ?? 2) + allowance.supported * (dim.supported || 0);
-    let standard = total;
-    if (dim.nominal != null) {
-      standard = dim.nominal + external * total;
-      th.append(el("small", "", `${dim.reference} · ${mm(dim.nominal, dim.places)}`));
-    }
-    row.append(th);
-    for (const value of [dim.chosen, standard]) {
-      const cell = row.insertCell();
-      cell.append(el("strong", "", mm(value || 0, dim.places).replace(/^-/, "−")));
-      if (dim.nominal != null) {
-        const clearance = external * (value - dim.nominal);
-        const total = (dim.faces ?? 2) > 1 ? " total" : "";
-        cell.append(el("small", "", `${mm(Math.abs(clearance), dim.places)}${total} ${clearance < 0 ? "interference" : "clearance"}`));
-      } else if (value < 0) cell.append(el("small", "", "interference"));
-      else if (value === 0) cell.append(el("small", "", "contact"));
-    }
+  const sideTabs = el("div", "fit-sides");
+  sideTabs.setAttribute("role", "group"); sideTabs.setAttribute("aria-label", "Label surfaces");
+  const sideButtons = {};
+  for (const side of ["host", "mate"]) {
+    const control = button(""); control.dataset.side = side;
+    control.addEventListener("click", () => { activeSide = side; renderReadings(); });
+    sideTabs.append(control); sideButtons[side] = control;
   }
-  return table;
-}
+  panel.append(sideTabs, table);
+  const tools = el("div", "fit-tools");
+  const pose = el("div", "fit-pose");
+  pose.setAttribute("role", "group"); pose.setAttribute("aria-label", "Part position");
+  const seated = button("Seated"), apart = button("Apart"), reset = button("Reset view");
+  pose.append(seated, apart); tools.append(pose, reset);
+  const status = el("div", "fit-status"); status.setAttribute("role", "status");
+  plot.append(tools, status); diagram.append(plot, panel); host.append(header, diagram); wrapper.append(host);
+  let visual;
+  try { visual = clearanceScene(diagram, plot); }
+  catch (error) { host.remove(); throw error; }
+  let fit, hostSite, pair, controller, activeSide, separated = false;
+  let locked = null;
+  const cache = new Map();
 
-export function renderClearances(content, records, selected, index, catalog, el, materialLink) {
-  const { allowance, guidance } = catalog;
-  for (const [i, fit] of records.entries()) {
-    const host = index.get(fit.host), mate = index.get(fit.mate);
-    const other = selected === host.id ? mate : host;
-    const card = el("details", "clearance-fit"); card.open = i === 0;
-    const heading = el("summary");
-    heading.append(el("strong", "", fit.title), el("span", "", other.description));
-    card.append(heading, materialLink(other, other.id + " · " + other.description, { tab: "clearances" }));
-    card.append(dimensionTable(el, fit.dimensions, fit.motion, allowance));
-    const rule = fit.motion === "sliding" ? "Sliding fit" : "Static fit";
-    const support = fit.support ? ` Add ${mm(allowance.supported)} mm at ${fit.support}.` : "";
-    card.append(el("p", "clearance-rule", `${rule} · ${mm(allowance[fit.motion])} mm per mating face.${support}`));
-    if (fit.faceGaps) {
-      const faces = el("details", "clearance-gaps");
-      faces.append(el("summary", "", "Clearance at each face"), dimensionTable(el, fit.faceGaps, fit.motion, allowance));
-      card.append(faces);
-    }
-    const views = el("div", "clearance-views");
-    views.append(el("h4", "", "Surfaces in 3D"), surfaces(el, fit.hostSurface, host.models?.[0]?.file, fit.hostSites));
-    if (fit.mateSites.length) views.append(surfaces(el, fit.mateSurface, mate.models?.[0]?.file, fit.mateSites));
-    card.append(views);
-    if (fit.tubeSection) card.append(tubeSection(el, fit));
-    if (fit.note) card.append(el("p", "clearance-note", fit.note));
-    const sources = el("div", "clearance-sources");
-    for (const source of [...fit.sources, { label: "Clearance guidance", href: guidance }]) {
-      const link = el("a", "material-link", source.label);
-      link.href = source.href;
-      sources.append(link);
-    }
-    card.append(sources);
-    content.append(card);
+  function other(record) { return index.get(record.host === material.id ? record.mate : record.host); }
+  function optionLabel(record) {
+    const mate = other(record);
+    return records.some(r => r !== record && other(r).id === mate.id)
+      ? mate.description + " · " + record.title : mate.description;
   }
+  for (const record of records) fitField.input.add(new Option(optionLabel(record)));
+  if (records.length === 1) fitField.input.replaceWith(el("span", "fit-part-name", optionLabel(records[0])));
+
+  function renderReadings() {
+    locked = null; body.replaceChildren();
+    const rows = [], marks = pair?.[activeSide].marks || [];
+    for (const [side, control] of Object.entries(sideButtons)) {
+      control.setAttribute("aria-pressed", String(side === activeSide));
+    }
+    function addRow(label, numbers, anchors = []) {
+      const row = body.insertRow(), title = el("th"); title.scope = "row"; row.append(title);
+      if (anchors.length) {
+        const key = rows.length, control = button(label);
+        const badge = el("span", "fit-key", String.fromCharCode(65 + key));
+        badge.setAttribute("aria-hidden", "true"); control.prepend(badge); title.append(control);
+        row.dataset.side = activeSide; rows.push({ element: row, marks: anchors, label, values: numbers ? readings(numbers, fit, allowance) : null });
+        const highlight = n => {
+          visual.select(n);
+          rows.forEach(({ element }, i) => element.classList.toggle("fit-selected", i === n));
+        };
+        control.addEventListener("click", () => { locked = locked === key ? null : key; highlight(locked); });
+        control.addEventListener("focus", () => highlight(key));
+        control.addEventListener("blur", () => highlight(locked));
+        row.addEventListener("pointerenter", event => { if (event.pointerType === "mouse") highlight(key); });
+        row.addEventListener("pointerleave", () => highlight(locked));
+      } else title.textContent = label;
+      if (numbers) for (const n of readings(numbers, fit, allowance)) row.insertCell().textContent = n;
+      else title.colSpan = 3;
+      return row;
+    }
+    const gaps = activeSide === "host" ? fit.hostGaps : hostSite.mateGaps;
+    const singleGap = fit.dimensions.length === 1 && fit.dimensions[0].nominal == null && marks.length === 1;
+    const grouped = new Map();
+    marks.forEach((mark, i) => {
+      const gap = gaps ? fit.faceGaps[gaps[i]] : singleGap ? fit.dimensions[0] : null;
+      const key = mark.name + "/" + (gap?.label || "");
+      if (!grouped.has(key)) grouped.set(key, { name: mark.name, gap, marks: [] });
+      grouped.get(key).marks.push(mark);
+    });
+    for (const group of grouped.values()) {
+      let label = group.name;
+      if (label === "Cheek" && group.marks.length > 1) label = "Each cheek";
+      if (label === "Housing side" && group.gap) label += group.gap === fit.faceGaps[1] ? " at floor" : " at roof";
+      addRow(label, group.gap, group.marks);
+    }
+    if (!singleGap) fit.dimensions.forEach((dim, i) => {
+      const row = addRow(dim.label, dim);
+      if (!i && marks.length) row.classList.add("fit-opening");
+      if (dim.clearanceLabel) addRow(dim.clearanceLabel, { ...dim, nominal: null,
+        chosen: (dim.chosen - dim.nominal) * (dim.external ? -1 : 1) });
+    });
+    if ([...body.rows].some(row => row.cells[1]?.textContent.startsWith("−"))) {
+      const caption = table.createCaption(); caption.textContent = "Negative values indicate interference";
+    } else table.deleteCaption();
+    visual.setLabels(activeSide, rows);
+  }
+  function showPose(next) {
+    separated = next;
+    seated.setAttribute("aria-pressed", String(!next)); apart.setAttribute("aria-pressed", String(next));
+    if (pair) visual.separate(next);
+  }
+  seated.addEventListener("click", () => showPose(false)); apart.addEventListener("click", () => showPose(true));
+  reset.addEventListener("click", () => visual.reset());
+
+  async function showSite() {
+    controller?.abort(); controller = new AbortController();
+    const { signal } = controller;
+    pair = null; visual.clear();
+    const station = Math.max(0, siteField.input.selectedIndex);
+    hostSite = fit.hostSites[station] || fit.hostSites[0];
+    const mateSite = fit.mateSites[station] || fit.mateSites[0];
+    const file = (site, id) => site.file || index.get(id).models[0].file;
+    const hostFile = file(hostSite, fit.host), mateFile = mateSite && file(mateSite, fit.mate);
+    for (const key of cache.keys()) if (key !== hostFile && key !== mateFile) cache.delete(key);
+    async function read(file) {
+      if (cache.has(file)) return cache.get(file);
+      const meshes = await inspectionMeshes(file, signal);
+      signal.throwIfAborted(); cache.set(file, meshes); return meshes;
+    }
+    host.dataset.ready = "false"; status.textContent = "Loading fitted surfaces…";
+    renderReadings();
+    try {
+      const [hostMeshes, mateMeshes] = await Promise.all([read(hostFile), mateSite ? read(mateFile) : null]);
+      signal.throwIfAborted();
+      const hostSide = fitSide(hostMeshes, hostSite, "host", fit);
+      const mateSide = mateSite ? fitSide(mateMeshes, mateSite, "mate", fit) : nominalTube(fit);
+      visual.setPair(hostSide, mateSide, fit, hostSite, separated);
+      pair = { host: hostSide, mate: mateSide };
+      renderReadings();
+      status.replaceChildren(); host.dataset.ready = "true";
+    } catch (error) {
+      if (signal.aborted) return;
+      console.warn("Fitted surfaces:", error);
+      const retry = button("Retry"); retry.addEventListener("click", showSite);
+      status.replaceChildren("Couldn’t load the fitted surfaces. ", retry);
+    }
+  }
+  function chooseFit() {
+    fit = records[Math.max(0, fitField.input.selectedIndex)];
+    activeSide = material.id === fit.host ? "mate" : "host";
+    sideButtons.host.textContent = fit.hostSurface;
+    sideButtons.mate.textContent = fit.tubeSection ? "Nominal tube OD" : fit.mateSurface;
+    siteField.input.replaceChildren();
+    const sites = fit.hostSites.length >= fit.mateSites.length ? fit.hostSites : fit.mateSites;
+    for (const [i, site] of sites.entries()) siteField.input.add(new Option(site.label || String(i + 1)));
+    siteField.field.hidden = sites.length < 2;
+    showSite();
+  }
+  fitField.input.addEventListener("change", chooseFit);
+  siteField.input.addEventListener("change", showSite);
+  showPose(false); chooseFit();
+  return { dispose() { controller?.abort(); cache.clear(); visual.dispose(); host.remove(); } };
 }

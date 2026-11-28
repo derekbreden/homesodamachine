@@ -8,7 +8,6 @@ import { highlightParts, clearHighlight, leaveHighlight, scenePartNames } from "
 import { clearComponentSelection, hiddenContainsBody } from "./component-picker.js";
 import { instancesInScene, membersOfInstance } from "/contracts/material-instances.js";
 import { materialTab } from "/contracts/material-tabs.js";
-import { renderClearances } from "./material-clearances.js";
 import { makeMaterialLocations } from "./material-locations.js";
 import { clearMaterialView, enterInstance, uncoverMaterialParts } from "./instance-view.js";
 import { openMaterial, materialHash } from "./material-nav.js";
@@ -81,14 +80,15 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     toggle.type = "button";
     toggle.addEventListener("click", () => {
       const open = !workspace.classList.contains("materials-open");
-      if (open) drawingView?.closeBench();
+      if (open) drawingView?.closeInspection();
       setOpen(open);
       if (!open) keepSelection();
     });
     workspace.querySelector(".cad-header-actions").append(toggle);
     setOpen(false);
   }
-  const drawingView = wrapper ? mountMaterialDrawing(wrapper, { hideMaterials: () => setOpen(false) }) : null;
+  const viewHost = wrapper || workspace.querySelector(".material-record-stage");
+  const drawingView = viewHost ? mountMaterialDrawing(viewHost, { hideMaterials: () => setOpen(false), recordOnly: !wrapper }) : null;
   let root = material || materialForFile(state.materialCatalog, file)?.id;
   let selected = root, selectedPath = [], tab = null;
   let selectedBody = null;
@@ -341,6 +341,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     drawingView?.setPrint(current?.id, state.materialCatalog?.printPlaybacks?.[current?.id]);
     drawingView?.setBench(current);
     drawingView?.setPcb(current?.pcb);
+    drawingView?.setClearances(current, state.materialCatalog.fittedClearances);
     const title = current?.description || (selectedBody || stepLabel(lastFile)).replace(/[-_]/g, " ") || "Material explorer";
     if (deferDetails) {
       // The selected identity and toolbar are immediate. Build the record tree when its pane can use it.
@@ -419,17 +420,14 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
       .map(row => ({ ...row, path: [...selectedPath, ...row.path] })) : [];
     const used = current ? materialUses(state.materialCatalog, current.id, options()) : { assemblies: [], tools: [], equipment: [] };
     const docs = materialDocuments(state.materialCatalog, (current || rootMaterial)?.id, options());
-    const clearanceCatalog = state.materialCatalog.fittedClearances;
-    const clearances = current ? (clearanceCatalog?.records || []).filter(fit => fit.host === current.id || fit.mate === current.id) : [];
     const counts = { structure: rows.length + used.assemblies.length + used.tools.length + used.equipment.length,
       "stock-cost": Number(costedCurrent || Boolean(current && state.materialCatalog.stock)),
-      location: Number(Boolean(wrapper && current && used.assemblies.length)), clearances: clearances.length, docs: docs.length };
-    if (tab === "clearances" && !counts.clearances) tab = null;
+      location: Number(Boolean(wrapper && current && used.assemblies.length)), docs: docs.length };
     if (!tab) tab = rows.length ? "structure" : counts.docs ? "docs" : counts.structure ? "structure" : counts["stock-cost"] ? "stock-cost" : "structure";
     panel.classList.toggle("locations-active", tab === "location" && !!counts.location);
-    panel.classList.toggle("records-compact", ["structure", "stock-cost", "location", "clearances"].includes(tab));
+    panel.classList.toggle("records-compact", ["structure", "stock-cost", "location"].includes(tab));
     const tabs = el("div", "material-tabs"); tabs.setAttribute("role", "tablist"); tabs.setAttribute("aria-label", "Material relationships");
-    for (const [key, label] of [["structure", "BOM & Where used"], ["stock-cost", "Stock & Cost"], ["location", "Location"], ["clearances", "Fitted clearances"], ["docs", "Documents"]]) {
+    for (const [key, label] of [["structure", "BOM & Where used"], ["stock-cost", "Stock & Cost"], ["location", "Location"], ["docs", "Documents"]]) {
       if (!counts[key] && tab !== key) continue;
       const button = el("button", "", key === "docs" ? `${label} (${counts[key]})` : label); button.type = "button";
       button.dataset.tab = key;
@@ -439,14 +437,14 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
         pendingSection = null;
         scroll.scrollTop = panel.scrollTop = 0;
         const restoring = key !== "location" && stopLocations({ restore: true });
-        history.replaceState(history.state, "", "#" + materialHash(["location", "clearances"].includes(key) ? current.id : root, { tab: key, panel: "materials" }));
+        history.replaceState(history.state, "", "#" + materialHash(key === "location" ? current.id : root, { tab: key, panel: "materials" }));
         render();
         if (restoring) restoring.then(() => { if (tab === key) show({ fly: false }); });
       }); tabs.append(button);
     }
     tabsHost.replaceChildren(tabs);
     const content = el("div", "material-tab-content"); content.setAttribute("role", "tabpanel");
-    content.setAttribute("aria-label", { structure: "BOM and where used", "stock-cost": "Stock and cost", location: "Installed locations", clearances: "Fitted clearances", docs: "Documents" }[tab]);
+    content.setAttribute("aria-label", { structure: "BOM and where used", "stock-cost": "Stock and cost", location: "Installed locations", docs: "Documents" }[tab]);
     scroll.append(content);
     if (tab === "structure") renderStructure(content, focus, used, index, rows, costedCurrent ? costOf : null);
     if (tab === "stock-cost") {
@@ -456,7 +454,6 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
       renderCost(costs, current, index, costedCurrent ? costOf : null);
     }
     if (tab === "location") renderLocations(content, current);
-    if (tab === "clearances") renderClearances(content, clearances, current.id, index, clearanceCatalog, el, materialLink);
     if (tab === "docs") renderDocs(content, docs);
     if (top) scroll.scrollTop = top;
     if (pendingSection) {
@@ -854,6 +851,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   function applyRoute({ panel = null, tab: requestedTab = null, instance = null, view = null, fly = true, benchCase = null, landmark = null } = {}) {
     stopLocations();
     pendingInstance = instance ? { name: instance, fly } : null;
+    if (requestedTab === "clearances") view ||= "clearances";
     const route = materialTab(requestedTab);
     tab = route.tab; pendingSection = route.section;
     setOpen(panel === "materials" || !!tab);

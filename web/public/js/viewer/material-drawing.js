@@ -3,6 +3,7 @@ import { state } from "./state.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { materialHash, openMaterial } from "./material-nav.js";
 import { mountMaterialBench } from "./material-bench.js";
+import { modelForMaterial } from "/contracts/materials.js";
 import { clearSurfaceViews } from "./surface-actions.js";
 
 const button = (text, label) => {
@@ -13,15 +14,16 @@ const button = (text, label) => {
 };
 
 // The material workspace switches views and keeps its camera-bearing model mounted.
-export function mountMaterialDrawing(wrapper, { hideMaterials }) {
-  const workspace = wrapper.closest(".cad-workspace");
+export function mountMaterialDrawing(wrapper, { hideMaterials, recordOnly = false }) {
+  const workspace = wrapper.closest(".cad-workspace, .cad-record-views");
   const switcher = document.createElement("div");
   switcher.className = "material-view-switch";
   switcher.setAttribute("role", "group"); switcher.setAttribute("aria-label", "Material view");
   switcher.hidden = true;
-  const model = button("3D"), drawing = button("Drawing"), print = button("Print"), pcb = button("PCB");
+  const model = button(recordOnly ? "Material" : "3D"), drawing = button("Drawing"), print = button("Print"), pcb = button("PCB");
   const bench = button("Bench", "Bench photos");
-  const modes = { model, drawing, print, pcb, bench };
+  const clearances = button("Clearances");
+  const modes = { model, drawing, print, pcb, bench, clearances };
   for (const [name, control] of Object.entries(modes)) control.setAttribute("aria-pressed", String(name === "model"));
   switcher.append(model);
   workspace.querySelector(".cad-view-slot").append(switcher);
@@ -57,7 +59,8 @@ export function mountMaterialDrawing(wrapper, { hideMaterials }) {
   let selected = null, frame = null, replay = null, printFrame = null, mode = "model";
   let board = null, boardView = null;
   let benchMaterial = null, benchView = null;
-  const syncSwitcher = () => { switcher.hidden = !selected && !replay && !board && !benchMaterial; };
+  let fitMaterial = null, fitCatalog = null, fits = [], fitView = null, fitRequest = null;
+  const syncSwitcher = () => { switcher.hidden = !selected && !replay && !board && !benchMaterial && !fits.length; };
   const command = (command, extra = {}) => frame?.contentWindow?.postMessage({
     type: HSM_EVENTS.DOCUMENT_COMMAND, command, ...extra,
   }, location.origin);
@@ -69,14 +72,18 @@ export function mountMaterialDrawing(wrapper, { hideMaterials }) {
   function show(nextMode) {
     if (mode === nextMode) return false;
     clearSurfaceViews();
-    if (mode === "bench") {
-      benchView?.dispose();
-      benchView = null;
+    const linkedMaterial = mode === "clearances" ? fitMaterial : mode === "bench" ? benchMaterial : null;
+    if (linkedMaterial) {
       const [identity, query] = location.hash.slice(1).split("?");
-      if (identity === materialHash(benchMaterial.id) && new URLSearchParams(query).get("view") === "bench") {
-        history.replaceState(history.state, "", "#" + materialHash(benchMaterial.id,
-          { view: ["print", "pcb"].includes(nextMode) ? nextMode : null }));
+      if (identity === materialHash(linkedMaterial.id) && new URLSearchParams(query).get("view") === mode) {
+        history.replaceState(history.state, "", "#" + materialHash(linkedMaterial.id, { view: nextMode }));
       }
+    }
+    if (mode === "clearances") {
+      fitRequest?.abort(); fitRequest = null;
+      fitView?.dispose(); fitView = null;
+    } else if (mode === "bench") {
+      benchView?.dispose(); benchView = null;
     }
     mode = nextMode;
     menu.open = false;
@@ -87,9 +94,10 @@ export function mountMaterialDrawing(wrapper, { hideMaterials }) {
     wrapper.classList.toggle("drawing-open", mode === "drawing");
     wrapper.classList.toggle("print-open", mode === "print");
     wrapper.classList.toggle("pcb-open", mode === "pcb");
+    wrapper.classList.toggle("clearances-open", mode === "clearances");
     for (const [name, control] of Object.entries(modes)) control.setAttribute("aria-pressed", String(name === mode));
     if (mode !== "model" && mode !== "bench") stopAnimate();
-    else if (wrapper.isConnected) startAnimate();
+    else if (!recordOnly && wrapper.isConnected) startAnimate();
     return true;
   }
   function showDrawing(doc = selected) {
@@ -194,11 +202,47 @@ export function mountMaterialDrawing(wrapper, { hideMaterials }) {
       console.warn("PCB view:", error.message);
     }
   }
+  function setClearances(material, catalog) {
+    if (fitMaterial?.id === material?.id && fitCatalog === catalog) return;
+    const next = material ? catalog?.records.filter(fit => fit.host === material.id || fit.mate === material.id) || [] : [];
+    const updating = mode === "clearances" && fitMaterial?.id === material?.id && next.length > 0;
+    if (updating && JSON.stringify([next, catalog.allowance]) === JSON.stringify([fits, fitCatalog.allowance])) {
+      fitCatalog = catalog; fitMaterial = material; fits = next;
+      return;
+    }
+    if (mode === "clearances") show("model");
+    fitMaterial = material; fitCatalog = catalog; fits = next;
+    if (fits.length) switcher.append(clearances);
+    else clearances.remove();
+    syncSwitcher();
+    if (updating) showClearances();
+  }
+  async function showClearances() {
+    if (!fits.length || mode === "clearances") return;
+    if (!recordOnly && state.currentDetail?.file !== modelForMaterial(state.materialCatalog, fitMaterial.id)?.file) {
+      await openMaterial(fitMaterial.id, true, { view: "clearances" });
+      return;
+    }
+    hideMaterials(); show("clearances");
+    history.replaceState(history.state, "", "#" + materialHash(fitMaterial.id, { view: "clearances" }));
+    const request = new AbortController(); fitRequest = request;
+    try {
+      const { mountClearances } = await import("./material-clearances.js");
+      if (!request.signal.aborted) fitView = mountClearances(wrapper, fitMaterial, fits, state.materialCatalog);
+    } catch (error) {
+      if (request.signal.aborted) return;
+      const status = button("Retry loading fitted surfaces"); status.className = "fit-load-error";
+      status.addEventListener("click", () => { show("model"); showClearances(); });
+      wrapper.append(status); fitView = { dispose: () => status.remove() };
+      console.warn("Clearances view:", error);
+    }
+  }
   function applyRoute(view, options) {
-    if (view === "pcb") showPcb();
+    if (view === "clearances") showClearances();
+    else if (view === "pcb") showPcb();
     else if (view === "print") showPrint();
     else if (view === "bench") showBench(options);
-    else if (mode === "pcb" || mode === "print" || mode === "bench") show("model");
+    else if (mode === "pcb" || mode === "print" || mode === "bench" || mode === "clearances") show("model");
   }
   function closeView() {
     if (mode === "pcb" || mode === "print") {
@@ -245,10 +289,11 @@ export function mountMaterialDrawing(wrapper, { hideMaterials }) {
   print.addEventListener("click", showPrint);
   bench.addEventListener("click", () => { if (mode !== "bench") showBench(); });
   pcb.addEventListener("click", showPcb);
+  clearances.addEventListener("click", showClearances);
   window.addEventListener(HSM_EVENTS.STEP_MOUNTED, mounted); window.addEventListener("message", message);
-  return { setDrawing, setPrint, setPcb, setBench, showDrawing, applyRoute, drawingPath: () => selected?.path, closeView,
-    closeBench: () => { if (mode === "bench") closeView(); }, dispose: () => {
+  return { setDrawing, setPrint, setPcb, setBench, setClearances, showDrawing, applyRoute, drawingPath: () => selected?.path, closeView,
+    closeInspection: () => { if (mode === "bench" || mode === "clearances") closeView(); }, dispose: () => {
     window.removeEventListener(HSM_EVENTS.STEP_MOUNTED, mounted); window.removeEventListener("message", message);
-    benchView?.dispose(); removeBoardView(); frame?.remove(); printFrame?.remove(); switcher.remove(); tools.remove();
+    fitRequest?.abort(); fitView?.dispose(); benchView?.dispose(); removeBoardView(); frame?.remove(); printFrame?.remove(); switcher.remove(); tools.remove();
   } };
 }

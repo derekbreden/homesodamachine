@@ -313,6 +313,29 @@ function componentViewBodies(location, names) {
   return unitForBody(units, location.component)?.bodies || [location.component];
 }
 
+// A fitted interface reads the same published meshes as 3D, without changing its mounted model.
+export async function inspectionMeshes(file, signal) {
+  const location = stepLocation(file);
+  let bodies;
+  const select = location.component && (head => {
+    const entries = head.meshes.map(node => node.entries.map(entry => entry.name));
+    bodies = componentViewBodies(location, entries.flat().map(bodyName));
+    return { only: true, first: entries.flatMap((names, i) =>
+      names.some(name => bodies.some(body => matchesBody(name, body))) ? [i] : []) };
+  });
+  const loaded = await fetchMeshes(location.file, {}, { signal, select: select || undefined });
+  signal.throwIfAborted();
+  let result = loaded?.result;
+  if (!result) {
+    const response = await fetch("/steps/" + location.file, { signal });
+    if (!response.ok) throw new Error("Model unavailable");
+    result = await parseStep(await response.arrayBuffer(), signal);
+  }
+  if (!location.component) return result.meshes;
+  bodies ||= componentViewBodies(location, result.meshes.map(mesh => mesh.name));
+  return result.meshes.filter(mesh => bodies.some(body => matchesBody(mesh.name, body)));
+}
+
 // A departing solid releases its Blueprint overlay before releasing its surface.
 function removeSceneSolid(group, solid) {
   xray.releaseBlueprintSolid?.(solid);

@@ -34,7 +34,7 @@ function wantFromHash(raw) {
     const tab = materialTab(params.get("tab")).tab ? params.get("tab") : null;
     const panel = params.get("panel");
     const instance = params.get("instance");
-    const view = params.get("view");
+    const view = params.get("view") || (params.get("tab") === "clearances" ? "clearances" : null);
     const file = modelForMaterial(state.materialCatalog, id)?.file;
     const remembered = history.state?.materialPath;
     const path = file && Array.isArray(remembered) && remembered.at(-1) === file ? remembered : [file];

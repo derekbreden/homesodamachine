@@ -24,7 +24,7 @@ function pocketSite(region) {
   const name = region.name.split(" ")[0];
   return {
     name, label: name.replace(/^(wago-|wiring-junction-)/, "").replaceAll("-", " ").toUpperCase(),
-    view: [mouth > 0 ? 12 : 168, 6],
+    crop: [[x0, y0, z0], [x1, y1, z1]], view: [mouth > 0 ? 12 : 168, 6],
     faces: [
       ["Cheek", x, y0, z], ["Cheek", x, y1, z],
       ["Printed floor", x, y, floorDown ? z0 : z1], ["Supported roof", x, y, floorDown ? z1 : z0],
@@ -33,10 +33,22 @@ function pocketSite(region) {
   };
 }
 
+// Carry the printed faces into the connector's own frame, using both installed poses.
+function pocketInConnector(connector, host) {
+  return connector.rotation[0].map((_, col) => {
+    const dot = v => v.reduce((sum, n, i) => sum + connector.rotation[i][col] * n, 0);
+    const turn = [0, 1, 2].map(j => host ? dot(host.rotation.map(row => row[j])) : connector.rotation[j][col]);
+    return [...turn, dot(connector.translation_mm.map((n, i) => (host?.translation_mm[i] || 0) - n))];
+  });
+}
+
 function wagoPockets(hardwareDir, { wago_trials: trials }) {
   const envelopes = json(hardwareDir, "reference/wago-221/replica-evidence.json").preserved_envelopes;
   const junctions = json(hardwareDir, "manifold-layout/junctions.json").junctions;
   const placements = new Map(junctions.map(junction => [junction.name, junction]));
+  const capPose = json(hardwareDir, "manifold-layout/above-core.json").cap_lid_pose;
+  const lidWells = optionalJson(hardwareDir, "printed-parts/cold-core/foam-cap/foam-cap.numbers.json")?.wells || [];
+  const lidPlacements = new Map(lidWells.map(well => [well.name, well.pose]));
   const materials = { "413": "HSM-0050", "415": "HSM-0053", "420": "HSM-0052" };
   const results = [];
   for (const [host, file] of [
@@ -50,7 +62,11 @@ function wagoPockets(hardwareDir, { wago_trials: trials }) {
       const site = pocketSite(region);
       const junction = placements.get(site.name);
       const sku = file === lidRegions ? "413" : junction?.size;
-      if (!materials[sku]) continue;
+      const installed = junction || lidPlacements.get(site.name);
+      if (!materials[sku] || !installed) continue;
+      site.placement = pocketInConnector(installed, file === lidRegions ? capPose : null);
+      const floorOnLeft = site.placement[0][2] * region.print_up_source[2] > 0;
+      site.mateGaps = [floorOnLeft ? 1 : 2, floorOnLeft ? 2 : 1, 0, 0, 3];
       const [x0, x1, y0, y1, z0, z1] = region.bounds_source_mm;
       const [short, long, depth] = [y1 - y0, z1 - z0, x1 - x0].map(mm => Number(mm.toFixed(3)));
       const [width, bodyDepth, height] = envelopes[sku];
@@ -73,7 +89,7 @@ function wagoPockets(hardwareDir, { wago_trials: trials }) {
           [stacked ? "Closed lever" : "Base", stacked ? -2.2 : 0, -2, 0], ["Closed lever", 2.2, -2, height],
           ["Back of housing", 0, -bodyDepth / 2, height / 2],
         ] }],
-        motion: "static",
+        motion: "static", pull: [0, 1, 0], hostGaps: [0, 0, 1, 2, 3],
         dimensions: [
           { label: "Between cheeks", reference: shortFaces, nominal: height, chosen: short },
           { label: "Floor to roof", reference: "Across housing sides", nominal: width, chosen: long, supported: 1 },
@@ -108,18 +124,21 @@ function wagoPockets(hardwareDir, { wago_trials: trials }) {
 function portPlates(hardwareDir) {
   const folder = "printed-parts/enclosure/rear-identification/";
   const plateFile = folder + "rear-identification.numbers.json";
-  const { width, side_clearance, thick } = json(hardwareDir, plateFile);
+  const { width, side_clearance, stations } = json(hardwareDir, plateFile);
   const { fluid_grid } = json(hardwareDir, "manifold-layout/above-core.json");
   const plates = { "bulkhead-water": "HSM-0062", "bulkhead-carb": "HSM-0063", "bulkhead-flavor-a": "HSM-0064",
     "bulkhead-flavor-b": "HSM-0065", "co2-inlet": "HSM-0066", "bulkhead-drain": "HSM-0067" };
   // Opposing X faces of each back-top channel, picked at Y470.4 in the installed rail roots.
   const channels = [[7.65, 49.95], [55.35, 97.65]];
   return fluid_grid.assignment.flatMap((row, r) => row.map((port, c) => {
-    const [left, right] = channels[c], z = fluid_grid.rows_z_mm[r];
+    const [left, right] = channels[c], z = fluid_grid.rows_z_mm[r], x = fluid_grid.columns_x_mm[c];
+    const tile = "rear-label-" + (port === "co2-inlet" ? "co2" : port.slice("bulkhead-".length));
+    const plate = stations.find(station => station.name === tile);
     return {
       host: plates[port], mate: "HSM-0081", title: "Identification plate in rear rails",
       hostSurface: "Plate edges", mateSurface: "Retaining channel faces",
-      hostSites: [{ view: [25, 15], faces: [["Left edge", -width / 2, thick / 2, 0], ["Right edge", width / 2, thick / 2, 0]] }],
+      hostSites: [{ file: componentLocation("manifold-layout/enclosure-assembly.step", plate.body_name), whole: true, view: [75, 20],
+        faces: [["Left edge", x - width / 2, 470.4, z], ["Right edge", x + width / 2, 470.4, z]] }],
       mateSites: [{ view: [75, 28], faces: [["Left rail", left, 470.4, z], ["Right rail", right, 470.4, z]] }],
       motion: "sliding", dimensions: [
         { label: "Plate width", reference: "Between rails", nominal: right - left, chosen: width, external: true },
@@ -145,8 +164,6 @@ function organizerBores(hardwareDir) {
   const file = "printed-parts/faucet/umbilical-organizer/physical-acceptance.json";
   const { geometry } = json(hardwareDir, file);
   const axes = geometry.faucet_axes_xy_mm;
-  const [fx, fy] = axes.F1;
-  const centerY = (fx * fx + fy * fy) / (2 * fy);
   const beverage = geometry.quarter_inch_bore_diameter_mm, drain = geometry.drain_bore_diameter_mm;
   return [
     ["HSM-0575", "Soda tube bore", [["S", "soda_umbilical_tube"]], 6.35, beverage, "Derek chose sample A for the blue quarter-inch tube."],
@@ -157,13 +174,14 @@ function organizerBores(hardwareDir) {
     host: "HSM-0098", mate, title, motion: "sliding", hostSurface: "Organizer bore wall", mateSurface: "Tube outer wall",
     hostSites: passages.map(([label]) => {
       const [x, y] = axes[label];
-      return { label, view: [130, 67], faces: [["Bore wall", x + chosen / 2, y - centerY, geometry.length_mm / 2]] };
+      return { label, file: componentLocation(faucet, "umbilical-organizer"), whole: true, view: [130, 67],
+        faces: [["Bore wall", x + chosen / 2, y, -98 + geometry.length_mm / 2]] };
     }),
     mateSites: passages.map(([label, body]) => {
       const [x, y] = axes[label];
       return { label, ...tubeWall(body, x, y, diameter / 2, -98, -88) };
     }),
-    dimensions: [{ label: "Bore diameter", reference: "Tube OD", nominal: diameter, chosen }],
+    dimensions: [{ label: "Bore diameter", reference: "Tube OD", nominal: diameter, chosen, clearanceLabel: "Diametral clearance" }],
     note, sources: [evidence("Bore fit trials", file), evidence("Production bores", "printed-parts/faucet/umbilical-organizer/numbers.rs")],
   }));
 }
@@ -183,10 +201,12 @@ function tubeCollars(hardwareDir, { collar_bores: sizes }) {
     return {
       host, mate, title: name + " identification collar", motion: "sliding",
       hostSurface: "Collar bore walls", mateSurface: "Tube outer wall",
-      hostSites: [{ view: [72, 8], faces: [["Bore wall", chosen / 2, 15, 0], ["Opposing wall", -chosen / 2, 15, 0]] }],
-      mateSites: tail ? [tubeWall(...tail, nominal / 2, -345, -315)] : [],
+      hostSites: [{ whole: true, view: [72, 8], faces: [["Bore wall", chosen / 2, 15, 0], ["Opposing wall", -chosen / 2, 15, 0]] }],
+      // An installed straight, round tube section expressed along the collar's Y bore.
+      mateSites: tail ? [{ ...tubeWall(...tail, nominal / 2, -345, -315),
+        placement: [[1, 0, 0, -tail[1]], [0, 0, -1, -315], [0, 1, 0, -tail[2]]] }] : [],
       tubeSection: !tail,
-      dimensions: [{ label: "Bore across side walls", reference: "Tube OD", nominal, chosen, places: size === "small" ? 4 : 2 }],
+      dimensions: [{ label: "Bore across side walls", reference: "Tube OD", nominal, chosen, clearanceLabel: "Diametral clearance", places: size === "small" ? 4 : 2 }],
       note: `The bore allows ${tolerance} mm for the tube’s upper diameter tolerance, 0.10 mm for crown sag and 0.10 mm for slip. The sag measurement came from a PETG collar. The slight bend in the tube holds the collar in place.`,
       sources: [evidence(...sizes.source), evidence("Print calibration", source + "README.md"), evidence("Hand-fit record", "ledger/fitted.json")],
     };
@@ -210,8 +230,8 @@ function magnetPocket(hardwareDir) {
       ["Magnet top", 0, -7, ringTop],
     ] }],
     dimensions: [
-      { label: "Pocket diameter", reference: "Magnet OD", nominal: magnet.od_mm, chosen: d.pocket_od },
-      { label: "Center boss diameter", reference: "Magnet ID", nominal: magnet.id_mm, chosen: d.pocket_id, places: 3, external: true },
+      { label: "Pocket diameter", reference: "Magnet OD", nominal: magnet.od_mm, chosen: d.pocket_od, clearanceLabel: "Outer diametral clearance" },
+      { label: "Center boss diameter", reference: "Magnet ID", nominal: magnet.id_mm, chosen: d.pocket_id, places: 3, external: true, clearanceLabel: "Boss diametral clearance" },
       { label: "Gap above seated magnet", chosen: d.pocket_roof - ringTop, places: 3, faces: 1, supported: 1 },
     ],
     support: "the pocket roof over the ring",
@@ -255,7 +275,7 @@ function curvedTubeSeats(hardwareDir, { tube_seats: seats = [] }) {
     return {
       host: host[0], mate: mate[0], title, motion: "static", hostSurface: "Seated jaw faces", mateSurface: "Tube outer wall",
       hostSites: site(host, "jaw"), mateSites: site(mate, "tube"),
-      dimensions: [{ label: "Span between seated jaws", reference: "Tube OD", nominal: diameter, chosen: span_mm }], note,
+      dimensions: [{ label: "Span between seated jaws", reference: "Tube OD", nominal: diameter, chosen: span_mm, clearanceLabel: "Total jaw clearance" }], note,
       sources: [evidence("Production jaws", source), evidence(...trial)],
     };
   });

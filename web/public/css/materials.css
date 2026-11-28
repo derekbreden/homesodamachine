@@ -128,36 +128,69 @@
 .material-tabs button { flex: 1; min-width: 0; min-height: 43px; padding: 6px 8px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--text-2); font: inherit; font-size: 0.8rem; line-height: 1.35; cursor: pointer; }
 .material-tabs button[aria-selected=true] { border-bottom-color: var(--accent); color: var(--text); background: var(--bg); }
 .material-tab-content { padding: 0 16px; }
-/* Fit dimensions share a column and unit with the default for that same surface. */
-.material-tabs:has([data-tab=clearances]) { flex-wrap: wrap; }
-.material-tabs:has([data-tab=clearances]) button { flex: 1 0 min-content; min-width: min(5.3rem, 40%); }
-.clearance-fit { padding: 12px 0 14px; border-bottom: 1px solid var(--border); font-size: .82rem; }
-.clearance-fit > summary { padding: 6px 0; cursor: pointer; }
-.clearance-fit > summary strong { font-weight: 600; }
-.clearance-fit > summary span { display: block; color: var(--text-2); font-size: .75rem; margin: 4px 0 0 15px; }
-.clearance-fit[open] > summary span { display: none; }
-.clearance-table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: .8rem; font-variant-numeric: tabular-nums; }
-.clearance-table th, .clearance-table td { text-align: right; vertical-align: top; padding: 7px 0 7px 5px; border-bottom: 1px solid var(--border); }
-.clearance-table th:first-child { text-align: left; padding-left: 0; }
-.clearance-table thead th { font-weight: 500; color: var(--text-2); font-size: .72rem; }
-.clearance-table tbody th, .clearance-table strong { font-weight: 600; }
-.clearance-table small { display: block; margin-top: 3px; font-size: .7rem; color: var(--text-2); font-weight: 400; line-height: 1.4; }
-.clearance-rule, .clearance-note { color: var(--text-2); font-size: .76rem; line-height: 1.55; margin: 10px 0; }
-.clearance-gaps > summary { width: fit-content; padding: 4px 0; cursor: pointer; }
-.clearance-gaps .clearance-table { margin-top: 4px; }
-.clearance-views { border-inline-start: 2px solid var(--border); padding-inline-start: 10px; margin: 14px 0; }
-.clearance-views h4 { margin: 0 0 4px; font-size: .76rem; font-weight: 600; }
-.clearance-surfaces, .clearance-sources { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; }
-.clearance-surfaces a { padding: 5px 0; text-decoration: underline; text-underline-offset: .18em; }
-.clearance-surfaces select { max-width: 100%; font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 3px; }
-.clearance-sources a { font-size: .72rem; text-decoration: underline; text-underline-offset: .15em; }
-.clearance-section { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 14px 0; }
-.clearance-bore-outline { width: 88px; aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; outline: 2px solid var(--text-2); }
-.clearance-bore-outline i { aspect-ratio: 1; border-radius: 50%; box-sizing: border-box; border: 2px solid var(--accent); }
-.clearance-section figcaption { display: grid; gap: 5px; font-size: .74rem; }
-.clearance-section figcaption span::before { display: inline-block; width: 12px; margin-right: 6px; border-top: 2px solid; vertical-align: middle; content: ""; }
-.clearance-tube-key::before { color: var(--accent); }
-.clearance-bore-key::before { color: var(--text-2); }
+/* Fitted dimensions stay beside their marked faces, or below the model on a phone. */
+.material-clearance-view { position: absolute; inset: 0; z-index: 30; display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; color: var(--text); background: var(--bg); container-type: inline-size; touch-action: pan-y; }
+.fit-head { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 24px; padding: 12px clamp(12px, 2.1vw, 32px); border-bottom: 1px solid var(--border); background: var(--surface); }
+.fit-head h2 { flex: 1 1 200px; font-size: clamp(.94rem, 1.6vw, 1.3rem); line-height: 1.25; margin: 0; }
+.fit-field { min-width: 0; display: grid; gap: 3px; color: var(--text-2); font-size: .72rem; }
+.fit-field[hidden] { display: none; }
+.fit-field select, .fit-part-name { max-width: min(38vw, 32rem); color: var(--text); font: 500 .84rem/1.35 var(--font-sans); }
+.fit-field select { min-width: 64px; width: 100%; min-height: 36px; border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; background: var(--bg); }
+.fit-diagram { position: relative; flex: 1; min-height: 0; display: grid; grid-template-columns: clamp(260px, 29%, 356px) minmax(0, 1fr); align-items: center; background: #142746; color: #edf3ff; }
+.fit-plot { position: relative; grid-area: 1 / 2; align-self: stretch; min-width: 0; min-height: 0; overflow: hidden; }
+.fit-plot > canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.fit-leaders { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; pointer-events: none; }
+.fit-readings { position: relative; z-index: 2; grid-area: 1 / 1; padding: 16px 0 16px clamp(12px, 2vw, 28px); max-height: 100%; box-sizing: border-box; overflow: auto; scrollbar-width: thin; }
+.fit-sides { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.fit-sides button, .fit-tools button { border: 1px solid #71839d; background: #172d4b; color: #ebf1fa; font: 500 .78rem/1.25 var(--font-sans); padding: 7px 10px; border-radius: 5px; min-height: 36px; cursor: pointer; }
+.fit-diagram [data-side=host] { --face-color: #fa64cc; }
+.fit-diagram [data-side=mate] { --face-color: #65decf; }
+.fit-sides button::before { display: inline-block; content: ""; width: 8px; height: 8px; margin-right: 6px; background: var(--face-color); border-radius: 50%; }
+.fit-sides [aria-pressed=true] { border-color: var(--face-color); background: #293e59; }
+.fit-values { width: 100%; border-collapse: collapse; font-size: .83rem; font-variant-numeric: tabular-nums; }
+.fit-values th, .fit-values td { text-align: right; padding: 6px 3px; line-height: 1.35; }
+.fit-values th:first-child { text-align: left; font-weight: 500; }
+.fit-values caption { caption-side: bottom; color: #cbd7e6; font-size: .72rem; text-align: left; padding: 7px 3px 0; }
+.fit-values thead { border-bottom: 1px solid #556a86; color: #cbd7e6; font-size: .74rem; }
+.fit-values thead th { font-weight: 500; }
+.fit-values td:nth-child(2) { font-weight: 650; color: #fff; }
+.fit-values td:nth-child(3) { color: #cbd7e6; }
+.fit-values tr[data-side] th { padding: 0; }
+.fit-values button { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 36px; padding: 4px 3px; background: none; border: 0; cursor: pointer; color: inherit; font: inherit; text-align: left; }
+.fit-key { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 19px; height: 19px; border: 1px solid var(--face-color); border-radius: 50%; font-size: .72rem; font-weight: 650; }
+.fit-selected { background: #29415f; }
+.fit-opening { border-top: 1px solid #556a86; }
+.fit-tools { position: absolute; z-index: 2; bottom: 12px; right: 14px; display: flex; gap: 8px; }
+.fit-pose { display: flex; }
+.fit-pose button:first-child { border-radius: 5px 0 0 5px; }
+.fit-pose button:last-child { border-radius: 0 5px 5px 0; border-left: 0; }
+.fit-pose [aria-pressed=true] { color: #12233e; background: #d6e5f4; font-weight: 650; }
+.fit-status:not(:empty), .fit-load-error { position: absolute; z-index: 4; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 12px 16px; border-radius: 8px; background: #152842; color: #fff; font-size: .84rem; }
+.fit-status button { font: inherit; color: inherit; background: transparent; border: 0; text-decoration: underline; cursor: pointer; }
+.cad-wrapper.clearances-open > :not(.material-clearance-view, .fit-load-error) { visibility: hidden; pointer-events: none; }
+.cv-card:has(.clearances-open), .cad-wrapper.clearances-open { touch-action: auto; }
+.material-record-workspace.cad-record-views { position: relative; display: grid; grid-template: auto minmax(0, 1fr) / minmax(0, 1fr); --cad-control-height: 44px; --cad-header-padding: 12px; }
+.cad-record-views > .material-panel { grid-area: 2 / 1; justify-self: center; padding-top: 0; }
+.material-record-stage { grid-area: 2 / 1; position: relative; min-height: 0; }
+.material-record-stage:not(.clearances-open, .drawing-open, .print-open, .pcb-open), .cad-record-views:has(.clearances-open, .drawing-open, .print-open, .pcb-open) > .material-panel { display: none; }
+@container (max-width: 719px) {
+  .fit-head { gap: 6px 12px; padding: 9px 12px; }
+  .fit-head h2 { flex-basis: 100%; }
+  .fit-field:first-of-type { flex: 1; }
+  .fit-field + .fit-field { max-width: 34%; }
+  .fit-field select, .fit-part-name { max-width: 100%; }
+  .fit-field select { min-height: 40px; font-size: 16px; }
+  .fit-diagram { display: grid; grid-template: minmax(126px, 1fr) auto / minmax(0, 1fr); align-items: stretch; overflow: auto; }
+  .fit-plot { grid-area: 1 / 1; }
+  .fit-readings { grid-area: 2 / 1; padding: 8px 12px; max-height: min(44dvh, 320px); border-top: 1px solid #526581; }
+  .fit-sides { gap: 4px; margin-bottom: 6px; }
+  .fit-sides button { min-height: 34px; padding: 5px 8px; }
+  .fit-values { font-size: .79rem; }
+  .fit-values button { min-height: 29px; }
+  .fit-values th, .fit-values td { padding: 4px 3px; }
+  .fit-tools { bottom: 6px; right: 8px; gap: 6px; }
+  .fit-tools button { min-height: 32px; padding: 4px 8px; }
+}
 .material-subsection { padding: 4px 0 20px; }
 .material-subsection + .material-subsection { border-top: 1px solid var(--border); }
 .material-panel .material-subsection-title { margin: 16px 0 12px; color: var(--text); font-size: .9rem; font-weight: 600; }
@@ -306,7 +339,7 @@
     inset-block-start: var(--view-switch-height);
     max-height: calc(100% - var(--view-switch-height));
   }
-  .cad-workspace:has(.material-view-switch > :nth-child(3)) :is(.material-print-view, .material-pcb-view) {
+  .cad-workspace:has(.material-view-switch > :nth-child(3)) :is(.material-print-view, .material-pcb-view, .material-clearance-view) {
     inset-block-start: var(--view-switch-height);
     height: calc(100% - var(--view-switch-height));
   }
@@ -314,4 +347,11 @@
 @media (max-width: 360px) {
   .drawing-zoom > :first-child, .drawing-zoom > :last-child { display: none; }
   .drawing-menu-zoom { display: flex; align-items: center; gap: 8px; padding: 4px 8px 12px; border-bottom: 1px solid var(--border); }
+}
+
+@media (max-width: 600px) {
+  .cad-workspace:has(.material-view-switch > :nth-child(3)) .cad-workspace-header { flex-wrap: wrap; }
+  .cad-workspace:has(.material-view-switch > :nth-child(3)) .cad-view-tools { display: contents; }
+  .cad-workspace:has(.material-view-switch > :nth-child(3)) .cad-view-slot { order: 1; flex: 1 0 100%; overflow-x: auto; }
+  .cad-workspace:has(.material-view-switch > :nth-child(3)) .material-clearance-view { inset: 0; height: 100%; }
 }

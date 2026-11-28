@@ -794,8 +794,8 @@
   background: color-mix(in srgb, var(--surface) 72%, var(--bg));
 }
 .cad-wrapper > .component-panel.show { display: grid; }
-.cad-wrapper:is(.drawing-open, .print-open, .pcb-open) > :is(.component-panel, .component-hidden-label) { display: none; }
-.cad-workspace:has(.cad-wrapper:is(.drawing-open, .print-open, .pcb-open)) .component-model-name { visibility: hidden; }
+.cad-wrapper:is(.drawing-open, .print-open, .pcb-open, .clearances-open) > :is(.component-panel, .component-hidden-label) { display: none; }
+.cad-workspace:has(.cad-wrapper:is(.drawing-open, .print-open, .pcb-open, .clearances-open)) .component-model-name { visibility: hidden; }
 .component-selection { min-width: 0; }
 .component-selection-bar {
   display: flex;
