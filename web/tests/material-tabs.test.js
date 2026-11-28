@@ -14,7 +14,7 @@ test("stock and cost links retain their subsection within the shared scroll", ()
 });
 
 test("locations and combined views have separate routes", () => {
-  for (const tab of ["structure", "stock-cost", "location", "docs"])
+  for (const tab of ["structure", "stock-cost", "location", "clearances", "docs"])
     assert.deepEqual(materialTab(tab), { tab, section: null });
   for (const tab of [null, "", "unknown", "toString", "__proto__"])
     assert.deepEqual(materialTab(tab), { tab: null, section: null });

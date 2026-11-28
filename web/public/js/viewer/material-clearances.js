@@ -5,7 +5,9 @@ import { PARTS_PATH } from "/contracts/viewer-links.js";
 const mm = value => value.toFixed(2);
 
 function faceLink(el, label, file, site) {
-  const picks = site.faces.map(([name, x, y, z]) => `face: ${fpt({ x, y, z })} "${name}"`);
+  const point = ([x, y, z]) => fpt({ x, y, z });
+  const picks = (site.faces || []).map(([name, ...xyz]) => `face: ${point(xyz)} "${name}"`);
+  if (site.band) picks.push(`box: ${point(site.band.lo)} to ${point(site.band.hi)} "${site.band.label}"`);
   const [az, elevation] = site.view;
   picks.push(`view: az=${az} el=${elevation}`);
   const link = el("a", "material-link", label);
@@ -20,7 +22,7 @@ function surfaces(el, label, file, sites) {
   group.append(link);
   if (sites.length > 1) {
     const select = el("select");
-    select.setAttribute("aria-label", "Pocket location");
+    select.setAttribute("aria-label", label + " location");
     for (const site of sites) select.append(el("option", "", site.label));
     select.addEventListener("change", () => {
       const next = target(sites[select.selectedIndex]);
@@ -54,11 +56,12 @@ function dimensionTable(el, fit, allowance) {
     row.append(th);
     for (const value of [dim.chosen, standard]) {
       const cell = row.insertCell();
-      cell.append(el("strong", "", mm(value)));
+      cell.append(el("strong", "", mm(value).replace(/^-/, "−")));
       if (dim.nominal != null) {
         const clearance = external * (value - dim.nominal);
         cell.append(el("small", "", `${mm(Math.abs(clearance))} ${clearance < 0 ? "interference" : "clearance"}`));
-      }
+      } else if (value < 0) cell.append(el("small", "", "interference"));
+      else if (value === 0) cell.append(el("small", "", "contact"));
     }
   }
   return table;

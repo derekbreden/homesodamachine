@@ -51,7 +51,7 @@ test(recordsOnly ? "material record trees and combined sections retain their sta
         await page.goto(`${origin}/3d#material:HSM-0331?panel=materials`);
         await waitReady(page);
         assert.deepEqual(await page.$$eval('.material-tabs button', nodes => nodes.map(node => node.textContent)),
-          ['BOM & Where used', 'Stock & Cost', 'Location']);
+          ['BOM & Where used', 'Stock & Cost', 'Location', 'Fitted clearances']);
         assert.equal(await page.$('.material-locations'), null);
         assert.match(await page.$eval('.material-parent-tree', node => node.textContent), /Soda machine/);
         assert.match(await page.$eval('.material-parent-tree', node => node.textContent), /Direct parent/);
