@@ -745,18 +745,18 @@
   },
   "HSM-0079": {
     "title": "Enclosure front top · Mark1 print plan",
-    "sha256": "fac69d6b8954a313953b3927a96a591626ee326c69e5cf631f4686258a6cc3e3",
-    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-front-top-wago-floor-trees-mark1/2026-11-27-front-top-mark1-f6835d0e-textured-pei/2026-11-27-front-top-mark1-f6835d0e-textured-pei.gcode.3mf",
+    "sha256": "91b63e00990fc64bd88fc3725ff30bff2a100c15ab65a3c21dfaf68eee4ea513",
+    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-front-top-fitted-wago-mark1/2026-11-27-front-top-mark1-68329179-textured-pei/2026-11-27-front-top-mark1-68329179-textured-pei.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "front-top",
-    "recipe_sha256": "91435d4f9a7efee861d81271b48b5d09584fdaabf3d2c6c330c78ea31107a660",
-    "project_sha256": "7cef3544a25d3729ee9e3237433219994cae84553e14b9537e4179e09265c485",
-    "archive_sha256": "cff87e8c43d87fb69a5a52687f7f18ef9286c88db1ad41b6575e6110e8366e8c",
-    "gcode_sha256": "36e4d4f206c9d60731a1eb04ec52867b93e8dfa52175efb97f2f9fff4e8a835a",
+    "recipe_sha256": "693e7d8045566a9e75987ed0f2337a8856ea68bc8078a103704e873aad6d8bec",
+    "project_sha256": "f9b30cc4b5e6f7f176bbfea3da6b1fe0671b8f6af93f47cfbd7d4f37be1720f8",
+    "archive_sha256": "8f52a0ce03d9ca7d86320e76be45575950583be91f4a436220d4c82ea1ba2365",
+    "gcode_sha256": "67cc3bcb50457713b7c90abd060292493c2019473a9c03f51e4768fe7f415dc5",
     "kind": "plan",
     "layers": 1090,
-    "model_sha256": "de3b6a794302df64c5ab08bb045ff683e97d184caa586872da1fcfc1c0c9f271",
+    "model_sha256": "a4ea8b6b35e32d3bab5ddf185648e6c98c5673c8acb0f37fdedf285610f3d80a",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark1",
@@ -774,9 +774,9 @@
       "Top interface": "3 layers, 0 mm spacing",
       "Funnel-frame insert pilots": "Clear of support, with solid infill through the ledges.",
       "V-H entry clip": "The shelf grows from the bulkhead under the level bend. The split wings print upright, with solid infill through their roots and no removable support.",
-      "WAGO pockets": "Each manifold pocket has one removable tree on its own floor. Its cap supports the bridge and the mouth edge."
+      "WAGO pockets": "Both manifold wells have their own removable floor tree. The 10-way opening is 15.70 × 30.10 mm."
     },
-    "recipe_commit": "f0fb67300a4e419777adba67e5f5cad9cf0f53c6"
+    "recipe_commit": "ec57da0d2d7bacbc702c7ab48324b236916a9f9e"
   },
   "HSM-0080": {
     "title": "Enclosure back bottom · Mark2 print plan",

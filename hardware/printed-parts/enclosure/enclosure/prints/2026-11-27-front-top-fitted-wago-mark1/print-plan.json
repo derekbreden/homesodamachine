@@ -1,0 +1,95 @@
+{
+  "purpose": "Bind the current front-top mesh to its production project, native slice and published replay.",
+  "piece": "front-top",
+  "material_id": "HSM-0079",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "status": "prepared",
+  "prepared_utc": "2026-11-28T02:26:54+00:00",
+  "source_revision": "ec57da0d2d7bacbc702c7ab48324b236916a9f9e",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark1's fixed left hardened 0.4 mm carries black PET-GF (tools/bambu-printers.md, Purge and wipe).",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0,
+    0.02
+  ],
+  "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "recipe_sha256": "693e7d8045566a9e75987ed0f2337a8856ea68bc8078a103704e873aad6d8bec",
+  "profile": "hardware/printed-parts/petgf.profile.json",
+  "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
+  "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+  "source_stl_sha256": "a4ea8b6b35e32d3bab5ddf185648e6c98c5673c8acb0f37fdedf285610f3d80a",
+  "source_fine_archive": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
+  "source_fine_archive_sha256": "c0f857fb0bd0fd543497dc1119d04a7cf4e069142aade1da2651d7cf2d2240fb",
+  "print_regions": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+  "print_regions_sha256": "2208065dc3bc0fdcd2ee422c8a1b762ed03e6ec8921bc64758bd3acaa54ad6a6",
+  "archive": "2026-11-27-front-top-mark1-68329179-textured-pei/2026-11-27-front-top-mark1-68329179-textured-pei.gcode.3mf",
+  "archive_sha256": "8f52a0ce03d9ca7d86320e76be45575950583be91f4a436220d4c82ea1ba2365",
+  "gcode_sha256": "67cc3bcb50457713b7c90abd060292493c2019473a9c03f51e4768fe7f415dc5",
+  "project": "2026-11-27-front-top-mark1-68329179-textured-pei/2026-11-27-front-top-mark1-68329179-textured-pei.3mf",
+  "project_sha256": "f9b30cc4b5e6f7f176bbfea3da6b1fe0671b8f6af93f47cfbd7d4f37be1720f8",
+  "preparation": "2026-11-27-front-top-mark1-68329179-textured-pei/preparation.json",
+  "native_review": "2026-11-27-front-top-mark1-68329179-textured-pei/review.json",
+  "support_audits": [
+    "2026-11-27-front-top-mark1-68329179-textured-pei/support-audit-1901.json"
+  ],
+  "layers": 1090,
+  "estimated_seconds": 137596.5178466035,
+  "minimum_bead_bed_margin_mm": 51.84841799999998,
+  "native_slicer_warnings": [],
+  "project_source_mesh_checks": [
+    {
+      "bed_contact_z_mm": 0,
+      "blocked_facets": 7978,
+      "embedded_vertex_error_mm": 4.999947122996673e-10,
+      "layer_ranges": [
+        [
+          188.3904,
+          194.83,
+          {
+            "layer_height": "0.08"
+          }
+        ]
+      ],
+      "modifiers_expected": 23,
+      "name": "enclosure-front-top",
+      "partially_painted_facets": 0,
+      "parts": {
+        "modifier_part": 23,
+        "normal_part": 3,
+        "support_blocker": 3
+      },
+      "placed_bounds_mm": [
+        [
+          52,
+          52.099998474,
+          0
+        ],
+        [
+          273,
+          267.900001526,
+          194.75
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 201278
+    }
+  ],
+  "print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.print-features.json",
+  "print_features_sha256": "05e86be08a5424f10a6e9c40efd166ebc336ce188f5c1f542d62e69ff6764608",
+  "replay_sha256": "91b63e00990fc64bd88fc3725ff30bff2a100c15ab65a3c21dfaf68eee4ea513",
+  "replay": "print-playbacks/91b63e00990fc64bd88fc3725ff30bff2a100c15ab65a3c21dfaf68eee4ea513.json.gz",
+  "replaced_replay_sha256": "fac69d6b8954a313953b3927a96a591626ee326c69e5cf631f4686258a6cc3e3"
+}

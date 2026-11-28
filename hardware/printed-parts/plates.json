@@ -8,7 +8,7 @@
     "detail": "Mark1 · PET-GF · single floor-rooted trees in both manifold WAGO pockets",
     "thumbnail": "/parts/plates/front-top.webp",
     "href": "/parts#material:HSM-0079?view=print",
-    "download": "/print-archive/6f6e975ebb7c343ff533403825442e145f18d77e/enclosure-front-top.3mf",
+    "download": "/print-archive/abdcdaeab9835035c4d297a682e5f98886fbd251/enclosure-front-top.3mf",
     "parts": [{"label": "Enclosure front top", "material": "HSM-0079"}],
     "relatedPrints": [{"label": "Display gasket · TPU", "material": "HSM-0077", "href": "/parts#material:HSM-0077?view=print"}]
   },
