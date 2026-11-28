@@ -1,0 +1,112 @@
+{
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -154.149999619,
+      -180.0,
+      0.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -154.15,
+      -180.0,
+      0.0
+    ]
+  },
+  "first_layer_z_mm": 0.2,
+  "inputs": {
+    "gcode": "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-d-mark2/2026-11-27-wago-fit-d-mark2-b10503d0/2026-11-27-wago-fit-d-mark2-b10503d0.gcode.3mf plate_1.gcode, object 1901",
+    "gcode_sha256": "c69e1be032246667407babcfa0f072da053bdff0a9de77d40424a5a6d82dad58",
+    "model": "hardware/print-tests/wago-pocket-support/parts/fit-d-415.stl",
+    "model_sha256": "43cd4bcaa221f63e94062eaf2c376026a6ee263a97a5ede4bbf1904254fda6f9",
+    "profile": "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-d-mark2/2026-11-27-wago-fit-d-mark2-b10503d0/2026-11-27-wago-fit-d-mark2-b10503d0.3mf",
+    "profile_sha256": "ce9a35e200049e279d81cf8ec4b9a528088ebf052cdb28d86352ec82e15ac3cb"
+  },
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "interfaces": [
+    {
+      "bbox_cad_xyz_mm": [
+        -0.15,
+        -3.2,
+        36.68,
+        7.85,
+        3.2,
+        37.16
+      ],
+      "bbox_xy_mm": [
+        154.0,
+        176.8,
+        162.0,
+        183.2
+      ],
+      "build_up_mm": 29.04,
+      "first_z_mm": 36.68,
+      "id": "interface-1",
+      "last_z_mm": 37.16,
+      "tree": "tree-1"
+    }
+  ],
+  "piece": "fit-d-415",
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0",
+    "support_interface_top_layers": "3",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.24",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 0,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 1,
+    "interface_islands": 1,
+    "model_rooted_bodies": 1,
+    "removable_stock_moves": 3712,
+    "shortest_build_up_mm": 29.04,
+    "shortest_labelled_build_up_mm": 29.04,
+    "support_bodies": 1
+  },
+  "trees": [
+    {
+      "base_z_mm": 7.64,
+      "bbox_cad_xyz_mm": [
+        -0.15,
+        -3.2,
+        7.64,
+        7.85,
+        3.2,
+        37.16
+      ],
+      "bbox_xy_mm": [
+        154.0,
+        176.8,
+        162.0,
+        183.2
+      ],
+      "declared_removable_stock": true,
+      "first_interface_z_mm": 36.68,
+      "id": "tree-1",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-1"
+      ],
+      "root": "model",
+      "shortest_build_up_mm": 29.04,
+      "top_z_mm": 37.16
+    }
+  ]
+}

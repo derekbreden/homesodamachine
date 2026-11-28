@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-d-mark2/2026-11-27-wago-fit-d-mark2-b10503d0/native",
+  "--export-3mf",
+  "2026-11-27-wago-fit-d-mark2-b10503d0.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-d-mark2/2026-11-27-wago-fit-d-mark2-b10503d0/native/2026-11-27-wago-fit-d-mark2-b10503d0.cli.3mf"
+]

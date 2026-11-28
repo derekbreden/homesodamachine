@@ -1,0 +1,134 @@
+{
+  "printer": "Mark2",
+  "archive": "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-d-mark2/2026-11-27-wago-fit-d-mark2-b10503d0/2026-11-27-wago-fit-d-mark2-b10503d0.gcode.3mf",
+  "archive_sha256": "fafb601963ffc4ab80d859c101bd0ba14df26e9b5c0840fcfcf8e1d949104ec0",
+  "gcode_member": "Metadata/plate_1.gcode",
+  "gcode_sha256": "c69e1be032246667407babcfa0f072da053bdff0a9de77d40424a5a6d82dad58",
+  "measurement": "Each open course uses the deposited host bead envelopes across the cheeks from the mouth to 0.25 mm before the blind back. The long span runs from the top of the solid floor to the underside of the first transverse roof bead. Depth uses the emitted outer-wall surfaces at both cheeks and at three positions across the blind back.",
+  "prior_archives": {
+    "2026-11-27-fit-c-mark2": {
+      "archive": "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-c-mark2/2026-11-27-wago-fit-c-mark2-804ad1fc/2026-11-27-wago-fit-c-mark2-804ad1fc.gcode.3mf",
+      "archive_sha256": "6799c2727f9d90e0697590c5d5f925777d5d391c7ef74371a467208133a9652c",
+      "gcode_sha256": "13f27b40037184318e8a5edc257a85f5aa022a54894c719db506a2c0e551ebea"
+    }
+  },
+  "objects": {
+    "fit-d-415": {
+      "article": "221-415",
+      "coupon_dots": 2,
+      "identification_bars": 4,
+      "stl_sha256": "43cd4bcaa221f63e94062eaf2c376026a6ee263a97a5ede4bbf1904254fda6f9",
+      "cad_opening_short_long_depth_mm": [
+        8.1,
+        30.2,
+        8.7
+      ],
+      "sliced_clear_xy_mm": [
+        8.1,
+        30.18
+      ],
+      "sliced_clear_depth_range_mm": [
+        8.7,
+        8.7
+      ],
+      "model_stock_mm": {
+        "side_cheeks": 8,
+        "blind_back": 8,
+        "floor": 7.16,
+        "roof": 6
+      },
+      "prior_coupon": {
+        "archive_key": "2026-11-27-fit-c-mark2",
+        "object": "fit-c-415",
+        "sliced_clear_xy_mm": [
+          8.1,
+          29.94
+        ]
+      },
+      "sliced_change_from_prior_xy_mm": [
+        0.0,
+        0.24
+      ],
+      "open_courses": 126,
+      "short_clear_span_range_mm": [
+        8.1,
+        8.1
+      ],
+      "solid_floor_top_plate_z_mm": 7.16,
+      "first_roof_top_plate_z_mm": 37.64,
+      "first_roof_bead_height_mm": 0.3,
+      "first_roof_underface_plate_z_mm": 37.34,
+      "support": {
+        "model_rooted_bodies": 1,
+        "bed_rooted_bodies": 0,
+        "first_layer_connected_feet": 1,
+        "first_foot_top_plate_z_mm": 7.64,
+        "foot_span_plate_xy_mm": [
+          3.343,
+          3.343
+        ],
+        "foot_area_projected_onto_solid_floor_percent": 100.0,
+        "clear_gap_under_first_foot_mm": 0.18,
+        "crown_course_tops_plate_z_mm": [
+          36.68,
+          36.92,
+          37.16
+        ],
+        "clear_gap_above_crown_mm": 0.18,
+        "transverse_first_roof_roads_landing_on_both_cheeks": {
+          "Overhang wall": 2,
+          "Bridge": 21
+        }
+      }
+    }
+  },
+  "cooling": {
+    "method": "Positive-extrusion line and arc lengths at the commanded feed rate, counted from the last grip road until the first on the next course. The tower supplies all measured time on the single-coupon plate. Travel, acceleration and firmware camera time are excluded. Times are commanded lower bounds.",
+    "smooth_timelapse": true,
+    "tower_width_mm": 80,
+    "tower_maximum_speed_mm_s": 10,
+    "first_layer_mm": 0.2,
+    "following_layers_mm": 0.24,
+    "coupon_layers": 181,
+    "all_layer_returns": {
+      "transitions": 180,
+      "minimum_away_deposition_seconds": 36.03,
+      "minimum_at_next_layer_z_mm": 24.44,
+      "median_away_deposition_seconds": 36.03,
+      "maximum_away_deposition_seconds": 132.47,
+      "minimum_tower_deposition_seconds": 36.03
+    },
+    "pocket_through_first_bridge": {
+      "transitions": 127,
+      "minimum_away_deposition_seconds": 36.03,
+      "minimum_at_next_layer_z_mm": 24.44,
+      "median_away_deposition_seconds": 36.03,
+      "maximum_away_deposition_seconds": 36.03,
+      "minimum_tower_deposition_seconds": 36.03
+    },
+    "grip_roof_after_bridge": {
+      "transitions": 24,
+      "minimum_away_deposition_seconds": 36.03,
+      "minimum_at_next_layer_z_mm": 37.88,
+      "median_away_deposition_seconds": 36.03,
+      "maximum_away_deposition_seconds": 36.03,
+      "minimum_tower_deposition_seconds": 36.03
+    },
+    "short_top_courses_with_recessed_marks": {
+      "transitions": 4,
+      "minimum_away_deposition_seconds": 36.03,
+      "minimum_at_next_layer_z_mm": 42.68,
+      "median_away_deposition_seconds": 36.03,
+      "maximum_away_deposition_seconds": 36.03,
+      "minimum_tower_deposition_seconds": 36.03
+    },
+    "prior_three_coupon_mark2_plate_five_way_returns": {
+      "transitions": 179,
+      "minimum_away_deposition_seconds": 29.26,
+      "minimum_at_next_layer_z_mm": 37.4,
+      "median_away_deposition_seconds": 34.12,
+      "maximum_away_deposition_seconds": 113.29,
+      "minimum_tower_deposition_seconds": 24.01
+    }
+  }
+}

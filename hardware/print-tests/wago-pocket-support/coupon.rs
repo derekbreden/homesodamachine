@@ -46,7 +46,11 @@ fn coupon(dir: &Path, p: &Pocket, plate_bars: usize) -> Result<()> {
         cuts.push(Solid::cylinder(v3(p.depth + BACK / 2.0, y, top - 0.72), V3::Z, 0.9, 1.0)?);
     }
     // The short recessed bars on the cheek identify the comparison plate after unloading.
-    let (inset, pitch) = if plate_bars == 3 { (1.0, 2.5) } else { (2.0, 3.0) };
+    let (inset, pitch) = match plate_bars {
+        4 => (0.75, 1.75),
+        3 => (1.0, 2.5),
+        _ => (2.0, 3.0),
+    };
     for bar in 0..plate_bars {
         let y = -half - CHEEK + inset + pitch * bar as f64;
         cuts.push(Solid::cuboid(v3(2.0, y, top - 0.72), v3(6.0, y + 1.2, top + 0.3)));
@@ -86,7 +90,7 @@ fn coupon(dir: &Path, p: &Pocket, plate_bars: usize) -> Result<()> {
     Ok(())
 }
 
-/// Build the two incremental comparisons and Derek's selected short and long openings.
+/// Build the incremental comparisons and the subsequent fit trials on the same grip bodies.
 fn fit_comparison(dir: &Path) -> Result<()> {
     let records = Path::new("hardware/print-tests/wago-pocket-support/prints");
     let front = reads::json(records.join("2026-11-27-front-mark1/coupon-toolpaths.json"))?;
@@ -112,6 +116,10 @@ fn fit_comparison(dir: &Path) -> Result<()> {
         let pocket = Pocket { name: format!("fit-c-{model}"), marks: dots,
             width: selected.0, height: selected.1, depth };
         coupon(dir, &pocket, 3)?;
+        if model == "415" {
+            let longer = Pocket { name: "fit-d-415".into(), height: 30.20, ..pocket };
+            coupon(dir, &longer, 4)?;
+        }
     }
     Ok(())
 }
