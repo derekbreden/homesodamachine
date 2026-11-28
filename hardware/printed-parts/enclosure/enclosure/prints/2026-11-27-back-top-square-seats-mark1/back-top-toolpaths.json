@@ -706,5 +706,87 @@
         ]
       ]
     }
+  },
+  "fitted_equipment_receiver_comparison": {
+    "method": "Use the permanent model embedded in each sliced 3MF, restore its registered source pose, clip the two closed solids to the four working windows used in the physical fit record, and subtract in both directions.",
+    "fitted_reference": "hardware/printed-parts/enclosure/rear-equipment-caps/production-fit.json",
+    "fitted_reference_stl_sha256": "a952817df4e90518ebff6b3502e84a0aac60d3d070dd17df92b6c1c635ef37c1",
+    "reference_slice_sha256": "6ff51f7c362bf9408081346bac08a47aa82e3517403b71443b2e22a9c263290a",
+    "current_source_stl_sha256": "aa94e7c8eae8c41f83357e1d6b0870363c11b7c5771344338e62a8284e080e13",
+    "current_archive_sha256": "d5166d07418510e3b3337dcef695c9feeb2a828a2380988940897371f7624019",
+    "stations": {
+      "asse": {
+        "source_bounds_mm": [
+          [
+            2,
+            395.9,
+            330.5
+          ],
+          [
+            55,
+            438.7,
+            352.1
+          ]
+        ],
+        "fitted_reference_volume_mm3": 24425.936335,
+        "current_volume_mm3": 24425.936335,
+        "added_to_fitted_stock_mm3": 0.0,
+        "removed_from_fitted_stock_mm3": 0.0
+      },
+      "pisco": {
+        "source_bounds_mm": [
+          [
+            60,
+            419,
+            337.5
+          ],
+          [
+            93,
+            458.46,
+            351.6
+          ]
+        ],
+        "fitted_reference_volume_mm3": 9973.888324,
+        "current_volume_mm3": 9973.888324,
+        "added_to_fitted_stock_mm3": 0.0,
+        "removed_from_fitted_stock_mm3": 0.0
+      },
+      "meter": {
+        "source_bounds_mm": [
+          [
+            82,
+            383,
+            255
+          ],
+          [
+            99.1,
+            444.7,
+            313
+          ]
+        ],
+        "fitted_reference_volume_mm3": 26637.669081,
+        "current_volume_mm3": 26637.669081,
+        "added_to_fitted_stock_mm3": 0.0,
+        "removed_from_fitted_stock_mm3": 0.0
+      },
+      "water": {
+        "source_bounds_mm": [
+          [
+            -55.88,
+            284,
+            334
+          ],
+          [
+            -18.77,
+            331,
+            349
+          ]
+        ],
+        "fitted_reference_volume_mm3": 13470.919865,
+        "current_volume_mm3": 13470.919865,
+        "added_to_fitted_stock_mm3": 0.0,
+        "removed_from_fitted_stock_mm3": 0.0
+      }
+    }
   }
 }
