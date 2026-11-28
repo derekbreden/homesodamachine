@@ -1,0 +1,85 @@
+{
+  "views": [
+    {
+      "name": "seat-section",
+      "caption": "A section through the west back screw, the frame in amber. The screw and its insert now stand square to the 45° seat, so the clamp runs straight through both faces; the head sits in a trough in the frame, and back-top's ledge ends higher.",
+      "before": "seat-section-before.webp",
+      "after": "seat-section-after.webp",
+      "width": 1200,
+      "height": 900,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -87,
+          223.27679656440358,
+          340.5
+        ],
+        "target": [
+          -87,
+          259.49,
+          340.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.2689400536958929,
+        "far": 616.2980553073692,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -87,
+            259.49,
+            340.5
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "funnel-frame"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "funnel-frame",
+        "funnel-frame-back-west-screw",
+        "funnel-frame-back-west-insert"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "fb7ca63d8279a64b0c984c7208a114e7da9c7c4690c0b0cb8e76773a936cf0b1",
+          "commit": "62bce179f99fde1464f968a2f4d93cc941f95aba",
+          "taken": "2026-11-28T03:37:59.391Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "68f118afa065e7f43c5e49b6db1d2c0ad09a11fce25413192f1cb20fc18cd1a2",
+          "commit": "a041c51f28ad888a3478d6e7c4d57829ff672a29",
+          "published": true
+        }
+      },
+      "changed": [
+        "funnel-frame-back-east-screw",
+        "funnel-frame-back-west-screw",
+        "funnel-frame-back-east-insert",
+        "funnel-frame-back-west-insert",
+        "enclosure-back-top",
+        "funnel-frame"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
