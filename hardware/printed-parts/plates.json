@@ -69,7 +69,7 @@
     "detail": "Mark1 · PET-GF · four floor-rooted WAGO trees and the current ten-insert HSM-0018 shell",
     "thumbnail": "/parts/plates/foam-cap-lid-top.webp",
     "href": "/parts#material:HSM-0020?view=print",
-    "download": "/print-archive/503ee13b24f3ff780d7e92c14cd9e6702892a61e/cold-core-equipment-lid-mark1.3mf",
+    "download": "/print-archive/d92c767eded67c8941c4d78495888d7259b5ebfc/cold-core-equipment-lid-mark1.3mf",
     "parts": [{"label": "Cold-core equipment lid", "material": "HSM-0020"}],
     "relatedPrints": [
       {"label": "Reservoir caps · translucent PETG", "material": "HSM-0027", "href": "/parts#material:HSM-0027?view=print"},

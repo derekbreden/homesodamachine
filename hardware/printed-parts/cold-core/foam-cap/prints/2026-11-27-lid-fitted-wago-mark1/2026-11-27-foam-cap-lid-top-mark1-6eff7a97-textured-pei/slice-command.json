@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cold-core/foam-cap/prints/2026-11-27-lid-fitted-wago-mark1/2026-11-27-foam-cap-lid-top-mark1-6eff7a97-textured-pei/native",
+  "--export-3mf",
+  "2026-11-27-foam-cap-lid-top-mark1-6eff7a97-textured-pei.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cold-core/foam-cap/prints/2026-11-27-lid-fitted-wago-mark1/2026-11-27-foam-cap-lid-top-mark1-6eff7a97-textured-pei/native/2026-11-27-foam-cap-lid-top-mark1-6eff7a97-textured-pei.cli.3mf"
+]

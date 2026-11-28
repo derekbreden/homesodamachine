@@ -1,0 +1,407 @@
+{
+  "part": "foam-cap-lid-top",
+  "source_stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
+  "source_stl_sha256": "9acecaa2f0bef23ac19881fcb6b700b62de673d8659a9e867142f4dfcdbd5d27",
+  "archive": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-27-lid-fitted-wago-mark1/2026-11-27-foam-cap-lid-top-mark1-6eff7a97-textured-pei/2026-11-27-foam-cap-lid-top-mark1-6eff7a97-textured-pei.gcode.3mf",
+  "archive_sha256": "84bd9cb178994f7e9e11543ab1fe7d745b8830be11d3e6057969ef17d2b79230",
+  "gcode_member": "Metadata/plate_1.gcode",
+  "gcode_sha256": "e2a1036748a6b41cf07f57735f43ad96eab7170e9a41465f3af912f22465ff3d",
+  "fit_reference_measurements": "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-c-mark2/fit-toolpaths.json",
+  "fit_reference_archive_sha256": "6799c2727f9d90e0697590c5d5f925777d5d391c7ef74371a467208133a9652c",
+  "method": "Each deposited line and arc uses its emitted width and height. Every open course is measured between host bead edges from the mouth to 0.25 mm before the blind end. The separate internal island is traced from its foot through its crown and swept through the full depth and 3 mm past the mouth against the other deposited roads. Roof measurements use the lowest first-bead surface and the preceding permanent courses at both sides.",
+  "pass": true,
+  "pockets": [
+    {
+      "name": "wago-sensors",
+      "cad_short_long_depth_mm": [
+        8.2,
+        18.7,
+        9.45
+      ],
+      "plate_cavity_min_xyz_mm": [
+        244.456,
+        173.4,
+        31.75
+      ],
+      "plate_cavity_max_xyz_mm": [
+        253.906,
+        181.6,
+        50.45
+      ],
+      "withdrawal_axis_plate_xy": [
+        1,
+        0
+      ],
+      "open_courses_measured": 78,
+      "emitted_width_range_mm": [
+        8.2,
+        8.2
+      ],
+      "emitted_height_mm": 18.66,
+      "last_floor_top_z_mm": 31.64,
+      "first_roof_top_z_mm": 50.6,
+      "first_roof_max_bead_height_mm": 0.3,
+      "separate_tree_feet": 1,
+      "first_foot_z_mm": 32.12,
+      "foot_width_depth_mm": [
+        3.343,
+        3.343
+      ],
+      "foot_on_deposited_floor_percent": 100.0,
+      "under_foot_release_gap_mm": 0.18,
+      "connected_tree_courses": 76,
+      "max_islands_in_tree_course": 1,
+      "orphaned_tree_islands": 0,
+      "largest_air_gap_between_tree_courses_mm": 0.0,
+      "crown_course_tops_z_mm": [
+        49.64,
+        49.88,
+        50.12
+      ],
+      "under_roof_release_gap_mm": 0.18,
+      "other_native_support_inside_cavity_mm2": 0.0,
+      "transverse_roof_roads": {
+        "Overhang wall": 3,
+        "Bridge": 22
+      },
+      "max_bridge_endpoint_to_prior_wall_mm": 0.0,
+      "roof_mouth_perimeters": [
+        {
+          "inside_mouth_mm": 0.21,
+          "road_length_mm": 8.2,
+          "longest_wholly_unbacked_mm": 0.017
+        },
+        {
+          "inside_mouth_mm": 0.594,
+          "road_length_mm": 8.2,
+          "longest_wholly_unbacked_mm": 0.017
+        },
+        {
+          "inside_mouth_mm": 0.992,
+          "road_length_mm": 8.2,
+          "longest_wholly_unbacked_mm": 0.017
+        }
+      ],
+      "removal_sweep_distance_mm": 12.45,
+      "removal_sweep_min_clearance_mm": 0.48,
+      "removal_sweep_max_overlap_area_mm2": 0.0,
+      "connector": "221-413",
+      "reference": "Mark2 fit-C",
+      "reference_emitted_width_height_mm": [
+        8.2,
+        18.66
+      ],
+      "checks": {
+        "opening_matches_reference": true,
+        "one_contiguous_tree_on_floor": true,
+        "release_interfaces": true,
+        "straight_withdrawal_through_mouth": true,
+        "roof_lands_on_both_cheeks": true,
+        "crown_backs_mouth_edges": true
+      }
+    },
+    {
+      "name": "wago-reeds-b",
+      "cad_short_long_depth_mm": [
+        8.2,
+        18.7,
+        9.45
+      ],
+      "plate_cavity_min_xyz_mm": [
+        231.906,
+        173.4,
+        31.75
+      ],
+      "plate_cavity_max_xyz_mm": [
+        241.356,
+        181.6,
+        50.45
+      ],
+      "withdrawal_axis_plate_xy": [
+        -1,
+        0
+      ],
+      "open_courses_measured": 78,
+      "emitted_width_range_mm": [
+        8.2,
+        8.2
+      ],
+      "emitted_height_mm": 18.66,
+      "last_floor_top_z_mm": 31.64,
+      "first_roof_top_z_mm": 50.6,
+      "first_roof_max_bead_height_mm": 0.3,
+      "separate_tree_feet": 1,
+      "first_foot_z_mm": 32.12,
+      "foot_width_depth_mm": [
+        3.343,
+        3.343
+      ],
+      "foot_on_deposited_floor_percent": 100.0,
+      "under_foot_release_gap_mm": 0.18,
+      "connected_tree_courses": 76,
+      "max_islands_in_tree_course": 1,
+      "orphaned_tree_islands": 0,
+      "largest_air_gap_between_tree_courses_mm": 0.0,
+      "crown_course_tops_z_mm": [
+        49.64,
+        49.88,
+        50.12
+      ],
+      "under_roof_release_gap_mm": 0.18,
+      "other_native_support_inside_cavity_mm2": 0.0,
+      "transverse_roof_roads": {
+        "Overhang wall": 3,
+        "Bridge": 22
+      },
+      "max_bridge_endpoint_to_prior_wall_mm": 0.0,
+      "roof_mouth_perimeters": [
+        {
+          "inside_mouth_mm": 0.21,
+          "road_length_mm": 8.2,
+          "longest_wholly_unbacked_mm": 0.017
+        },
+        {
+          "inside_mouth_mm": 0.593,
+          "road_length_mm": 8.2,
+          "longest_wholly_unbacked_mm": 0.017
+        },
+        {
+          "inside_mouth_mm": 0.992,
+          "road_length_mm": 8.2,
+          "longest_wholly_unbacked_mm": 0.017
+        }
+      ],
+      "removal_sweep_distance_mm": 12.45,
+      "removal_sweep_min_clearance_mm": 0.48,
+      "removal_sweep_max_overlap_area_mm2": 0.0,
+      "connector": "221-413",
+      "reference": "Mark2 fit-C",
+      "reference_emitted_width_height_mm": [
+        8.2,
+        18.66
+      ],
+      "checks": {
+        "opening_matches_reference": true,
+        "one_contiguous_tree_on_floor": true,
+        "release_interfaces": true,
+        "straight_withdrawal_through_mouth": true,
+        "roof_lands_on_both_cheeks": true,
+        "crown_backs_mouth_edges": true
+      }
+    },
+    {
+      "name": "wago-v12",
+      "cad_short_long_depth_mm": [
+        8.2,
+        18.7,
+        9.45
+      ],
+      "plate_cavity_min_xyz_mm": [
+        244.456,
+        173.4,
+        9.65
+      ],
+      "plate_cavity_max_xyz_mm": [
+        253.906,
+        181.6,
+        28.35
+      ],
+      "withdrawal_axis_plate_xy": [
+        1,
+        0
+      ],
+      "open_courses_measured": 78,
+      "emitted_width_range_mm": [
+        8.2,
+        8.2
+      ],
+      "emitted_height_mm": 18.66,
+      "last_floor_top_z_mm": 9.56,
+      "first_roof_top_z_mm": 28.52,
+      "first_roof_max_bead_height_mm": 0.3,
+      "separate_tree_feet": 1,
+      "first_foot_z_mm": 10.04,
+      "foot_width_depth_mm": [
+        3.343,
+        3.343
+      ],
+      "foot_on_deposited_floor_percent": 100.0,
+      "under_foot_release_gap_mm": 0.18,
+      "connected_tree_courses": 76,
+      "max_islands_in_tree_course": 1,
+      "orphaned_tree_islands": 0,
+      "largest_air_gap_between_tree_courses_mm": 0.0,
+      "crown_course_tops_z_mm": [
+        27.56,
+        27.8,
+        28.04
+      ],
+      "under_roof_release_gap_mm": 0.18,
+      "other_native_support_inside_cavity_mm2": 0.0,
+      "transverse_roof_roads": {
+        "Overhang wall": 3,
+        "Bridge": 22
+      },
+      "max_bridge_endpoint_to_prior_wall_mm": 0.0,
+      "roof_mouth_perimeters": [
+        {
+          "inside_mouth_mm": 0.21,
+          "road_length_mm": 8.2,
+          "longest_wholly_unbacked_mm": 0.017
+        },
+        {
+          "inside_mouth_mm": 0.594,
+          "road_length_mm": 8.2,
+          "longest_wholly_unbacked_mm": 0.017
+        },
+        {
+          "inside_mouth_mm": 0.992,
+          "road_length_mm": 8.2,
+          "longest_wholly_unbacked_mm": 0.017
+        }
+      ],
+      "removal_sweep_distance_mm": 12.45,
+      "removal_sweep_min_clearance_mm": 0.48,
+      "removal_sweep_max_overlap_area_mm2": 0.0,
+      "connector": "221-413",
+      "reference": "Mark2 fit-C",
+      "reference_emitted_width_height_mm": [
+        8.2,
+        18.66
+      ],
+      "checks": {
+        "opening_matches_reference": true,
+        "one_contiguous_tree_on_floor": true,
+        "release_interfaces": true,
+        "straight_withdrawal_through_mouth": true,
+        "roof_lands_on_both_cheeks": true,
+        "crown_backs_mouth_edges": true
+      }
+    },
+    {
+      "name": "wago-gnd",
+      "cad_short_long_depth_mm": [
+        8.2,
+        18.7,
+        9.45
+      ],
+      "plate_cavity_min_xyz_mm": [
+        231.906,
+        173.4,
+        9.65
+      ],
+      "plate_cavity_max_xyz_mm": [
+        241.356,
+        181.6,
+        28.35
+      ],
+      "withdrawal_axis_plate_xy": [
+        -1,
+        0
+      ],
+      "open_courses_measured": 78,
+      "emitted_width_range_mm": [
+        8.2,
+        8.2
+      ],
+      "emitted_height_mm": 18.66,
+      "last_floor_top_z_mm": 9.56,
+      "first_roof_top_z_mm": 28.52,
+      "first_roof_max_bead_height_mm": 0.3,
+      "separate_tree_feet": 1,
+      "first_foot_z_mm": 10.04,
+      "foot_width_depth_mm": [
+        3.343,
+        3.343
+      ],
+      "foot_on_deposited_floor_percent": 100.0,
+      "under_foot_release_gap_mm": 0.18,
+      "connected_tree_courses": 76,
+      "max_islands_in_tree_course": 1,
+      "orphaned_tree_islands": 0,
+      "largest_air_gap_between_tree_courses_mm": 0.0,
+      "crown_course_tops_z_mm": [
+        27.56,
+        27.8,
+        28.04
+      ],
+      "under_roof_release_gap_mm": 0.18,
+      "other_native_support_inside_cavity_mm2": 0.0,
+      "transverse_roof_roads": {
+        "Overhang wall": 3,
+        "Bridge": 22
+      },
+      "max_bridge_endpoint_to_prior_wall_mm": 0.0,
+      "roof_mouth_perimeters": [
+        {
+          "inside_mouth_mm": 0.21,
+          "road_length_mm": 8.2,
+          "longest_wholly_unbacked_mm": 0.017
+        },
+        {
+          "inside_mouth_mm": 0.593,
+          "road_length_mm": 8.2,
+          "longest_wholly_unbacked_mm": 0.017
+        },
+        {
+          "inside_mouth_mm": 0.992,
+          "road_length_mm": 8.2,
+          "longest_wholly_unbacked_mm": 0.017
+        }
+      ],
+      "removal_sweep_distance_mm": 12.45,
+      "removal_sweep_min_clearance_mm": 0.48,
+      "removal_sweep_max_overlap_area_mm2": 0.0,
+      "connector": "221-413",
+      "reference": "Mark2 fit-C",
+      "reference_emitted_width_height_mm": [
+        8.2,
+        18.66
+      ],
+      "checks": {
+        "opening_matches_reference": true,
+        "one_contiguous_tree_on_floor": true,
+        "release_interfaces": true,
+        "straight_withdrawal_through_mouth": true,
+        "roof_lands_on_both_cheeks": true,
+        "crown_backs_mouth_edges": true
+      }
+    }
+  ],
+  "print_view": {
+    "replay_sha256": "d0c19cc6ace2dc9644939acade2a1b74fa223362e3509b958c01e614a345adc8",
+    "visible_wago_roads": [
+      {
+        "pocket": "wago-sensors",
+        "visible_support_roads": 1561,
+        "visible_interface_roads": 107
+      },
+      {
+        "pocket": "wago-v12",
+        "visible_support_roads": 1571,
+        "visible_interface_roads": 93
+      },
+      {
+        "pocket": "wago-gnd",
+        "visible_support_roads": 1570,
+        "visible_interface_roads": 105
+      },
+      {
+        "pocket": "wago-reeds-b",
+        "visible_support_roads": 1566,
+        "visible_interface_roads": 105
+      }
+    ]
+  },
+  "full_plate": {
+    "previous_print_plan": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-27-lid-wago-floor-trees-mark1/print-plan.json",
+    "matching_project_settings_sha256": "3b8b8dda7c32dd66d8f1cea255b55ced110d724ad590f595690de8d49bfd6813",
+    "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
+    "matching_native_layer_ranges": 0,
+    "reinforcement_and_bridge_modifiers": 25,
+    "native_review": "2026-11-27-foam-cap-lid-top-mark1-6eff7a97-textured-pei/review.json",
+    "native_slicer_warnings": [],
+    "minimum_deposited_bed_margin_mm": 20.262,
+    "support_crossings_in_protected_regions": 0
+  }
+}

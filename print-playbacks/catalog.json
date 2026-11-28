@@ -30,19 +30,19 @@
   },
   "HSM-0020": {
     "title": "Cold-core top cap lid · Mark1 print plan",
-    "sha256": "6d9eeaf0215b6abff6c17cadd6da8a34d99c4574f9905f441c454553402c4ae4",
-    "slice": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-27-lid-wago-floor-trees-mark1/2026-11-27-foam-cap-lid-top-mark1-f40b229a-textured-pei/2026-11-27-foam-cap-lid-top-mark1-f40b229a-textured-pei.gcode.3mf",
+    "sha256": "d0c19cc6ace2dc9644939acade2a1b74fa223362e3509b958c01e614a345adc8",
+    "slice": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-27-lid-fitted-wago-mark1/2026-11-27-foam-cap-lid-top-mark1-6eff7a97-textured-pei/2026-11-27-foam-cap-lid-top-mark1-6eff7a97-textured-pei.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "foam-cap-lid-top",
-    "recipe_sha256": "91435d4f9a7efee861d81271b48b5d09584fdaabf3d2c6c330c78ea31107a660",
-    "project_sha256": "b14acc0a392babb119b54b75e76a10d82ca703a2009c8768be361dec3405b272",
-    "archive_sha256": "5067c7dac6b29fac2816856d41a6189e0ed423bb048a4abf3de580320c975229",
-    "gcode_sha256": "20bdbb6f50798073488ac372aad9770f14c156bdcfc77c024e49597b5f9da6de",
+    "recipe_sha256": "693e7d8045566a9e75987ed0f2337a8856ea68bc8078a103704e873aad6d8bec",
+    "project_sha256": "5e7f81a2ac9ef4a17611e156db2a94399b49033347e06efbb82b262124af4435",
+    "archive_sha256": "84bd9cb178994f7e9e11543ab1fe7d745b8830be11d3e6057969ef17d2b79230",
+    "gcode_sha256": "e2a1036748a6b41cf07f57735f43ad96eab7170e9a41465f3af912f22465ff3d",
     "kind": "plan",
     "layers": 224,
-    "recipe_commit": "71f896f3500207b735f88f7f000ca530a485ea3e",
-    "model_sha256": "2a74672a1c10c6393afd85701725f7c8701ddb14c408804879863f768b808859",
+    "recipe_commit": "904ce2ed2b9dae11eb02e00bd5ccf2b920f7ea44",
+    "model_sha256": "9acecaa2f0bef23ac19881fcb6b700b62de673d8659a9e867142f4dfcdbd5d27",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark1",
@@ -59,7 +59,7 @@
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s",
       "Support contact": "The valve seat and the underside groove for the reservoir B fill tube receive support. The two 45° pump-catch shoulders grow on the preceding layer.",
-      "WAGO pockets": "Each of the four pockets has one floor-rooted tree. Withdraw the cap and stem together through the mouth."
+      "WAGO pockets": "Each of the four 8.20 × 18.70 mm wells has a separate floor tree. Withdraw its crown through the connector mouth."
     }
   },
   "HSM-0021": {
