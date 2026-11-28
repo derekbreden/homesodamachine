@@ -102,7 +102,7 @@
     "hardware/magnetic-float-guide/magnetic-float-guide.pdf": "a859dec2d803a66ba4801399af7366562be0f24813922d9e410b2b6895968341",
     "hardware/manifold-layout/enclosure-assembly.facts.json": "bdcd30151e3678128bdbf9ed7a7b535804845900190f3636247ad1b004baf7ed",
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": "96be0d51a69a4bfce5f3984d9f08a82c5a97fa6c220bf7d72d389c15af217370",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "059d129afef7426a16d7369ec8a593a9add6f355d733e4e02c1dfba0dc6e33d5",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "b2f7994fe75b6575a547be572fa97a7187ac1f3d69ab86005863a66935ba9053",
     "hardware/manifold-layout/manifold-layout.step": "3fd31ca1b78af2be4868175bb325370c9cfdebf1bb465778901b55c1912ec7eb",
     "hardware/manifold-layout/manifold-layout.step.mesh": "bab8b49406c2fc510d46d51e99acfcc8bd70c6e1608564d3e03e6dbd0f4dafbe",
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": "e95046f067ee746da9528bfea02b503cede9a75098f6b1b513dab1bbaa2f058c",
@@ -955,7 +955,7 @@
       "hardware/install-guide/install-guide.pdf": "ddfd116f90ab4dd8d106d00ac0febca12b102fc64475fbf01ed85ca80064cf2f",
       "hardware/magnetic-float-guide/magnetic-float-guide.pdf": "a859dec2d803a66ba4801399af7366562be0f24813922d9e410b2b6895968341",
       "hardware/manifold-layout/enclosure-assembly.facts.json": "bdcd30151e3678128bdbf9ed7a7b535804845900190f3636247ad1b004baf7ed",
-      "hardware/manifold-layout/enclosure-assembly.step.mesh": "059d129afef7426a16d7369ec8a593a9add6f355d733e4e02c1dfba0dc6e33d5",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh": "b2f7994fe75b6575a547be572fa97a7187ac1f3d69ab86005863a66935ba9053",
       "hardware/mold-guide/mold-guide.pdf": "2c1b7ba629ac0f482079ff8e99058f79afefb2a170d24aea2abc66bbed4ad824",
       "hardware/pcb/pcba/out/pcba.bom.csv": "8e50da9512f4775249bb0a81e7ef8dc1059fbd3ed31513aaae1511838bb65209",
       "hardware/pcb/pcba/out/pcba.bottom.png": "9daeef19d29ef35ba7c6d0f04a7090ca88bb2d3795f5a9470c4447f6f3207f5a",
@@ -3032,7 +3032,7 @@
     "hardware/magnetic-float-guide/magnetic-float-guide.pdf": 1795765666.951245,
     "hardware/manifold-layout/enclosure-assembly.facts.json": 1795837751.838035,
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": 1793858653,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1795837880.833898,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1795837925.845945,
     "hardware/manifold-layout/manifold-layout.step": 1794269272.362814,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1794445929.08732,
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": 1792828088,
@@ -4059,7 +4059,7 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
-      "commit": "10bf9d38b50d4c7fe68a3f9ccc5ff66c254c0242",
+      "commit": "25dc1bcadbd2d55379b570dd15932838e01d0ec0",
       "unproven": true
     },
     "hardware/manifold-layout/manifold-layout.step": {
