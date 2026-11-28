@@ -13,6 +13,12 @@ The site uses this record alone to mark each printed part as fitted or not fitte
 The list behind the machine's mark names its printed parts still awaiting a fit.
 The [website contract](../../web/contracts/README.md) describes where those marks appear.
 
+The material viewer also shows **Fitted clearances** on either material in a documented
+fit. The [clearance records](fitted-clearances.json) locate paired surfaces and preserve
+coupon measurements with their archived evidence. The viewer reads production dimensions
+from the part records and calculates the comparison from the
+[shared allowances](../printed-parts/enclosure/clearance-audit.md).
+
 Archive completed and retired trials in Git with their physical evidence, then remove
 their working-tree copies. When current instructions rely on a past observation,
 link to the archived file at its Git SHA.

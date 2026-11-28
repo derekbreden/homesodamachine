@@ -143,12 +143,21 @@
 .clearance-table tbody th, .clearance-table strong { font-weight: 600; }
 .clearance-table small { display: block; margin-top: 3px; font-size: .7rem; color: var(--text-2); font-weight: 400; line-height: 1.4; }
 .clearance-rule, .clearance-note { color: var(--text-2); font-size: .76rem; line-height: 1.55; margin: 10px 0; }
+.clearance-gaps > summary { width: fit-content; padding: 4px 0; cursor: pointer; }
+.clearance-gaps .clearance-table { margin-top: 4px; }
 .clearance-views { border-inline-start: 2px solid var(--border); padding-inline-start: 10px; margin: 14px 0; }
 .clearance-views h4 { margin: 0 0 4px; font-size: .76rem; font-weight: 600; }
 .clearance-surfaces, .clearance-sources { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; }
 .clearance-surfaces a { padding: 5px 0; text-decoration: underline; text-underline-offset: .18em; }
 .clearance-surfaces select { max-width: 100%; font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 3px; }
 .clearance-sources a { font-size: .72rem; text-decoration: underline; text-underline-offset: .15em; }
+.clearance-section { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 14px 0; }
+.clearance-bore-outline { width: 88px; aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; outline: 2px solid var(--text-2); }
+.clearance-bore-outline i { aspect-ratio: 1; border-radius: 50%; box-sizing: border-box; border: 2px solid var(--accent); }
+.clearance-section figcaption { display: grid; gap: 5px; font-size: .74rem; }
+.clearance-section figcaption span::before { display: inline-block; width: 12px; margin-right: 6px; border-top: 2px solid; vertical-align: middle; content: ""; }
+.clearance-tube-key::before { color: var(--accent); }
+.clearance-bore-key::before { color: var(--text-2); }
 .material-subsection { padding: 4px 0 20px; }
 .material-subsection + .material-subsection { border-top: 1px solid var(--border); }
 .material-panel .material-subsection-title { margin: 16px 0 12px; color: var(--text); font-size: .9rem; font-weight: 600; }

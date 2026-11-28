@@ -303,12 +303,12 @@ function viewAcrossWalk(files) {
 // new history entry — and the trail is taken from the URL rather than guessed
 // against it, so forward, back and a pasted path all leave it describing what
 // is shown. `files` is the whole walk, outermost first.
-export async function routeToStep(files, target = null) {
+export async function routeToStep(files, target = null, historyDepth = null) {
   const file = files[files.length - 1];
   const view = viewAcrossWalk(files);
   // The move is one history entry per level, so the levels it crosses are the
   // entries it crosses — forwards or back.
-  pushed = Math.max(0, pushed + (files.length - 1) - trail.length);
+  pushed = historyDepth ?? Math.max(0, pushed + (files.length - 1) - trail.length);
   trail = files.slice(0, -1);
   await showStep(file, false, view, { target });
   syncCrumb(file);

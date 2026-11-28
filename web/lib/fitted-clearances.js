@@ -8,7 +8,6 @@ const github = "https://github.com/derekbreden/homesodamachine/blob/";
 const evidence = (label, file, revision = "main") => ({ label, href: github + revision + "/hardware/" + file });
 const enclosure = "printed-parts/enclosure/enclosure";
 const lidRegions = "printed-parts/cold-core/foam-cap/fore-snap-print-regions.json";
-const wagoTrials = "print-tests/wago-pocket-support/prints/";
 const faucet = "faucet-layout/faucet-assembly.step";
 
 function optionalJson(root, file) {
@@ -29,17 +28,16 @@ function pocketSite(region) {
     faces: [
       ["Cheek", x, y0, z], ["Cheek", x, y1, z],
       ["Floor", x, y, floorDown ? z0 : z1], ["Roof", x, y, floorDown ? z1 : z0],
+      ["Blind stop", mouth > 0 ? x0 : x1, y, z],
     ],
   };
 }
 
-function wagoPockets(hardwareDir) {
+function wagoPockets(hardwareDir, { wago_trials: trials }) {
   const envelopes = json(hardwareDir, "reference/wago-221/replica-evidence.json").preserved_envelopes;
   const junctions = json(hardwareDir, "manifold-layout/junctions.json").junctions;
-  const sizes = new Map(junctions.map(junction => [junction.name, junction.size]));
+  const placements = new Map(junctions.map(junction => [junction.name, junction]));
   const materials = { "413": "HSM-0050", "415": "HSM-0053", "420": "HSM-0052" };
-  const acceptance = wagoTrials + "2026-11-27-fit-c-mark2/physical-result.json";
-  const trials = optionalJson(hardwareDir, acceptance);
   const results = [];
   for (const [host, file] of [
     ["HSM-0079", enclosure + "/enclosure-front-top.print-features.json"],
@@ -50,43 +48,54 @@ function wagoPockets(hardwareDir) {
     const groups = new Map();
     for (const region of regions) {
       const site = pocketSite(region);
-      const sku = file === lidRegions ? "413" : sizes.get(site.name);
+      const junction = placements.get(site.name);
+      const sku = file === lidRegions ? "413" : junction?.size;
       if (!materials[sku]) continue;
       const [x0, x1, y0, y1, z0, z1] = region.bounds_source_mm;
       const [short, long, depth] = [y1 - y0, z1 - z0, x1 - x0].map(mm => Number(mm.toFixed(3)));
-      const key = [sku, short, long, depth].join("/");
+      const [width, bodyDepth, height] = envelopes[sku];
+      // The lid wells grip the centered rear half. The enclosure banks retain their wiring placements.
+      const zCenter = junction?.translation_mm[2] ?? (z0 + z1) / 2;
+      const lower = zCenter - width / 2 - z0, upper = z1 - zCenter - width / 2;
+      const [floor, roof] = region.print_up_source[2] > 0 ? [lower, upper] : [upper, lower];
+      const stopX = region.mouth_direction_source[0] > 0 ? x0 : x1;
+      const stop = (junction ? Math.abs(stopX - junction.translation_mm[0]) : depth) - bodyDepth / 2;
+      const key = [sku, short, long, depth, floor.toFixed(3), roof.toFixed(3), stop.toFixed(3)].join("/");
       if (groups.has(key)) { groups.get(key).hostSites.push(site); continue; }
-      const [width, , height] = envelopes[sku];
-      const accepted = trials?.accepted_pockets.find(pocket => pocket.connector === "221-" + sku
-        && pocket.nominal_short_long_depth_mm.every((mm, i) => mm === [short, long, depth][i]));
+      const coupon = trials?.accepted[sku];
       const stacked = sku === "420";
       const shortFaces = stacked ? "Opposed closed levers" : "Base and closed lever";
       const fit = {
         host, mate: materials[sku], title: "WAGO 221-" + sku + " pocket", hostSites: [site],
-        hostSurface: "Pocket cheeks, floor and roof", mateSurface: "Connector faces",
+        hostSurface: "Pocket walls and blind stop", mateSurface: "Connector faces",
         mateSites: [{ view: [32, 24], faces: [
           ["Housing side", -width / 2, -3, height / 2], ["Housing side", width / 2, -3, height / 2],
           [stacked ? "Closed lever" : "Base", stacked ? -2.2 : 0, -2, 0], ["Closed lever", 2.2, -2, height],
+          ["Back of housing", 0, -bodyDepth / 2, height / 2],
         ] }],
         motion: "static",
         dimensions: [
           { label: "Between cheeks", reference: shortFaces, nominal: height, chosen: short },
           { label: "Floor to roof", reference: "Across housing sides", nominal: width, chosen: long, supported: 1 },
         ],
+        faceGaps: [
+          { label: "At each cheek", chosen: (short - height) / 2, faces: 1 },
+          { label: "At printed floor", chosen: floor, faces: 1, places: 3 },
+          { label: "At supported roof", chosen: roof, faces: 1, supported: 1, places: 3 },
+          { label: "At blind stop", chosen: stop, faces: 1 },
+        ],
         support: "the supported pocket roof", note: `Insertion depth ${depth.toFixed(2)} mm.`,
         sources: [evidence("Production pocket", file)],
       };
-      if (accepted) {
-        const [x, y] = accepted.sliced_clear_short_long_mm;
+      if (coupon?.cad_mm.every((mm, i) => mm === [short, long, depth][i])) {
+        const [x, y] = coupon.sliced_mm;
         fit.note += ` The accepted Mark2 coupon has a sliced opening of ${x.toFixed(2)} × ${y.toFixed(2)} mm.`;
-        fit.sources.push(evidence("Coupon fit", acceptance, "8d658db2372283bf4328344265ebe6deb925d694"));
-      } else if (sku === "415") {
-        const followUp = wagoTrials + "2026-11-27-fit-d-mark2/fit-toolpaths.json";
-        const trial = optionalJson(hardwareDir, followUp)?.objects["fit-d-415"];
+        fit.sources.push(evidence(...trials.record));
+      } else if (sku === "415" && trials?.five_way) {
+        const trial = trials.five_way;
         const span = dims => dims.slice(0, 2).map(mm => mm.toFixed(2)).join(" × ");
-        if (trial) fit.note += ` The 27 Nov follow-up coupon was ${span(trial.cad_opening_short_long_depth_mm)} mm in CAD and ${span(trial.sliced_clear_xy_mm)} mm in the slice.`;
-        fit.sources.push(evidence("Production-size trial", wagoTrials + "2026-11-27-front-mark1/physical-result.json", "8d658db2372283bf4328344265ebe6deb925d694"),
-          evidence("Follow-up coupon", followUp, "8d658db2372283bf4328344265ebe6deb925d694"));
+        fit.note += ` The 27 Nov production-size trial felt slightly loose in both directions. The follow-up coupon was ${span(trial.cad_mm)} mm in CAD and ${span(trial.sliced_mm)} mm in the slice.`;
+        fit.sources.push(evidence(...trial.production_trial), evidence(...trial.follow_up));
       }
       groups.set(key, fit);
     }
@@ -123,6 +132,14 @@ function portPlates(hardwareDir) {
   }));
 }
 
+// Mark only the outside skin touching the bore, over the length of the printed part.
+function tubeWall(body, x, y, radius, bottom, top) {
+  return {
+    file: componentLocation(faucet, body), view: [18, 10],
+    band: { label: "Tube outer wall", lo: [x + radius - 0.18, y - radius, bottom], hi: [x + radius + 0.04, y + radius, top] },
+  };
+}
+
 // The organizer's two tested bores and the pair that inherits the drain bore on black flavor stock.
 function organizerBores(hardwareDir) {
   const file = "printed-parts/faucet/umbilical-organizer/physical-acceptance.json";
@@ -144,24 +161,115 @@ function organizerBores(hardwareDir) {
     }),
     mateSites: passages.map(([label, body]) => {
       const [x, y] = axes[label];
-      return { label, file: componentLocation(faucet, body), view: [20, 12],
-        band: { label: "Tube at organizer", lo: [x - diameter, y - diameter, -98], hi: [x + diameter, y + diameter, -88] } };
+      return { label, ...tubeWall(body, x, y, diameter / 2, -98, -88) };
     }),
     dimensions: [{ label: "Bore diameter", reference: "Tube OD", nominal: diameter, chosen }],
     note, sources: [evidence("Bore fit trials", file), evidence("Production bores", "printed-parts/faucet/umbilical-organizer/numbers.rs")],
   }));
 }
 
+function tubeCollars(hardwareDir, { collar_bores: sizes }) {
+  if (!sizes) return [];
+  const source = "printed-parts/faucet/tube-collar/";
+  return [
+    ["HSM-0099", "HSM-0575", "Soda", "quarter", ["soda_umbilical_tube", 0, 0]],
+    ["HSM-0100", "HSM-0107", "Flavor A", "small", ["flavor_umbilical_tube_pos_x", 15.313, 13.652]],
+    ["HSM-0101", "HSM-0107", "Flavor B", "small", ["flavor_umbilical_tube_neg_x", -15.313, 13.652]],
+    ["HSM-0102", "HSM-0108", "Drain", "small", ["drain_tube", 0, -34.7]],
+    ["HSM-0272", "HSM-0311", "Tap water", "quarter"],
+    ["HSM-0273", "HSM-0312", "CO₂", "quarter"],
+  ].map(([host, mate, name, size, tail]) => {
+    const { nominal, chosen, tolerance } = sizes[size];
+    return {
+      host, mate, title: name + " identification collar", motion: "sliding",
+      hostSurface: "Collar bore walls", mateSurface: "Tube outer wall",
+      hostSites: [{ view: [72, 8], faces: [["Bore wall", chosen / 2, 15, 0], ["Opposing wall", -chosen / 2, 15, 0]] }],
+      mateSites: tail ? [tubeWall(...tail, nominal / 2, -345, -315)] : [],
+      tubeSection: !tail,
+      dimensions: [{ label: "Bore across side walls", reference: "Tube OD", nominal, chosen, places: size === "small" ? 4 : 2 }],
+      note: `The bore allows ${tolerance} mm for the tube’s upper diameter tolerance, 0.10 mm for crown sag and 0.10 mm for slip. The sag measurement came from a PETG collar. The slight bend in the tube holds the collar in place.`,
+      sources: [evidence(...sizes.source), evidence("Print calibration", source + "README.md"), evidence("Hand-fit record", "ledger/fitted.json")],
+    };
+  });
+}
+
+function magnetPocket(hardwareDir) {
+  const folder = "printed-parts/cold-core/magnetic-float/all-aero/";
+  const { dimensions_mm: d, magnet } = json(hardwareDir, folder + "design.json");
+  const cutaway = folder + "section.step";
+  const ringTop = d.magnet_seat + magnet.thickness_mm;
+  return [{
+    host: "HSM-0033", mate: "HSM-0034", title: "Float magnet pocket", motion: "static",
+    hostSurface: "Pocket walls and roof in section", mateSurface: "Ring magnet rim, bore and top",
+    hostSites: [{ file: componentLocation(cutaway, "float-aero"), view: [92, 12], faces: [
+      ["Pocket outer wall", 0, -d.pocket_od / 2, d.magnet_midplane],
+      ["Center boss", 0, -d.pocket_id / 2, d.magnet_midplane], ["Pocket roof", 0, -7, d.pocket_roof],
+    ] }],
+    mateSites: [{ file: componentLocation(folder + "assembly.step", "RC62"), view: [32, 30], faces: [
+      ["Magnet rim", magnet.od_mm / 2, 0, d.magnet_midplane], ["Magnet bore", -magnet.id_mm / 2, 0, d.magnet_midplane],
+      ["Magnet top", 0, -7, ringTop],
+    ] }],
+    dimensions: [
+      { label: "Pocket diameter", reference: "Magnet OD", nominal: magnet.od_mm, chosen: d.pocket_od },
+      { label: "Center boss diameter", reference: "Magnet ID", nominal: magnet.id_mm, chosen: d.pocket_id, places: 3, external: true },
+      { label: "Gap above seated magnet", chosen: d.pocket_roof - ringTop, places: 3, faces: 1, supported: 1 },
+    ],
+    support: "the pocket roof over the ring",
+    note: "The RC62 seated during the print pause. The first layer over it was tight, so the current ASA Aero pocket adds 0.20 mm above the ring. The print observation applies to the earlier roof.",
+    sources: [evidence("Pocket dimensions", folder + "design.json"), evidence("Paused-print observation", folder + "physical-observations.json")],
+  }];
+}
+
+function fillTubeSnap(hardwareDir) {
+  const file = enclosure + "/enclosure-back-top.print-features.json";
+  const seat = json(hardwareDir, file).removable_support_stock.find(region => region.shape === "tube_wing_strips");
+  if (!seat) return [];
+  const [x, y, z] = seat.centre_source_mm, r = seat.bore_radius_mm;
+  const diameter = json(hardwareDir, "manifold-layout/reservoir-a-routes.json").tube_od_mm;
+  const lift = seat.upper_wing_lift_mm;
+  return [{
+    host: "HSM-0081", mate: "HSM-0307", title: "Reservoir fill tube in east-wall clip", motion: "static",
+    hostSurface: "Fixed and spring jaws", mateSurface: "Fill tube outer wall",
+    hostSites: [{ view: [170, -4], faces: [["Fixed jaw", x, y, z + r], ["Relieved jaw", x, y, z - r - lift]] }],
+    mateSites: [{ file: componentLocation("manifold-layout/enclosure-assembly.step", "tube-fluid-14"), view: [170, -12],
+      band: { label: "Tube at the jaw", lo: [x - r - 0.1, seat.span_y_mm[0], z - diameter / 2 - 0.04],
+        hi: [x + r + 0.1, seat.span_y_mm[1], z - diameter / 2 + 0.18] } }],
+    dimensions: [
+      { label: "Span between jaws", reference: "Tube OD", nominal: diameter, chosen: 2 * r + lift, supported: 1 },
+      { label: "Gap at fixed jaw", chosen: r - diameter / 2, faces: 1 },
+      { label: "Gap at spring jaw", chosen: r + lift - diameter / 2, faces: 1, supported: 1 },
+    ], support: "the supported spring jaw",
+    note: "The east-wall clip holds the tube stationary after insertion. Its free jaw is offset from the fixed half of the bore. Derek accepted the tube fit in the printed back-top crop.",
+    sources: [evidence("Production clip", file), evidence("Hand-fit trial", "print-tests/tube-snap-corbel/prints/2026-11-20-mark1-upper-wing-support/physical-result/physical-result.json", "f15bb9b4dbab8cd2046ea8e1e8e08d13539381d2")],
+  }];
+}
+
+// These four tube bends bear on upright walls. Their points are picks in the installed assembly.
+function curvedTubeSeats(hardwareDir, { tube_seats: seats = [] }) {
+  const diameter = json(hardwareDir, "manifold-layout/reservoir-a-routes.json").tube_od_mm;
+  return seats.map(({ title, host, mate, span_mm, note, source, trial }) => {
+    const site = ([, body, inner, outer], label) => [{
+      file: componentLocation("manifold-layout/enclosure-assembly.step", body), view: [125, 35],
+      faces: [["Inside of bend · " + label, ...inner], ["Outside of bend · " + label, ...outer]],
+    }];
+    return {
+      host: host[0], mate: mate[0], title, motion: "static", hostSurface: "Seated jaw faces", mateSurface: "Tube outer wall",
+      hostSites: site(host, "jaw"), mateSites: site(mate, "tube"),
+      dimensions: [{ label: "Span between seated jaws", reference: "Tube OD", nominal: diameter, chosen: span_mm }], note,
+      sources: [evidence("Production jaws", source), evidence(...trial)],
+    };
+  });
+}
+
 // Installed points isolate the two bodies even where the seated surfaces coincide.
-function fittedSections(hardwareDir) {
-  const { sections } = json(hardwareDir, "ledger/fitted-clearance-surfaces.json");
-  return sections.map(({ title, dimension, assembly = "manifold-layout/enclosure-assembly.step", host, mate, axis, motion, note, sources }) => {
+function fittedSections(hardwareDir, { sections = [] }) {
+  return sections.map(({ title, dimension, assembly = "manifold-layout/enclosure-assembly.step", host, mate, axis, motion, supported, support, note, sources }) => {
     const site = ([, body, label, point, view]) => [{ file: componentLocation(assembly, body), faces: [[label, ...point]], view }];
     const coordinate = "XYZ".indexOf(axis[1]);
     const gap = (mate[3][coordinate] - host[3][coordinate]) * (axis[0] === "-" ? -1 : 1);
     return {
       host: host[0], mate: mate[0], title, hostSurface: host[2], mateSurface: mate[2], hostSites: site(host), mateSites: site(mate),
-      motion, dimensions: [{ label: dimension, chosen: gap, faces: 1 }], note,
+      motion, dimensions: [{ label: dimension, chosen: gap, faces: 1, supported }], support, note,
       sources: sources.map(source => evidence(...source)),
     };
   });
@@ -169,10 +277,11 @@ function fittedSections(hardwareDir) {
 
 export function readFittedClearances(hardwareDir, materials) {
   const { slip, sliding_extra, supported_surface } = json(hardwareDir, "../tools/hsm/shared-data/catalog/scalars.json").fits;
+  const measurements = optionalJson(hardwareDir, "ledger/fitted-clearances.json") || {};
   const ids = new Set(materials.map(material => material.id));
   // Trial folders may have been archived, or an older checkout may predate a family of parts.
-  const records = [wagoPockets, portPlates, organizerBores, fittedSections].flatMap(read => {
-    try { return read(hardwareDir); }
+  const records = [wagoPockets, portPlates, organizerBores, tubeCollars, fillTubeSnap, curvedTubeSeats, magnetPocket, fittedSections].flatMap(read => {
+    try { return read(hardwareDir, measurements); }
     catch (error) { if (error.code !== "ENOENT") throw error; return []; }
   }).filter(fit => ids.has(fit.host) && ids.has(fit.mate));
   return {

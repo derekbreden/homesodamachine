@@ -1,0 +1,142 @@
+{
+  "wago_trials": {
+    "accepted": {
+      "413": {"cad_mm": [8.20, 18.70, 9.45], "sliced_mm": [8.20, 18.66]},
+      "420": {"cad_mm": [15.70, 30.10, 8.70], "sliced_mm": [15.70, 29.94]}
+    },
+    "record": ["Coupon fit", "print-tests/wago-pocket-support/prints/2026-11-27-fit-c-mark2/physical-result.json", "8d658db2372283bf4328344265ebe6deb925d694"],
+    "five_way": {
+      "production_trial": ["Production-size trial", "print-tests/wago-pocket-support/prints/2026-11-27-front-mark1/physical-result.json", "8d658db2372283bf4328344265ebe6deb925d694"],
+      "follow_up": ["Follow-up coupon", "print-tests/wago-pocket-support/prints/2026-11-27-fit-d-mark2/fit-toolpaths.json", "8d658db2372283bf4328344265ebe6deb925d694"],
+      "cad_mm": [8.10, 30.20, 8.70], "sliced_mm": [8.10, 30.18]
+    }
+  },
+  "collar_bores": {
+    "quarter": {"nominal": 6.35, "chosen": 6.68, "tolerance": 0.13},
+    "small": {"nominal": 4.0, "chosen": 4.2762, "tolerance": 0.0762},
+    "source": ["Bore dimensions", "printed-parts/faucet/tube-collar/numbers.rs", "97a7a5c5ce9e07a4f7424cd7f3dc307455b37b51"]
+  },
+  "tube_seats": [
+    {
+      "title": "Reservoir A fill tube in aft lid clip",
+      "host": ["HSM-0020", "cold-core/foam-cap-lid-top", [59.758,388.991,259.5], [53.538,387.164,259.5]],
+      "mate": ["HSM-0307", "tube-fluid-14", [59.616,388.950,259.5], [53.524,387.160,259.5]],
+      "span_mm": 6.50, "note": "The lower of the two aft clips has one fixed jaw. Its free jaw opens the 6.35 mm bore by another 0.15 mm. Both tubes held in the printed lid crop.",
+      "source": "printed-parts/cold-core/foam-cap/numbers/reservoir_a.rs",
+      "trial": ["Hand-fit trial", "print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/physical-result/physical-result.json", "62ee60e57a37209f04aed1586ca333b5fc9a9c97"]
+    },
+    {
+      "title": "Reservoir A draw tube in aft lid clip",
+      "host": ["HSM-0020", "cold-core/foam-cap-lid-top", [48.630,390.954,267.4], [42.549,389.167,267.4]],
+      "mate": ["HSM-0308", "tube-fluid-16", [48.616,390.950,267.4], [42.524,389.160,267.4]],
+      "span_mm": 6.35, "note": "The higher aft clip has two free jaws sized to the quarter-inch tube. Both tubes held in the printed lid crop.",
+      "source": "printed-parts/cold-core/foam-cap/numbers/reservoir_a.rs",
+      "trial": ["Hand-fit trial", "print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/physical-result/physical-result.json", "62ee60e57a37209f04aed1586ca333b5fc9a9c97"]
+    },
+    {
+      "title": "V-B return tube in lid clip",
+      "host": ["HSM-0020", "cold-core/foam-cap-lid-top", [11.417,274.404,280.41], [9,280.239,280.41]],
+      "mate": ["HSM-0286", "tube-above-core-vb-yb-link", [11.422,274.392,280.41], [8.993,280.257,280.41]],
+      "span_mm": 6.35, "note": "The split jaws follow the quarter-turn bend. The black tube seated around the full bend in the printed coupon.",
+      "source": "printed-parts/cold-core/foam-cap/numbers/clips.rs",
+      "trial": ["Hand-fit trial", "print-tests/vb-return-clip/prints/2026-11-21-mark1/physical-result/physical-result.json", "436ebff8a1b814e7b35ca8ff5585fb9bdd505d8c"]
+    },
+    {
+      "title": "V-H draw tube in bulkhead clip",
+      "host": ["HSM-0079", "enclosure-front-top", [-52.001,117.897,295.7], [-57.863,115.469,295.7]],
+      "mate": ["HSM-0306", "tube-fluid-26", [-51.999,117.898,295.7], [-57.863,115.469,295.7]],
+      "span_mm": 6.35, "note": "The upright split jaws hold the bend ahead of the valve inlet. Derek accepted the tube fit on the printed front-top bulkhead crop.",
+      "source": "printed-parts/enclosure/enclosure/enclosure_front_top.rs",
+      "trial": ["Hand-fit trial", "print-tests/vh-entry-clip/prints/2026-11-21-mark1/physical-result/physical-result.json", "401ad700c560df60f449ee3c1901a6970b1076c4"]
+    }
+  ],
+  "method": "Each pair of points lies on the two indicated faces of the installed model, in millimetres. The signed axis looks from the printed face toward the mating surface. The difference along it is the clearance at the marked section in the nominal assembly pose. A negative value is interference.",
+  "sections": [
+    {
+      "title": "Funnel frame flange on front ledge",
+      "dimension": "Gap under the flange",
+      "host": ["HSM-0072", "funnel-frame", "Flange underside", [93, 118, 346.48], [36, -32]],
+      "mate": ["HSM-0079", "enclosure-front-top", "Front-right shell ledge", [93, 118, 346.0], [30, 32]],
+      "axis": "-Z", "motion": "static", "supported": 1, "support": "the supported flange underside",
+      "note": "The front-right corner coupon used the production flange relief and print orientation. It seated on the shell ledge under light hand pressure.",
+      "sources": [
+        ["Flange relief", "printed-parts/zone-c/numbers/frame.rs"],
+        ["Seating trial", "print-tests/funnel-frame-seating/prints/2026-11-17-funnel-frame-seating-coupon-mark2-600b84b5-textured-pei/physical-result/physical-result.json", "0e302285b7482921b36bed810e3f35b69c68461b"]
+      ]
+    },
+    {
+      "title": "Water regulator saddle",
+      "dimension": "Gap at the saddle crown",
+      "host": ["HSM-0451", "regulator-snap-cap", "Raised saddle", [-30, 307.657, 319.48806], [42, 24]],
+      "mate": ["HSM-0332", "flow-regulator", "Regulator body", [-30, 307.657, 319.37568], [42, -26]],
+      "axis": "+Z", "motion": "static",
+      "note": "The accepted cap raises the saddle 0.40 mm toward the regulator. At the marked section the nominal faces overlap. With the hardware seated against both bearings, the hooks still engage 1.53 mm per side.",
+      "sources": [
+        ["Production fit", "printed-parts/enclosure/rear-equipment-caps/production-fit.json"],
+        ["Full-size fit trial", "print-tests/equipment-snap-pairs/prints/2026-11-26-mark1-firm-regulator/physical-result.json", "579b8ef62ddd87c0684b33e7a6dcd8f93fdae197"]
+      ]
+    },
+    {
+      "title": "Pisco regulator cradle",
+      "dimension": "Gap at the body cradle",
+      "host": ["HSM-0449", "pisco-snap-cap", "Raised body cradle", [76.5, 445.8, 321.21265], [38, 25]],
+      "mate": ["HSM-0331", "gas-regulator/1", "Molded regulator body", [76.5, 445.8, 321.23708], [38, -25]],
+      "axis": "+Z", "motion": "static",
+      "note": "The accepted full-size cover raises this cradle 0.20 mm. The separate rigid outlet lip advances 0.24 mm and the forward wing stop advances 0.12 mm.",
+      "sources": [
+        ["Production fit", "printed-parts/enclosure/rear-equipment-caps/production-fit.json"],
+        ["Full-size fit trial", "print-tests/equipment-snap-pairs/prints/2026-11-26-mark2-pisco-asse/physical-result.json", "85352090695a58b185dddd190ad476c2aa9b0b68"]
+      ]
+    },
+    {
+      "title": "Flow meter saddle",
+      "dimension": "Gap at the housing flank",
+      "host": ["HSM-0450", "meter-snap-cap", "Saddle side wall", [66.550003, 418, 285], [22, 15]],
+      "mate": ["HSM-0060", "digiten-flow/1", "Meter housing flank", [67.099998, 418, 285], [158, 20]],
+      "axis": "+X", "motion": "static",
+      "note": "The production cover sets the saddle back 0.40 mm. It held the meter firmly in the earlier printed receiver, with the wings slightly short of full seating.",
+      "sources": [
+        ["Saddle setback", "printed-parts/enclosure/rear-equipment-caps/README.md"],
+        ["Production fit", "printed-parts/enclosure/rear-equipment-caps/production-fit.json"],
+        ["Cover fit trial", "printed-parts/enclosure/rear-equipment-caps/prints/2026-11-24-meter-040-relief-mark2/physical-result.json", "8d658db2372283bf4328344265ebe6deb925d694"]
+      ]
+    },
+    {
+      "title": "Backflow preventer vent window",
+      "dimension": "Gap beside the vent",
+      "host": ["HSM-0448", "asse-snap-cap", "Vent window side wall", [35.342644, 420.187408, 312.700012], [145, -28]],
+      "mate": ["HSM-0173", "asse1022-assembly", "Vent rim", [35.092644, 420.187408, 312.700012], [30, -24]],
+      "axis": "-X", "motion": "sliding",
+      "note": "The window passes over the protruding vent as the cover closes. Its side wall uses the ordinary sliding allowance. Derek accepted the full-size assembly.",
+      "sources": [
+        ["Vent window geometry", "printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.rs"],
+        ["Full-size fit trial", "print-tests/equipment-snap-pairs/prints/2026-11-26-mark2-pisco-asse/physical-result.json", "85352090695a58b185dddd190ad476c2aa9b0b68"]
+      ]
+    },
+    {
+      "title": "Pump motor seat",
+      "dimension": "Gap at the nominal motor crown",
+      "host": ["HSM-0455", "cold-core/pump-snap-cap", "Motor saddle", [-15.18, 416, 306.6369], [55, -30]],
+      "mate": ["HSM-0178", "cold-core/g-ganen-pump/8", "Motor can", [-15.18, 416, 306.5824], [55, 35]],
+      "axis": "-Z", "motion": "static",
+      "note": "The production saddle reaches 0.40 mm farther toward the motor. The model shows the nominal pump position. When the motor rests on the fixed rails, the full-solid study gives 0.36 mm to the cover.",
+      "sources": [
+        ["Motor seating study", "printed-parts/cold-core/foam-cap/pump-snap-fit.json"],
+        ["Full-size fixture", "print-tests/pump-seated-snaps/parts/fit-check.json"]
+      ]
+    },
+    {
+      "title": "Display cover retaining lips",
+      "dimension": "Seated lip-to-groove gap",
+      "assembly": "faucet-layout/faucet-assembly.step",
+      "host": ["HSM-0096", "faucet-display-cover-seated", "Right retaining lip", [12.2727, -124.818, 198.795], [150, 12]],
+      "mate": ["HSM-0095", "shell_tip", "Right groove root", [12.2727, -124.818, 198.795], [25, 12]],
+      "axis": "-X", "motion": "static",
+      "note": "Both lips reach 1.20 mm into their grooves. The relaxed cover wall springs inward 1.25 mm at the lip top. Once seated, each lip contacts the root and has 0.30 mm at either end.",
+      "sources": [
+        ["Lip and groove measurements", "printed-parts/faucet/faucet-shell/geometry-check.json"],
+        ["Cover fit trials", "printed-parts/faucet/faucet-display-cover/physical-acceptance.json"]
+      ]
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 import { fpt } from "./pick-format.js";
 import { PARTS_PATH } from "/contracts/viewer-links.js";
 
-const mm = value => value.toFixed(2);
+const mm = (value, places = 2) => value.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: places });
 
 function faceLink(el, label, file, site) {
   const point = ([x, y, z]) => fpt({ x, y, z });
@@ -34,7 +34,24 @@ function surfaces(el, label, file, sites) {
   return group;
 }
 
-function dimensionTable(el, fit, allowance) {
+// The install-kit runs have specified stock diameters and no installed model. Show their mating outlines to scale.
+function tubeSection(el, fit) {
+  const { nominal, chosen } = fit.dimensions[0];
+  const figure = el("figure", "clearance-section");
+  const outline = el("div", "clearance-bore-outline");
+  outline.setAttribute("aria-hidden", "true");
+  const tube = el("i");
+  tube.style.width = (100 * nominal / chosen) + "%";
+  outline.append(tube);
+  const caption = el("figcaption");
+  caption.append(el("strong", "", "Nominal cross-section"),
+    el("span", "clearance-tube-key", `Tube outer wall · Ø${mm(nominal)} mm`),
+    el("span", "clearance-bore-key", `Collar bore · Ø${mm(chosen)} mm`));
+  figure.append(outline, caption);
+  return figure;
+}
+
+function dimensionTable(el, dimensions, motion, allowance) {
   const table = el("table", "clearance-table");
   const headers = table.createTHead().insertRow();
   for (const title of ["Dimension (mm)", "Chosen CAD", "Default CAD"]) {
@@ -42,24 +59,25 @@ function dimensionTable(el, fit, allowance) {
     th.scope = "col"; headers.append(th);
   }
   const body = table.createTBody();
-  for (const dim of fit.dimensions) {
+  for (const dim of dimensions) {
     const row = body.insertRow();
     const th = el("th", "", dim.label); th.scope = "row";
     const external = dim.external ? -1 : 1;
-    const ordinary = allowance[dim.motion || fit.motion];
+    const ordinary = allowance[motion];
     const total = ordinary * (dim.faces ?? 2) + allowance.supported * (dim.supported || 0);
     let standard = total;
     if (dim.nominal != null) {
       standard = dim.nominal + external * total;
-      th.append(el("small", "", `${dim.reference} · ${mm(dim.nominal)}`));
+      th.append(el("small", "", `${dim.reference} · ${mm(dim.nominal, dim.places)}`));
     }
     row.append(th);
     for (const value of [dim.chosen, standard]) {
       const cell = row.insertCell();
-      cell.append(el("strong", "", mm(value).replace(/^-/, "−")));
+      cell.append(el("strong", "", mm(value || 0, dim.places).replace(/^-/, "−")));
       if (dim.nominal != null) {
         const clearance = external * (value - dim.nominal);
-        cell.append(el("small", "", `${mm(Math.abs(clearance))} ${clearance < 0 ? "interference" : "clearance"}`));
+        const total = (dim.faces ?? 2) > 1 ? " total" : "";
+        cell.append(el("small", "", `${mm(Math.abs(clearance), dim.places)}${total} ${clearance < 0 ? "interference" : "clearance"}`));
       } else if (value < 0) cell.append(el("small", "", "interference"));
       else if (value === 0) cell.append(el("small", "", "contact"));
     }
@@ -76,15 +94,20 @@ export function renderClearances(content, records, selected, index, catalog, el,
     const heading = el("summary");
     heading.append(el("strong", "", fit.title), el("span", "", other.description));
     card.append(heading, materialLink(other, other.id + " · " + other.description, { tab: "clearances" }));
-    card.append(dimensionTable(el, fit, allowance));
+    card.append(dimensionTable(el, fit.dimensions, fit.motion, allowance));
     const rule = fit.motion === "sliding" ? "Sliding fit" : "Static fit";
     const support = fit.support ? ` Add ${mm(allowance.supported)} mm at ${fit.support}.` : "";
     card.append(el("p", "clearance-rule", `${rule} · ${mm(allowance[fit.motion])} mm per mating face.${support}`));
+    if (fit.faceGaps) {
+      const faces = el("details", "clearance-gaps");
+      faces.append(el("summary", "", "Clearance at each face"), dimensionTable(el, fit.faceGaps, fit.motion, allowance));
+      card.append(faces);
+    }
     const views = el("div", "clearance-views");
-    views.append(el("h4", "", "Surfaces in 3D"),
-      surfaces(el, fit.hostSurface, host.models?.[0]?.file, fit.hostSites),
-      surfaces(el, fit.mateSurface, mate.models?.[0]?.file, fit.mateSites));
+    views.append(el("h4", "", "Surfaces in 3D"), surfaces(el, fit.hostSurface, host.models?.[0]?.file, fit.hostSites));
+    if (fit.mateSites.length) views.append(surfaces(el, fit.mateSurface, mate.models?.[0]?.file, fit.mateSites));
     card.append(views);
+    if (fit.tubeSection) card.append(tubeSection(el, fit));
     if (fit.note) card.append(el("p", "clearance-note", fit.note));
     const sources = el("div", "clearance-sources");
     for (const source of [...fit.sources, { label: "Clearance guidance", href: guidance }]) {

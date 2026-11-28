@@ -90,6 +90,15 @@ test(recordsOnly ? "material record trees and combined sections retain their sta
           await page.evaluate(async () => (await import('/js/viewer/state.js')).state.materialPanel.applyRoute({tab:'used',panel:'materials'}));
           await settle(page);
           assert.equal(await page.$eval('.material-tabs [aria-selected="true"]', node => node.dataset.tab), 'structure');
+          await page.click('.material-tabs [data-tab="clearances"]');
+          const fit = '.clearance-fit[open]';
+          assert.match(await page.$eval(fit + ' .clearance-table', table => table.innerText), /0\.15/);
+          // Follow the mate's face from an already open model, then reopen the same record with Back.
+          await page.click(fit + ' .clearance-surfaces a');
+          await page.waitForFunction(() => window.__hsm?.mountedStepFile?.endsWith('?component=pisco-snap-cap')
+            && window.__hsm.scene.getObjectByName('pick-find')?.children.some(child => child.isMesh));
+          await page.goBack();
+          await page.waitForSelector('.material-tabs [data-tab="clearances"][aria-selected="true"]');
           assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
           assert.deepEqual(errors, []);
           results.push({width:viewport.width,records:true});

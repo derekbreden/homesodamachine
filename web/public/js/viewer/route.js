@@ -7,7 +7,7 @@ import {
   openGlbDetail,
   closeCadDetail,
 } from "./cad-detail.js";
-import { routeToStep, parseStepHash, stepFind } from "./step-nav.js";
+import { routeToStep, parseStepHash, stepFind, walkDepth } from "./step-nav.js";
 import { findWhenMounted } from "./pick-find.js";
 import { openMaterial } from "./material-nav.js";
 import { modelForMaterial } from "/contracts/materials.js";
@@ -69,7 +69,7 @@ function followViewerHistory() {
       if (want.material) state.materialPanel?.setRoot(want.material);
       state.materialPanel?.applyRoute(want);
     };
-    if (want.type === "step" && state.mountedDetail?.file === want.file) routeToStep(want.path, target).then(apply);
+    if (want.type === "step" && state.mountedDetail?.file === want.file) routeToStep(want.path, target, history.state?.viewerDepth).then(apply);
     else apply();
     return;
   }
@@ -83,7 +83,7 @@ function followViewerHistory() {
       if (want.material) state.materialPanel?.setRoot(want.material);
       state.materialPanel?.applyRoute(want);
     };
-    const move = routeToStep(want.path, target);
+    const move = routeToStep(want.path, target, history.state?.viewerDepth);
     if (want.instance) apply();
     else move.then(apply);
     return;
@@ -124,7 +124,9 @@ export function openViewerHash(hash, pushHistory = false) {
   if (want.material) return openMaterial(want.material, pushHistory, want);
   // A surface link in an open model navigates its canvas and preserves the material entry for Back.
   if (want.find && pushHistory && state.currentDetail?.type === "step") {
-    history.pushState(null, "", hash);
+    const depth = walkDepth();
+    history.replaceState({ ...history.state, viewerDepth: depth }, "");
+    history.pushState({ viewerDepth: depth + 1 }, "", hash);
     return followViewerHistory();
   }
   if (want.type) {
