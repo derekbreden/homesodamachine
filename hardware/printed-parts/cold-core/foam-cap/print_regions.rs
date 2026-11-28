@@ -184,6 +184,7 @@ fn main() -> Result<()> {
     let sources = ["hardware/printed-parts/cold-core/foam-cap/print_regions.rs", "hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs",
                    "hardware/printed-parts/cold-core/foam-cap/numbers/clips.rs", "hardware/printed-parts/cold-core/foam-cap/numbers/design.rs", "hardware/printed-parts/cold-core/foam-cap/numbers/deck.rs", "hardware/printed-parts/cold-core/foam-cap/numbers/reservoir_a.rs",
                    "hardware/printed-parts/cold-core/foam-cap/numbers/pump.rs", "hardware/printed-parts/cold-core/foam-cap/numbers/wells.rs", "hardware/printed-parts/enclosure/enclosure/numbers/equipment_snap.rs",
+                   "hardware/printed-parts/enclosure/enclosure/numbers/junctions.rs",
                    "hardware/printed-parts/cold-core/interface/lib.rs", "hardware/cold-core-layout/layout/cap.rs", "hardware/manifold-layout/above-core.json"];
     let mut source_sha = Map::new();
     for s in sources {

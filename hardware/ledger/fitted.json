@@ -660,6 +660,27 @@
       "said": "x axis is too loose ... y axis is too loose (this is the one where is maybe a difference between the 3 dot and 4 dot, but I couldn't tell you which is which without the dots, because they are both loose in the y axis) ... Regarding the removability of the supports, they were removable.",
       "tried": "removal of the floor-rooted tree from the lid four-dot coupon; the 3-way connector was loose in both dimensions",
       "record": "hardware/print-tests/wago-pocket-support/prints/2026-11-27-rear-lid-mark2/physical-result.json"
+    },
+    {
+      "material": "HSM-0079",
+      "date": "2026-11-27",
+      "said": "10 way and 3 way are good at those sizes - please implement those sizes in the production design.",
+      "tried": "the 10-way connector in the 15.70 × 30.10 mm one-dot Mark2 coupon for the front-top well",
+      "record": "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-c-mark2/physical-result.json"
+    },
+    {
+      "material": "HSM-0081",
+      "date": "2026-11-27",
+      "said": "10 way and 3 way are good at those sizes - please implement those sizes in the production design.",
+      "tried": "the 3-way connector in the 8.20 × 18.70 mm three-dot Mark2 coupon used for all six back-top wells",
+      "record": "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-c-mark2/physical-result.json"
+    },
+    {
+      "material": "HSM-0020",
+      "date": "2026-11-27",
+      "said": "10 way and 3 way are good at those sizes - please implement those sizes in the production design.",
+      "tried": "the same 3-way connector and three-dot coupon used for the four cold-core lid wells",
+      "record": "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-c-mark2/physical-result.json"
     }
   ]
 }
