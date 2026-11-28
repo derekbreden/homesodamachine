@@ -47,5 +47,6 @@
       30.2
     ],
     "request": "For the 5 way, I need one more test print at 8.10 x 30.20 on mark 2 please thanks."
-  }
+  },
+  "production_geometry": "production-openings.json"
 }

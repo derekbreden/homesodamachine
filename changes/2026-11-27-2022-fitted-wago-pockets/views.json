@@ -1,0 +1,162 @@
+{
+  "views": [
+    {
+      "name": "rear-bank",
+      "caption": "Two open 3-way wells flank the seated compressor-hot connector in the west-wall bank. All six back-top wells use the same fitted opening.",
+      "before": "rear-bank-before.webp",
+      "after": "rear-bank-after.webp",
+      "width": 960,
+      "height": 720,
+      "marks": [
+        {
+          "x": 360,
+          "y": 252.4,
+          "r": 46.8,
+          "label": "3-way opening",
+          "at": [
+            -93.05,
+            264.1,
+            314.225
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          371.91089446653393,
+          -62.45584401590446,
+          492.3643577866136
+        ],
+        "target": [
+          -94,
+          273,
+          306
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 20,
+        "near": 342.776119550388,
+        "far": 996.6781824035505,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "wiring-junction-compressor-h*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "9fc33257c57fd37ea7520d815bfe792e212ef5a7d25232753a821b35e9bae74b",
+          "commit": "cdb0137f82f25e14d7f58ad648c8b5a85daf2186",
+          "taken": "2026-11-28T02:18:43.649Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "fb7ca63d8279a64b0c984c7208a114e7da9c7c4690c0b0cb8e76773a936cf0b1",
+          "commit": "7754438f94372cec675dce467620ad8b1f75f1e7",
+          "published": true
+        }
+      },
+      "changed": [],
+      "withinMeshing": [
+        "enclosure-back-top",
+        "cold-core/foam-cap-lid-top"
+      ]
+    },
+    {
+      "name": "three-way",
+      "caption": "Section through the compressor-neutral pocket. The opening narrows from 8.70 to 8.20 mm and shortens from 19.35 to 18.70 mm around the existing center.",
+      "before": "three-way-before.webp",
+      "after": "three-way-after.webp",
+      "width": 960,
+      "height": 720,
+      "marks": [
+        {
+          "x": 357.6,
+          "y": 77.8,
+          "r": 43.1,
+          "label": "Gripping corner",
+          "at": [
+            -98.1,
+            255.9,
+            314.225
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          483.55158071843744,
+          114.58710482039064,
+          374.6731896862125
+        ],
+        "target": [
+          -98.1,
+          260,
+          304.875
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 11.7,
+        "near": 293.55887141843573,
+        "far": 947.4609342715983,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -98.1,
+            260,
+            304.875
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "9fc33257c57fd37ea7520d815bfe792e212ef5a7d25232753a821b35e9bae74b",
+          "commit": "cdb0137f82f25e14d7f58ad648c8b5a85daf2186",
+          "taken": "2026-11-28T02:18:43.649Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "fb7ca63d8279a64b0c984c7208a114e7da9c7c4690c0b0cb8e76773a936cf0b1",
+          "commit": "904ce2ed2b9dae11eb02e00bd5ccf2b920f7ea44",
+          "published": true
+        }
+      },
+      "changed": [],
+      "withinMeshing": [
+        "enclosure-back-top",
+        "cold-core/foam-cap-lid-top"
+      ]
+    }
+  ]
+}
