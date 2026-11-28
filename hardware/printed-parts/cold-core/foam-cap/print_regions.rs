@@ -81,9 +81,8 @@ fn lid_bounds(low: [f64; 3], high: [f64; 3]) -> [f64; 6] {
 fn wago_interior(well: &wells::Well, end: f64) -> [f64; 6] {
     let fit = wells::fit();
     let connector = Pose { rotation: well.rotation, translation: well.translation };
-    let half = well.wago.width / 2. + fit;
-    lid_bounds(connector.point([-half, -well.wago.depth / 2. - fit, -fit]),
-               connector.point([half, end, well.wago.height + fit]))
+    let [x0, x1, y0, y1, z0, z1] = well.wago.well_cut(fit, end, 0.);
+    lid_bounds(connector.point([x0, y0, z0]), connector.point([x1, y1, z1]))
 }
 
 fn main() -> Result<()> {

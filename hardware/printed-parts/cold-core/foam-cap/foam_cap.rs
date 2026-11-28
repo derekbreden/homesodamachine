@@ -493,8 +493,9 @@ fn wells() -> Result<(Solid, Solid)> {
                 .transformed(&at)
                 .transformed(&t),
         );
+        let [x0, x1, y0, y1, z0, z1] = well.wago.well_cut(fit, POCKET_OVERRUN, 0.);
         cuts.push(
-            box3(-width / 2. - fit, width / 2. + fit, -depth / 2. - fit, POCKET_OVERRUN, -fit, height + fit)
+            box3(x0, x1, y0, y1, z0, z1)
                 .transformed(&at)
                 .transformed(&t),
         );

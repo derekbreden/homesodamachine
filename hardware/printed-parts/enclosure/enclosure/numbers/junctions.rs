@@ -2,7 +2,7 @@
 //! connector, the piece that holds it, its frame, and how far its well's mouth stands back of the
 //! lever face. The pieces cut their wells round them, and the machine places the connectors in
 //! them.
-use crate::P3;
+use crate::{Bounds, P3};
 use crate::quadrant::Y;
 use serde::Deserialize;
 use std::sync::OnceLock;
@@ -15,6 +15,8 @@ pub struct Wago {
     pub width: f64,
     pub depth: f64,
     pub height: f64,
+    /// The printed opening, short side between cheeks × long side across the poles.
+    pub well_opening: [f64; 2],
 }
 
 pub const WAGO_413: Wago = Wago {
@@ -22,19 +24,35 @@ pub const WAGO_413: Wago = Wago {
     width: 18.8,
     depth: 18.6,
     height: 8.4,
+    well_opening: [8.20, 18.70],
 };
 pub const WAGO_415: Wago = Wago {
     size: "415",
     width: 30.0,
     depth: 18.6,
     height: 8.4,
+    well_opening: [8.20, 30.20],
 };
 pub const WAGO_420: Wago = Wago {
     size: "420",
     width: 29.8,
     depth: 18.3,
     height: 15.8,
+    well_opening: [15.70, 30.10],
 };
+
+impl Wago {
+    /// The blind pocket in the connector frame. A relieved roof shifts the long-axis
+    /// centre by half its one-sided allowance while keeping the finished opening to size.
+    pub fn well_cut(self, stop_clearance: f64, end: f64, roof_relief: f64) -> Bounds {
+        let [short, long] = self.well_opening;
+        [
+            (roof_relief - long) / 2.0, (roof_relief + long) / 2.0,
+            -self.depth / 2.0 - stop_clearance, end,
+            (self.height - short) / 2.0, (self.height + short) / 2.0,
+        ]
+    }
+}
 
 /// One junction the wiring model mounts on a top piece: its connector, where it stands, and how
 /// far its well's mouth stands back of the lever face.
@@ -46,9 +64,6 @@ pub struct Junction {
     pub translation: P3,
     pub mouth: f64,
     pub fit: f64,
-    /// Pocket inset per side across the poles and along the body height.
-    pub well_width_inset: f64,
-    pub well_height_inset: f64,
 }
 
 #[derive(Deserialize)]
@@ -59,10 +74,6 @@ struct Placement {
     rotation: [P3; 3],
     translation_mm: P3,
     mouth_mm: f64,
-    #[serde(default)]
-    well_width_inset_mm: f64,
-    #[serde(default)]
-    well_height_inset_mm: f64,
 }
 
 #[derive(Deserialize)]
@@ -102,8 +113,6 @@ pub fn junctions() -> &'static [Junction] {
                 translation: j.translation_mm,
                 mouth: j.mouth_mm,
                 fit: document.well_fit_mm,
-                well_width_inset: j.well_width_inset_mm,
-                well_height_inset: j.well_height_inset_mm,
             })
             .collect()
     })
