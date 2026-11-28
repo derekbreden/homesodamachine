@@ -75,8 +75,8 @@ Use the regular M3 and M5 bodies selected in [the BOM](/hardware/ledger/bom.md#1
   blind lands stand in matching closed recesses in the cold-core casing.
 - Install regular M3 inserts in the PSU hosts, mains-inlet block, condenser
   fingers, funnel ledges and pump-retainer hosts before fitting their parts.
-  Back-top's two funnel-ledge inserts enter from the ledges' flat undersides:
-  rest back-top on its roof and press them flush with the 90° M3 tip from inside the box.
+  Back-top's two funnel-ledge inserts press in square to the ledges' 45° seats,
+  flush with the seat, from above through the open roof pocket.
 - The core's PCB columns use the [deck mount schedule](/hardware/printed-parts/cold-core/foam-cap/numbers/deck.rs).
   Fit the short screws directly through the board; keep the lid removed for heat setting.
 - Seat the ruthex RX-M2x4 inserts flush in the west-wall relay bearings.
@@ -387,7 +387,8 @@ and fit its aft outlet turn. Make the 36.469 mm descending `fluid-4` link to
 V-B's inlet turn through the open roof, with both 16.891 mm socket engagements
 fully seated. Lower the frame vertically onto its ledges
 ([internal-plumbing.md](internal-plumbing.md) §5). Install the M3 × 12 screws from
-above into the RX-M3×5.7 inserts. Seat the frame by hand, then tighten in alternating
+above into the RX-M3×5.7 inserts. Drive the two back screws along their 45° bores,
+square to back-top's seats, from above the funnel opening. Seat the frame by hand, then tighten in alternating
 left and right stations to hold the flange flush. The [manual drop-in review](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/printed-parts/zone-c/funnel/drop-in-review/native-review.json)
 models the bare frame with the cradle, elbow and tubing removed, plus the
 static web/socket and screw stack. Disconnect the V-B feed before withdrawing

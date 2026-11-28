@@ -233,7 +233,7 @@ fn main() -> Result<()> {
                      back + thick, z - radius, z + radius]);
     }
     let seat = funnel::seat_z(&b.outer);
-    for row in funnel::fasteners(b.pack.funnel, seat).filter(|row| row.side > 0.0) {
+    for row in funnel::fasteners(&b.inner, b.pack.funnel, seat).filter(|row| row.side > 0.0) {
         let piece = match row.col {
             Y::Front => "front-top",
             Y::Back => "back-top",

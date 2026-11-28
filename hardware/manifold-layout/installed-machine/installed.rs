@@ -55,10 +55,21 @@ struct Frame {
     seat: f64,
     roof_floor: f64,
     screws: Vec<FrameScrew>,
+    back_screws: Vec<BackScrew>,
 }
 
 #[derive(Deserialize)]
 struct FrameScrew(f64, f64, f64, f64, f64, bool, #[serde(default)] Option<String>);
+
+/// A back screw square to its seat: its head seat on the frame, its axis up toward the head,
+/// and its insert's mouth on back-top's seat.
+#[derive(Deserialize)]
+struct BackScrew {
+    side: f64,
+    head_seat: P3,
+    axis: P3,
+    insert_mouth: P3,
+}
 
 /// The elbow cradle's own numbers: the catch under the funnel's plug and its block's foot.
 #[derive(Deserialize)]
@@ -124,12 +135,14 @@ impl Site {
         self.seat() - self.frame.seat
     }
 
-    /// The frame's screws into the shell's ledges, in the machine's frame. A front insert opens
-    /// at its ledge; a back one presses in from under its sloped ledge, on the longer screw.
+    /// The frame's screws into the shell's ledges, in the machine's frame, each the regular M3. A
+    /// front screw stands upright and its insert opens at its ledge; a back one stands square to
+    /// its sloped seat, where its insert opens, and reports its head seat, mouth and axis.
     fn fasteners(&self) -> Vec<Value> {
         let [cx, cy] = self.centre;
         let floor = self.frame_floor();
         let ledge = floor + self.frame.roof_floor;
+        let placed = |p: P3| [cx + p[0], cy + p[1], floor + p[2]];
         self.frame
             .screws
             .iter()
@@ -137,17 +150,27 @@ impl Site {
                 let col = if front { "front" } else { "back" };
                 let edge = if side < 0.0 { "west" } else { "east" };
                 let row = row.as_deref().unwrap_or(col);
-                let (bottom, length) = if front {
-                    (ledge - shell::HEATSET_LONG_LEN, fasteners::M3_SCREW_LENGTH)
-                } else {
-                    (funnel_mount::back_insert_entry(ledge), funnel_mount::BACK_SCREW_LENGTH)
-                };
-                json!({
+                let mut out = json!({
                     "name": format!("{row}-{edge}"), "col": col, "side": side as i64,
                     "x": cx + dx, "y": cy + dy, "ledge_z": ledge, "head_seat_z": floor + head,
-                    "insert_top_z": bottom + shell::HEATSET_LONG_LEN, "insert_bottom_z": bottom,
-                    "screw_length_mm": length, "host_radius_mm": host_radius,
-                })
+                    "insert_top_z": ledge, "insert_bottom_z": ledge - shell::HEATSET_LONG_LEN,
+                    "screw_length_mm": fasteners::M3_SCREW_LENGTH, "host_radius_mm": host_radius,
+                });
+                if !front {
+                    let back = self.frame.back_screws.iter()
+                        .find(|b| b.side == side)
+                        .expect("the frame's numbers carry each back screw's line");
+                    let (head, mouth) = (placed(back.head_seat), placed(back.insert_mouth));
+                    let low = mouth[2] - shell::HEATSET_LONG_LEN * back.axis[2];
+                    out["head_seat_z"] = json!(head[2]);
+                    out["insert_top_z"] = json!(mouth[2]);
+                    out["insert_bottom_z"] = json!(low);
+                    out["head_seat"] = json!(head);
+                    out["insert_mouth"] = json!(mouth);
+                    out["axis"] = json!(back.axis);
+                    out["tilt_degrees"] = json!(funnel_mount::back_tilt_degrees(side));
+                }
+                out
             })
             .collect()
     }

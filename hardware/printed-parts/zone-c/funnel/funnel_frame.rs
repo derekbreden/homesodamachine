@@ -11,7 +11,7 @@ use anyhow::Result;
 use hsm_kernel::{Body, Loop, Plane, Profile, Seg, Solid, V2, V3, v2, v3};
 use hsm_kernel::write::PrintOutput;
 use hsm_zone_c_numbers::catalog;
-use hsm_zone_c_numbers::frame::{Frame, SEATING_RELIEF, frame};
+use hsm_zone_c_numbers::frame::{Frame, SEATING_RELIEF, back_axis, frame};
 use serde_json::json;
 use sha2::{Digest, Sha256};
 
@@ -120,16 +120,14 @@ fn socket(n: &Frame) -> Result<Solid> {
 
 /// Under each back notch the flange keeps a wedge whose face rises outward at the back seat's
 /// slope, one slip square to back-top's ledge, from the body out to the roof's edge and aft to
-/// the body's corbel. Upright, the face prints without support. Outward of its axis the screw's
-/// bore opens below a face square to the seat, falling from the flange's underside, so the face
-/// meets no bore edge at less than a right angle.
+/// the body's corbel. Upright, the face prints without support.
 fn back_seats(n: &Frame, aft_corbel: &Solid) -> Result<Vec<Solid>> {
     let floor = n.roof_floor + SEATING_RELIEF;
     let lift = n.back_seat_air * (1.0 + n.back_seat_slope.powi(2)).sqrt();
     let face = |a: f64| n.roof_floor - (n.back_seat_flank - a) * n.back_seat_slope + lift;
     let roof = Plane::XY.at(v3(0.0, 0.0, -1.0)).extrude(&blank_plan(n, n.roof_width)?, floor + 3.0)?;
     let mut seats = vec![];
-    for &(x, y, head, host, side, front, _) in &n.screws {
+    for &(x, y, _, host, side, front, _) in &n.screws {
         if front {
             continue;
         }
@@ -141,17 +139,48 @@ fn back_seats(n: &Frame, aft_corbel: &Solid) -> Result<Vec<Solid>> {
         ]));
         let start = y - n.ledge_pad_half_y - n.slide_slip;
         let wedge = Plane::XZ.at(v3(0.0, n.back + 1.0, 0.0)).extrude(&section, n.back + 1.0 - start)?;
-        let r = n.screw_clear_radius;
-        let hole = cylinder(x, y, r, -1.0, head + 0.01)?;
-        let run = outer + 1.0 - x.abs();
-        let edge = x + side * run;
-        let opening = Profile::new(Loop::polygon(&[
-            v2(x, -1.0), v2(x, floor), v2(edge, floor - run / n.back_seat_slope), v2(edge, -1.0),
-        ]));
-        let open = Plane::XZ.at(v3(0.0, y + r, 0.0)).extrude(&opening, 2.0 * r)?;
-        seats.push(wedge.intersect(&roof)?.cut_all(&[aft_corbel.clone(), hole, open])?);
+        seats.push(wedge.intersect(&roof)?.cut(aft_corbel)?);
     }
     Ok(seats)
+}
+
+/// A back screw's line in the frame's own frame: where it leaves the wedge's face, where its
+/// head seats, and its axis, square to the seat, up and inward. The frame stands one slip off
+/// back-top's seat, so the line is the insert's own, lifted by the drop that closes both seats.
+pub fn back_line(n: &Frame, x: f64, y: f64, side: f64) -> (V3, V3, V3) {
+    let lift = n.back_seat_air * (1.0 + n.back_seat_slope.powi(2)).sqrt();
+    let face = v3(x, y, n.roof_floor - (n.back_seat_flank - x.abs()) * n.back_seat_slope + lift);
+    let axis = V3::from(back_axis(side));
+    (face, face + (n.back_screw_grip - n.back_seat_air) * axis, axis)
+}
+
+/// Each back screw's clearance bore square to the wedge's face, and a trough the head seats in.
+/// The trough's floor is the head seat, square to the screw; it runs outward and up until it
+/// leaves through the frame's top, and on its inner side a face along the screw opens the way a
+/// driver comes in. Neither face meets the top at less than a right angle.
+fn back_screw_cuts(n: &Frame) -> Result<Vec<Solid>> {
+    let mut cuts = vec![];
+    let top = n.seat + 1.0;
+    for &(x, y, _, _, side, front, _) in &n.screws {
+        if front {
+            continue;
+        }
+        let (face, head, axis) = back_line(n, x, y, side);
+        let bore = Solid::cylinder(face - 2.0 * axis, axis, n.screw_clear_radius,
+                                   (head - face).dot(axis) + 2.5)?;
+        // Across the face, up and outward.
+        let across = v3(side * axis.z, 0.0, -side * axis.x);
+        let wide = n.head_radius;
+        let floor_out = head + ((top - head.z) / across.z) * across;
+        let floor_in = head - wide * across;
+        let way_in = floor_in + ((top - floor_in.z) / axis.z) * axis;
+        let trough = Profile::new(Loop::polygon(&[
+            v2(floor_out.x, floor_out.z), v2(floor_in.x, floor_in.z), v2(way_in.x, way_in.z),
+        ]));
+        let trough = Plane::XZ.at(v3(0.0, y + wide, 0.0)).extrude(&trough, 2.0 * wide)?;
+        cuts.push(bore.union(&trough)?);
+    }
+    Ok(cuts)
 }
 
 fn build(n: &Frame) -> Result<Solid> {
@@ -178,22 +207,19 @@ fn build(n: &Frame) -> Result<Solid> {
     let slip = n.slide_slip;
     let pad = n.ledge_pad_half_y;
     let mut screws = vec![];
-    let mut rear_pads = vec![];
     for &(x, y, head, host, side, front, _) in &n.screws {
         let inside = x - side * (host + slip);
         let outside = side * 150.0;
         cuts.push(block(inside.min(outside), inside.max(outside), y - pad - slip,
                         if front { y + pad + slip } else { back + 1.0 }, -1.0, floor));
+        if !front {
+            continue;
+        }
         let r = n.head_radius;
-        let mut edge = x.abs() - r;
-        if front { edge = edge.min(n.front_head_inside); }
-        let inner = side * edge;
+        let inner = side * (x.abs() - r).min(n.front_head_inside);
         let head_box = block(inner.min(outside), inner.max(outside), y - r, y + r, head, top + 1.0);
         let head_cut = cylinder(x, y, r, head, top + 1.0)?.union(&head_box)?;
         screws.push(cylinder(x, y, n.screw_clear_radius, -1.0, head + 0.01)?.union(&head_cut)?);
-        if !front {
-            rear_pads.push(cylinder(x, y, n.rear_pad_radius, seat - 0.5, top + 1.5)?);
-        }
     }
     body = body.cut_all(&cuts)?.union(&roof)?;
 
@@ -213,13 +239,12 @@ fn build(n: &Frame) -> Result<Solid> {
     tools.extend(screws);
     body = body.cut_all(&tools)?;
     let half = n.body_half_width;
-    let rear = block(-150.0, 150.0, n.rear_start, n.rear_start + 200.0, seat, top + 1.0)
-        .cut_all(&rear_pads)?;
+    let rear = block(-150.0, 150.0, n.rear_start, n.rear_start + 200.0, seat, top + 1.0);
     let body = body.cut_all(&[
         block(half, 150.0, -200.0, 200.0, -1.0, floor),
         block(-150.0, -half, -200.0, 200.0, -1.0, floor), rear,
     ])?;
-    seats.iter().try_fold(body, |body, wedge| body.union(wedge))
+    seats.iter().try_fold(body, |body, wedge| body.union(wedge))?.cut_all(&back_screw_cuts(n)?)
 }
 
 fn main() -> Result<()> {
@@ -251,10 +276,18 @@ fn main() -> Result<()> {
                          (stl_name,printed.stl_bytes())] {
         zone_files::keep(&out.join(file),bytes)?;
     }
+    // Each back screw's line as the frame draws it, and its insert's mouth on back-top's seat.
+    let lift = n.back_seat_air * (1.0 + n.back_seat_slope.powi(2)).sqrt();
+    let back_screws: Vec<_> = n.screws.iter().filter(|s| !s.5).map(|&(x, y, _, _, side, _, row)| {
+        let (face, head, axis) = back_line(&n, x, y, side);
+        json!({"row": row, "side": side, "head_seat": head.to_array(), "axis": axis.to_array(),
+               "insert_mouth": (face - v3(0.0, 0.0, lift)).to_array()})
+    }).collect();
     zone_files::json(&out.join("funnel-frame.numbers.json"), &json!({
         "seat": n.seat,
         "roof_floor": n.roof_floor,
         "screws": n.screws,
+        "back_screws": back_screws,
     }))?;
     let bounds = solid.bounds();
     println!("{}",json!({"files":[format!("{name}.step"),format!("{name}.step.npz"),

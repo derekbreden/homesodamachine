@@ -4,7 +4,8 @@
 //! plane in the machine.
 use crate::{Color, P2, catalog, cradle, funnel};
 use hsm_enclosure_interface as interface;
-use interface::funnel_mount::{self, BACK_SEAT_SLOPE, PAD_HALF_Y, REAR_ACCESS, SCREW_GRIP};
+use interface::funnel_mount::{self, BACK_SCREW_GRIP, BACK_SEAT_SLOPE, PAD_HALF_Y, REAR_ACCESS, SCREW_GRIP};
+pub use interface::funnel_mount::back_axis;
 
 /// The funnel's plan centre in the machine's Y.
 pub const CENTER_Y: f64 = 182.5 + (funnel::AFT - funnel::FORWARD) / 2.0;
@@ -21,8 +22,6 @@ pub const CORNER: f64 = 6.0;
 pub const SOCKET_DEPTH: f64 = 19.0;
 /// The T-shaped stem guide stands this far above the hook ledges.
 pub const SOCKET_FLOOR_RISE: f64 = 2.4;
-/// The diameter of the screw heads into the shell's ledges.
-pub const HEAD_D: f64 = 5.5;
 /// The interior the frame is drawn against, the brim's seat in it, and the shell's Y seam.
 pub const INNER: [f64; 6] = [-104.5, 104.5, 0.0, 290.0, 0.0, 352.0];
 pub const SEAT: f64 = 349.0;
@@ -73,14 +72,15 @@ pub struct Frame {
     pub slide_slip: f64,
     pub screw_clear_radius: f64,
     pub head_radius: f64,
-    pub rear_pad_radius: f64,
     pub front_head_inside: f64,
     pub screws: Vec<Screw>,
     /// The back ledges' seats: the pocket flank they fall from, |X| in the frame's own frame,
-    /// their rise per run, and the slip the frame's matching faces keep square to them.
+    /// their rise per run, and the slip the frame's matching faces keep square to them. A back
+    /// screw stands square to its seat; its head seat stands `back_screw_grip` from the seat.
     pub back_seat_flank: f64,
     pub back_seat_slope: f64,
     pub back_seat_air: f64,
+    pub back_screw_grip: f64,
     pub body_half_width: f64,
     pub brim_half_size: P2,
     pub brim_radius: f64,
@@ -139,12 +139,12 @@ pub fn frame() -> Frame {
         slide_slip: interface::slide_slip(),
         screw_clear_radius: interface::screw_clear_dia() / 2.0,
         head_radius: interface::head_cbore_dia() / 2.0,
-        rear_pad_radius: HEAD_D / 2.0,
         front_head_inside: funnel::COLLAR_W / 2.0 + funnel::OVERHANG + air,
         screws,
         back_seat_flank: INNER[1] - interface::Y_STACK_HIGH_DEPTH - cx,
         back_seat_slope: BACK_SEAT_SLOPE,
         back_seat_air: interface::fits::slip(),
+        back_screw_grip: BACK_SCREW_GRIP,
         body_half_width,
         brim_half_size: (funnel::COLLAR_W / 2.0 + funnel::OVERHANG + air, funnel::COLLAR_D / 2.0 + funnel::OVERHANG + air),
         brim_radius: funnel::BRIM_R + air,

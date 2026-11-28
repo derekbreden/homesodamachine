@@ -1187,23 +1187,23 @@ fn installed(layout: &mut Layout, v: &Value) -> Result<()> {
             "funnel-frame-{}",
             row["name"].as_str().context("fastener name")?
         );
-        let (x, y, head, insert, length) = (
-            f(row, "x")?,
-            f(row, "y")?,
-            f(row, "head_seat_z")?,
-            f(row, "insert_top_z")?,
-            f(row, "screw_length_mm")?,
-        );
-        let screw = zcylinder(x, y, 1.5, head - length, head)?
-            .union(&zcylinder(x, y, 2.75, head, head + 3.)?)?
-            .cut(&hexagon(x, y, 2.5, head + 1.5, head + 3.1)?)?;
-        let sleeve = zcylinder(x, y, 2.3, insert - 5.7, insert)?.cut(&zcylinder(
-            x,
-            y,
-            1.25,
-            insert - 5.8,
-            insert + 0.1,
-        )?)?;
+        let length = f(row, "screw_length_mm")?;
+        // Drawn upright about the origin, then turned onto the row's axis and carried to its head
+        // seat and insert mouth: a back screw stands square to its sloped seat.
+        let screw = zcylinder(0., 0., 1.5, -length, 0.)?
+            .union(&zcylinder(0., 0., 2.75, 0., 3.)?)?
+            .cut(&hexagon(0., 0., 2.5, 1.5, 3.1)?)?;
+        let sleeve = zcylinder(0., 0., 2.3, -5.7, 0.)?.cut(&zcylinder(0., 0., 1.25, -5.8, 0.1)?)?;
+        let (head, mouth, tilt) = match row.get("axis") {
+            Some(_) => (p(&row["head_seat"])?, p(&row["insert_mouth"])?, f(row, "tilt_degrees")?),
+            None => (
+                v3(f(row, "x")?, f(row, "y")?, f(row, "head_seat_z")?),
+                v3(f(row, "x")?, f(row, "y")?, f(row, "insert_top_z")?),
+                0.,
+            ),
+        };
+        let screw = screw.rotate(V3::ZERO, V3::Y, tilt).translate(head);
+        let sleeve = sleeve.rotate(V3::ZERO, V3::Y, tilt).translate(mouth);
         layout.generated(&format!("{name}-screw"), screw, color(v, "screw")?)?;
         layout.generated(&format!("{name}-insert"), sleeve, color(v, "insert")?)?;
     }

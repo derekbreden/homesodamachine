@@ -64,7 +64,7 @@ The complete rigid flange is wide ahead of Y199.75 and
  wide aft of that shoulder, beside the upper M5 seam
 blocks. Its full Y envelope is 182.692 mm. The flange's underside is relieved above
 the enclosure's bearing ledges. The front surround finishes at Z355. The rear surround is a flat Z349
-brim bearing, with two finite screw-head pads at Z351.8. The silicone brim
+brim bearing. The silicone brim
 retains its complete 3 mm bearing below Z349. Its front stands at Y93.0,
 0.25 mm behind the display backing. The rear flange reaches Y275.692, with
 R6 aft corners. Its 5 mm aft access extension opens the J10 screw-tool passages
@@ -89,9 +89,9 @@ flange along its length. The back-top has one screw on each flank. The frame
 and ledges take their axes from [the shared stations](../../enclosure/enclosure/interface/funnel_mount.rs).
 The flank corbels carry the front ledges and their heat-set insert pilots.
 The rear ledges clear the preinstalled upper valve elbows during the back-column ride.
-The front head wells open to the sides above their bearing floors. The rear pads
-stand outside the brim's rounded corners. Install the screws from above before
-seating the silicone apron over the heads.
+The front head wells open to the sides above their bearing floors. Each back head
+seats in a trough cut square to its screw beside the brim's rounded aft corner.
+Install the screws from above before seating the silicone apron over the heads.
 
 Each front insert opens upward at Z346. Its Ø4.0 mm pilot ends at Z338.8 with
 3 mm of blind backing. The nominal M3 × 12 takes the complete 5.7 mm insert
@@ -100,15 +100,17 @@ least 5.8 mm reach below the insert entrance and 0.6 mm blind-tip clearance.
 The upper M5 seam blocks and their screw passages retain their own stock and datums.
 
 Each back ledge's seat falls inward at 45° from the roof pocket's flank at Z346,
-so back-top prints it ceiling-down without support. Its insert presses in from
-the ledge's flat underside and spans Z327.3 to Z333.0. The Ø4.0 mm pilot runs on
-up through the seat; inward of its axis it runs on as a slot of its own width,
-closed by a face square to the seat that lands 1 mm past the bore wall. Outward of
-its axis the frame's screw bore opens below a face square to the wedge's face, so
-neither 45° face meets a bore edge at less than a right angle. The M3 × 25 from
-the Z351.8 head pad takes the complete insert and its tip passes 0.5 mm below the
-underside. Press these two inserts with back-top resting on its roof, using the
-90° M3 tip from inside the box.
+so back-top prints it ceiling-down without support. Each back screw stands square
+to its seat and crosses it at the shared station, so its clamp runs straight
+through the two 45° faces and pushes neither the frame nor back-top's side walls
+sideways. Its insert opens flush on the seat and its Ø4.0 mm pilot runs down and
+outward into the flank. The frame's clearance bore leaves the wedge's face square
+to it, and the head seats on the floor of a trough square to the screw, low enough
+to clear the brim's aft corner; the trough's inner face runs along the screw and
+opens the driver's way in from above the funnel opening. The regular M3 × 12 takes
+the complete insert. The grip and the pilot's reach past the insert are owned by
+[the shared stations](../../enclosure/enclosure/interface/funnel_mount.rs).
+Press these two inserts square to the seat from above, through the open roof pocket.
 
 The frame prints on its lower feet, with the exported individual STEP and STL
 placing their undersides at Z0 and the funnel's plan center at X0, Y0.

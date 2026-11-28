@@ -105,17 +105,21 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
                 "reason":"Support the exposed sloping joint end and counterbore roof through the open front removal path; the bed-edge chamfer lies outside this contact band."}));
         }
     }
-    for row in funnel::fasteners(b.pack.funnel, funnel::seat_z(&b.outer))
+    for row in funnel::fasteners(&b.inner, b.pack.funnel, funnel::seat_z(&b.outer))
         .filter(|row| row.col == quadrant::Y::Back)
     {
         let side = if row.side < 0.0 { "West" } else { "East" };
         let inside = row.x - row.side * row.host_radius;
         let flank = funnel::seat_flank(&b.inner, row.side);
-        let (x0, x1) = if row.side < 0.0 { (flank, inside) } else { (inside, flank) };
         let low = row.ledge_z - (flank - inside).abs() * hsm_enclosure_numbers::funnel_mount::BACK_SEAT_SLOPE;
+        // The pilot's blind end reaches outward past the flank, below the seat.
+        let [ax, _, az] = row.axis;
+        let reach = row.x - row.pilot_depth * ax + row.side * shell::HEATSET_DIA / 2.0 * az;
+        let outer = if row.side < 0.0 { flank.min(reach) } else { flank.max(reach) };
+        let (x0, x1) = if row.side < 0.0 { (outer, inside) } else { (inside, outer) };
         regions.push(json!({"name":format!("{side} funnel frame seat"),
-            "bounds_source_mm":[x0,x1,row.y-funnel::PAD_HALF_Y,row.y+funnel::PAD_HALF_Y,low,row.ledge_z],
-            "reason":"The seat falls inward at 45 degrees from the pocket's flank and grows without support. Its insert pilot opens on the ledge's flat underside."}));
+            "bounds_source_mm":[x0,x1,row.y-funnel::PAD_HALF_Y,row.y+funnel::PAD_HALF_Y,low.min(row.host_bottom_z+shell::WALL),row.ledge_z],
+            "reason":"The seat falls inward at 45 degrees from the pocket's flank and grows without support. Its insert pilot runs square into the seat; keep it clear."}));
     }
     let mut support_stock = routes::upper_wing_support_stock(quadrant::Quadrant::BACK_TOP);
     let mut cheeks = Vec::new();

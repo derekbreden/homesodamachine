@@ -206,20 +206,13 @@
           },
           {
             "material": "HSM-0140",
-            "quantity": 4,
+            "quantity": 6,
             "unit": "ea",
             "bodies": [
               "funnel-frame-front-east-screw",
               "funnel-frame-front-west-screw",
               "funnel-frame-front-aft-east-screw",
-              "funnel-frame-front-aft-west-screw"
-            ]
-          },
-          {
-            "material": "HSM-0137",
-            "quantity": 2,
-            "unit": "ea",
-            "bodies": [
+              "funnel-frame-front-aft-west-screw",
               "funnel-frame-back-east-screw",
               "funnel-frame-back-west-screw"
             ]

@@ -134,7 +134,7 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.625 | $40.65 <!--@printed--><!--parts HSM-0078:630 HSM-0079:956--> |
 | Enclosure — pump retainer | 2 | PET-GF | 0.010 | $0.26 <!--@printed--><!--parts HSM-0082--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--><!--parts HSM-0029--> |
-| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.505 | $37.65 <!--@printed--><!--parts HSM-0080:688.8 HSM-0081:766.1--> |
+| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.504 | $37.64 <!--@printed--><!--parts HSM-0080:688.8 HSM-0081:766.1--> |
 | Display cover plate | 1 | PET-GF | 0.012 | $0.31 <!--@printed--><!--parts HSM-0076--> |
 | Status plate | 1 | PETG (black, white, clear) | 0.012 | $0.14 <!--@printed--><!--parts HSM-0579--> |
 | Rear port identification plates | 6 | PETG (blue, white ×2, red, black ×2) | 0.018 | $0.20 <!--@printed--><!--parts HSM-0062:2327.834 HSM-0063:2427.834 HSM-0064:2530.414 HSM-0065:2530.414 HSM-0066:2582.343 HSM-0067:2528.491--> |
@@ -160,9 +160,9 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | ASSE drain adapter | 1 | Siraya TPU 85A (clear) | 0.005709 | $0.19 <!--@printed--><!--parts HSM-0088--> |
 | Faucet tube sealing thimble | 1 | Bambu TPU 85A | 0.000449 | $0.02 <!--@printed--><!--parts HSM-0090--> |
 | Sculpted faucet mounting gasket | 1 | Bambu TPU 90A | 0.005959 | $0.27 <!--@printed--><!--parts HSM-0093--> |
-| **Printed parts total** | | | **~7.18** | **[$165.08](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.17** | **[$165.07](BOM_SEC7)** |
 
-By material: PETG ≈ 1.08 kg / $12.11 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 6.07 kg / $151.83. Bambu TPU 85A ≈ 0.011551 kg / $0.56. Bambu TPU 90A ≈ 0.008301 kg / $0.37. Siraya TPU 85A ≈ 0.005709 kg / $0.19.
+By material: PETG ≈ 1.08 kg / $12.11 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 6.07 kg / $151.82. Bambu TPU 85A ≈ 0.011551 kg / $0.56. Bambu TPU 90A ≈ 0.008301 kg / $0.37. Siraya TPU 85A ≈ 0.005709 kg / $0.19.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
@@ -311,7 +311,7 @@ carbonator earth clamp use stainless stock.
 8. **IEC C14 inlet** uses [2](C14_SCREWS) M3 × 12 screws, regular M3 inserts and flat washers. Its internal flange pocket retains closed exterior backing. The flange and washer leave [6.41](C14_SCREW_REACH) mm reach in the [7.41](C14_BORE) mm blind pilot.
 9. **Compressor** uses [4](FLOOR_SCREWS) M5 × 12 screws, regular M5 inserts and fender washers. The printed post is the grommet sleeve; its crown fixes the compression and carries the washer. The deeper blind pilots clear the screw tips while retaining the floor backing.
 10. **Pump retainers** use [4](PUMP_CLAMP_SCREWS) M3 × 25 screws and regular M3 inserts. Their deeper head seats provide engagement in the longer insert bodies while retaining the fitted flange bearings.
-11. **Funnel frame** uses [4](FUNNEL_FRAME_FRONT_SCREWS) M3 × 12 screws into front-top's ledges and [2](FUNNEL_FRAME_BACK_SCREWS) M3 × 25 screws into back-top's, all in regular M3 inserts. Each back insert presses in from its ledge's flat underside, below the 45° seat. The electronics ceiling stays continuous; disconnect the V-B feed before lifting the frame.
+11. **Funnel frame** uses [6](FUNNEL_FRAME_SCREWS) M3 × 12 screws in regular M3 inserts. The two back screws stand square to back-top's 45° seats, and their inserts press in flush with those seats. The electronics ceiling stays continuous; disconnect the V-B feed before lifting the frame.
 
 The T18 tip kit and FX-888D iron are tooling, recorded in the tools ledger.
 
@@ -322,8 +322,8 @@ The T18 tip kit and FX-888D iron are tooling, recorded in the tools ledger.
 | [ruthex RX-M5 × 9.5 heat-set inserts, 50 pc](https://www.amazon.com/dp/B07YSVXWS8) | Compressor posts, enclosure seams and cold-core closure stations. Acquired pack: $10.71/50. | [28](TOTAL_M5_INSERTS) (of 50 pk) | $0.21 | [$6.00](M5_INSERTS_COST) <!--@fasteners--><!--parts HSM-0132--> |
 | [Sutemribor M2 × 6 mm socket-head cap screws, 12.9 alloy steel, black oxide, 105 pc](https://www.amazon.com/dp/B0CXQ7Q7L3) | Relay corner fasteners, through every board mounting hole into RX-M2×4 inserts. Acquired replenishment pack: $8.57/105, [purchase record](/hardware/ledger/purchases.md). | [8](M2X6_TOTAL) (of 105 pk) | [$0.08](M2X6_UNIT_COST) | [$0.65](M2X6_COST) <!--@fasteners--><!--parts HSM-0576--> |
 | [BNUOK M3 × 8 socket-head cap screws, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGPRPV) | PCB, condenser, nameplate, display cover and status plate. The PCB and covers mount directly; the condenser uses the selected flat washers. Acquired pack: $7.71/120. | [18](M3X8_TOTAL) (of 120 pk) | $0.06 | [$1.16](M3X8_COST) <!--@fasteners--><!--parts HSM-0138--> |
-| [BNUOK M3 × 12 socket-head cap screws, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGVK8S) | Faucet base, PSU, mains inlet and the funnel frame's front ledges. Acquired pack: $8.57/120. | [13](M3X12_TOTAL) (of 120 pk) | $0.07 | [$0.93](M3X12_COST) <!--@fasteners--><!--parts HSM-0140--> |
-| [BNUOK M3 × 25 socket-head cap screws, black oxide, 60 pc](https://www.amazon.com/dp/B0DJQGF665) | Independent pump flange retainers, and the funnel frame's back ledges through its head pads and the 45° seats into inserts pressed in from below. Acquired stock. | [6](M3X25_TOTAL) (of 60 pk) | $0.14 | [$0.86](M3X25_COST) <!--@fasteners--><!--parts HSM-0137--> |
+| [BNUOK M3 × 12 socket-head cap screws, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGVK8S) | Faucet base, PSU, mains inlet and funnel frame. Acquired pack: $8.57/120. | [15](M3X12_TOTAL) (of 120 pk) | $0.07 | [$1.07](M3X12_COST) <!--@fasteners--><!--parts HSM-0140--> |
+| [BNUOK M3 × 25 socket-head cap screws, black oxide, 60 pc](https://www.amazon.com/dp/B0DJQGF665) | Independent pump flange retainers. Acquired stock. | [4](M3X25_TOTAL) (of 60 pk) | $0.14 | [$0.57](M3X25_COST) <!--@fasteners--><!--parts HSM-0137--> |
 | [BNUOK M3 × 12 socket-head cap screws, 304 stainless, 120 pc](https://www.amazon.com/dp/B0DJQGMQZM) | Reservoir caps. The carbonator earth-clamp screw in the electronics section is finished from an additional screw in this pack. Acquired pack: $8.66/120. | [12](RES_SCREWS) (of 120 pk) | $0.07 | [$0.87](RES_SCREWS_COST) <!--@fasteners--><!--parts HSM-0363--> |
 | [BoltsandNuts M5 × 12 socket-head cap screws, class 12.9 black oxide, M5C12SHCS12BO/D](https://boltsandnuts.com/products/m5-0-8x12-class-12-9-alloy-socket-head-cap-screws-black-oxide) | Compressor floor screws. Fully threaded DIN 912 / ISO 4762. Selected, not acquired. Quoted merchandise at the 100-piece tier: $12.00/100; freight and tax unallocated. | [4](FLOOR_SCREWS) (of 100 pk) | $0.12 quoted | [$0.48](M5X12_COST) quoted <!--@fasteners--><!--parts HSM-0583--> |
 | [SVLING M5 × 100 socket-head cap screws, class 12.9 black oxide, 20 pc](https://www.amazon.com/dp/B0GHNNYVDH/) | Cold-core closures and enclosure seams. Delivered replenishment pack recorded in [purchases.md](purchases.md). | [24](M5X100_TOTAL) (of 20 pk) | [$0.46](SEAM_SCREW_UNIT_COST) | [$11.00](M5X100_COST) <!--@fasteners--><!--parts HSM-0359--> |
@@ -356,16 +356,16 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 4. CO2 subsystem | [$134.94](BOM_SEC4) |
 | 5. Refrigeration | [$124.40](BOM_SEC5) |
 | 6. Cold core insulation | [$20.84](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$165.08](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$165.07](BOM_SEC7) |
 | 8. Flavor subsystem | [$257.17](BOM_SEC8) |
 | 9. Dispensing | [$78.56](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
 | 11. Wiring | [$34.84](BOM_SEC11) |
 | 12. Level sensing | [$29.78](BOM_SEC12) |
-| 13. Mechanical attach hardware | [$29.15](BOM_SEC13) |
+| 13. Mechanical attach hardware | [$29.00](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,443.04](BOM_GRAND)** |
+| **Total** | **[$1,442.88](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

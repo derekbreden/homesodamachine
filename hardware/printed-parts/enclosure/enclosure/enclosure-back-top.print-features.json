@@ -491,7 +491,7 @@
       "name": "wiring-junction-pump-positive insertion pocket aft gripping cheek"
     }
   ],
-  "source_stl_sha256": "7effa137afaa3e58c6982042bcff7ee13c8b0b941c0a6b84d2a2b12d29b4350b",
+  "source_stl_sha256": "aa94e7c8eae8c41f83357e1d6b0870363c11b7c5771344338e62a8284e080e13",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
@@ -690,27 +690,27 @@
     },
     {
       "bounds_source_mm": [
-        -91.5,
+        -95.26604255869606,
         -82.7,
         253.4915079232813,
         265.4915079232813,
-        337.2,
+        334.6339574413039,
         346.0
       ],
       "name": "West funnel frame seat",
-      "reason": "The seat falls inward at 45 degrees from the pocket's flank and grows without support. Its insert pilot opens on the ledge's flat underside."
+      "reason": "The seat falls inward at 45 degrees from the pocket's flank and grows without support. Its insert pilot runs square into the seat; keep it clear."
     },
     {
       "bounds_source_mm": [
         82.7,
-        91.5,
+        95.26604255869606,
         253.4915079232813,
         265.4915079232813,
-        337.2,
+        334.6339574413039,
         346.0
       ],
       "name": "East funnel frame seat",
-      "reason": "The seat falls inward at 45 degrees from the pocket's flank and grows without support. Its insert pilot opens on the ledge's flat underside."
+      "reason": "The seat falls inward at 45 degrees from the pocket's flank and grows without support. Its insert pilot runs square into the seat; keep it clear."
     },
     {
       "blocking_bounds_source_mm": [

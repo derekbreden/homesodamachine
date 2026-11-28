@@ -6,7 +6,7 @@ use crate::shapes::{corner_prism, rounded, rounded_prism};
 use crate::shell::*;
 use crate::structure::FUNNEL_SEAT;
 use crate::ystacks::y_stack_axis;
-use hsm_enclosure_numbers::funnel_mount::{self, BACK_BORE_LAND, BACK_SEAT_SLOPE, REAR_ACCESS, SCREW_GRIP};
+use hsm_enclosure_numbers::funnel_mount::{self, BACK_PILOT_RELIEF, BACK_SEAT_SLOPE, REAR_ACCESS, SCREW_GRIP};
 pub use hsm_enclosure_numbers::funnel_mount::PAD_HALF_Y;
 
 pub const COLLAR_W: f64 = 165.0;
@@ -81,8 +81,8 @@ pub fn roof_datums([_cx, cy]: P2, seat: f64) -> Roof {
 }
 
 /// A frame screw and its ledge in the shell. A sloped ledge is a back one: its seat falls
-/// inward from the pocket's flank, and its insert presses in from its flat underside into a
-/// pilot that runs on up through the seat.
+/// inward from the pocket's flank, and its screw stands square to the seat, crossing it at the
+/// station, where its insert opens flush. Its pilot runs down and outward along that axis.
 #[derive(Clone, Copy, Debug)]
 pub struct Fastener {
     pub col: Y,
@@ -96,27 +96,44 @@ pub struct Fastener {
     pub host_bottom_z: f64,
     pub host_radius: f64,
     pub sloped: bool,
+    /// The screw's axis, up toward its head: upright at the front, the seat's normal at the back.
+    pub axis: [f64; 3],
+    /// How far the pilot runs from the insert's mouth along the axis.
+    pub pilot_depth: f64,
 }
 
-pub fn fasteners(centre: P2, seat: f64) -> impl Iterator<Item = Fastener> {
+pub fn fasteners(inner: &Bounds, centre: P2, seat: f64) -> impl Iterator<Item = Fastener> {
     let r = roof_datums(centre, seat);
     let ledge = r.floor;
-    let bore_bottom = ledge - HEATSET_LONG_LEN - PILOT_RELIEF;
-    let entry = funnel_mount::back_insert_entry(ledge);
+    let flat_depth = HEATSET_LONG_LEN + PILOT_RELIEF;
+    let sloped_depth = HEATSET_LONG_LEN + BACK_PILOT_RELIEF;
+    let inner = *inner;
     funnel_mount::stations(r.front, r.back).map(move |station| {
         let sloped = !station.front;
+        let x = centre[0] + station.x;
+        let half = HEATSET_DIA / 2.0;
+        let (mouth, axis, depth) = if sloped {
+            let mouth = ledge - (seat_flank(&inner, station.side) - x).abs() * BACK_SEAT_SLOPE;
+            (mouth, funnel_mount::back_axis(station.side), sloped_depth)
+        } else {
+            (ledge, [0.0, 0.0, 1.0], flat_depth)
+        };
+        // The pilot's lowest point: its blind end, less the end disk's fall across its radius.
+        let low = mouth - depth * axis[2] - half * axis[0].abs();
         Fastener {
             col: if station.front { Y::Front } else { Y::Back },
             side: station.side,
-            x: centre[0] + station.x,
+            x,
             y: station.y,
             ledge_z: ledge,
             head_seat_z: ledge + SCREW_GRIP,
-            insert_top_z: if sloped { entry + HEATSET_LONG_LEN } else { ledge },
-            bore_bottom_z: if sloped { entry } else { bore_bottom },
-            host_bottom_z: if sloped { entry } else { bore_bottom - WALL },
-            host_radius: HEATSET_DIA / 2.0 + WALL,
+            insert_top_z: mouth,
+            bore_bottom_z: mouth - depth * axis[2],
+            host_bottom_z: low - WALL,
+            host_radius: half + WALL,
             sloped,
+            axis,
+            pilot_depth: depth,
         }
     })
 }
@@ -155,7 +172,7 @@ pub fn body_blank(g: &mut Graph, centre: P2, seat: f64, air: f64, inner: &Bounds
     let r = roof_datums(centre, seat);
     let mut stock = blank(g, BODY_WIDTH + 2.0 * air, r.front - air, r.back + air, [floor - air, seat + air],
                           cx, FRAME_CORNER + air, inner, y_joint, air);
-    for row in fasteners(centre, seat) {
+    for row in fasteners(inner, centre, seat) {
         let inside = row.x - row.side * (row.host_radius + slide_slip() - air);
         let (xa, xb) = sorted(inside, cx + row.side * 150.0);
         let start = row.y - PAD_HALF_Y - slide_slip() + air;
@@ -195,7 +212,7 @@ pub fn front_roof_clearance(g: &mut Graph, inner: &Bounds, centre: P2, seat: f64
 pub fn receivers(g: &mut Graph, inner: &Bounds, outer: &Bounds, centre: P2, seat: f64, col: Y,
                  up: Option<f64>) -> Option<Shape> {
     let mut blocks = Vec::new();
-    for row in fasteners(centre, seat).filter(|r| r.col == col) {
+    for row in fasteners(inner, centre, seat).filter(|r| r.col == col) {
         let side = row.side;
         let inside = row.x - side * row.host_radius;
         let (xa, xb) = sorted(inside, if side < 0.0 { outer[0] } else { outer[1] });
@@ -222,28 +239,19 @@ pub fn receivers(g: &mut Graph, inner: &Bounds, outer: &Bounds, centre: P2, seat
     Some(g.union(*first, rest))
 }
 
-/// The heat-set bores one column's frame screws take in the shell. A sloped ledge's pilot runs
-/// from its underside up through the seat. Inward of its axis it runs on as a slot of its own
-/// width, closed by a face square to the seat that lands `BACK_BORE_LAND` past the bore wall, so
-/// the seat meets no bore edge at less than a right angle.
+/// The heat-set bores one column's frame screws take in the shell. A sloped ledge's pilot is
+/// drawn upright through its mouth on the seat and turned about that point square to the seat.
 pub fn shell_screw_cuts(g: &mut Graph, inner: &Bounds, centre: P2, seat: f64, col: Y) -> Option<Shape> {
-    let bores: Vec<Shape> = fasteners(centre, seat)
+    let bores: Vec<Shape> = fasteners(inner, centre, seat)
         .filter(|r| r.col == col)
         .map(|r| {
+            let half = HEATSET_DIA / 2.0;
+            let pilot = g.zcyl(half, r.x, r.y, r.insert_top_z - r.pilot_depth, r.insert_top_z + 1.0);
             if r.sloped {
-                let half = HEATSET_DIA / 2.0;
-                let pilot = g.zcyl(half, r.x, r.y, r.bore_bottom_z - 1.0, r.ledge_z + 1.0);
-                let land = r.x - r.side * (half + BACK_BORE_LAND);
-                let land_z = r.ledge_z - (seat_flank(inner, r.side) - land).abs() * BACK_SEAT_SLOPE;
-                let axis_z = land_z - (r.x - land).abs() / BACK_SEAT_SLOPE;
-                let run = r.host_radius + 1.0;
-                let edge = r.x - r.side * run;
-                let open = g.xz_prism(r.y - half, r.y + half,
-                                      vec![[r.x, axis_z], [edge, axis_z + run / BACK_SEAT_SLOPE],
-                                           [edge, r.ledge_z + 1.0], [r.x, r.ledge_z + 1.0]]);
-                g.union(pilot, &[open])
+                let mouth = [r.x, r.y, r.insert_top_z];
+                g.rotate(pilot, mouth, [r.x, r.y + 1.0, r.insert_top_z], funnel_mount::back_tilt_degrees(r.side))
             } else {
-                g.zcyl(HEATSET_DIA / 2.0, r.x, r.y, r.bore_bottom_z, r.insert_top_z + 1.0)
+                pilot
             }
         })
         .collect();

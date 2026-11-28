@@ -139,11 +139,9 @@ pub struct Inputs {
     pub psu_screws: usize,
     pub relay: Relay,
     pub c14: C14,
-    /// The rods one flank's Y stack takes, the funnel frame's screws, and those of them that
-    /// reach the back ledges' inserts on the deep M3.
+    /// The rods one flank's Y stack takes, and the funnel frame's screws.
     pub seam_rods: usize,
     pub funnel_screws: usize,
-    pub funnel_deep_screws: usize,
     pub compressor: Compressor,
 }
 
@@ -415,18 +413,14 @@ fn figures(input: &Inputs, casting: &Value) -> Result<(Variables, Variables)> {
     put("SMALL_WASHERS_COST", cost(c14_screws + condenser, SMALL_WASHERS)?);
 
     let pump_clamps = n(input.bodies.iter().filter(|name| name.starts_with("pump-retainer-") && name.ends_with("-screw")).count());
-    let funnel_deep = n(input.funnel_deep_screws);
     put("PUMP_CLAMP_SCREWS",count(pump_clamps));
-    put("FUNNEL_FRAME_BACK_SCREWS",count(funnel_deep));
-    put("M3X25_TOTAL",count(pump_clamps + funnel_deep));
-    put("M3X25_COST",cost(pump_clamps + funnel_deep,M3X25)?);
+    put("M3X25_TOTAL",count(pump_clamps));
+    put("M3X25_COST",cost(pump_clamps,M3X25)?);
 
-    // The common screws retain each small mounted part; the pump clamps and the funnel frame's
-    // back screws use the deep stock.
+    // The common screws retain each small mounted part; the pump clamps use the deep stock.
     let funnel = n(input.funnel_screws);
     let m3x8 = pcba + condenser + NAMEPLATE_SCREWS + DISPLAY_COVER_SCREWS + STATUS_PLATE_SCREWS;
-    let m3x12 = touchflo + c14_screws + psu + funnel - funnel_deep;
-    put("FUNNEL_FRAME_FRONT_SCREWS", count(funnel - funnel_deep));
+    let m3x12 = touchflo + c14_screws + psu + funnel;
     put("M2X6_TOTAL", count(relays));
     put("M2X6_UNIT_COST", cost(1., M2X6)?);
     put("M2X6_COST", cost(relays, M2X6)?);
@@ -452,6 +446,7 @@ fn figures(input: &Inputs, casting: &Value) -> Result<(Variables, Variables)> {
             fmt(DISPLAY_COVER_SCREWS, "")
         ),
     );
+    put("FUNNEL_FRAME_SCREWS", count(funnel));
     put("ROOF_CLOSURE_INSERTS", count(funnel));
     put("ROOF_CLOSURE_SCREWS", count(funnel));
     let seam_rods = FLANKS * n(input.seam_rods);
@@ -516,7 +511,7 @@ fn figures(input: &Inputs, casting: &Value) -> Result<(Variables, Variables)> {
     put("SODA_FAUCET_FT", fmt(input.faucet.soda_cut / FOOT, ".2f"));
 
     // labor.md's assembly: every insert pressed and every screw driven.
-    let m3_screws = m3x8 + m3x12 + reservoir_inserts + pump_clamps + funnel_deep;
+    let m3_screws = m3x8 + m3x12 + reservoir_inserts + pump_clamps;
     let m5_screws = floor + seam_rods + clamp_inserts;
     let mut labor = Variables::new();
     for (name, value) in [

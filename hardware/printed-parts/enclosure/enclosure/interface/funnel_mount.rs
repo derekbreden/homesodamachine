@@ -6,18 +6,25 @@ pub const PAD_HALF_Y: f64 = 6.0;
 
 /// The back row's seats fall inward from the roof pocket's flanks at this rise per run, so
 /// back-top grows them ceiling-down and the frame its matching faces upright, each without
-/// support. The back screw is the deep M3 and its tip passes this far beyond its insert, which
-/// presses in from the ledge's flat underside below the seat. Where the bore crosses a seat it
-/// runs on as a slot of its own width, closed by a face square to the seat that lands this far
-/// past the bore wall.
+/// support. Each back screw stands square to its seat and crosses it at its station, so its
+/// clamp runs straight through the two faces and pushes neither part sideways. It is the regular
+/// M3, its insert opens flush on the seat, and the frame's head seat stands `BACK_SCREW_GRIP`
+/// from the seat along the screw, low enough that the head stays clear of the funnel brim's aft
+/// corner. The pilot runs `BACK_PILOT_RELIEF` past the insert for the longer reach that leaves.
 pub const BACK_SEAT_SLOPE: f64 = 1.0;
-pub const BACK_SCREW_LENGTH: f64 = crate::fasteners::M3_DEEP_SCREW_LENGTH;
-pub const BACK_TIP_PASS: f64 = 0.5;
-pub const BACK_BORE_LAND: f64 = 1.0;
+pub const BACK_SCREW_GRIP: f64 = 4.5;
+pub const BACK_PILOT_RELIEF: f64 = 3.0;
 
-/// A back insert's entrance on its ledge's underside, under a ledge plane at `ledge`.
-pub fn back_insert_entry(ledge: f64) -> f64 {
-    ledge + SCREW_GRIP - BACK_SCREW_LENGTH + BACK_TIP_PASS
+/// A back screw's axis on the side `side`: its seat's normal, up and inward.
+pub fn back_axis(side: f64) -> [f64; 3] {
+    let k = BACK_SEAT_SLOPE.hypot(1.0);
+    [-side * BACK_SEAT_SLOPE / k, 0.0, 1.0 / k]
+}
+
+/// How far a back screw turns from upright toward its seat's normal, in degrees, as a turn
+/// about +Y: positive on the west side.
+pub fn back_tilt_degrees(side: f64) -> f64 {
+    -side * BACK_SEAT_SLOPE.atan().to_degrees()
 }
 
 /// Each row names a mirrored pair by its X axis and offset from the corresponding roof edge.
