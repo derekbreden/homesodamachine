@@ -12,6 +12,7 @@ import { mountPdfjsAssets, renderDocumentReader } from "./document-reader.js";
 import { readMaterialCatalog } from "./material-catalog.js";
 import { materialHash } from "../contracts/material-tabs.js";
 import { readFitted } from "./fitted.js";
+import { readFittedClearances } from "./fitted-clearances.js";
 import { numberedModels } from "../contracts/materials.js";
 import { readPartCosts } from "./part-costs.js";
 import { readMaterialStock } from "./material-stock.js";
@@ -89,6 +90,9 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
     try { catalog.stock = readMaterialStock(hardwareDir, catalog); } catch { catalog.stock = null; }
     // The fitted record rides with it too; a checkout without the record says nothing of fit.
     try { catalog.fitted = readFitted(hardwareDir, catalog, pointersPath); } catch { catalog.fitted = null; }
+    try { catalog.fittedClearances = readFittedClearances(hardwareDir); } catch (error) {
+      if (error.code !== "ENOENT") console.error("Fitted clearance records unavailable", error);
+    }
     catalog.printPlaybacks = readPrintPlaybacks();
     res.json(catalog);
   });

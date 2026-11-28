@@ -122,6 +122,11 @@ function openFile(want, pushHistory) {
 export function openViewerHash(hash, pushHistory = false) {
   const want = wantFromHash(hash.slice(1));
   if (want.material) return openMaterial(want.material, pushHistory, want);
+  // A surface link in an open model navigates its canvas and preserves the material entry for Back.
+  if (want.find && pushHistory && state.currentDetail?.type === "step") {
+    history.pushState(null, "", hash);
+    return followViewerHistory();
+  }
   if (want.type) {
     openFile(want, pushHistory);
     if (pushHistory && location.hash !== hash) history.replaceState(history.state, "", hash);

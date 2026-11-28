@@ -1,5 +1,5 @@
 // Material tabs group relationship and resource records while retaining subsection links.
-const tabs = new Set(["structure", "stock-cost", "location", "docs"]);
+const tabs = new Set(["structure", "stock-cost", "location", "clearances", "docs"]);
 const sections = {
   bom: { tab: "structure", section: "bom" },
   used: { tab: "structure", section: "used" },
