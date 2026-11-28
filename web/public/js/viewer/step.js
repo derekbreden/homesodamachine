@@ -316,13 +316,10 @@ function componentViewBodies(location, names) {
 // A fitted interface reads the same published meshes as 3D, without changing its mounted model.
 export async function inspectionMeshes(file, signal) {
   const location = stepLocation(file);
-  let bodies;
-  const select = location.component && (head => {
-    const entries = head.meshes.map(node => node.entries.map(entry => entry.name));
-    bodies = componentViewBodies(location, entries.flat().map(bodyName));
-    return { only: true, first: entries.flatMap((names, i) =>
-      names.some(name => bodies.some(body => matchesBody(name, body))) ? [i] : []) };
-  });
+  // A surface witness can name one numbered solid inside an installed component.
+  const includes = name => name === location.component || matchesBody(name, location.component);
+  const select = location.component && (head => ({ only: true, first: head.meshes.flatMap((node, i) =>
+    node.entries.some(entry => includes(entry.name)) ? [i] : []) }));
   const loaded = await fetchMeshes(location.file, {}, { signal, select: select || undefined });
   signal.throwIfAborted();
   let result = loaded?.result;
@@ -331,9 +328,7 @@ export async function inspectionMeshes(file, signal) {
     if (!response.ok) throw new Error("Model unavailable");
     result = await parseStep(await response.arrayBuffer(), signal);
   }
-  if (!location.component) return result.meshes;
-  bodies ||= componentViewBodies(location, result.meshes.map(mesh => mesh.name));
-  return result.meshes.filter(mesh => bodies.some(body => matchesBody(mesh.name, body)));
+  return location.component ? result.meshes.filter(mesh => includes(mesh.name)) : result.meshes;
 }
 
 // A departing solid releases its Blueprint overlay before releasing its surface.

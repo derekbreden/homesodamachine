@@ -330,16 +330,16 @@
 @media (max-width: 375px) {
   /* The full view switch can use the strip below the toolbar on narrow phones. */
   .cad-workspace { --view-switch-height: calc(var(--cad-control-height) + 2px); }
-  .cad-workspace:has(.material-view-switch > :nth-child(3)):not(:has(.drawing-open)) .cad-view-tools {
+  .cad-workspace:not(:has(.clearances-mode)):has(.material-view-switch > :nth-child(3)):not(:has(.drawing-open)) .cad-view-tools {
     position: absolute;
     inset-block-start: 100%;
     inset-inline-end: 12px;
   }
-  .cad-workspace:has(.material-view-switch > :nth-child(3)) .cad-wrapper > .component-panel {
+  .cad-workspace:not(:has(.clearances-mode)):has(.material-view-switch > :nth-child(3)) .cad-wrapper > .component-panel {
     inset-block-start: var(--view-switch-height);
     max-height: calc(100% - var(--view-switch-height));
   }
-  .cad-workspace:has(.material-view-switch > :nth-child(3)) :is(.material-print-view, .material-pcb-view, .material-clearance-view) {
+  .cad-workspace:not(:has(.clearances-mode)):has(.material-view-switch > :nth-child(3)) :is(.material-print-view, .material-pcb-view) {
     inset-block-start: var(--view-switch-height);
     height: calc(100% - var(--view-switch-height));
   }
@@ -350,8 +350,7 @@
 }
 
 @media (max-width: 600px) {
-  .cad-workspace:has(.material-view-switch > :nth-child(3)) .cad-workspace-header { flex-wrap: wrap; }
-  .cad-workspace:has(.material-view-switch > :nth-child(3)) .cad-view-tools { display: contents; }
-  .cad-workspace:has(.material-view-switch > :nth-child(3)) .cad-view-slot { order: 1; flex: 1 0 100%; overflow-x: auto; }
-  .cad-workspace:has(.material-view-switch > :nth-child(3)) .material-clearance-view { inset: 0; height: 100%; }
+  .cad-workspace:has(.clearances-mode):has(.material-view-switch > :nth-child(3)) .cad-workspace-header { flex-wrap: wrap; }
+  .cad-workspace:has(.clearances-mode):has(.material-view-switch > :nth-child(3)) .cad-view-tools { display: contents; }
+  .cad-workspace:has(.clearances-mode):has(.material-view-switch > :nth-child(3)) .cad-view-slot { order: 1; flex: 1 0 100%; overflow-x: auto; }
 }

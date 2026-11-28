@@ -22,7 +22,7 @@ export function mountMaterialDrawing(wrapper, { hideMaterials, recordOnly = fals
   switcher.hidden = true;
   const model = button(recordOnly ? "Material" : "3D"), drawing = button("Drawing"), print = button("Print"), pcb = button("PCB");
   const bench = button("Bench", "Bench photos");
-  const clearances = button("Clearances");
+  const clearances = button("Clearances"); clearances.className = "clearances-mode";
   const modes = { model, drawing, print, pcb, bench, clearances };
   for (const [name, control] of Object.entries(modes)) control.setAttribute("aria-pressed", String(name === "model"));
   switcher.append(model);
