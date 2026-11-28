@@ -1,0 +1,172 @@
+{
+  "views": [
+    {
+      "name": "man-b",
+      "caption": "Section through the five-way pocket in the front shell.",
+      "before": "man-b-before.webp",
+      "after": "man-b-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 682,
+          "y": 440.5,
+          "r": 27.5,
+          "label": "Fitted cheek",
+          "at": [
+            99.3,
+            169.4,
+            243
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -426.96009973748244,
+          320.15882792649506,
+          305.87521196849787
+        ],
+        "target": [
+          97,
+          173.45,
+          243
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 18,
+        "near": 250.14175176248514,
+        "far": 843.5186930524478,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            99.3,
+            173.45,
+            243
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "68f118afa065e7f43c5e49b6db1d2c0ad09a11fce25413192f1cb20fc18cd1a2",
+          "commit": "4edac36518d98eb80abeef44206b76c0cd4cff5b",
+          "taken": "2026-11-28T05:22:56.066Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "e933bfb74cabc3269b5e08a39bd6d9f9ab15bfb004d0abaa34f5944076b06089",
+          "commit": "0eea21a029b7df7fee0def40668c7ffe03ab5401",
+          "published": true
+        }
+      },
+      "changed": [],
+      "withinMeshing": [
+        "enclosure-front-top"
+      ]
+    },
+    {
+      "name": "cheek",
+      "caption": "Cross-section of the gripping cheek at the connector mouth. Each cheek advances 0.05 mm.",
+      "before": "cheek-before.webp",
+      "after": "cheek-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 570.3,
+          "y": 434.6,
+          "r": 96,
+          "label": "Cheek at the mouth",
+          "at": [
+            95.8,
+            169.4,
+            243
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          15.165264224415665,
+          104.82721137953254,
+          780.8982385038955
+        ],
+        "target": [
+          95.85,
+          169.375,
+          243
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "half": 0.75,
+        "near": 295.2956260234795,
+        "far": 888.6725673134422,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            95.85,
+            169.375,
+            243
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "68f118afa065e7f43c5e49b6db1d2c0ad09a11fce25413192f1cb20fc18cd1a2",
+          "commit": "4edac36518d98eb80abeef44206b76c0cd4cff5b",
+          "taken": "2026-11-28T05:22:56.066Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "e933bfb74cabc3269b5e08a39bd6d9f9ab15bfb004d0abaa34f5944076b06089",
+          "commit": "0eea21a029b7df7fee0def40668c7ffe03ab5401",
+          "published": true
+        }
+      },
+      "changed": [],
+      "withinMeshing": [
+        "enclosure-front-top"
+      ]
+    }
+  ]
+}
