@@ -282,21 +282,13 @@ alternatives: Filling to the smaller profile enters the swept body envelope. Rep
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=29.137 y=401.452 z=342.489
 
-[sliver] Rear Wago half-well boundary at the enclosure’s retained rounded corner: the 1.017 mm dimension is the Y extent of the exposed outer side face where the rectangular half-well meets that corner. Its actual side-wall section is 3 mm in X, from X−97.55 to the pocket plane X−94.55. The well must retain the purchased rectangular blank half while leaving its lever and wire-entry half open.
-alternatives: Changing this boundary to a 3 mm Y strip requires moving the complete fitted well away from the retained rear corner or changing that corner. Thickening the X wall does not change the classified face extent; filling the open half occupies the lever and wire-entry access.
+[ceiling] Two small flats behind the rails of each FLAVOR B and DRAIN channel set the lower card’s height. The 45° chamfer between them grows from the enclosure. Each card carries the matching relief. Both channels are clear of support throughout their height in the Mark1 G-code. See enclosure/enclosure/prints/2026-11-27-back-top-square-seats-mark1/back-top-toolpaths.json.
+alternatives: Extending the chamfer through the end flats loses the card’s height datum. Filling the channel blocks insertion. The four seating flats locate the two chamfered cards.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-97.550 y=458.009 z=269.709
-click: x=-97.550 y=458.009 z=268.200
-click: x=-97.550 y=458.009 z=270.450
-click: x=-97.550 y=458.009 z=301.209
-click: x=-97.550 y=458.011 z=270.450
-click: x=-97.550 y=458.011 z=301.211
-
-[ceiling] Functional bottom stops of the two continuous label channels: each 32.3 by 2.0 mm flat locates the sliding tile stack at Z252, with the channel open to the rear before the tiles are inserted. Tree(auto)/Default supports can leave through that mouth before installation; removal quality remains a print-preparation question.
-alternatives: A sloped stop changes the tile’s bottom bearing and bore registration. Filling the channel blocks tile insertion; removing the stop loses its axial datum.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=77.500 y=470.299 z=252.000
-click: x=37.250 y=470.299 z=252.000
+click: x=8.725 y=470.000 z=240.600
+click: x=48.875 y=470.000 z=240.600
+click: x=56.425 y=470.000 z=240.600
+click: x=96.575 y=470.000 z=240.600
 
 [ceiling] Fitted meter housing and snap profiles: the flat faces bound the complete housing flange, screw bosses and lead exit through their fitted installation sweep. They are the purchased-body boundaries of the east-wall seat. Tree(auto)/Default reaches them through the empty west/fore opening before the meter is installed; geometric access does not establish easy support removal.
 alternatives: Filling or corbelling into these faces enters the fitted housing or its insertion sweep. Shortening the pocket removes part of the required clearance.
@@ -308,12 +300,15 @@ click: x=90.600 y=423.426 z=269.400
 click: x=90.600 y=392.594 z=269.400
 click: x=95.350 y=408.010 z=269.350
 
-[ceiling] Fitted rear Wago half-well ends: each 19.1 by 9.5 mm flat is the blank half of a rectangular 221-413 pocket with 3 mm surrounding stock. The front half remains open for the levers and conductors. Tree(auto)/Default approaches through the open fore mouth before the Wagos are fitted; physical support cleanup remains unqualified.
-alternatives: Filling or sloping the pocket end occupies the purchased connector. Removing it opens axial capture. A separate holder adds a second part to perform the integral well’s job.
+[ceiling] Each of the six WAGO 221-413 pockets on the west wall retains the blank half of a connector. Its rectangular opening is 8.20 × 18.70 mm. With the shell printing roof-down, the six flat ends at machine Z295.525 and Z324.025 close over one tree apiece. Each tree stands on its own pocket floor. Its crown clears the mouth by at least 0.48 mm. All 24 transverse bridge roads on each roof land on both cheeks. See enclosure/enclosure/prints/2026-11-27-back-top-square-seats-mark1/wago-fit-toolpaths.json.
+alternatives: Sloping the roof into the opening enters the fitted connector body. Removing the end loses axial capture. A separate holder adds another part to locate the connector.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-85.000 y=461.225 z=263.850
-click: x=-85.000 y=462.225 z=296.350
-click: x=-61.000 y=461.225 z=265.850
+click: x=-97.775 y=260.000 z=295.525
+click: x=-97.775 y=276.000 z=295.525
+click: x=-97.775 y=292.000 z=295.525
+click: x=-93.775 y=392.200 z=324.025
+click: x=-93.775 y=408.200 z=324.025
+click: x=-93.775 y=424.200 z=324.025
 
 [sliver] Fitted PSU case running-well boundary: the case well ends at Z347.25, 1.25 mm above the ordinary inner roof and 0.25 mm above the screw-ear bearing plane. The rectangular boundary clears the complete purchased case while retaining the four mounting-ear planes and 3 mm above every blind insert pilot.
 alternatives: Removing the well lowers the PSU 1.25 mm and enters the pump snap arch by about 0.95 mm. Raising the surrounding inner roof changes the enclosure ceiling and its equipment seats. The well retains the selected mechanical clearance without moving those assemblies.
@@ -371,12 +366,6 @@ click: x=85.625 y=403.421 z=306.750
 click: x=94.700 y=395.335 z=265.300
 click: x=94.700 y=420.335 z=265.300
 
-[ceiling] Functional bottom stops of the two continuous label channels: each 32.3 by 2.0 mm flat locates the sliding tile stack at Z252, with the channel open to the rear before the tiles are inserted. Tree(auto)/Default supports can leave through that mouth before installation; removal quality remains a print-preparation question.
-alternatives: A sloped stop changes the tile’s bottom bearing and bore registration. Filling the channel blocks tile insertion; removing the stop loses its axial datum.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=28.800 y=470.299 z=252.000
-click: x=76.500 y=470.299 z=252.000
-
 [ceiling] Fitted relay-board edge capture: these are the bearing and retaining faces for the 1.5 mm PCB with 0.25 mm edge clearance. Each ledge retains 3 mm stock, the upper lip overlaps the PCB edge by 1.25 mm, and the underside leaves the specified 2.5 mm pin room. The board enters from the fore edge before the two header screws are fitted. Automatic supports are removed through the open inboard face before installation.
 alternatives: Filling the edge slot occupies the PCB; removing the lip loses the terminal-end capture. Sloping its flat catch creates a release ramp. Extending the rail across the underside enters the terminal-pin envelope.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -409,16 +398,6 @@ click: x=-97.827 y=381.933 z=306.657
 alternatives: Making these surfaces coplanar requires thickening the common roof by 0.645 mm or lowering the accepted jack floor by that amount. They locate different components; neither surface is a stray pad or unsupported film.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-64.662 y=460.450 z=280.695
-
-[ceiling] Upright neutral-junction pocket floor: the 9.5 by 8.7 mm flat at Z257.95 supports the 221-413 with 0.15 mm body clearance and 3 mm stock beneath it. Its full fore opening admits the connector and allows automatic supports to be removed before wiring back-top on the bench. Tree(auto)/Default supports leave through the unloaded fore opening before the connector is fitted. Physical support cleanup at this station is unqualified.
-alternatives: Filling or sloping this floor changes the connector bearing and installed pose. Removing the floor loses the integral well’s lower capture. A separate holder adds a part to perform the same locating function.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-65.200 y=461.225 z=257.950
-
-[ceiling] Solid common live/neutral well roof at Z280.05: the level roof joins both blank-half wells to the rear wall beneath the retained jack receiver. It keeps 3 mm above the upright neutral pocket and 7.5 mm above the live pocket. The live side contains no narrow intermediate slot. Tree(auto)/Default supports approach through the unloaded fore opening and are removed before the WAGOs are installed. Physical cleanup at this station is unqualified.
-alternatives: A rising roof reaches the data-jack receiver’s fitted region. Separate roofs retain a narrow intermediate support pocket. Filling the connector pockets changes their fit; omitting the roof removes the well’s rear-wall load path.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-77.700 y=459.400 z=280.050
 
 [step] The meter label ends at X95.2 and its screw heads at X95.4. Their separate fitted end planes are X95.35 and X95.55, each with 0.15 mm axial air. The 0.2 mm offset locates the label surface while admitting the taller heads.
 alternatives: One X95.55 plane adds 0.2 mm axial space at the requested label bearing. One X95.35 plane interferes with the screw heads. Recessing the heads changes the purchased reference geometry.

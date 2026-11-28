@@ -28,6 +28,8 @@ The standalone full-size meter receiver finished printing on Mark2. On both nati
 
 Slide the chamfered FLAVOR B and DRAIN cards into their channels first. Each rests on two small flats behind the rails, setting the bore height. The two channels print clear. Remove the flow-meter supports through the open west side before installing the meter. [Matching nameplate and labels plate](rear-identification/prints/2026-11-27-chamfered-stop-mark1/print-plan.json) · [Meter installation and service](rear-equipment-caps/README.md#installation-and-service)
 
+The installed-machine review identified wire routes to dress clear of the meter receiver and V‑B clip, and measured the funnel-frame clearance with the lid seated on its shell. [Back-top and cold-core lid before the full print](final-draft-review-2026-11-27.md)
+
 ## Earlier enclosure reviews
 
 The earlier four-part review covered back-top HSM-0081, front-top HSM-0079,

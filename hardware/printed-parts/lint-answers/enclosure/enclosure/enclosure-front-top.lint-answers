@@ -8,13 +8,11 @@ click: x=99.175 y=120.290 z=253.100
 click: x=-99.175 y=137.096 z=235.811
 click: x=99.175 y=136.961 z=235.811
 
-[ceiling] Functional retention faces with stated support: each is the roof of a Wago pocket in the east manifold tower, Z258.15 over the 221-415 and Z292.05 over the 221-420, and holds the connector's end in its closed pocket. Under front-top's recipe (`max_bridge_length` 0) Tree(auto) carries each roof on support that enters through the pocket's open inboard face, and that support comes out the same way before the connector goes in. Removal effort remains unqualified.
-alternatives: A roof rising 45 degrees toward the open face, or the side wells' two-tab lid with its 45-degree ramp, needs the tower about 6.5 mm taller over the 221-420 and gives up the flat capture across the connector's end. A gable cannot fit in the 3.8 mm between the two stacked pockets. A longer bridge length in front-top's recipe would print both roofs as bridges, but it changes every other bridge on the piece.
+[ceiling] The rectangular end faces retain the five-way MAN-B and ten-way MAN-A connectors. Their fitted openings are 8.10 × 30.20 mm and 15.70 × 30.10 mm. One removable tree stands on each pocket floor. The Mark1 G-code places 21 bridge roads across each roof and anchors them to both cheeks. Each crown clears the inboard mouth by at least 0.48 mm during withdrawal. See enclosure/enclosure/prints/2026-11-27-front-top-fit-d-mark1/wago-fit-toolpaths.json.
+alternatives: A sloped roof occupies the connector end. A gable across the fitted opening needs more stock between these stacked pockets. The flat roof preserves the overlap that captures each connector.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=100.150 y=173.450 z=258.150
+click: x=100.150 y=173.450 z=258.100
 click: x=100.150 y=177.150 z=292.050
-click: x=99.775 y=173.450 z=258.150
-click: x=99.775 y=177.150 z=292.050
 
 [thin] Accepted wing-retention lips: each reading is the 1.80 mm lip over one of the display cover's wings (3.84 - 1.44 - 0.60), which the accepted face-up cover needs: display-cover/face-up-trial records its 3.30 mm capture and the receiver passed the 2026-09-30 shake test.
 alternatives: A thicker lip needs a deeper inset (cover below flush), thinner wings or less wing air, each a change to the accepted fit; the canonical wing lanes connect through two lower 69.3 by 4.96 mm cleanout mouths into the empty PCB room. Physical support-removal effort remains unqualified.

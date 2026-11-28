@@ -1,0 +1,156 @@
+{
+  "purpose": "Final print-file review of the Mark1 equipment lid before the full build. Widths and path clearances are from CAD and commanded extrusion, in millimetres.",
+  "current_inputs": {
+    "source_stl_sha256": "9acecaa2f0bef23ac19881fcb6b700b62de673d8659a9e867142f4dfcdbd5d27",
+    "source_fine_archive_sha256": "2876dccc9ed5cd9375958fd133fdaab96baba3f270ab3f8b76ce5f2bc776d0f2",
+    "print_regions_sha256": "373076c5f71c020ac972ebb282dbff40108e8cdb3e9cfc48a80a8b01d9356fa3",
+    "project_sha256": "5e7f81a2ac9ef4a17611e156db2a94399b49033347e06efbb82b262124af4435",
+    "archive_sha256": "84bd9cb178994f7e9e11543ab1fe7d745b8830be11d3e6057969ef17d2b79230",
+    "gcode_sha256": "e2a1036748a6b41cf07f57735f43ad96eab7170e9a41465f3af912f22465ff3d"
+  },
+  "mark1": {
+    "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
+    "printer": "Mark1",
+    "layers": 224,
+    "material": "Polymaker Fiberon PET-GF15, black",
+    "plate": "Textured PEI Plate",
+    "minimum_bead_margin_mm": 20.262,
+    "slicer_warnings": [],
+    "designated_show_face_contacts": 0,
+    "native_checks": {
+      "archive": true,
+      "bed_border": true,
+      "declared_interiors_support_free": true,
+      "fine_and_transition_bands": true,
+      "show_faces_support_free": true,
+      "solid_hosts_sampled": true,
+      "z_trim": true
+    }
+  },
+  "ten_m5_stations": {
+    "matching_shell_stl_sha256": "5e1e9f92ef81798d7b422d00a80dded135405af42bf2736db40b2f9900ba6814",
+    "shell_print_plan": "hardware/printed-parts/cold-core/foam-shell/prints/2026-11-21-shell-production-mark2/print-plan.json",
+    "lid_rotated_degrees": 180,
+    "lid_section_diameter_mm": 5.2,
+    "shell_pilot_diameter_mm": 6.4,
+    "number_of_matching_axes": 10,
+    "largest_axis_offset_mm": 0.0,
+    "through_gauge_diameter_mm": 5,
+    "max_through_gauge_overlap_mm3": 0.0,
+    "bare_lid_driver_gauge_diameter_length_mm": [
+      4.8,
+      80
+    ],
+    "max_driver_gauge_overlap_mm3": 0.0,
+    "minimum_shank_opening_by_station_in_gcode_mm": [
+      5.174,
+      5.174,
+      5.174,
+      5.174,
+      5.174,
+      5.174,
+      5.174,
+      5.174,
+      5.174,
+      5.174
+    ],
+    "shank_measurement": "Twice the minimum distance from the bore axis to a commanded centreline, less the bead width, from the build plate through the lid face."
+  },
+  "reservoir_air_tubes_4mm": {
+    "minimum_nominal_radial_gap_mm": {
+      "A": 0.6,
+      "B": 0.6
+    },
+    "probe": "Both axes probed through the complete 7.4 mm deck."
+  },
+  "accessible_support": {
+    "automatic_tree_ids": [
+      "tree-1",
+      "tree-2",
+      "tree-7",
+      "tree-8",
+      "tree-9"
+    ],
+    "exit_samples_tested": 1500,
+    "exit_samples_clear": 1500,
+    "exits": [
+      "toward the V-B valve side then up",
+      "out through underside of the Reservoir B fill groove"
+    ],
+    "probe": "Sampled command midpoints on five automatic trees; force and connected-tree release are physical observations.",
+    "four_wago_floor_trees": {
+      "wago-sensors": {
+        "feet": 1,
+        "clearance_through_mouth_mm": 0.48,
+        "open_short_long_mm": [
+          8.2,
+          18.66
+        ]
+      },
+      "wago-reeds-b": {
+        "feet": 1,
+        "clearance_through_mouth_mm": 0.48,
+        "open_short_long_mm": [
+          8.2,
+          18.66
+        ]
+      },
+      "wago-v12": {
+        "feet": 1,
+        "clearance_through_mouth_mm": 0.48,
+        "open_short_long_mm": [
+          8.2,
+          18.66
+        ]
+      },
+      "wago-gnd": {
+        "feet": 1,
+        "clearance_through_mouth_mm": 0.48,
+        "open_short_long_mm": [
+          8.2,
+          18.66
+        ]
+      }
+    }
+  },
+  "pump_guide_first_courses": {
+    "pump west guide at -48.6, slope 45°": {
+      "sampled_path_mm": 440.3,
+      "backed_by_prior_model_mm": 440.3,
+      "unlanded_mm": 0.0
+    },
+    "pump east guide at 18.2, slope 45°": {
+      "sampled_path_mm": 440.3,
+      "backed_by_prior_model_mm": 440.3,
+      "unlanded_mm": 0.0
+    }
+  },
+  "reinforced_hosts_sampled": [
+    "Reservoir A fore direct C2 pair and lid root",
+    "Reservoir A aft C2 pair and lid root",
+    "V-B return clip and lid root",
+    "V-A feed clip and lid root",
+    "Pump discharge clip and lid root",
+    "Pump west catch and lid root",
+    "Pump east catch and lid root",
+    "M5 head bearing 1 and plate root",
+    "M5 head bearing 2 and plate root",
+    "M5 head bearing 3 and plate root",
+    "M5 head bearing 4 and plate root",
+    "M5 head bearing 5 and plate root",
+    "M5 head bearing 6 and plate root",
+    "M5 head bearing 7 and plate root",
+    "M5 head bearing 8 and plate root",
+    "M5 head bearing 9 and plate root",
+    "M5 head bearing 10 and plate root",
+    "pcba insert post 1 and plate root",
+    "pcba insert post 2 and plate root",
+    "pcba insert post 3 and plate root",
+    "pcba insert post 4 and plate root",
+    "wago-sensors insertion pocket transverse bridge",
+    "wago-v12 insertion pocket transverse bridge",
+    "wago-gnd insertion pocket transverse bridge",
+    "wago-reeds-b insertion pocket transverse bridge"
+  ],
+  "evidence_limits": "Bore, driver and tube checks use the bare lid. Install the ten lid screws before mounting equipment above the screw paths. Pump retention under load and operating vibration require the assembled print."
+}
