@@ -2,14 +2,11 @@
   "wago_trials": {
     "accepted": {
       "413": {"cad_mm": [8.20, 18.70, 9.45], "sliced_mm": [8.20, 18.66]},
+      "415": {"cad_mm": [8.10, 30.20, 8.70], "sliced_mm": [8.10, 30.18],
+        "record": ["Five-way coupon fit", "print-tests/wago-pocket-support/prints/2026-11-27-fit-d-mark2/physical-result.json", "2f931b455ab45a2a9c4bfa9c8f64dcc0e75f3bae"]},
       "420": {"cad_mm": [15.70, 30.10, 8.70], "sliced_mm": [15.70, 29.94]}
     },
-    "record": ["Coupon fit", "print-tests/wago-pocket-support/prints/2026-11-27-fit-c-mark2/physical-result.json", "8d658db2372283bf4328344265ebe6deb925d694"],
-    "five_way": {
-      "production_trial": ["Production-size trial", "print-tests/wago-pocket-support/prints/2026-11-27-front-mark1/physical-result.json", "8d658db2372283bf4328344265ebe6deb925d694"],
-      "follow_up": ["Follow-up coupon", "print-tests/wago-pocket-support/prints/2026-11-27-fit-d-mark2/fit-toolpaths.json", "8d658db2372283bf4328344265ebe6deb925d694"],
-      "cad_mm": [8.10, 30.20, 8.70], "sliced_mm": [8.10, 30.18]
-    }
+    "record": ["Coupon fit", "print-tests/wago-pocket-support/prints/2026-11-27-fit-c-mark2/physical-result.json", "8d658db2372283bf4328344265ebe6deb925d694"]
   },
   "collar_bores": {
     "quarter": {"nominal": 6.35, "chosen": 6.68, "tolerance": 0.13},

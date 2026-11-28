@@ -22,8 +22,8 @@
       "bounds_source_mm": [
         94.05,
         107.5,
-        166.35,
-        180.55,
+        166.4,
+        180.5,
         257.85,
         261.1
       ],
@@ -66,8 +66,8 @@
       "bounds_source_mm": [
         95.8,
         104.5,
-        169.35,
-        177.55,
+        169.4,
+        177.5,
         227.9,
         258.1
       ],
@@ -124,8 +124,8 @@
       "bounds_source_mm": [
         94.05,
         104.5,
-        166.35,
-        169.35,
+        166.4,
+        169.4,
         227.9,
         258.1
       ],
@@ -135,15 +135,15 @@
       "bounds_source_mm": [
         94.05,
         104.5,
-        177.55,
-        180.55,
+        177.5,
+        180.5,
         227.9,
         258.1
       ],
       "name": "wago-manb insertion pocket aft gripping cheek"
     }
   ],
-  "source_stl_sha256": "a4ea8b6b35e32d3bab5ddf185648e6c98c5673c8acb0f37fdedf285610f3d80a",
+  "source_stl_sha256": "91ffb56f7b1b0f048f62fda0b7be86c94808ac728a4eb274ebc406c36f880ef6",
   "support_free_regions": [
     {
       "bounds_source_mm": [
@@ -162,8 +162,8 @@
       "bounds_source_mm": [
         94.05,
         104.5,
-        169.35,
-        177.55,
+        169.4,
+        177.5,
         227.9,
         258.1
       ],

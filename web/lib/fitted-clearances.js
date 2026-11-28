@@ -106,12 +106,7 @@ function wagoPockets(hardwareDir, { wago_trials: trials }) {
       if (coupon?.cad_mm.every((mm, i) => mm === [short, long, depth][i])) {
         const [x, y] = coupon.sliced_mm;
         fit.note += ` The accepted Mark2 coupon has a sliced opening of ${x.toFixed(2)} × ${y.toFixed(2)} mm.`;
-        fit.sources.push(evidence(...trials.record));
-      } else if (sku === "415" && trials?.five_way) {
-        const trial = trials.five_way;
-        const span = dims => dims.slice(0, 2).map(mm => mm.toFixed(2)).join(" × ");
-        fit.note += ` The 27 Nov production-size trial felt slightly loose in both directions. The follow-up coupon was ${span(trial.cad_mm)} mm in CAD and ${span(trial.sliced_mm)} mm in the slice.`;
-        fit.sources.push(evidence(...trial.production_trial), evidence(...trial.follow_up));
+        fit.sources.push(evidence(...(coupon.record ?? trials.record)));
       }
       groups.set(key, fit);
     }

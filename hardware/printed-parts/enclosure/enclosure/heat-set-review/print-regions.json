@@ -14,8 +14,8 @@
       ".stl": "02e38d006b5a6d671c18a0c0d634aa880c1e1b652eba8eac5fbf3230ac383007"
     },
     "front-top": {
-      ".step.npz": "c0f857fb0bd0fd543497dc1119d04a7cf4e069142aade1da2651d7cf2d2240fb",
-      ".stl": "a4ea8b6b35e32d3bab5ddf185648e6c98c5673c8acb0f37fdedf285610f3d80a"
+      ".step.npz": "ef8daa9f79c12984938224517cedf83746a648488bb1fc76e4cf040a88f643b3",
+      ".stl": "91ffb56f7b1b0f048f62fda0b7be86c94808ac728a4eb274ebc406c36f880ef6"
     },
     "pump-retainer": {
       ".step.npz": "5ad27d141a9bf5174a6176533b32143af9e253bc016d01cefdec25458ede88e7",
@@ -1400,16 +1400,16 @@
         "applied_source_bounds_mm": [
           94.05,
           104.5,
-          166.35,
-          169.35,
+          166.4,
+          169.4,
           227.9,
           258.1
         ],
         "machine_bounds_mm": [
           94.05,
           104.5,
-          166.35,
-          169.35,
+          166.4,
+          169.4,
           227.9,
           258.1
         ],
@@ -1421,16 +1421,16 @@
         "applied_source_bounds_mm": [
           94.05,
           104.5,
-          177.55,
-          180.55,
+          177.5,
+          180.5,
           227.9,
           258.1
         ],
         "machine_bounds_mm": [
           94.05,
           104.5,
-          177.55,
-          180.55,
+          177.5,
+          180.5,
           227.9,
           258.1
         ],
@@ -1597,7 +1597,7 @@
     "hardware/manifold-layout/machine-export-physical.numbers.json": "90f9a464b95d19a4de7a9a51a3fd7d6d6bd7b01abe99d64dc01eb0f24b39c0dd",
     "hardware/printed-parts/enclosure/display-cover/mount-dimensions.json": "b809250d2d8518ed084bf03bb7c449a9e3d2df04a6c88ef702f7ad31433a8986",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json": "c811c63152dd63ed41eee478a9121f84efcb1dbac72dda14b71cd2e1bc7891d1",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.print-features.json": "05e86be08a5424f10a6e9c40efd166ebc336ce188f5c1f542d62e69ff6764608",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.print-features.json": "a0a20afcf63e6c82b83bd6ebaa481ba8224fbcd1ff27a7a7e22fdf1cfe348b74",
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.rs": "00e496d5daffa5c5d42b48b6558bf574980ab5613a85b92646e71a5fcfbd9add",
     "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json": "4a6ca57e22a457d1a1d1fa7c22afe7255d744f96b470d85d98a47052abe6ca64"
   },
