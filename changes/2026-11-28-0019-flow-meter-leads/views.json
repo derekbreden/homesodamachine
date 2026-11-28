@@ -1,0 +1,184 @@
+{
+  "views": [
+    {
+      "name": "clip-root",
+      "caption": "The 5 V and pulse leads once crossed the clip root. Both now turn behind it, with the ground lead on the other side.",
+      "before": "clip-root-before.webp",
+      "after": "clip-root-after.webp",
+      "width": 1200,
+      "height": 800,
+      "marks": [
+        {
+          "x": 467.8,
+          "y": 405.8,
+          "r": 111.6,
+          "label": "V-B clip root",
+          "at": [
+            9.12,
+            279.99,
+            266.01
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -51.130798405675236,
+          229.1301550725575,
+          778.1984492744248
+        ],
+        "target": [
+          15,
+          280,
+          269.5
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "half": 19,
+        "near": 302.31928152560863,
+        "far": 860.7722411581724,
+        "aspect": 1.5
+      },
+      "highlight": [
+        "wire-J4-V5",
+        "wire-J4-IO25",
+        "wire-flow-GND"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top",
+        "wire-J4-V5",
+        "wire-J4-IO25",
+        "wire-flow-GND"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "e933bfb74cabc3269b5e08a39bd6d9f9ab15bfb004d0abaa34f5944076b06089",
+          "commit": "74b202f3d59f9fce8785fcdad810910decc86988",
+          "taken": "2026-11-28T06:04:33.687Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "9f496ec59c24de59ffca8504f58ca565bc277d954b63e564be9a6d55bd0ed4c5",
+          "commit": "72eaaca96f5836878f6c3ad4823969245bcd8db9",
+          "taken": "2026-11-28T06:19:55.872Z",
+          "published": true
+        }
+      },
+      "changed": [
+        "wire-flow-GND",
+        "wire-J4-V5",
+        "wire-J4-IO25",
+        "wire-J1-COM",
+        "wire-DC1-V12"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "meter-floor",
+      "caption": "The cutaway shows where the leads once dipped into the receiver floor. Each now passes above it to reach its sensor terminal.",
+      "before": "meter-floor-before.webp",
+      "after": "meter-floor-after.webp",
+      "width": 1200,
+      "height": 800,
+      "marks": [
+        {
+          "x": 630.9,
+          "y": 444.4,
+          "r": 68.2,
+          "label": "Receiver floor",
+          "at": [
+            91.54,
+            400.73,
+            263.7
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          210.23041498036673,
+          162.64233299470442,
+          -269.68370445621235
+        ],
+        "target": [
+          91.5,
+          405.5,
+          270
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "half": 17,
+        "near": 342.4103124012562,
+        "far": 996.3123752544187,
+        "aspect": 1.5,
+        "section": {
+          "at": [
+            93,
+            408,
+            264.2
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "wire-J4-V5",
+        "wire-J4-IO25",
+        "wire-flow-GND"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "digiten-flow",
+        "wire-J4-V5",
+        "wire-J4-IO25",
+        "wire-flow-GND"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "e933bfb74cabc3269b5e08a39bd6d9f9ab15bfb004d0abaa34f5944076b06089",
+          "commit": "74b202f3d59f9fce8785fcdad810910decc86988",
+          "taken": "2026-11-28T06:04:33.687Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "9f496ec59c24de59ffca8504f58ca565bc277d954b63e564be9a6d55bd0ed4c5",
+          "commit": "72eaaca96f5836878f6c3ad4823969245bcd8db9",
+          "taken": "2026-11-28T06:19:55.872Z",
+          "published": true
+        }
+      },
+      "changed": [
+        "wire-flow-GND",
+        "wire-J4-V5",
+        "wire-J4-IO25",
+        "wire-J1-COM",
+        "wire-DC1-V12"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
