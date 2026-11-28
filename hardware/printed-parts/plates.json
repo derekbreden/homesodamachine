@@ -31,7 +31,7 @@
     "thumbnail": "/parts/plates/back-top.webp",
     "detail": "Mark1 · PET-GF · four equipment receivers, six floor-rooted WAGO trees, sloped funnel seats and chamfered label channels",
     "href": "/parts#material:HSM-0081?view=print",
-    "download": "/print-archive/6d784ff968a58c9a3dac92e727211ee6803d01af/enclosure-back-top-mark1.3mf",
+    "download": "/print-archive/23fcf2f7ff746e4a08871f3b63689cd78a6d6208/enclosure-back-top-mark1.3mf",
     "parts": [{"label": "Enclosure back top", "material": "HSM-0081"}],
     "relatedPrints": [{"label": "ASSE vent sleeve · TPU", "material": "HSM-0088", "href": "/parts#material:HSM-0088?view=print"}]
   },

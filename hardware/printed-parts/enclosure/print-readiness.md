@@ -12,7 +12,7 @@ carbonator.
 
 | Full plate | Printer | What the fit evidence covers |
 | --- | --- | --- |
-| [Enclosure back top](enclosure/prints/2026-11-27-back-top-fitted-wago-mark1/print-plan.json) | Mark1 | Four integral equipment receivers and six supported WAGO pockets. The Pisco and ASSE fitting pairs were accepted. The water regulator’s full cover and receiver fixture fit very well with the 0.40 mm saddle adjustment. The sideways Digiten pocket carries the supported upper guide and ledges into the enclosure. |
+| [Enclosure back top](enclosure/prints/2026-11-27-back-top-square-seats-mark1/print-plan.json) | Mark1 | Both 45° funnel seats and all six floor-supported WAGO pockets were checked in the finished G-code. The Pisco and ASSE fitting pairs were accepted. The water regulator’s full cover and receiver fixture fit very well with the 0.40 mm saddle adjustment. The sideways Digiten pocket carries the supported upper guide and ledges into the enclosure. |
 | [Accessory plate](rear-equipment-caps/prints/2026-11-26-production-snaps-mark2/print-plan.json) | Mark2 | Thirteen pieces, including the five mating equipment covers. The native slice preserves both crest perimeters on every measured working layer. |
 | [Cold-core equipment lid](../cold-core/foam-cap/prints/2026-11-27-lid-fitted-wago-mark1/print-plan.json) | Mark1 | The motor rails, fore-and-aft stops and both integral catches match the production pump cover. All ten lid holes align with the insert pilots on the current HSM-0018 shell. The October fit-tested shell has a different bolt pattern. |
 
@@ -20,7 +20,7 @@ The front-top 10-way pocket uses the fitted 15.70 × 30.10 mm opening. All six b
 
 The full slices were checked for where the first layer of each working surface lands, whether removed support can exit the part and whether it touches a finished face. Both pump catches grow from the lid itself. All five snap covers carry a continuous perimeter on both working crests. [Rear label fit and print check](enclosure/prints/2026-11-27-chamfered-label-stops-mark1/print-check.md) · [Three-plate snap review](enclosure/prints/2026-11-27-fitted-back-top-mark1/print-check.md)
 
-Pair the back top with the funnel frame that has sloped rear seats. Install the two rear M3 inserts from below and use M3 × 25 screws there. The four front positions use M3 × 12. The November 24 frame print has flat rear seats. [Current funnel frame](../zone-c/funnel/README.md) · [Seat and screw measurements](enclosure/prints/2026-11-27-fitted-back-top-mark1/funnel-seats-and-screw-access.json)
+Fit the frame with angled rear screw troughs to this back top. Before lowering the frame, press the two rear M3 inserts in from above the open roof pocket, square to the 45° seats. Use M3 × 12 screws at all six positions. [Matching funnel frame](../zone-c/funnel/README.md) · [Rear insert toolpaths](enclosure/prints/2026-11-27-back-top-square-seats-mark1/funnel-seat-toolpaths.json)
 
 Use the November 21 HSM-0018 cold-core shell or a shell with the same ten insert positions for this lid. [Matching shell print](../cold-core/foam-shell/prints/2026-11-21-shell-production-mark2/print-plan.json) · [Hole measurements](../cold-core/foam-cap/prints/2026-11-26-production-snaps-mark1/shell-bolt-pattern.json)
 

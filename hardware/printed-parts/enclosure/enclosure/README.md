@@ -743,7 +743,7 @@ footprint or an open-looking lane alone does not establish easy cleanup.
 
 Back-top prints ceiling-down with its rear flutes clear of the bed. Manual Tree
 Slim carries the exposed joint ends and valve seat. The two 45° rear funnel-frame
-seats grow from the flanks. Each rear insert enters from below.
+seats grow from the flanks. Press each rear insert in from above the open roof pocket, square to its seat.
 The fill tube seat's free upper wing prints on breakaway strips rooted on its
 corbelled lower wing. The cable hooks' beak lands overhang too little
 to need support, as front-bottom's same hooks print without it. The first model courses on the tube-seat and relay-boss arcs
@@ -761,7 +761,7 @@ interiors. The rear funnel screw passages and insert bores stay open. The
 power inlet's blind pilots bridge inside its supported flange pocket and cord passage.
 Each of the six WAGO pockets carries its roof on a single removable tree. The
 tree starts on that pocket’s floor and can be reached through its connector mouth.
-The [production print plan](prints/2026-11-27-back-top-fitted-wago-mark1/print-plan.json)
+The [production print plan](prints/2026-11-27-back-top-square-seats-mark1/print-plan.json)
 binds those results to the exact enclosure mesh and toolpaths. Physical cleanup
 and fit of this prepared plate await its first print.
 
@@ -1267,8 +1267,9 @@ corbels stand 30° from vertical. The flange is 196.5 mm wide and lower body
 176.5 mm wide; its aft shoulders clear the upper M5 seam blocks.
 
 The frame drops vertically through both upper shell openings. Its two rear
-wedges match the sloped seats on this back top. Four front M3 × 12 and two rear
-M3 × 25 screws engage RX-M3×5.7 inserts in the shell. The complete silicone brim retains 3 mm
+wedges match the sloped seats on this back top. Six M3 × 12 screws engage
+RX-M3×5.7 inserts in the shell. The two rear screws pass through the frame’s
+angled head troughs, square to their seats. The complete silicone brim retains 3 mm
 of bearing stock. Its apron covers the screw wells; lift the silicone for access.
 
 The drain cradle snaps into the frame's lower web and supports the elbow and

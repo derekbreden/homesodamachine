@@ -1,0 +1,710 @@
+{
+  "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+  "source_stl_sha256": "aa94e7c8eae8c41f83357e1d6b0870363c11b7c5771344338e62a8284e080e13",
+  "archive_sha256": "d5166d07418510e3b3337dcef695c9feeb2a828a2380988940897371f7624019",
+  "gcode_sha256": "824e65e892b91542c9722b55327ce26fae9eebbbb36b17c254b27f3ac49f0a92",
+  "gcode_member": "Metadata/plate_1.gcode",
+  "print": {
+    "printer": "Mark1",
+    "nozzle": "left 0.4 mm Standard",
+    "material": "Polymaker Fiberon PET-GF15, black",
+    "plate": "Textured PEI Plate",
+    "all_in_filament_g": 856.37,
+    "estimated_seconds_with_foundation_cooling": 129152.13,
+    "native_estimate_before_foundation_cooling_seconds": 108662.171875,
+    "added_commanded_motion_seconds": 20489.957428261576,
+    "layers": 1010,
+    "minimum_bead_bed_margin_mm": 20.243,
+    "settings_sha256": "4173125d0c283275b4503dbfa8982cbc3bef711a5c7309b44323a88fcfc2f320"
+  },
+  "native_diagnostics": {
+    "return_code": 0,
+    "result": "Success.",
+    "plate_warnings": [],
+    "log_messages": [
+      "ZFiller: encounter idx from clip: 968",
+      "Invalid T command (T1001).",
+      "Invalid T command (T65535).",
+      "Invalid T command (T65279)."
+    ]
+  },
+  "shell_deposition": {
+    "method": "Every deposited layer is intersected at its adjacent-layer midpoint. Every nonempty connected material polygon, with holes removed, is checked against actual positive-E model roads at that layer. Interior segment-midpoint witnesses are followed by complete segment and commanded bead intersection when needed. Results describe commanded deposition, independent of physical adhesion.",
+    "positive_model_roads": 4676022,
+    "model_layers": 812,
+    "by_mesh": {
+      "enclosure-back-top": {
+        "interior model-centerline witness": 1761,
+        "total connected sections": 1761
+      },
+      "wago-h insertion pocket WAGO pocket floor tree": {
+        "interior model-centerline witness": 76,
+        "total connected sections": 76
+      },
+      "wago-g insertion pocket WAGO pocket floor tree": {
+        "interior model-centerline witness": 76,
+        "total connected sections": 76
+      },
+      "wago-n insertion pocket WAGO pocket floor tree": {
+        "interior model-centerline witness": 76,
+        "total connected sections": 76
+      },
+      "wiring-junction-compressor-n insertion pocket WAGO pocket floor tree": {
+        "interior model-centerline witness": 76,
+        "total connected sections": 76
+      },
+      "wiring-junction-compressor-h insertion pocket WAGO pocket floor tree": {
+        "interior model-centerline witness": 76,
+        "total connected sections": 76
+      },
+      "wiring-junction-pump-positive insertion pocket WAGO pocket floor tree": {
+        "interior model-centerline witness": 76,
+        "total connected sections": 76
+      },
+      "Fill tube snap removable upper-wing support": {
+        "interior model-centerline witness": 78,
+        "total connected sections": 84,
+        "no model road": 6
+      },
+      "Removable west rail support 1": {
+        "interior model-centerline witness": 312,
+        "total connected sections": 312
+      },
+      "Removable west rail support 2": {
+        "interior model-centerline witness": 416,
+        "total connected sections": 416
+      },
+      "Removable east rail support 1": {
+        "interior model-centerline witness": 780,
+        "total connected sections": 780
+      }
+    },
+    "permanent_shell_sections_without_model_extrusion": 0,
+    "sacrificial_sections_without_extrusion": [
+      {
+        "model": "Fill tube snap removable upper-wing support",
+        "layer": 413,
+        "print_z_mm": 99.08,
+        "section_z_mm": 98.96,
+        "area_mm2": 0.8895858,
+        "width_xy_mm": [
+          2.367,
+          0.376
+        ],
+        "near_source_mm": [
+          90.971,
+          267.667,
+          256.04
+        ],
+        "has_0_4_mm_round_core": false
+      },
+      {
+        "model": "Fill tube snap removable upper-wing support",
+        "layer": 413,
+        "print_z_mm": 99.08,
+        "section_z_mm": 98.96,
+        "area_mm2": 0.8895858,
+        "width_xy_mm": [
+          2.367,
+          0.376
+        ],
+        "near_source_mm": [
+          90.971,
+          265.0,
+          256.04
+        ],
+        "has_0_4_mm_round_core": false
+      },
+      {
+        "model": "Fill tube snap removable upper-wing support",
+        "layer": 413,
+        "print_z_mm": 99.08,
+        "section_z_mm": 98.96,
+        "area_mm2": 0.8895858,
+        "width_xy_mm": [
+          2.367,
+          0.376
+        ],
+        "near_source_mm": [
+          90.971,
+          262.333,
+          256.04
+        ],
+        "has_0_4_mm_round_core": false
+      },
+      {
+        "model": "Fill tube snap removable upper-wing support",
+        "layer": 414,
+        "print_z_mm": 99.32,
+        "section_z_mm": 99.2,
+        "area_mm2": 0.2400414,
+        "width_xy_mm": [
+          2.367,
+          0.101
+        ],
+        "near_source_mm": [
+          90.845,
+          267.667,
+          255.8
+        ],
+        "has_0_4_mm_round_core": false
+      },
+      {
+        "model": "Fill tube snap removable upper-wing support",
+        "layer": 414,
+        "print_z_mm": 99.32,
+        "section_z_mm": 99.2,
+        "area_mm2": 0.2400414,
+        "width_xy_mm": [
+          2.367,
+          0.101
+        ],
+        "near_source_mm": [
+          90.845,
+          265.0,
+          255.8
+        ],
+        "has_0_4_mm_round_core": false
+      },
+      {
+        "model": "Fill tube snap removable upper-wing support",
+        "layer": 414,
+        "print_z_mm": 99.32,
+        "section_z_mm": 99.2,
+        "area_mm2": 0.2400414,
+        "width_xy_mm": [
+          2.367,
+          0.101
+        ],
+        "near_source_mm": [
+          90.845,
+          262.333,
+          255.8
+        ],
+        "has_0_4_mm_round_core": false
+      }
+    ],
+    "within_shell_grid_pitch_mm": 0.8,
+    "shell_grid_samples": 10081129,
+    "grid_samples_over_5_mm_from_a_road_cell": 36,
+    "distant_layers": [
+      {
+        "layer": 395,
+        "print_z_mm": 94.76,
+        "grid_samples": 36,
+        "bounds_source_mm": [
+          [
+            87.4,
+            400.725,
+            260.36
+          ],
+          [
+            87.4,
+            428.725,
+            260.36
+          ]
+        ],
+        "max_grid_distance_mm": 10.4,
+        "actual_max_witness_distance_mm": 10.226,
+        "max_source_mm": [
+          87.4,
+          405.525,
+          260.36
+        ]
+      }
+    ],
+    "locator": "The native diagnostic names its internal index. The shell scan independently locates sparse coverage on the current article."
+  },
+  "supports": {
+    "checks": {
+      "archive": true,
+      "bed_border": true,
+      "declared_interiors_support_free": true,
+      "fine_and_transition_bands": true,
+      "show_faces_support_free": true,
+      "solid_hosts_sampled": true,
+      "z_trim": true
+    },
+    "contacts_on_show_faces": 0,
+    "minimum_show_face_to_support_bead_mm": 0.10001,
+    "support_crossings_in_protected_regions": 0,
+    "protected_regions_checked": 30,
+    "native_named_regions_support_counts": {
+      "ASSE east catch pocket": 0,
+      "ASSE west catch pocket": 0,
+      "C14 insert pilot 1": 0,
+      "C14 insert pilot 2": 0,
+      "Covered bulkhead at X28.7999988712316 Z264": 0,
+      "Covered bulkhead at X28.7999988712316 Z294.2": 0,
+      "Covered bulkhead at X29.025858982281964 Z330.8647148810266": 0,
+      "Covered bulkhead at X76.5 Z264": 0,
+      "Covered bulkhead at X76.5 Z294.2": 0,
+      "Covered bulkhead at X76.5 Z331.2": 0,
+      "East funnel frame seat": 0,
+      "Identification channel 1": 0,
+      "Identification channel 2": 0,
+      "Inlet valve post socket -1/-1": 0,
+      "Inlet valve post socket -1/1": 0,
+      "Inlet valve post socket 1/-1": 0,
+      "Inlet valve post socket 1/1": 0,
+      "PRV vent mouth": 0,
+      "Pisco east catch pocket": 0,
+      "Pisco west catch pocket": 0,
+      "Soda valve post socket -1/-1": 0,
+      "Soda valve post socket -1/1": 0,
+      "Soda valve post socket 1/-1": 0,
+      "Soda valve post socket 1/1": 0,
+      "Upward-facing long lower wing seat": 0,
+      "Water regulator aft catch pocket": 0,
+      "Water regulator fore catch pocket": 0,
+      "West funnel frame seat": 0,
+      "east alignment groove": 0,
+      "west alignment groove": 0
+    },
+    "roots_and_contacts": {
+      "Fill tube snap removable upper-wing support": {
+        "emitted_courses": 26,
+        "root_bearing_length_mm": 8.58,
+        "root_without_bearing_mm": 0.0,
+        "native_contact_gaps_mm": null
+      },
+      "Removable west rail support 1": {
+        "emitted_courses": 25,
+        "root_bearing_length_mm": 50.4,
+        "root_without_bearing_mm": 0.0,
+        "native_contact_gaps_mm": [
+          0.18
+        ]
+      },
+      "Removable west rail support 2": {
+        "emitted_courses": 25,
+        "root_bearing_length_mm": 67.216,
+        "root_without_bearing_mm": 0.0,
+        "native_contact_gaps_mm": [
+          0.18
+        ]
+      },
+      "Removable east rail support 1": {
+        "emitted_courses": 25,
+        "root_bearing_length_mm": 126.12,
+        "root_without_bearing_mm": 0.0,
+        "native_contact_gaps_mm": [
+          0.18
+        ]
+      }
+    },
+    "rail_caps": {
+      "Removable west rail support 1": {
+        "bearing_layer_top_mm": 186.44,
+        "previous_model_layer_mm": 186.2,
+        "preceding_cap_top_mm": 185.96,
+        "samples": 15112,
+        "bearing_road_mm": 1204.126,
+        "over_landed_permanent_or_cap_mm": 1191.205,
+        "over_cap_mm": 1191.205,
+        "across_breaks_mm": 12.921,
+        "percent_over_previous_model_or_cap": 98.927
+      },
+      "Removable west rail support 2": {
+        "bearing_layer_top_mm": 186.44,
+        "previous_model_layer_mm": 186.2,
+        "preceding_cap_top_mm": 185.96,
+        "samples": 20370,
+        "bearing_road_mm": 1623.329,
+        "over_landed_permanent_or_cap_mm": 1609.466,
+        "over_cap_mm": 1609.466,
+        "across_breaks_mm": 13.863,
+        "percent_over_previous_model_or_cap": 99.146
+      },
+      "Removable east rail support 1": {
+        "bearing_layer_top_mm": 186.44,
+        "previous_model_layer_mm": 186.2,
+        "preceding_cap_top_mm": 185.96,
+        "samples": 37561,
+        "bearing_road_mm": 2993.286,
+        "over_landed_permanent_or_cap_mm": 2987.462,
+        "over_cap_mm": 2987.462,
+        "across_breaks_mm": 5.824,
+        "percent_over_previous_model_or_cap": 99.805
+      }
+    },
+    "fill_tube_upper_wing": {
+      "sample_points": 1620,
+      "sampled_first_underside_road_mm": 111.793,
+      "on_previous_model_mm": 43.406,
+      "on_authored_stock_below_on_or_within_the_release_gap_mm": 102.803,
+      "without_previous_model_or_authored_stock_mm": 0.0,
+      "without_any_landing_mm": 0.0,
+      "maximum_continuous_unlanded_length_on_one_command_mm": 0,
+      "longest_unlanded_endpoints_source_xy_mm": null,
+      "longest_unlanded_model_course_z_mm": null
+    }
+  },
+  "rear_label_channels": {
+    "FLAVOR B": {
+      "native_support_or_authored_stock_segments_in_full_channel": 0,
+      "model_segments_in_former_stand": 0,
+      "straight_chamfer_minimum_previous_perimeter_overlap_mm": 0.179
+    },
+    "DRAIN": {
+      "native_support_or_authored_stock_segments_in_full_channel": 0,
+      "model_segments_in_former_stand": 0,
+      "straight_chamfer_minimum_previous_perimeter_overlap_mm": 0.179
+    }
+  },
+  "flow_meter_receiver": {
+    "method": "First course on each exposed face, checked against earlier model and native support contacts.",
+    "areas": {
+      "Fore shoulder": {
+        "first_course_model_path_mm": 419.57,
+        "over_interface_mm": 411.73,
+        "over_prior_model_mm": 7.84,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Outer lip": {
+        "first_course_model_path_mm": 109.92,
+        "over_interface_mm": 108.52,
+        "over_prior_model_mm": 1.9,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Outer ramp 32 deg": {
+        "first_course_model_path_mm": 131.41,
+        "over_interface_mm": 128.91,
+        "over_prior_model_mm": 109.86,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Outer crest": {
+        "first_course_model_path_mm": 43.37,
+        "over_interface_mm": 42.71,
+        "over_prior_model_mm": 0.21,
+        "without_prior_or_support_landing_mm": 0.45,
+        "longest_continuous_without_landing_mm": 0.3,
+        "longest_from_machine_xyz": [
+          87.511,
+          395.63,
+          309.68
+        ],
+        "longest_to_machine_xyz": [
+          87.511,
+          395.78,
+          309.68
+        ]
+      },
+      "Inner 45 deg return": {
+        "first_course_model_path_mm": 181.41,
+        "over_interface_mm": 176.72,
+        "over_prior_model_mm": 159.98,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Inner ramp 8 deg": {
+        "first_course_model_path_mm": 125.28,
+        "over_interface_mm": 123.33,
+        "over_prior_model_mm": 26.94,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Inner ramp 13 deg": {
+        "first_course_model_path_mm": 177.11,
+        "over_interface_mm": 174.96,
+        "over_prior_model_mm": 5.27,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Inner ramp 26 deg": {
+        "first_course_model_path_mm": 110.19,
+        "over_interface_mm": 86.84,
+        "over_prior_model_mm": 24.99,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Boss floor fore": {
+        "first_course_model_path_mm": 249.91,
+        "over_interface_mm": 243.19,
+        "over_prior_model_mm": 6.72,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Boss floor aft": {
+        "first_course_model_path_mm": 249.9,
+        "over_interface_mm": 243.18,
+        "over_prior_model_mm": 6.72,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Head floor fore": {
+        "first_course_model_path_mm": 35.27,
+        "over_interface_mm": 34.48,
+        "over_prior_model_mm": 2.44,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Head floor aft": {
+        "first_course_model_path_mm": 35.46,
+        "over_interface_mm": 34.96,
+        "over_prior_model_mm": 4.21,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "High head sliver fore": {
+        "first_course_model_path_mm": 21.77,
+        "over_interface_mm": 6.85,
+        "over_prior_model_mm": 15.21,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "High head sliver aft": {
+        "first_course_model_path_mm": 20.44,
+        "over_interface_mm": 6.11,
+        "over_prior_model_mm": 14.62,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Wire chamber": {
+        "first_course_model_path_mm": 159.87,
+        "over_interface_mm": 145.26,
+        "over_prior_model_mm": 14.6,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Lower broad shelf": {
+        "first_course_model_path_mm": 856.94,
+        "over_interface_mm": 823.32,
+        "over_prior_model_mm": 33.63,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      }
+    }
+  },
+  "other_bearings": {
+    "method": "First native bead paths within each exposed CAD facet. Widths from G-code; counts overlap earlier deposited model or earliest permitted support contact. For authored rail stock only, checks model at the permitted breakaway gap. Unsupported segments can have same-layer lateral support; same-layer cannot replace an unanchored long run.",
+    "sample_pitch_mm": 0.15,
+    "regions": [
+      {
+        "feature": "West wall seat (-94.6, 336.7)",
+        "path_mm": 78.42,
+        "over_previous_model_mm": 8.33,
+        "over_interface_mm": 0.0,
+        "longest_continuous_no_lower_landing_mm": 9.97,
+        "longest_straight_unlanded_bridge_mm": 8.387
+      },
+      {
+        "feature": "C14 cord passage roof (-68.5, 466.1)",
+        "path_mm": 706.12,
+        "over_previous_model_mm": 0.15,
+        "over_interface_mm": 706.12,
+        "longest_continuous_no_lower_landing_mm": 0.0,
+        "longest_straight_unlanded_bridge_mm": 0
+      },
+      {
+        "feature": "C14 flange pocket roof (-68.5, 458.3)",
+        "path_mm": 280.13,
+        "over_previous_model_mm": 21.56,
+        "over_interface_mm": 258.57,
+        "longest_continuous_no_lower_landing_mm": 0.0,
+        "longest_straight_unlanded_bridge_mm": 0
+      },
+      {
+        "feature": "Keystone catch (-66.5, 462.5)",
+        "path_mm": 44.95,
+        "over_previous_model_mm": 1.58,
+        "over_interface_mm": 0.0,
+        "longest_continuous_no_lower_landing_mm": 14.55,
+        "longest_straight_unlanded_bridge_mm": 0
+      },
+      {
+        "feature": "Soda valve seat",
+        "path_mm": 875.46,
+        "over_previous_model_mm": 6.69,
+        "over_interface_mm": 868.76,
+        "longest_continuous_no_lower_landing_mm": 0.0,
+        "longest_straight_unlanded_bridge_mm": 0
+      },
+      {
+        "feature": "West funnel frame seat (45°)",
+        "path_mm": 385.79,
+        "over_previous_model_mm": 384.18,
+        "over_interface_mm": 0.0,
+        "longest_continuous_no_lower_landing_mm": 1.34,
+        "longest_straight_unlanded_bridge_mm": 0
+      },
+      {
+        "feature": "East funnel frame seat (45°)",
+        "path_mm": 385.79,
+        "over_previous_model_mm": 384.16,
+        "over_interface_mm": 0.0,
+        "longest_continuous_no_lower_landing_mm": 1.34,
+        "longest_straight_unlanded_bridge_mm": 0
+      },
+      {
+        "feature": "Removable west rail support 1 bearing",
+        "path_mm": 1355.9,
+        "over_previous_model_mm": 74.58,
+        "over_interface_mm": 0.0,
+        "longest_continuous_no_lower_landing_mm": 4.23,
+        "longest_straight_unlanded_bridge_mm": 4.104
+      },
+      {
+        "feature": "Removable west rail support 2 bearing",
+        "path_mm": 1819.92,
+        "over_previous_model_mm": 100.67,
+        "over_interface_mm": 0.0,
+        "longest_continuous_no_lower_landing_mm": 4.1,
+        "longest_straight_unlanded_bridge_mm": 4.104
+      },
+      {
+        "feature": "Removable east rail support 1 bearing",
+        "path_mm": 3351.41,
+        "over_previous_model_mm": 185.34,
+        "over_interface_mm": 0.0,
+        "longest_continuous_no_lower_landing_mm": 0.44,
+        "longest_straight_unlanded_bridge_mm": 0.44
+      },
+      {
+        "feature": "Accessible front joint underside 1",
+        "path_mm": 792.81,
+        "over_previous_model_mm": 606.14,
+        "over_interface_mm": 770.27,
+        "longest_continuous_no_lower_landing_mm": 0.28,
+        "longest_straight_unlanded_bridge_mm": 0.143
+      },
+      {
+        "feature": "Accessible front joint underside -1",
+        "path_mm": 799.59,
+        "over_previous_model_mm": 605.09,
+        "over_interface_mm": 778.45,
+        "longest_continuous_no_lower_landing_mm": 0.14,
+        "longest_straight_unlanded_bridge_mm": 0.143
+      },
+      {
+        "feature": "Accessible relay-2 boss underside 2",
+        "path_mm": 76.85,
+        "over_previous_model_mm": 43.11,
+        "over_interface_mm": 69.51,
+        "longest_continuous_no_lower_landing_mm": 0.0,
+        "longest_straight_unlanded_bridge_mm": 0
+      },
+      {
+        "feature": "Accessible relay-2 boss underside 4",
+        "path_mm": 84.18,
+        "over_previous_model_mm": 50.4,
+        "over_interface_mm": 75.98,
+        "longest_continuous_no_lower_landing_mm": 0.0,
+        "longest_straight_unlanded_bridge_mm": 0
+      }
+    ]
+  },
+  "locally_unsupported_perimeters": {
+    "method": "Inspect deposited perimeter order on the first exposed model course. Check the bead against the prior layer and already deposited parallel side roads in that course.",
+    "longest_mm_by_feature": {
+      "West wall triangular seat": 8.64,
+      "East 0.60 keeper": 0.115,
+      "West 0.75 keeper J5": 0.115,
+      "West 0.75 keeper DC1": 0.115,
+      "Keystone lower catch": 14.092
+    },
+    "riteav_lower_catch": {
+      "method": "Clip the full positive-extrusion stroke and the adjoining straight sections against the actual previous-layer bead envelopes expanded by the current bead radius; trace the same uninterrupted perimeter through both corners.",
+      "layer_z_mm": 71.96,
+      "preceding_model_z_mm": 71.72,
+      "edges": [
+        {
+          "edge_machine_y_mm": 461.81,
+          "positive_extrusion_segment_mm": 14.55,
+          "longest_span_without_lower_bead_mm": 14.4871,
+          "lower_layer_anchor_in_straight_segment_at_ends_mm": [
+            0.0314,
+            0.0314
+          ],
+          "additional_fully_backed_collinear_length_at_ends_mm": [
+            0.369,
+            0.369
+          ],
+          "from_machine_xyz_mm": [
+            -56.725,
+            461.81,
+            283.04
+          ],
+          "to_machine_xyz_mm": [
+            -71.275,
+            461.81,
+            283.04
+          ]
+        },
+        {
+          "edge_machine_y_mm": 462.69,
+          "positive_extrusion_segment_mm": 14.55,
+          "longest_span_without_lower_bead_mm": 14.4871,
+          "lower_layer_anchor_in_straight_segment_at_ends_mm": [
+            0.0314,
+            0.0314
+          ],
+          "additional_fully_backed_collinear_length_at_ends_mm": [
+            0.369,
+            0.369
+          ],
+          "from_machine_xyz_mm": [
+            -71.275,
+            462.69,
+            283.04
+          ],
+          "to_machine_xyz_mm": [
+            -56.725,
+            462.69,
+            283.04
+          ]
+        }
+      ]
+    },
+    "prv_vent_edge": {
+      "layer_z_mm": 140.84,
+      "longest_no_lower_or_earlier_contact_mm": 8.64,
+      "both_endpoints_landed_on_previous_layer": true,
+      "unlanded_endpoints_machine_mm": [
+        [
+          -97.94,
+          339.15,
+          214.16
+        ],
+        [
+          -91.91,
+          333.12,
+          214.16
+        ]
+      ]
+    }
+  }
+}

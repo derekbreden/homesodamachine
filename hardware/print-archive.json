@@ -1248,6 +1248,12 @@
       "bytes": 5264127,
       "sha256": "78c3d2b79edbd735b5576431f949dd293add471a2ec6ed47f8e667b37625cbbb"
     },
+    "23fcf2f7ff746e4a08871f3b63689cd78a6d6208": {
+      "archive": "back-top-mark1-c59c3be024884f50.zip",
+      "bytes": 5872310,
+      "offset": 74,
+      "sha256": "f3ed89a2097d79068439d2f068efd7ae09331f47f285edd51b9bae4ae2de5c2e"
+    },
     "2404b311704763e1d44280322d859943704b6adc": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
       "offset": 695453286,
@@ -7218,6 +7224,12 @@
       "bytes": 306765,
       "sha256": "5c47beccb52709c319d1fed37d51fed2dd128d0543084b9c53fe3a0e8a2ac8a6"
     },
+    "d72e48538024b5bd33a27b16c6d9393fd03aa95b": {
+      "archive": "back-top-mark1-c59c3be024884f50.zip",
+      "bytes": 45298410,
+      "offset": 5872458,
+      "sha256": "d5166d07418510e3b3337dcef695c9feeb2a828a2380988940897371f7624019"
+    },
     "d736b5d60fce0c74e7cbd4494c71c595c3f1c456": {
       "archive": "legacy-print-5-2deadf4a08b4b3fc.zip",
       "offset": 130295100,
@@ -8943,6 +8955,8 @@
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-relay-m2-production-mark1/2026-11-21-back-top-mark1-c8a8a278-textured-pei/2026-11-21-back-top-mark1-c8a8a278-textured-pei.gcode.3mf": "73ae6079c1e2260ed2b63b10069a3b8b53c43948",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-back-top-fitted-wago-mark1/2026-11-27-back-top-mark1-d74a376b-textured-pei/2026-11-27-back-top-mark1-d74a376b-textured-pei.3mf": "6d784ff968a58c9a3dac92e727211ee6803d01af",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-back-top-fitted-wago-mark1/2026-11-27-back-top-mark1-d74a376b-textured-pei/2026-11-27-back-top-mark1-d74a376b-textured-pei.gcode.3mf": "03c1a9058ec418cc52025f014c5321c3f4c12470",
+    "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-back-top-square-seats-mark1/2026-11-27-back-top-mark1-27d37784-textured-pei/2026-11-27-back-top-mark1-27d37784-textured-pei.3mf": "23fcf2f7ff746e4a08871f3b63689cd78a6d6208",
+    "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-back-top-square-seats-mark1/2026-11-27-back-top-mark1-27d37784-textured-pei/2026-11-27-back-top-mark1-27d37784-textured-pei.gcode.3mf": "d72e48538024b5bd33a27b16c6d9393fd03aa95b",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-back-top-wago-floor-trees-mark1/2026-11-27-back-top-mark1-b73f3bd0-textured-pei/2026-11-27-back-top-mark1-b73f3bd0-textured-pei.3mf": "a4df6b56a5ce4842174e305f8e799b768a4dd30b",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-back-top-wago-floor-trees-mark1/2026-11-27-back-top-mark1-b73f3bd0-textured-pei/2026-11-27-back-top-mark1-b73f3bd0-textured-pei.gcode.3mf": "c07d3c53cfb4a8d795fa91c122f27193146150de",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-chamfered-label-stops-mark1/2026-11-27-back-top-mark1-bc01ba73-textured-pei/2026-11-27-back-top-mark1-bc01ba73-textured-pei.3mf": "f8025138583006daf9b58e238d7181b6d10ec457",
