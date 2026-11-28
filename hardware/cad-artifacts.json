@@ -84,6 +84,13 @@
     "hardware/faucet-layout/pullout-concept/pulled-out-above-counter.step.mesh": "f258efbdc1e0adbf7b9dc83a0237273ab9bd0508569eca1cc5d9e2d38727f966",
     "hardware/faucet-layout/pullout-concept/pulled-out.step": "e86275b2ea50d6296309303490b8bcfc94ebafdd14e8c4c59e7523c9064d417b",
     "hardware/faucet-layout/pullout-concept/pulled-out.step.mesh": "9820e6a86e9d98a5a1da4a5ec1b7bbed25885a336d0684b28dbec653b4ca235b",
+    "hardware/faucet-layout/pullout-concept/silicone-valve/assembly.step.mesh": "a429d57d65faa0a0c21625416ee3764a3fb36f006111ddac167d467cb7f51033",
+    "hardware/faucet-layout/pullout-concept/silicone-valve/exploded.step.mesh": "f0dccd734a2a8cedf5ddcb7ec7c3171ab63238668dc5ebe0ca699db0e9c420ce",
+    "hardware/faucet-layout/pullout-concept/silicone-valve/installed-cutaway.step.mesh": "83bbc41c2602bc91a847ccde0dcfa52e934d84b9529d3f967ed9f6756d18bcc8",
+    "hardware/faucet-layout/pullout-concept/silicone-valve/installed.step.mesh": "c7b473c77f01d9f2065338d84813f561b46513646633e6fecc9561241129ea10",
+    "hardware/faucet-layout/pullout-concept/silicone-valve/section-closed.step.mesh": "7d3b97a611c51f49edce6f1d0f545aff7bb3a9cf5e27ffeb7e30020cb3cf45bc",
+    "hardware/faucet-layout/pullout-concept/silicone-valve/section-open.step.mesh": "b40efff8ff38640af651825aa2d6cfe6572d390115132d4ee140c4528559b264",
+    "hardware/faucet-layout/pullout-concept/silicone-valve/wet-path.step.mesh": "be33e6732df93381df202cd2aa0e66d392cc2713c939a83fe73f780592c24b98",
     "hardware/gun-positioner-guide/gun-positioner-guide.pdf": "30312203b212860160e6abcc678521440e5652395b94f76c59354637cb6eb19b",
     "hardware/install-guide/install-guide.pdf": "ddfd116f90ab4dd8d106d00ac0febca12b102fc64475fbf01ed85ca80064cf2f",
     "hardware/install-guide/plumbing/art/plumbing-pre-tee.png": "f777688d43515f39d4445c50e2d31ea18b2d7dd9b0eb149cbf4c49fc8d2a01f7",
@@ -951,6 +958,13 @@
       "hardware/faucet-layout/pullout-concept/pulled-out-above-counter.step.mesh": "f258efbdc1e0adbf7b9dc83a0237273ab9bd0508569eca1cc5d9e2d38727f966",
       "hardware/faucet-layout/pullout-concept/pulled-out.step": "e86275b2ea50d6296309303490b8bcfc94ebafdd14e8c4c59e7523c9064d417b",
       "hardware/faucet-layout/pullout-concept/pulled-out.step.mesh": "9820e6a86e9d98a5a1da4a5ec1b7bbed25885a336d0684b28dbec653b4ca235b",
+      "hardware/faucet-layout/pullout-concept/silicone-valve/assembly.step.mesh": "a429d57d65faa0a0c21625416ee3764a3fb36f006111ddac167d467cb7f51033",
+      "hardware/faucet-layout/pullout-concept/silicone-valve/exploded.step.mesh": "f0dccd734a2a8cedf5ddcb7ec7c3171ab63238668dc5ebe0ca699db0e9c420ce",
+      "hardware/faucet-layout/pullout-concept/silicone-valve/installed-cutaway.step.mesh": "83bbc41c2602bc91a847ccde0dcfa52e934d84b9529d3f967ed9f6756d18bcc8",
+      "hardware/faucet-layout/pullout-concept/silicone-valve/installed.step.mesh": "c7b473c77f01d9f2065338d84813f561b46513646633e6fecc9561241129ea10",
+      "hardware/faucet-layout/pullout-concept/silicone-valve/section-closed.step.mesh": "7d3b97a611c51f49edce6f1d0f545aff7bb3a9cf5e27ffeb7e30020cb3cf45bc",
+      "hardware/faucet-layout/pullout-concept/silicone-valve/section-open.step.mesh": "b40efff8ff38640af651825aa2d6cfe6572d390115132d4ee140c4528559b264",
+      "hardware/faucet-layout/pullout-concept/silicone-valve/wet-path.step.mesh": "be33e6732df93381df202cd2aa0e66d392cc2713c939a83fe73f780592c24b98",
       "hardware/gun-positioner-guide/gun-positioner-guide.pdf": "30312203b212860160e6abcc678521440e5652395b94f76c59354637cb6eb19b",
       "hardware/install-guide/install-guide.pdf": "ddfd116f90ab4dd8d106d00ac0febca12b102fc64475fbf01ed85ca80064cf2f",
       "hardware/magnetic-float-guide/magnetic-float-guide.pdf": "a859dec2d803a66ba4801399af7366562be0f24813922d9e410b2b6895968341",
@@ -3028,6 +3042,13 @@
     "hardware/faucet-layout/pullout-concept/pulled-out-above-counter.step.mesh": 1795228761.571015,
     "hardware/faucet-layout/pullout-concept/pulled-out.step": 1795228781.903407,
     "hardware/faucet-layout/pullout-concept/pulled-out.step.mesh": 1795228761.571015,
+    "hardware/faucet-layout/pullout-concept/silicone-valve/assembly.step.mesh": 1795852972.470047,
+    "hardware/faucet-layout/pullout-concept/silicone-valve/exploded.step.mesh": 1795852972.470047,
+    "hardware/faucet-layout/pullout-concept/silicone-valve/installed-cutaway.step.mesh": 1795852972.470047,
+    "hardware/faucet-layout/pullout-concept/silicone-valve/installed.step.mesh": 1795852972.470047,
+    "hardware/faucet-layout/pullout-concept/silicone-valve/section-closed.step.mesh": 1795852972.470047,
+    "hardware/faucet-layout/pullout-concept/silicone-valve/section-open.step.mesh": 1795852972.470047,
+    "hardware/faucet-layout/pullout-concept/silicone-valve/wet-path.step.mesh": 1795852972.470047,
     "hardware/gun-positioner-guide/gun-positioner-guide.pdf": 1795765666.951245,
     "hardware/install-guide/install-guide.pdf": 1795765666.951245,
     "hardware/install-guide/plumbing/art/plumbing-pre-tee.png": 1793830497,
@@ -4004,6 +4025,34 @@
     },
     "hardware/faucet-layout/pullout-concept/pulled-out.step.mesh": {
       "commit": "523f000206ff93ec295e28b24e3a2186b9b391c5",
+      "unproven": true
+    },
+    "hardware/faucet-layout/pullout-concept/silicone-valve/assembly.step.mesh": {
+      "commit": "66297b39f8eb86a94e4190f0107bd59194ed2382",
+      "unproven": true
+    },
+    "hardware/faucet-layout/pullout-concept/silicone-valve/exploded.step.mesh": {
+      "commit": "66297b39f8eb86a94e4190f0107bd59194ed2382",
+      "unproven": true
+    },
+    "hardware/faucet-layout/pullout-concept/silicone-valve/installed-cutaway.step.mesh": {
+      "commit": "66297b39f8eb86a94e4190f0107bd59194ed2382",
+      "unproven": true
+    },
+    "hardware/faucet-layout/pullout-concept/silicone-valve/installed.step.mesh": {
+      "commit": "66297b39f8eb86a94e4190f0107bd59194ed2382",
+      "unproven": true
+    },
+    "hardware/faucet-layout/pullout-concept/silicone-valve/section-closed.step.mesh": {
+      "commit": "66297b39f8eb86a94e4190f0107bd59194ed2382",
+      "unproven": true
+    },
+    "hardware/faucet-layout/pullout-concept/silicone-valve/section-open.step.mesh": {
+      "commit": "66297b39f8eb86a94e4190f0107bd59194ed2382",
+      "unproven": true
+    },
+    "hardware/faucet-layout/pullout-concept/silicone-valve/wet-path.step.mesh": {
+      "commit": "66297b39f8eb86a94e4190f0107bd59194ed2382",
       "unproven": true
     },
     "hardware/install-guide/install-guide.pdf": {
