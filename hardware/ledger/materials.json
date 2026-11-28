@@ -453,6 +453,34 @@
         {
           "file": "faucet-layout/pullout-concept/acetal-valve/exploded.step",
           "context": true
+        },
+        {
+          "file": "faucet-layout/pullout-concept/silicone-valve/installed.step",
+          "context": true
+        },
+        {
+          "file": "faucet-layout/pullout-concept/silicone-valve/installed-cutaway.step",
+          "context": true
+        },
+        {
+          "file": "faucet-layout/pullout-concept/silicone-valve/assembly.step",
+          "context": true
+        },
+        {
+          "file": "faucet-layout/pullout-concept/silicone-valve/exploded.step",
+          "context": true
+        },
+        {
+          "file": "faucet-layout/pullout-concept/silicone-valve/section-closed.step",
+          "context": true
+        },
+        {
+          "file": "faucet-layout/pullout-concept/silicone-valve/section-open.step",
+          "context": true
+        },
+        {
+          "file": "faucet-layout/pullout-concept/silicone-valve/wet-path.step",
+          "context": true
         }
       ],
       "documents": [
@@ -471,6 +499,10 @@
         {
           "title": "Machined acetal head valve",
           "path": "faucet-layout/pullout-concept/acetal-valve/README.md"
+        },
+        {
+          "title": "Silicone diaphragm head valve",
+          "path": "faucet-layout/pullout-concept/silicone-valve/README.md"
         }
       ],
       "bom": {

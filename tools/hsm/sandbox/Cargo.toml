@@ -92,6 +92,10 @@ name = "faucet-acetal-valve"
 path = "../../../hardware/faucet-layout/pullout-concept/acetal-valve/valve.rs"
 
 [[example]]
+name = "faucet-silicone-valve"
+path = "../../../hardware/faucet-layout/pullout-concept/silicone-valve/valve.rs"
+
+[[example]]
 name = "open-snap-section"
 path = "../../../hardware/print-tests/open-snap-section/coupon.rs"
 
