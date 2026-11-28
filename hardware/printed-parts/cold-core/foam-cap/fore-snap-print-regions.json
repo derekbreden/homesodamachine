@@ -4,10 +4,10 @@
       "bounds_source_mm": [
         82.80580000000003,
         92.25580000000002,
-        10.150000000000002,
-        24.85,
-        50.400000000000034,
-        53.650000000000034
+        10.400000000000002,
+        24.6,
+        50.200000000000045,
+        53.450000000000045
       ],
       "bridge_print_axis_source": [
         0,
@@ -21,10 +21,10 @@
       "bounds_source_mm": [
         82.80580000000003,
         92.25580000000002,
-        10.150000000000002,
-        24.85,
-        28.30000000000001,
-        31.55000000000001
+        10.400000000000002,
+        24.6,
+        28.100000000000023,
+        31.350000000000023
       ],
       "bridge_print_axis_source": [
         0,
@@ -38,10 +38,10 @@
       "bounds_source_mm": [
         70.25580000000002,
         79.70580000000001,
-        10.150000000000002,
-        24.85,
-        28.30000000000001,
-        31.55000000000001
+        10.400000000000002,
+        24.6,
+        28.100000000000023,
+        31.350000000000023
       ],
       "bridge_print_axis_source": [
         0,
@@ -55,10 +55,10 @@
       "bounds_source_mm": [
         70.25580000000002,
         79.70580000000001,
-        10.150000000000002,
-        24.85,
-        50.400000000000034,
-        53.650000000000034
+        10.400000000000002,
+        24.6,
+        50.200000000000045,
+        53.450000000000045
       ],
       "bridge_print_axis_source": [
         0,
@@ -80,8 +80,8 @@
       ".stl": "52296e799a5633032ee1a248ebec62e25a9eef2ca154de00590d2fb8dcce48ff"
     },
     "foam-cap-lid-top": {
-      ".step": "524906a5925bccc6bdcf75e9fe236ddb2129a574faa1c2d4d2ba3c9f3e6c441e",
-      ".stl": "2a74672a1c10c6393afd85701725f7c8701ddb14c408804879863f768b808859"
+      ".step": "5b6363acb67faa9986ec2b42011afc8b7876115a16d10bfe773d0f4fc1a0c8bd",
+      ".stl": "9acecaa2f0bef23ac19881fcb6b700b62de673d8659a9e867142f4dfcdbd5d27"
     },
     "foam-shell": {
       ".step": "3fc58a2945d3906a8e47f755b8ce768ec38719ccd99a581e12bf8e6acfff7feb",
@@ -1004,10 +1004,10 @@
       "bounds_source_mm": [
         82.80580000000003,
         92.25580000000002,
-        13.150000000000002,
-        21.85,
-        31.55000000000001,
-        50.650000000000034
+        13.400000000000002,
+        21.6,
+        31.75,
+        50.450000000000045
       ],
       "mouth_direction_source": [
         1,
@@ -1027,10 +1027,10 @@
       "bounds_source_mm": [
         82.80580000000003,
         92.25580000000002,
-        13.150000000000002,
-        21.85,
-        9.449999999999989,
-        28.55000000000001
+        13.400000000000002,
+        21.6,
+        9.650000000000006,
+        28.350000000000023
       ],
       "mouth_direction_source": [
         1,
@@ -1050,10 +1050,10 @@
       "bounds_source_mm": [
         70.25580000000002,
         79.70580000000001,
-        13.150000000000002,
-        21.85,
-        9.449999999999989,
-        28.55000000000001
+        13.400000000000002,
+        21.6,
+        9.650000000000006,
+        28.350000000000023
       ],
       "mouth_direction_source": [
         -1,
@@ -1073,10 +1073,10 @@
       "bounds_source_mm": [
         70.25580000000002,
         79.70580000000001,
-        13.150000000000002,
-        21.85,
-        31.55000000000001,
-        50.650000000000034
+        13.400000000000002,
+        21.6,
+        31.75,
+        50.450000000000045
       ],
       "mouth_direction_source": [
         -1,
@@ -1104,11 +1104,12 @@
     "hardware/printed-parts/cold-core/foam-cap/numbers/pump.rs": "854591136207c0761f2fc4dfc11f5ff3fa0fe8e7d37760cf29de708d2ae6c950",
     "hardware/printed-parts/cold-core/foam-cap/numbers/reservoir_a.rs": "0f34adc0acc449d45c526b24c53d6605aa403ac9332d39bb1611c68da4e0bb57",
     "hardware/printed-parts/cold-core/foam-cap/numbers/wells.rs": "2bcb8c822d0989db293b74c12776a2716181ae9d0443c6d6dbcbd74fb4560f18",
-    "hardware/printed-parts/cold-core/foam-cap/print_regions.rs": "cce37e827624bfd4eda68f2fb532a97fe867175bbed3425c72ef15436e8d0f99",
+    "hardware/printed-parts/cold-core/foam-cap/print_regions.rs": "e2d96366b1f60fda8f0debc00bc2d69a7993a6df496fcc423d2082dbef68a330",
     "hardware/printed-parts/cold-core/interface/lib.rs": "b0f635b40df386d4f02b2d18489c68bd1b74a17657d7ce7e57c0618a0689480e",
-    "hardware/printed-parts/enclosure/enclosure/numbers/equipment_snap.rs": "c98834c147f47899669d521844566721961f524ac445992d5b3474549ec1197c"
+    "hardware/printed-parts/enclosure/enclosure/numbers/equipment_snap.rs": "c98834c147f47899669d521844566721961f524ac445992d5b3474549ec1197c",
+    "hardware/printed-parts/enclosure/enclosure/numbers/junctions.rs": "1ca7003fe2f905830829af4eb8e87bf923383e5c01fea2a326714b69a9c8a0e3"
   },
-  "source_stl_sha256": "2a74672a1c10c6393afd85701725f7c8701ddb14c408804879863f768b808859",
+  "source_stl_sha256": "9acecaa2f0bef23ac19881fcb6b700b62de673d8659a9e867142f4dfcdbd5d27",
   "support_free_regions": [
     {
       "bounds_source_mm": [
@@ -1138,18 +1139,18 @@
       "blocking_bounds_source_mm": [
         82.80580000000003,
         93.25580000000002,
-        13.150000000000002,
-        21.85,
-        31.55000000000001,
-        50.900000000000034
+        13.400000000000002,
+        21.6,
+        31.75,
+        50.700000000000045
       ],
       "bounds_source_mm": [
         82.80580000000003,
         92.25580000000002,
-        13.150000000000002,
-        21.85,
-        31.55000000000001,
-        50.650000000000034
+        13.400000000000002,
+        21.6,
+        31.75,
+        50.450000000000045
       ],
       "name": "wago-sensors insertion pocket",
       "reason": "Keep automatic branches out of this well and its mouth. Its own removable tree starts on the floor.",
@@ -1159,18 +1160,18 @@
       "blocking_bounds_source_mm": [
         82.80580000000003,
         93.25580000000002,
-        13.150000000000002,
-        21.85,
-        9.449999999999989,
-        28.80000000000001
+        13.400000000000002,
+        21.6,
+        9.650000000000006,
+        28.600000000000023
       ],
       "bounds_source_mm": [
         82.80580000000003,
         92.25580000000002,
-        13.150000000000002,
-        21.85,
-        9.449999999999989,
-        28.55000000000001
+        13.400000000000002,
+        21.6,
+        9.650000000000006,
+        28.350000000000023
       ],
       "name": "wago-v12 insertion pocket",
       "reason": "Keep automatic branches out of this well and its mouth. Its own removable tree starts on the floor.",
@@ -1180,18 +1181,18 @@
       "blocking_bounds_source_mm": [
         69.25580000000002,
         79.70580000000001,
-        13.150000000000002,
-        21.85,
-        9.449999999999989,
-        28.80000000000001
+        13.400000000000002,
+        21.6,
+        9.650000000000006,
+        28.600000000000023
       ],
       "bounds_source_mm": [
         70.25580000000002,
         79.70580000000001,
-        13.150000000000002,
-        21.85,
-        9.449999999999989,
-        28.55000000000001
+        13.400000000000002,
+        21.6,
+        9.650000000000006,
+        28.350000000000023
       ],
       "name": "wago-gnd insertion pocket",
       "reason": "Keep automatic branches out of this well and its mouth. Its own removable tree starts on the floor.",
@@ -1201,18 +1202,18 @@
       "blocking_bounds_source_mm": [
         69.25580000000002,
         79.70580000000001,
-        13.150000000000002,
-        21.85,
-        31.55000000000001,
-        50.900000000000034
+        13.400000000000002,
+        21.6,
+        31.75,
+        50.700000000000045
       ],
       "bounds_source_mm": [
         70.25580000000002,
         79.70580000000001,
-        13.150000000000002,
-        21.85,
-        31.55000000000001,
-        50.650000000000034
+        13.400000000000002,
+        21.6,
+        31.75,
+        50.450000000000045
       ],
       "name": "wago-reeds-b insertion pocket",
       "reason": "Keep automatic branches out of this well and its mouth. Its own removable tree starts on the floor.",

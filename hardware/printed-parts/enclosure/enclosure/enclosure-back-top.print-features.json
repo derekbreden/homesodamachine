@@ -5,10 +5,10 @@
       "bounds_source_mm": [
         -98.5,
         -88.05,
-        384.85,
-        399.55,
-        320.7,
-        323.95
+        385.1,
+        399.3,
+        321.025,
+        324.275
       ],
       "bridge_print_axis_source": [
         0,
@@ -22,10 +22,10 @@
       "bounds_source_mm": [
         -98.5,
         -88.05,
-        400.85,
-        415.55,
-        320.7,
-        323.95
+        401.1,
+        415.3,
+        321.025,
+        324.275
       ],
       "bridge_print_axis_source": [
         0,
@@ -39,10 +39,10 @@
       "bounds_source_mm": [
         -98.5,
         -88.05,
-        416.85,
-        431.55,
-        320.7,
-        323.95
+        417.1,
+        431.3,
+        321.025,
+        324.275
       ],
       "bridge_print_axis_source": [
         0,
@@ -56,10 +56,10 @@
       "bounds_source_mm": [
         -102.5,
         -92.05,
-        252.64999999999998,
-        267.34999999999997,
-        292.2,
-        295.45
+        252.89999999999998,
+        267.09999999999997,
+        292.525,
+        295.775
       ],
       "bridge_print_axis_source": [
         0,
@@ -73,10 +73,10 @@
       "bounds_source_mm": [
         -102.5,
         -92.05,
-        268.65,
-        283.34999999999997,
-        292.2,
-        295.45
+        268.9,
+        283.09999999999997,
+        292.525,
+        295.775
       ],
       "bridge_print_axis_source": [
         0,
@@ -90,10 +90,10 @@
       "bounds_source_mm": [
         -102.5,
         -92.05,
-        284.65,
-        299.34999999999997,
-        292.2,
-        295.45
+        284.9,
+        299.09999999999997,
+        292.525,
+        295.775
       ],
       "bridge_print_axis_source": [
         0,
@@ -174,10 +174,10 @@
       "bounds_source_mm": [
         -98.5,
         -89.05,
-        387.85,
-        396.55,
-        323.7,
-        343.05
+        388.1,
+        396.3,
+        324.025,
+        342.725
       ],
       "mouth_direction_source": [
         1,
@@ -197,10 +197,10 @@
       "bounds_source_mm": [
         -98.5,
         -89.05,
-        403.85,
-        412.55,
-        323.7,
-        343.05
+        404.1,
+        412.3,
+        324.025,
+        342.725
       ],
       "mouth_direction_source": [
         1,
@@ -220,10 +220,10 @@
       "bounds_source_mm": [
         -98.5,
         -89.05,
-        419.85,
-        428.55,
-        323.7,
-        343.05
+        420.1,
+        428.3,
+        324.025,
+        342.725
       ],
       "mouth_direction_source": [
         1,
@@ -243,10 +243,10 @@
       "bounds_source_mm": [
         -102.5,
         -93.05,
-        255.64999999999998,
-        264.34999999999997,
-        295.2,
-        314.55
+        255.89999999999998,
+        264.09999999999997,
+        295.525,
+        314.225
       ],
       "mouth_direction_source": [
         1,
@@ -266,10 +266,10 @@
       "bounds_source_mm": [
         -102.5,
         -93.05,
-        271.65,
-        280.34999999999997,
-        295.2,
-        314.55
+        271.9,
+        280.09999999999997,
+        295.525,
+        314.225
       ],
       "mouth_direction_source": [
         1,
@@ -289,10 +289,10 @@
       "bounds_source_mm": [
         -102.5,
         -93.05,
-        287.65,
-        296.34999999999997,
-        295.2,
-        314.55
+        287.9,
+        296.09999999999997,
+        295.525,
+        314.225
       ],
       "mouth_direction_source": [
         1,
@@ -362,10 +362,10 @@
       "bounds_source_mm": [
         -98.5,
         -88.05,
-        384.85,
-        387.85,
-        323.7,
-        343.05
+        385.1,
+        388.1,
+        324.025,
+        342.725
       ],
       "name": "wago-h insertion pocket fore gripping cheek"
     },
@@ -373,10 +373,10 @@
       "bounds_source_mm": [
         -98.5,
         -88.05,
-        396.55,
-        399.55,
-        323.7,
-        343.05
+        396.3,
+        399.3,
+        324.025,
+        342.725
       ],
       "name": "wago-h insertion pocket aft gripping cheek"
     },
@@ -384,10 +384,10 @@
       "bounds_source_mm": [
         -98.5,
         -88.05,
-        400.85,
-        403.85,
-        323.7,
-        343.05
+        401.1,
+        404.1,
+        324.025,
+        342.725
       ],
       "name": "wago-g insertion pocket fore gripping cheek"
     },
@@ -395,10 +395,10 @@
       "bounds_source_mm": [
         -98.5,
         -88.05,
-        412.55,
-        415.55,
-        323.7,
-        343.05
+        412.3,
+        415.3,
+        324.025,
+        342.725
       ],
       "name": "wago-g insertion pocket aft gripping cheek"
     },
@@ -406,10 +406,10 @@
       "bounds_source_mm": [
         -98.5,
         -88.05,
-        416.85,
-        419.85,
-        323.7,
-        343.05
+        417.1,
+        420.1,
+        324.025,
+        342.725
       ],
       "name": "wago-n insertion pocket fore gripping cheek"
     },
@@ -417,10 +417,10 @@
       "bounds_source_mm": [
         -98.5,
         -88.05,
-        428.55,
-        431.55,
-        323.7,
-        343.05
+        428.3,
+        431.3,
+        324.025,
+        342.725
       ],
       "name": "wago-n insertion pocket aft gripping cheek"
     },
@@ -428,10 +428,10 @@
       "bounds_source_mm": [
         -102.5,
         -92.05,
-        252.64999999999998,
-        255.64999999999998,
-        295.2,
-        314.55
+        252.89999999999998,
+        255.89999999999998,
+        295.525,
+        314.225
       ],
       "name": "wiring-junction-compressor-n insertion pocket fore gripping cheek"
     },
@@ -439,10 +439,10 @@
       "bounds_source_mm": [
         -102.5,
         -92.05,
-        264.34999999999997,
-        267.34999999999997,
-        295.2,
-        314.55
+        264.09999999999997,
+        267.09999999999997,
+        295.525,
+        314.225
       ],
       "name": "wiring-junction-compressor-n insertion pocket aft gripping cheek"
     },
@@ -450,10 +450,10 @@
       "bounds_source_mm": [
         -102.5,
         -92.05,
-        268.65,
-        271.65,
-        295.2,
-        314.55
+        268.9,
+        271.9,
+        295.525,
+        314.225
       ],
       "name": "wiring-junction-compressor-h insertion pocket fore gripping cheek"
     },
@@ -461,10 +461,10 @@
       "bounds_source_mm": [
         -102.5,
         -92.05,
-        280.34999999999997,
-        283.34999999999997,
-        295.2,
-        314.55
+        280.09999999999997,
+        283.09999999999997,
+        295.525,
+        314.225
       ],
       "name": "wiring-junction-compressor-h insertion pocket aft gripping cheek"
     },
@@ -472,10 +472,10 @@
       "bounds_source_mm": [
         -102.5,
         -92.05,
-        284.65,
-        287.65,
-        295.2,
-        314.55
+        284.9,
+        287.9,
+        295.525,
+        314.225
       ],
       "name": "wiring-junction-pump-positive insertion pocket fore gripping cheek"
     },
@@ -483,15 +483,15 @@
       "bounds_source_mm": [
         -102.5,
         -92.05,
-        296.34999999999997,
-        299.34999999999997,
-        295.2,
-        314.55
+        296.09999999999997,
+        299.09999999999997,
+        295.525,
+        314.225
       ],
       "name": "wiring-junction-pump-positive insertion pocket aft gripping cheek"
     }
   ],
-  "source_stl_sha256": "a952817df4e90518ebff6b3502e84a0aac60d3d070dd17df92b6c1c635ef37c1",
+  "source_stl_sha256": "7effa137afaa3e58c6982042bcff7ee13c8b0b941c0a6b84d2a2b12d29b4350b",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
@@ -716,18 +716,18 @@
       "blocking_bounds_source_mm": [
         -98.5,
         -88.05,
-        387.85,
-        396.55,
-        323.45,
-        343.05
+        388.1,
+        396.3,
+        323.775,
+        342.725
       ],
       "bounds_source_mm": [
         -98.5,
         -88.05,
-        387.85,
-        396.55,
-        323.7,
-        343.05
+        388.1,
+        396.3,
+        324.025,
+        342.725
       ],
       "name": "wago-h insertion pocket",
       "reason": "Reserve the pocket for its own floor-rooted tree and keep exterior tree branches out of its mouth.",
@@ -737,18 +737,18 @@
       "blocking_bounds_source_mm": [
         -98.5,
         -88.05,
-        403.85,
-        412.55,
-        323.45,
-        343.05
+        404.1,
+        412.3,
+        323.775,
+        342.725
       ],
       "bounds_source_mm": [
         -98.5,
         -88.05,
-        403.85,
-        412.55,
-        323.7,
-        343.05
+        404.1,
+        412.3,
+        324.025,
+        342.725
       ],
       "name": "wago-g insertion pocket",
       "reason": "Reserve the pocket for its own floor-rooted tree and keep exterior tree branches out of its mouth.",
@@ -758,18 +758,18 @@
       "blocking_bounds_source_mm": [
         -98.5,
         -88.05,
-        419.85,
-        428.55,
-        323.45,
-        343.05
+        420.1,
+        428.3,
+        323.775,
+        342.725
       ],
       "bounds_source_mm": [
         -98.5,
         -88.05,
-        419.85,
-        428.55,
-        323.7,
-        343.05
+        420.1,
+        428.3,
+        324.025,
+        342.725
       ],
       "name": "wago-n insertion pocket",
       "reason": "Reserve the pocket for its own floor-rooted tree and keep exterior tree branches out of its mouth.",
@@ -779,18 +779,18 @@
       "blocking_bounds_source_mm": [
         -102.5,
         -92.05,
-        255.64999999999998,
-        264.34999999999997,
-        294.95,
-        314.55
+        255.89999999999998,
+        264.09999999999997,
+        295.275,
+        314.225
       ],
       "bounds_source_mm": [
         -102.5,
         -92.05,
-        255.64999999999998,
-        264.34999999999997,
-        295.2,
-        314.55
+        255.89999999999998,
+        264.09999999999997,
+        295.525,
+        314.225
       ],
       "name": "wiring-junction-compressor-n insertion pocket",
       "reason": "Reserve the pocket for its own floor-rooted tree and keep exterior tree branches out of its mouth.",
@@ -800,18 +800,18 @@
       "blocking_bounds_source_mm": [
         -102.5,
         -92.05,
-        271.65,
-        280.34999999999997,
-        294.95,
-        314.55
+        271.9,
+        280.09999999999997,
+        295.275,
+        314.225
       ],
       "bounds_source_mm": [
         -102.5,
         -92.05,
-        271.65,
-        280.34999999999997,
-        295.2,
-        314.55
+        271.9,
+        280.09999999999997,
+        295.525,
+        314.225
       ],
       "name": "wiring-junction-compressor-h insertion pocket",
       "reason": "Reserve the pocket for its own floor-rooted tree and keep exterior tree branches out of its mouth.",
@@ -821,18 +821,18 @@
       "blocking_bounds_source_mm": [
         -102.5,
         -92.05,
-        287.65,
-        296.34999999999997,
-        294.95,
-        314.55
+        287.9,
+        296.09999999999997,
+        295.275,
+        314.225
       ],
       "bounds_source_mm": [
         -102.5,
         -92.05,
-        287.65,
-        296.34999999999997,
-        295.2,
-        314.55
+        287.9,
+        296.09999999999997,
+        295.525,
+        314.225
       ],
       "name": "wiring-junction-pump-positive insertion pocket",
       "reason": "Reserve the pocket for its own floor-rooted tree and keep exterior tree branches out of its mouth.",

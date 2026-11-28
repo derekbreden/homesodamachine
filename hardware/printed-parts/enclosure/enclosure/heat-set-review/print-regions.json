@@ -6,16 +6,16 @@
       ".stl": "b3822483963c26a4451e7772bcf27c79a0d6f8938f4cb35f4c0c38efe8b371bf"
     },
     "back-top": {
-      ".step.npz": "9df6889911994fb6bfa1faedae6602edfa0ea9a9e58a2aa875b7bedd6a9dc80f",
-      ".stl": "a952817df4e90518ebff6b3502e84a0aac60d3d070dd17df92b6c1c635ef37c1"
+      ".step.npz": "32b77256a44dfad3ff7969480a26ef4a9158b43fb3dec04940ac6162ea88cf9f",
+      ".stl": "7effa137afaa3e58c6982042bcff7ee13c8b0b941c0a6b84d2a2b12d29b4350b"
     },
     "front-bottom": {
       ".step.npz": "4d5c96364f004a9bca540305b312b4d19b0c4ac15312118e5f64574511603805",
       ".stl": "02e38d006b5a6d671c18a0c0d634aa880c1e1b652eba8eac5fbf3230ac383007"
     },
     "front-top": {
-      ".step.npz": "750f8929792479ae28ce504dc6b19ba03d20b4425947cf52ce8590ce19dde5c7",
-      ".stl": "de3b6a794302df64c5ab08bb045ff683e97d184caa586872da1fcfc1c0c9f271"
+      ".step.npz": "c0f857fb0bd0fd543497dc1119d04a7cf4e069142aade1da2651d7cf2d2240fb",
+      ".stl": "a4ea8b6b35e32d3bab5ddf185648e6c98c5673c8acb0f37fdedf285610f3d80a"
     },
     "pump-retainer": {
       ".step.npz": "5ad27d141a9bf5174a6176533b32143af9e253bc016d01cefdec25458ede88e7",
@@ -241,18 +241,18 @@
         "applied_source_bounds_mm": [
           -98.5,
           -88.05,
-          384.85,
-          387.85,
-          323.7,
-          343.05
+          385.1,
+          388.1,
+          324.025,
+          342.725
         ],
         "machine_bounds_mm": [
           -98.5,
           -88.05,
-          384.85,
-          387.85,
-          323.7,
-          343.05
+          385.1,
+          388.1,
+          324.025,
+          342.725
         ],
         "name": "wago-h insertion pocket fore gripping cheek",
         "sparse_infill_density": "100%",
@@ -262,18 +262,18 @@
         "applied_source_bounds_mm": [
           -98.5,
           -88.05,
-          396.55,
-          399.55,
-          323.7,
-          343.05
+          396.3,
+          399.3,
+          324.025,
+          342.725
         ],
         "machine_bounds_mm": [
           -98.5,
           -88.05,
-          396.55,
-          399.55,
-          323.7,
-          343.05
+          396.3,
+          399.3,
+          324.025,
+          342.725
         ],
         "name": "wago-h insertion pocket aft gripping cheek",
         "sparse_infill_density": "100%",
@@ -283,18 +283,18 @@
         "applied_source_bounds_mm": [
           -98.5,
           -88.05,
-          400.85,
-          403.85,
-          323.7,
-          343.05
+          401.1,
+          404.1,
+          324.025,
+          342.725
         ],
         "machine_bounds_mm": [
           -98.5,
           -88.05,
-          400.85,
-          403.85,
-          323.7,
-          343.05
+          401.1,
+          404.1,
+          324.025,
+          342.725
         ],
         "name": "wago-g insertion pocket fore gripping cheek",
         "sparse_infill_density": "100%",
@@ -304,18 +304,18 @@
         "applied_source_bounds_mm": [
           -98.5,
           -88.05,
-          412.55,
-          415.55,
-          323.7,
-          343.05
+          412.3,
+          415.3,
+          324.025,
+          342.725
         ],
         "machine_bounds_mm": [
           -98.5,
           -88.05,
-          412.55,
-          415.55,
-          323.7,
-          343.05
+          412.3,
+          415.3,
+          324.025,
+          342.725
         ],
         "name": "wago-g insertion pocket aft gripping cheek",
         "sparse_infill_density": "100%",
@@ -325,18 +325,18 @@
         "applied_source_bounds_mm": [
           -98.5,
           -88.05,
-          416.85,
-          419.85,
-          323.7,
-          343.05
+          417.1,
+          420.1,
+          324.025,
+          342.725
         ],
         "machine_bounds_mm": [
           -98.5,
           -88.05,
-          416.85,
-          419.85,
-          323.7,
-          343.05
+          417.1,
+          420.1,
+          324.025,
+          342.725
         ],
         "name": "wago-n insertion pocket fore gripping cheek",
         "sparse_infill_density": "100%",
@@ -346,18 +346,18 @@
         "applied_source_bounds_mm": [
           -98.5,
           -88.05,
-          428.55,
-          431.55,
-          323.7,
-          343.05
+          428.3,
+          431.3,
+          324.025,
+          342.725
         ],
         "machine_bounds_mm": [
           -98.5,
           -88.05,
-          428.55,
-          431.55,
-          323.7,
-          343.05
+          428.3,
+          431.3,
+          324.025,
+          342.725
         ],
         "name": "wago-n insertion pocket aft gripping cheek",
         "sparse_infill_density": "100%",
@@ -367,18 +367,18 @@
         "applied_source_bounds_mm": [
           -102.5,
           -92.05,
-          252.64999999999998,
-          255.64999999999998,
-          295.2,
-          314.55
+          252.89999999999998,
+          255.89999999999998,
+          295.525,
+          314.225
         ],
         "machine_bounds_mm": [
           -102.5,
           -92.05,
-          252.64999999999998,
-          255.64999999999998,
-          295.2,
-          314.55
+          252.89999999999998,
+          255.89999999999998,
+          295.525,
+          314.225
         ],
         "name": "wiring-junction-compressor-n insertion pocket fore gripping cheek",
         "sparse_infill_density": "100%",
@@ -388,18 +388,18 @@
         "applied_source_bounds_mm": [
           -102.5,
           -92.05,
-          264.34999999999997,
-          267.34999999999997,
-          295.2,
-          314.55
+          264.09999999999997,
+          267.09999999999997,
+          295.525,
+          314.225
         ],
         "machine_bounds_mm": [
           -102.5,
           -92.05,
-          264.34999999999997,
-          267.34999999999997,
-          295.2,
-          314.55
+          264.09999999999997,
+          267.09999999999997,
+          295.525,
+          314.225
         ],
         "name": "wiring-junction-compressor-n insertion pocket aft gripping cheek",
         "sparse_infill_density": "100%",
@@ -409,18 +409,18 @@
         "applied_source_bounds_mm": [
           -102.5,
           -92.05,
-          268.65,
-          271.65,
-          295.2,
-          314.55
+          268.9,
+          271.9,
+          295.525,
+          314.225
         ],
         "machine_bounds_mm": [
           -102.5,
           -92.05,
-          268.65,
-          271.65,
-          295.2,
-          314.55
+          268.9,
+          271.9,
+          295.525,
+          314.225
         ],
         "name": "wiring-junction-compressor-h insertion pocket fore gripping cheek",
         "sparse_infill_density": "100%",
@@ -430,18 +430,18 @@
         "applied_source_bounds_mm": [
           -102.5,
           -92.05,
-          280.34999999999997,
-          283.34999999999997,
-          295.2,
-          314.55
+          280.09999999999997,
+          283.09999999999997,
+          295.525,
+          314.225
         ],
         "machine_bounds_mm": [
           -102.5,
           -92.05,
-          280.34999999999997,
-          283.34999999999997,
-          295.2,
-          314.55
+          280.09999999999997,
+          283.09999999999997,
+          295.525,
+          314.225
         ],
         "name": "wiring-junction-compressor-h insertion pocket aft gripping cheek",
         "sparse_infill_density": "100%",
@@ -451,18 +451,18 @@
         "applied_source_bounds_mm": [
           -102.5,
           -92.05,
-          284.65,
-          287.65,
-          295.2,
-          314.55
+          284.9,
+          287.9,
+          295.525,
+          314.225
         ],
         "machine_bounds_mm": [
           -102.5,
           -92.05,
-          284.65,
-          287.65,
-          295.2,
-          314.55
+          284.9,
+          287.9,
+          295.525,
+          314.225
         ],
         "name": "wiring-junction-pump-positive insertion pocket fore gripping cheek",
         "sparse_infill_density": "100%",
@@ -472,18 +472,18 @@
         "applied_source_bounds_mm": [
           -102.5,
           -92.05,
-          296.34999999999997,
-          299.34999999999997,
-          295.2,
-          314.55
+          296.09999999999997,
+          299.09999999999997,
+          295.525,
+          314.225
         ],
         "machine_bounds_mm": [
           -102.5,
           -92.05,
-          296.34999999999997,
-          299.34999999999997,
-          295.2,
-          314.55
+          296.09999999999997,
+          299.09999999999997,
+          295.525,
+          314.225
         ],
         "name": "wiring-junction-pump-positive insertion pocket aft gripping cheek",
         "sparse_infill_density": "100%",
@@ -1360,16 +1360,16 @@
           104.5,
           166.3,
           169.3,
-          262.0,
-          292.0
+          261.95,
+          292.05
         ],
         "machine_bounds_mm": [
           94.2,
           104.5,
           166.3,
           169.3,
-          262.0,
-          292.0
+          261.95,
+          292.05
         ],
         "name": "wago-mana insertion pocket fore gripping cheek",
         "sparse_infill_density": "100%",
@@ -1381,16 +1381,16 @@
           104.5,
           185.0,
           188.0,
-          262.0,
-          292.0
+          261.95,
+          292.05
         ],
         "machine_bounds_mm": [
           94.2,
           104.5,
           185.0,
           188.0,
-          262.0,
-          292.0
+          261.95,
+          292.05
         ],
         "name": "wago-mana insertion pocket aft gripping cheek",
         "sparse_infill_density": "100%",
@@ -1596,8 +1596,8 @@
     "hardware/manifold-layout/enclosure-box.json": "1f6bb8fee7d04a10b5c1b39ce87ee6112cdd4ceae2b88e4f586f59e415a54cdc",
     "hardware/manifold-layout/machine-export-physical.numbers.json": "90f9a464b95d19a4de7a9a51a3fd7d6d6bd7b01abe99d64dc01eb0f24b39c0dd",
     "hardware/printed-parts/enclosure/display-cover/mount-dimensions.json": "b809250d2d8518ed084bf03bb7c449a9e3d2df04a6c88ef702f7ad31433a8986",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json": "a4e05921b0188f758036b1934215945ac9fb01072cfbef68a7f49af78974cf99",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.print-features.json": "06d036f1321300f89817174e066ca67ca226f0fe83bcf5d0de7f50f4679f8879",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json": "27f6ede7460c6d5acac64867c20617ecafca64b4953b6314e06f692f80781afb",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.print-features.json": "05e86be08a5424f10a6e9c40efd166ebc336ce188f5c1f542d62e69ff6764608",
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.rs": "b259b6f5d91ca021b1d84c921f6e89f1d844edb32a0271ff5595f682af0a43b7",
     "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json": "4a6ca57e22a457d1a1d1fa7c22afe7255d744f96b470d85d98a47052abe6ca64"
   },

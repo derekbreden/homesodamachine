@@ -7,8 +7,8 @@
         107.5,
         166.3,
         188.0,
-        291.75,
-        295.0
+        291.8,
+        295.05
       ],
       "bridge_print_axis_source": [
         0,
@@ -45,8 +45,8 @@
         104.5,
         169.3,
         185.0,
-        262.0,
-        292.0
+        261.95,
+        292.05
       ],
       "mouth_direction_source": [
         -1,
@@ -104,8 +104,8 @@
         104.5,
         166.3,
         169.3,
-        262.0,
-        292.0
+        261.95,
+        292.05
       ],
       "name": "wago-mana insertion pocket fore gripping cheek"
     },
@@ -115,8 +115,8 @@
         104.5,
         185.0,
         188.0,
-        262.0,
-        292.0
+        261.95,
+        292.05
       ],
       "name": "wago-mana insertion pocket aft gripping cheek"
     },
@@ -143,7 +143,7 @@
       "name": "wago-manb insertion pocket aft gripping cheek"
     }
   ],
-  "source_stl_sha256": "ba7fdeb04048cd71e70077c763622ef0a918e55360cb00cf5c0fd14109a2546a",
+  "source_stl_sha256": "a4ea8b6b35e32d3bab5ddf185648e6c98c5673c8acb0f37fdedf285610f3d80a",
   "support_free_regions": [
     {
       "bounds_source_mm": [
@@ -151,8 +151,8 @@
         104.5,
         169.3,
         185.0,
-        262.0,
-        292.0
+        261.95,
+        292.05
       ],
       "name": "wago-mana insertion pocket",
       "reason": "Keep automatic branches outside the well and mouth; its removable tree rests on the pocket floor.",
