@@ -1983,6 +1983,10 @@
       "models": [
         {
           "file": "printed-parts/cold-core/magnetic-float/all-aero/assembly.step"
+        },
+        {
+          "file": "printed-parts/cold-core/magnetic-float/all-aero/section.step",
+          "context": true
         }
       ],
       "bom": {

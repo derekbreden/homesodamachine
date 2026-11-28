@@ -27,7 +27,7 @@ function pocketSite(region) {
     view: [mouth > 0 ? 12 : 168, 6],
     faces: [
       ["Cheek", x, y0, z], ["Cheek", x, y1, z],
-      ["Floor", x, y, floorDown ? z0 : z1], ["Roof", x, y, floorDown ? z1 : z0],
+      ["Printed floor", x, y, floorDown ? z0 : z1], ["Supported roof", x, y, floorDown ? z1 : z0],
       ["Blind stop", mouth > 0 ? x0 : x1, y, z],
     ],
   };
