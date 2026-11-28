@@ -1,0 +1,26 @@
+{
+  "archive": {
+    "gcode_sha256": "c69e1be032246667407babcfa0f072da053bdff0a9de77d40424a5a6d82dad58",
+    "name": "2026-11-27-fit-d-mark2-fafb6019.gcode.3mf",
+    "objects": [
+      "fit-d-415"
+    ],
+    "sha256": "fafb601963ffc4ab80d859c101bd0ba14df26e9b5c0840fcfcf8e1d949104ec0",
+    "slots": {
+      "1": {
+        "colour": "161616",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 151,
+  "observed_at": "2026-11-28T02:24:07+00:00",
+  "print_error": 0,
+  "printer": "Mark2",
+  "printer_task_id": "1495675066",
+  "subtask_name": "2026-11-27-fit-d-mark2-fafb6019.gcode.3mf",
+  "total_layer_num": 181
+}

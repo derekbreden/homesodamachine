@@ -1,5 +1,11 @@
 # WAGO pocket fit and support removal
 
+## Longer five-way opening on Mark2
+
+Two recessed dots and four bars identify the single 221-415 coupon. Its CAD opening is 8.10 mm short × 30.20 mm long × 8.70 mm deep. The deposited opening measures 8.10 × 30.18 × 8.70 mm, one 0.24 mm course taller than the three-bar five-way. The removable tree stands on the pocket floor, and all 23 roads across the first roof land on both cheeks. [Pocket and bridge measurements](prints/2026-11-27-fit-d-mark2/fit-toolpaths.json)
+
+An 80 mm smooth-timelapse tower gives the nozzle at least 36.03 seconds of tower deposition between every pair of coupon layers, including the three layers with recessed marks at the top. The previous three-coupon plate gave the five-way a 29.26-second minimum. [Mark2 print record](prints/2026-11-27-fit-d-mark2/print-job.json)
+
 ## Selected Mark2 openings
 
 Three recessed bars identify this plate. Hold each coupon with the dots up and the opening facing you. X is the short dimension between the cheeks and Y runs from the floor to the roof.

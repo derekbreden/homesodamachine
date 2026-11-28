@@ -115,9 +115,14 @@
       "minimum_tower_deposition_seconds": 36.03
     },
     "short_top_courses_with_recessed_marks": {
-      "transitions": 4,
+      "course_tops_plate_z_mm": [
+        42.92,
+        43.16,
+        43.4
+      ],
+      "transitions": 3,
       "minimum_away_deposition_seconds": 36.03,
-      "minimum_at_next_layer_z_mm": 42.68,
+      "minimum_at_next_layer_z_mm": 42.92,
       "median_away_deposition_seconds": 36.03,
       "maximum_away_deposition_seconds": 36.03,
       "minimum_tower_deposition_seconds": 36.03

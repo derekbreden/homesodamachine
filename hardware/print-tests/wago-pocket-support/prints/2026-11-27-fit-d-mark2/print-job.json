@@ -1,0 +1,55 @@
+{
+  "purpose": "Try the requested 8.10 × 30.20 mm five-way opening on Mark2 with one removable floor tree and the cooling time of the preceding fit trial.",
+  "printer": "Mark2",
+  "firmware_printer": "Mark2",
+  "printer_task_id": "1495675066",
+  "submitted_name": "2026-11-27-fit-d-mark2-fafb6019.gcode.3mf",
+  "accepted_at": "2026-11-28T02:24:07+00:00",
+  "previous_job_id": "1495125816",
+  "first_layer_verified_at": "2026-11-28T02:33:50+00:00",
+  "firmware_layer_at_verification": 1,
+  "firmware_total_layers": 181,
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Print the pocket walls and the detachable tree in the production black PET-GF hotend.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.1,
+  "timelapse": "On, smooth",
+  "objects": [
+    {
+      "name": "fit-d-415",
+      "stl": "hardware/print-tests/wago-pocket-support/parts/fit-d-415.stl",
+      "stl_sha256": "43cd4bcaa221f63e94062eaf2c376026a6ee263a97a5ede4bbf1904254fda6f9"
+    }
+  ],
+  "printer_recipe": "wago-fit-d",
+  "source_and_recipe_commit": "50b1a140c083d9b211f64330fe53209a3e91cf99",
+  "native_review": "2026-11-27-wago-fit-d-mark2-b10503d0/review.json",
+  "pocket_and_cooling_measurements": "fit-toolpaths.json",
+  "launch": "launch.json",
+  "prelaunch_status": "prelaunch-status.json",
+  "printing_status": "printing-status.json",
+  "project": {
+    "file": "2026-11-27-wago-fit-d-mark2-b10503d0/2026-11-27-wago-fit-d-mark2-b10503d0.3mf",
+    "sha256": "ce9a35e200049e279d81cf8ec4b9a528088ebf052cdb28d86352ec82e15ac3cb",
+    "git_blob": "d2ba6eb7f42dbcbb9bf15fe6971515657d6d5a76",
+    "release_archive": "wago-fit-d-mark2-5ed5209a391cefdb.zip"
+  },
+  "slice": {
+    "file": "2026-11-27-wago-fit-d-mark2-b10503d0/2026-11-27-wago-fit-d-mark2-b10503d0.gcode.3mf",
+    "sha256": "fafb601963ffc4ab80d859c101bd0ba14df26e9b5c0840fcfcf8e1d949104ec0",
+    "git_blob": "234e2a4dbf3eae4e5d2da594aad4e2205a711562",
+    "release_archive": "wago-fit-d-mark2-5ed5209a391cefdb.zip"
+  },
+  "gcode_sha256": "c69e1be032246667407babcfa0f072da053bdff0a9de77d40424a5a6d82dad58",
+  "estimated_seconds": 9107,
+  "filament_g": 28.97,
+  "minimum_bead_bed_margin_mm": 104.09
+}

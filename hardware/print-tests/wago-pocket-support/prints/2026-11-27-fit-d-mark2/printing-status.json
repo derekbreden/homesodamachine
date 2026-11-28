@@ -1,0 +1,28 @@
+{
+  "printer": "Mark2",
+  "job_id": "1495675066",
+  "subtask_name": "2026-11-27-fit-d-mark2-fafb6019.gcode.3mf",
+  "gcode_state": "RUNNING",
+  "observed_at": "2026-11-28T02:33:50+00:00",
+  "layer_num": 1,
+  "total_layer_num": 181,
+  "mc_percent": 3,
+  "mc_remaining_time": 145,
+  "hms": [],
+  "print_error": 0,
+  "nozzle_type": "HS01-0.4",
+  "bed_temper": 80.0,
+  "bed_target_temper": 80.0,
+  "nozzle_temper": 266.0,
+  "nozzle_target_temper": 265.0,
+  "external_spools": {
+    "254": {
+      "colour": "161616FF",
+      "type": "PET-CF"
+    },
+    "255": {
+      "colour": "161616FF",
+      "type": "TPU"
+    }
+  }
+}
