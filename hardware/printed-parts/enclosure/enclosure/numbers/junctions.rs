@@ -31,7 +31,7 @@ pub const WAGO_415: Wago = Wago {
     width: 30.0,
     depth: 18.6,
     height: 8.4,
-    well_opening: [8.20, 30.20],
+    well_opening: [8.10, 30.20],
 };
 pub const WAGO_420: Wago = Wago {
     size: "420",
