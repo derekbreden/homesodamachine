@@ -2,6 +2,8 @@
 
 ## Longer five-way opening on Mark2
 
+Derek accepted the four-bar coupon for the front-top five-way pocket. He would prefer a length between the two printed steps and chose the longer one for production. [Five-way fit result](prints/2026-11-27-fit-d-mark2/physical-result.json)
+
 Two recessed dots and four bars identify the single 221-415 coupon. Its CAD opening is 8.10 mm short × 30.20 mm long × 8.70 mm deep. The deposited opening measures 8.10 × 30.18 × 8.70 mm, one 0.24 mm course taller than the three-bar five-way. The removable tree stands on the pocket floor, and all 23 roads across the first roof land on both cheeks. [Pocket and bridge measurements](prints/2026-11-27-fit-d-mark2/fit-toolpaths.json)
 
 An 80 mm smooth-timelapse tower gives the nozzle at least 36.03 seconds of tower deposition between every pair of coupon layers, including the three layers with recessed marks at the top. The previous three-coupon plate gave the five-way a 29.26-second minimum. [Mark2 print record](prints/2026-11-27-fit-d-mark2/print-job.json)

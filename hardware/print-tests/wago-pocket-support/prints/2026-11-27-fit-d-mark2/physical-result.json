@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-27",
+  "printer": "Mark2",
+  "print_job": "print-job.json",
+  "printer_task_id": "1495675066",
+  "measured_toolpaths": "fit-toolpaths.json",
+  "connector": "WAGO 221-415",
+  "coupon": "two recessed dots and four bars",
+  "production_host": "front-top MAN-B",
+  "nominal_short_long_depth_mm": [8.10, 30.20, 8.70],
+  "sliced_clear_short_long_depth_mm": [8.10, 30.18, 8.70],
+  "previous_sliced_clear_short_long_mm": [8.10, 29.94],
+  "said": "Regarding the 5 way fit of the last print, it is good enough. If there were something between 29.94 and 30.18, that would likely be our fit, but as it is 30.20 (30.18) is preferable to what you gave me for 30.10 (29.94)."
+}

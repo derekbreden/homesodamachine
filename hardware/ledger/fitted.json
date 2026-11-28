@@ -681,6 +681,13 @@
       "said": "10 way and 3 way are good at those sizes - please implement those sizes in the production design.",
       "tried": "the same 3-way connector and three-dot coupon used for the four cold-core lid wells",
       "record": "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-c-mark2/physical-result.json"
+    },
+    {
+      "material": "HSM-0079",
+      "date": "2026-11-27",
+      "said": "Regarding the 5 way fit of the last print, it is good enough. If there were something between 29.94 and 30.18, that would likely be our fit, but as it is 30.20 (30.18) is preferable to what you gave me for 30.10 (29.94).",
+      "tried": "the five-way WAGO in the 8.10 × 30.20 mm two-dot, four-bar Mark2 coupon for the front-top MAN-B pocket",
+      "record": "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-d-mark2/physical-result.json"
     }
   ]
 }
