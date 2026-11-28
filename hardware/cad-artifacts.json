@@ -31,7 +31,7 @@
     "hardware/assembly/scenes/glb/pump-cartridge.glb": "8329920973ebf1302d8a0d0e3053f8fbd41766bd3e5fe57909db932a2c1ecb2e",
     "hardware/assembly/scenes/glb/pump-mount.glb.mesh": "39dc2d680c63e1d1ee4180006200e0ed4be0dc7604eb5327f02bf65286e190cc",
     "hardware/carbonator-filming-guide/carbonator-filming-guide.pdf": "2736c5bff75bbb02c5f316c0fecc21923465f8618fd265e81161cff288cff2aa",
-    "hardware/cold-core-layout/cold-core-assembly.step": "a30ffccfb462404e809117cbe7e516183dfe4b6a5d0de64232be03fe71782726",
+    "hardware/cold-core-layout/cold-core-assembly.step": "63603bda45735d7b95fb5eb543bbe7cf1f8e7615d8b49dc4a5a815cbdc61b3f6",
     "hardware/cold-core-layout/cold-core-assembly.step.mesh": "22211e89a71a9be49274197fbf984dd306f6047710b3d65b22061713ae7377cf",
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": "360d0b80c538b44809405087d75429f55f368fe283f2ea515392232985f271f5",
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh": "62fbd6097b520a520cb0c84140d90f104b9d9ce4d927e5e054f8c39c8d8d1495",
@@ -898,7 +898,7 @@
       "hardware/assembly/scenes/glb/pump-cartridge.glb": "8329920973ebf1302d8a0d0e3053f8fbd41766bd3e5fe57909db932a2c1ecb2e",
       "hardware/assembly/scenes/glb/pump-mount.glb.mesh": "39dc2d680c63e1d1ee4180006200e0ed4be0dc7604eb5327f02bf65286e190cc",
       "hardware/carbonator-filming-guide/carbonator-filming-guide.pdf": "2736c5bff75bbb02c5f316c0fecc21923465f8618fd265e81161cff288cff2aa",
-      "hardware/cold-core-layout/cold-core-assembly.step": "a30ffccfb462404e809117cbe7e516183dfe4b6a5d0de64232be03fe71782726",
+      "hardware/cold-core-layout/cold-core-assembly.step": "63603bda45735d7b95fb5eb543bbe7cf1f8e7615d8b49dc4a5a815cbdc61b3f6",
       "hardware/cold-core-layout/cold-core-assembly.step.mesh": "22211e89a71a9be49274197fbf984dd306f6047710b3d65b22061713ae7377cf",
       "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": "360d0b80c538b44809405087d75429f55f368fe283f2ea515392232985f271f5",
       "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh": "62fbd6097b520a520cb0c84140d90f104b9d9ce4d927e5e054f8c39c8d8d1495",
@@ -2943,7 +2943,7 @@
     "hardware/assembly/scenes/glb/pump-cartridge.glb": 1792921613,
     "hardware/assembly/scenes/glb/pump-mount.glb.mesh": 1795832581.004075,
     "hardware/carbonator-filming-guide/carbonator-filming-guide.pdf": 1795765666.951245,
-    "hardware/cold-core-layout/cold-core-assembly.step": 1795756761.486162,
+    "hardware/cold-core-layout/cold-core-assembly.step": 1795832731.218546,
     "hardware/cold-core-layout/cold-core-assembly.step.mesh": 1795832723.375271,
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": 1793626644,
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh": 1794030167,
@@ -3846,7 +3846,8 @@
       "unproven": true
     },
     "hardware/cold-core-layout/cold-core-assembly.step": {
-      "commit": "4ecf9664677abe553c6bc0949335604634061e29",
+      "commit": "4e224cd44e40713d546d4f2a7d79fa438027238c",
+      "inputs": "c14f8c5092917227c89f99bee5ef850916f361e0f896b398fb4ab929062a0242",
       "unproven": true
     },
     "hardware/cold-core-layout/cold-core-assembly.step.mesh": {
