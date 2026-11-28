@@ -1,0 +1,141 @@
+{
+  "purpose": "Run the full equipment lid on Mark2 with its tagged black PET-GF15 spool and the production textured PEI trim.",
+  "piece": "foam-cap-lid-top",
+  "material_id": "HSM-0020",
+  "status": "prepared",
+  "source_revision": "74b202f3d59f9fce8785fcdad810910decc86988",
+  "printer": "Mark2",
+  "connection_key": "Mark2",
+  "prepared_utc": "2026-11-28T06:04:43+00:00",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Top lid: hardened left 0.4 mm Standard nozzle with the shared PET-GF process.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "source_stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
+  "source_stl_sha256": "9acecaa2f0bef23ac19881fcb6b700b62de673d8659a9e867142f4dfcdbd5d27",
+  "source_fine_archive": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.npz",
+  "source_fine_archive_sha256": "2876dccc9ed5cd9375958fd133fdaab96baba3f270ab3f8b76ce5f2bc776d0f2",
+  "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "recipe_sha256": "693e7d8045566a9e75987ed0f2337a8856ea68bc8078a103704e873aad6d8bec",
+  "profile": "hardware/printed-parts/petgf.profile.json",
+  "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
+  "print_regions": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json",
+  "print_regions_sha256": "373076c5f71c020ac972ebb282dbff40108e8cdb3e9cfc48a80a8b01d9356fa3",
+  "project": "2026-11-28-foam-cap-lid-top-mark2-6eff7a97-textured-pei/2026-11-28-foam-cap-lid-top-mark2-6eff7a97-textured-pei.3mf",
+  "project_sha256": "eddeafecdf25d8afaf4549653a5b5a5f78558c081fb2e91fe537124e5d5d0f1f",
+  "project_download": "/print-archive/b51d591e1269a13ed4c9b1b401ac026993a15930/cold-core-equipment-lid-mark2.3mf",
+  "archive": "2026-11-28-foam-cap-lid-top-mark2-6eff7a97-textured-pei/2026-11-28-foam-cap-lid-top-mark2-6eff7a97-textured-pei.gcode.3mf",
+  "archive_sha256": "13e93a332c8328e039c8eb388ba29af8c04da7abb9976fe0c0e124b937a3839e",
+  "archive_download": "/print-archive/8568d2725dde44a2a392bf3f7aeebeb7f04dd5aa/cold-core-equipment-lid-mark2.gcode.3mf",
+  "gcode_sha256": "5162457c703bf89f571b6237e8856bb024385cb5b72a30cbedce5e5d8e4f45e3",
+  "preparation": "2026-11-28-foam-cap-lid-top-mark2-6eff7a97-textured-pei/preparation.json",
+  "native_review": "2026-11-28-foam-cap-lid-top-mark2-6eff7a97-textured-pei/review.json",
+  "support_audits": [
+    "2026-11-28-foam-cap-lid-top-mark2-6eff7a97-textured-pei/support-audit-1901.json"
+  ],
+  "layers": 224,
+  "estimated_seconds": 41538.05912317692,
+  "minimum_bead_bed_margin_mm": 20.262,
+  "native_slicer_warnings": [],
+  "mark1_comparison": {
+    "reviewed_plan": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-27-lid-fitted-wago-mark1/print-plan.json",
+    "reviewed_archive_sha256": "84bd9cb178994f7e9e11543ab1fe7d745b8830be11d3e6057969ef17d2b79230",
+    "reviewed_gcode_sha256": "e2a1036748a6b41cf07f57735f43ad96eab7170e9a41465f3af912f22465ff3d",
+    "preprint_review": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-27-lid-fitted-wago-mark1/preprint-review.json",
+    "wago_fit_toolpaths": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-27-lid-fitted-wago-mark1/wago-fit-toolpaths.json",
+    "gcode_member": "Metadata/plate_1.gcode",
+    "compared_lines": 1324502,
+    "differing_lines": [
+      {
+        "line": 133,
+        "Mark1": "; filament_colour = #000000",
+        "Mark2": "; filament_colour = #161616"
+      }
+    ],
+    "identical_executable_lines": 1268919,
+    "executable_lines_sha256_both_plates": "e99b0c8947d2b32d1de344c059dc6f9d09b60b4043560c08126b6b564921aea6",
+    "project_settings_difference": {
+      "filament_colour": {
+        "Mark1": "#000000",
+        "Mark2": "#161616"
+      }
+    },
+    "equivalent_deposition_replay": "/parts#material:HSM-0020?view=print",
+    "four_wago_floor_trees": {
+      "wago-sensors": {
+        "feet": 1,
+        "clearance_through_mouth_mm": 0.48,
+        "open_short_long_mm": [
+          8.2,
+          18.66
+        ]
+      },
+      "wago-reeds-b": {
+        "feet": 1,
+        "clearance_through_mouth_mm": 0.48,
+        "open_short_long_mm": [
+          8.2,
+          18.66
+        ]
+      },
+      "wago-v12": {
+        "feet": 1,
+        "clearance_through_mouth_mm": 0.48,
+        "open_short_long_mm": [
+          8.2,
+          18.66
+        ]
+      },
+      "wago-gnd": {
+        "feet": 1,
+        "clearance_through_mouth_mm": 0.48,
+        "open_short_long_mm": [
+          8.2,
+          18.66
+        ]
+      }
+    },
+    "other_automatic_trees": {
+      "count": 5,
+      "exit_samples_clear": 1500,
+      "samples": 1500
+    },
+    "pump_guide_first_courses": {
+      "pump west guide at -48.6, slope 45°": {
+        "sampled_path_mm": 440.3,
+        "backed_by_prior_model_mm": 440.3,
+        "unlanded_mm": 0.0
+      },
+      "pump east guide at 18.2, slope 45°": {
+        "sampled_path_mm": 440.3,
+        "backed_by_prior_model_mm": 440.3,
+        "unlanded_mm": 0.0
+      }
+    },
+    "minimum_m5_shank_opening_mm_at_ten_stations": [
+      5.174,
+      5.174,
+      5.174,
+      5.174,
+      5.174,
+      5.174,
+      5.174,
+      5.174,
+      5.174,
+      5.174
+    ],
+    "reinforcement_regions": 25
+  }
+}

@@ -59,7 +59,7 @@ the estimated hook engagement is 1.27 mm on each side and the feet have 0.28 mm
 to the pocket floors. Center the cover between the end walls, press on its rigid
 crown and feel both sides engage. [Production motor and cover measurements](pump-snap-fit.json)
 
-Print the [equipment lid on Mark1](prints/2026-11-27-lid-fitted-wago-mark1/print-plan.json) and its [motor cover on the Mark2 accessory plate](../../enclosure/rear-equipment-caps/prints/2026-11-26-production-snaps-mark2/print-plan.json). The lid’s ten screw positions match the current HSM-0018 shell. The shell hand-fitted in October has a different pattern. [Hole and insert measurements](prints/2026-11-26-production-snaps-mark1/shell-bolt-pattern.json)
+Print the equipment lid on [Mark1](prints/2026-11-27-lid-fitted-wago-mark1/print-plan.json) or [Mark2](prints/2026-11-28-lid-mark2/print-plan.json). Its motor cover prints on the [Mark2 accessory plate](../../enclosure/rear-equipment-caps/prints/2026-11-26-production-snaps-mark2/print-plan.json). The lid’s ten screw positions match the current HSM-0018 shell. The shell hand-fitted in October has a different pattern. [Hole and insert measurements](prints/2026-11-26-production-snaps-mark1/shell-bolt-pattern.json)
 
 The [pump installation](../../../reference/g-ganen-pump/installation/README.md)
 locates the bearing datums, axial stops and removable sliders.
